@@ -1,0 +1,54 @@
+.typography--titulo_base {
+  font-size: 1rem;
+}
+
+.typography--titulo_pequeno {
+  font-size: 1.25rem;
+}
+
+.typography--titulo_medio {
+  font-size: 2rem;
+}
+
+.typography--titulo_grande {
+  font-size: 2.75rem;
+  line-height: 3.355rem;
+}
+
+@media (max-width: 800px) {
+  .typography--titulo_medio {
+    font-size: 1.5rem;
+  }
+
+  .typography--titulo_grande {
+    font-size: 2.25rem;
+  }
+}
+
+.typography--parrafo-pequeno {
+  font-size: 0.85rem;
+}
+
+.typography--parrafo {
+  font-size: 1rem;
+}
+
+.typography--parrafo_base {
+  font-size: 1.1rem;
+}
+
+.typography--parrafo_medio {
+  font-size: 1.25rem;
+}
+
+.typography--parrafo_grande {
+  font-size: 2rem;
+}
+
+.typography--subtitulo_pequeno {
+  font-size: 0.625rem;
+}
+
+.typography--subtitulo {
+  font-size: 0.875rem;
+}
