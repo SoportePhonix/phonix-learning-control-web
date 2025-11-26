@@ -1,4 +1,8 @@
-import { instrumentSans } from '@/components/fonts';
+import { prompt } from '@/components/fonts';
+import { Toaster } from '@/components/ui/toaster';
+import { LanguageProvider } from '@/i18n';
+import { StoreProvider } from '@/providers/store';
+import { ConfigProvider } from '@/utils/context';
 import localFont from 'next/font/local';
 
 import './globals.css';
@@ -20,9 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${instrumentSans.className} antialiased`}>
-        {children}
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${prompt.className} antialiased`}>
+        <ConfigProvider>
+          <StoreProvider>
+            <LanguageProvider>
+              {children}
+              <Toaster />
+            </LanguageProvider>
+          </StoreProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

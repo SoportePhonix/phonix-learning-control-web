@@ -1,108 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+/* @import url(./youniversity.css); */
+/* Layout específico de la app */
+@import './styles/design-system/primitive-colors.css';
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: auto;
-}
+/* Components */
+@import './styles/design-system/components/sidebar.css';
+@import './styles/design-system/components/nav-colors.css';
 
-@layer base {
-  :root {
-    --background: 192 48.4% 93.9%;
-    --background-hover: 231 58% 90%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 193 60% 8.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 192 48.4% 93.9%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.2rem;
+/* Semantics */
+@import './styles/design-system/semantic/colors.css';
 
-    --sidebar-background: 193 60% 8.8%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 268 100% 50%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    --brand: #e8f4f7;
-    --white: #ffffff;
-    --primary-50: #13404d;
-    --primary-100: #091e24; /* hover */
-    --secondary: #091e24;
-    --blue_cta: #0067d7;
-    --gray_medium: #90a7ae;
-    --gray_medium: #90a7ae;
-    --light_blue: #93e0f7; /* Seleccionado */
-    --blue_medium: #76b4c7;
-    --blue_gray_medium: #3a484c;
-    --brand-dark: #030712;
-  }
-
-  .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 224 71.4% 4.1%;
-    --input: 220 13% 91%;
-    --ring: 263.4 70% 50.4%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 268 100% 50%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  .login {
-    /* background-image: url('data:image/svg+xml,<svg width="1440" height="925" viewBox="0 0 1440 925" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1440" height="925" fill="%231E1E1E"/><path d="M-379 -1048C-379 -1049.1 -378.105 -1050 -377 -1050H29029C29030.1 -1050 29031 -1049.1 29031 -1048V4350C29031 4351.1 29030.1 4352 29029 4352H-377C-378.104 4352 -379 4351.1 -379 4350V-1048Z" fill="%23404040"/><path d="M-377 -1049H29029V-1051H-377V-1049ZM29030 -1048V4350H29032V-1048H29030ZM29029 4351H-377V4353H29029V4351ZM-378 4350V-1048H-380V4350H-378ZM-377 4351C-377.552 4351 -378 4350.55 -378 4350H-380C-380 4351.66 -378.657 4353 -377 4353V4351ZM29030 4350C29030 4350.55 29029.6 4351 29029 4351V4353C29030.7 4353 29032 4351.66 29032 4350H29030ZM29029 -1049C29029.6 -1049 29030 -1048.55 29030 -1048H29032C29032 -1049.66 29030.7 -1051 29029 -1051V-1049ZM-377 -1051C-378.657 -1051 -380 -1049.66 -380 -1048H-378C-378 -1048.55 -377.552 -1049 -377 -1049V-1051Z" fill="white" fill-opacity="0.1"/><g clip-path="url(%23clip0_0_1)"><rect width="1440" height="1024" fill="%23ECEEFA"/><path d="M0 0H1440V925H0V0Z" fill="url(%23paint0_linear_0_1)"/><path d="M1293.5 396C1323.6 396 1348 371.6 1348 341.5C1348 311.4 1323.6 287 1293.5 287C1263.4 287 1239 311.4 1239 341.5C1239 371.6 1263.4 396 1293.5 396Z" fill="%2315046A"/><path d="M0.0986328 750.513L297.5 921H449.599L0.0986328 671.999V750.513Z" fill="black" fill-opacity="0.2"/><path d="M685.007 925L1372 0H1307.99L621 925H685.007Z" fill="black" fill-opacity="0.2"/><path d="M485 599C752.861 599 970 381.984 970 114.275C970 74.9107 965.3 36.6457 956.436 0H13.5639C4.6997 36.6457 0 74.9107 0 114.275C0 381.984 217.147 599 485 599Z" fill="black" fill-opacity="0.2"/><path d="M1435 631.843C1385.54 580.176 1315.9 548 1238.74 548C1088.67 548 967 669.722 967 819.88C967 857.15 974.5 892.661 988.068 925H1435V631.852V631.843Z" fill="black" fill-opacity="0.2"/></g><defs><linearGradient id="paint0_linear_0_1" x1="2.56632e-07" y1="403.541" x2="1440.05" y2="413.845" gradientUnits="userSpaceOnUse"><stop stop-color="%237500FF"/><stop offset="1" stop-color="%230F0576"/></linearGradient><clipPath id="clip0_0_1"><rect width="1440" height="1024" fill="white"/></clipPath></defs></svg>'); */
-    background-color: #091e24;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-  }
-}
+/* legacy */
+@import './styles/design-system/legacy/layout.css';
+@import './styles/design-system/legacy/shadcn-colors.css';

@@ -8,6 +8,7 @@
 
 .typography--titulo_medio {
   font-size: 2rem;
+  font-weight: 300;
 }
 
 .typography--titulo_grande {

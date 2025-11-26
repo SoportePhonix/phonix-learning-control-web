@@ -4,88 +4,21 @@ import * as React from 'react';
 
 import { CollapsedLogo, ExpandedLogoDark, ExpandedLogoLight, LogoSwitcher, NavSections } from '@/components';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
 import { useSessionContext } from '@/utils/context/sessionContext';
+import { ShieldPlus, ShieldUser } from 'lucide-react';
+import { UserRound } from 'lucide-react';
+import { Book } from 'lucide-react';
+import { Library } from 'lucide-react';
 import { useTheme } from 'next-themes';
-
-import { DashboardSection } from './logo-section-icons';
-
-const data = {
-  logos: [
-    {
-      expandedLogo: {
-        light: <ExpandedLogoLight />,
-        dark: <ExpandedLogoDark />,
-      },
-      collapsedLogo: {
-        light: <CollapsedLogo />,
-        dark: <CollapsedLogo />,
-      },
-    },
-  ],
-  sections: [
-    {
-      name: 'Casa',
-      url: '/dashboard',
-      icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-        <DashboardSection {...props} />
-      ),
-    },
-    {
-      name: 'Menu',
-      url: '/Menu',
-      icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-        <DashboardSection {...props} />
-      ),
-    },
-  ],
-  // navMain: [
-  //   {
-  //     title: 'Dashboard',
-  //     url: '/dasboard',
-  //     icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-  //       <DashboardSection {...props} />
-  //     ),
-  //     isActive: true,
-  //     items: [
-  //       {
-  //         title: 'Vista principal',
-  //         url: '/dashboard',
-  //       },
-  //       {
-  //         title: 'Base diseño 1',
-  //         url: '#',
-  //       },
-  //       {
-  //         title: 'Base diseño 2',
-  //         url: '#',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     title: 'Dashboard2',
-  //     url: '/dasboard/2',
-  //     icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-  //       <DashboardSection {...props} />
-  //     ),
-  //     isActive: true,
-  //     items: [
-  //       {
-  //         title: 'Vista principal',
-  //         url: '/dashboard',
-  //       },
-  //       {
-  //         title: 'Base diseño 1',
-  //         url: '#',
-  //       },
-  //       {
-  //         title: 'Base diseño 2',
-  //         url: '#',
-  //       },
-  //     ],
-  //   },
-  // ],
-};
+import { IoHomeOutline } from 'react-icons/io5';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionContext();
@@ -94,13 +27,61 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const isDarkMode = theme === 'dark';
 
   const userSession = {
-    name: `${session?.user?.name} ${session?.user?.last_name}`,
+    name: `${session?.user?.name} ${session?.user?.lastName}`,
     email: `${session?.user?.email}`,
-    avatar: `${session?.user?.name?.charAt(0) || ''} ${session?.user?.last_name?.charAt(0) || ''}`.trim(),
+    avatar: `${session?.user?.name?.charAt(0) || ''} ${session?.user?.lastName?.charAt(0) || ''}`.trim(),
+  };
+
+  const data = {
+    logos: [
+      {
+        expandedLogo: {
+          light: <ExpandedLogoLight />,
+          dark: <ExpandedLogoDark />,
+        },
+        collapsedLogo: {
+          light: <CollapsedLogo />,
+          dark: <CollapsedLogo />,
+        },
+      },
+    ],
+    sections: [
+      // {
+      //   name: 'Dashboard',
+      //   url: '/dashboard',
+      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+      //     <IoHomeOutline {...props} />
+      //   ),
+      // },
+      {
+        name: 'Usuarios',
+        url: '/users',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <ShieldUser {...props} />,
+      },
+      {
+        name: 'Estudiantes',
+        url: '/students',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserRound {...props} />,
+      },
+      {
+        name: 'Cursos',
+        url: '/courses',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Book {...props} />,
+      },
+      {
+        name: 'Rutas de formación',
+        url: '/trainingPathways',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Library {...props} />,
+      },
+    ],
   };
 
   return (
     <Sidebar collapsible="icon" {...props}>
+      <div className="absolute top-0 right-0 z-50">
+        {/* <ModeToggle /> */}
+        <SidebarTrigger />
+      </div>
       <SidebarHeader>
         <LogoSwitcher logos={data.logos} isDarkMode={isDarkMode} />
       </SidebarHeader>

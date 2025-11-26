@@ -1,0 +1,20 @@
+export const p = {
+  page: 'Página',
+  password: 'Contraseña',
+  pending: 'Pendiente',
+  phone: 'Teléfono',
+  preview: 'Vista previa',
+  previous: 'Anterior',
+  priority: 'Prioridad',
+  privacy: 'Privacidad',
+  profile: 'Perfil',
+  progress: 'Progreso',
+  public: 'Público',
+  publish: 'Publicar',
+  published: 'Publicado',
+  passport: 'Pasaporte',
+  passwordRequired: 'Contraseña requerida',
+  passwordValidationMessage:
+    'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un dígito y un carácter especial (~£!@#$%^&*()-_=+{}[]\\|:;"\' <>,.?/).',
+  passwordValidationMessageLength: 'La contraseña debe tener al menos 8 caracteres.',
+};

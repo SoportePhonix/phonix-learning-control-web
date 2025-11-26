@@ -1,0 +1,17 @@
+export const f = {
+  failed: 'Falló',
+  file: 'Archivo',
+  files: 'Archivos',
+  filter: 'Filtro',
+  filters: 'Filtros',
+  finish: 'Finalizar',
+  first: 'Primero',
+  firstName: 'Nombre',
+  forgot: 'Olvidé',
+  forgotPassword: '¿Olvidaste tu contraseña?',
+  form: 'Formulario',
+  from: 'Desde',
+  foreignId: 'Cédula extranjera',
+  firstNameRequired: 'El nombre es requerido',
+  foreignerCard: 'Cedula de extranjería',
+};

@@ -1,50 +1,47 @@
-import { DefaultSession } from 'next-auth';
+import type { DefaultSession } from 'next-auth';
 
 declare module 'next-auth' {
   interface Session {
     user: {
       accessToken: string;
-      token_expires: string;
-      token_type: string;
       expiresAt: number;
-
       id: number;
       name: string;
-      last_name: string;
-      document: string;
+      lastName: string;
+      identificationDocument: string;
       email: string;
-      email_verified_at: string;
-      rol: string;
+      companyId: number;
+      role: Array<{
+        id: number;
+        name: string;
+      }>;
     } & DefaultSession['user'];
   }
 
   interface JWT {
     accessToken: string;
-    token_expires: string;
-    token_type: string;
     expiresAt: number;
-
     id: number;
     name: string;
-    last_name: string;
-    document: string;
+    lastName: string;
+    identificationDocument: string;
     email: string;
-    email_verified_at: string;
-    rol: string;
+    companyId: number;
+    role: Array<{
+      id: number;
+      name: string;
+    }>;
   }
 
   interface User {
     accessToken: string;
-    token_expires: string;
-    token_type: string;
     expiresAt: number;
-
     id: number;
     name: string;
-    last_name: string;
-    document: string;
+    lastName: string;
+    identificationDocument: string;
     email: string;
-    email_verified_at: string;
-    rol: string;
+    companyId: number;
+    role: { id: number; name: string }[];
   }
 }

@@ -2,123 +2,83 @@
 
 import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { ExpandedLogoLight } from '@/components';
+import { DynamicForm } from '@/components/forms/DynamicForm';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Loader } from '@/components/ui/loader';
 import { Typography } from '@/components/ui/typography';
+import { useTranslation } from '@/i18n';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
+import { loginFormConfig } from '../config/login-form.config';
 import { Inputs } from '../types';
-import { InputPassword } from './input-password';
-
-const errorMessages: Record<number, string> = {
-  401: 'Correo y/o contraseña incorrectos',
-  403: 'Acceso denegado',
-  500: 'Error interno del servidor. Intenta más tarde',
-  404: 'Servicio no encontrado',
-};
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState<number>();
+  const [loginError, setLoginError] = useState<number | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const form = useForm<Inputs>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit = async (data: Inputs) => {
     try {
       setIsLoading(true);
+      setLoginError(null);
       const res = await signIn('credentials', {
         ...data,
         redirect: false,
-        callbackUrl: '/dashboard',
+        callbackUrl: '/users',
       });
 
       if (res && res.error) {
-        setLoginError(res.status);
+        setLoginError(res.status || 401);
         return;
       }
 
-      router.push('/dashboard');
+      router.push('/users');
     } catch (err) {
       console.error(err);
+      setLoginError(500);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-96">
+    <div className="w-full tablet:w-125.25">
       {isLoading && <Loader />}
-      <Card className="mx-auto w-auto px-4 py-8 min-h-[25rem] rounded-lg bg-gray-400">
-        <CardHeader>
-          <Typography variant="titulo_medio" className="text-var--negro font-medium -mt-6">
-            Iniciar sesión
-          </Typography>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-8">
-              <div className="grid gap-2">
-                <Typography variant="parrafo" className="text-var--negro -mb-1">
-                  Correo electrónico
-                </Typography>
-                <Input
-                  id="email"
-                  type="email"
-                  autoComplete="current-password"
-                  placeholder="Ingresa el correo electronico"
-                  {...register('email', { required: 'La correo electronico es requerido' })}
-                />
-                {errors.email && (
-                  <Typography variant="parrafo" className="text-var--red-error">
-                    {errors.email.message}
-                  </Typography>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <InputPassword
-                  label="Contraseña"
-                  placeholder="Ingresa la contraseña"
-                  id="password"
-                  error={errors.password && errors.password?.message}
-                  {...register('password', {
-                    required: {
-                      value: true,
-                      message: 'La contraseña es requerida',
-                    },
-                    pattern: {
-                      value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&+\-=/])[A-Za-z\d@$!%*?&+\-=/]{8,}$/,
-                      message:
-                        'La contraseña debe tener mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial.',
-                    },
-                  })}
-                />
-                {errors.password && (
-                  <Typography variant="parrafo" className="text-var--red-error  -mt-6">
-                    {errors.password.message}
-                  </Typography>
-                )}
-                {loginError && !errors.password && (
-                  <Typography variant="parrafo" className="text-var--red-error -mt-6">
-                    {errorMessages[loginError] || 'Ocurrió un error desconocido'}
-                  </Typography>
-                )}
-              </div>
-              <Button type="submit" className="w-full font-bold bg-var--blue_cta">
-                {isLoading ? 'Ingresando...' : 'Ingresar'}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+      <div className="px-10 mb-8 flex justify-between items-center">
+        <ExpandedLogoLight />
+      </div>
+
+      <div className="bg-background-primary rounded-lg -mt-6">
+        <Typography variant="titulo_pequeno" className="text-center text-primary font-medium pt-6">
+          {t('l.login')}
+        </Typography>
+
+        <div className="w-full">
+          <DynamicForm
+            config={loginFormConfig}
+            mode="create"
+            form={form}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+            apiError={loginError}
+            t={t}
+            submitLabel="e.enter"
+            showCancelButton={false}
+            apiErrorMessage={t('c.correctEmailAndOrPassword')}
+          />
+        </div>
+      </div>
     </div>
   );
 }

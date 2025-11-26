@@ -1,0 +1,20 @@
+/* Shadcn UI Base Colors */
+/* Light and Dark modes + Tailwind theme mappings */
+
+@layer base {
+  :root {
+    --radius: 0.2rem;
+  }
+
+  .dark {
+    --radius: 0.2rem;
+  }
+}
+
+/* Tailwind Theme Mappings */
+@theme {
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}

@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -24,7 +26,7 @@ export function NavMain({
   items: {
     title: string;
     url: string;
-    icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+    icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
     isActive?: boolean;
     items?: {
       title: string;
@@ -46,13 +48,13 @@ export function NavMain({
               <SidebarMenuItem>
                 <CollapsibleTrigger
                   asChild
-                  className="rounded-l-none rounded-r-3xl hover:bg-var--primary-50 dark:hover:bg-var--primary-50 w-full"
+                  className="rounded-l-none rounded-r-3xl hover:bg-verde_base dark:hover:bg-verde_base w-full"
                 >
                   <SidebarMenuButton
                     tooltip={item.title}
                     className={`p-[1.1rem] ${
                       isActive
-                        ? 'bg-var--primary-50 hover:bg-var--primary-50 text-white'
+                        ? 'bg-verde_base hover:bg-verde_base text-white'
                         : 'text-white dark:text-white hover:text-white'
                     } group-data-[state=collapsed]:!w-16`}
                   >
@@ -75,15 +77,15 @@ export function NavMain({
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             asChild
-                            className={`rounded-l-none rounded-r-3xl p-[1.1rem] hover:bg-var--gris-base text-var--negro
-                              ${isSubActive ? 'bg-var--gris-bajo dark:bg-background hover:bg-var--gris-bajo' : 'dark:hover:bg-background'}
+                            className={`rounded-l-none rounded-r-3xl p-[1.1rem] hover:bg-gris-base text-negro
+                              ${isSubActive ? 'bg-gris-bajo dark:bg-background hover:bg-gris-bajo' : 'dark:hover:bg-background'}
                               `}
                           >
                             <Link href={subItem.url}>
-                              <div className="ml-6 h-2 w-2 border-[0.1rem]  rounded-full border-var--negro dark:border-var--blanco" />
+                              <div className="ml-6 h-2 w-2 border-[0.1rem]  rounded-full border-negro dark:border-blanco" />
                               <Typography
                                 variant="parrafo-pequeno"
-                                className={`${isSubActive ? 'text-var--negro dark:text-var--blanco' : 'text-var--negro dark:text-var--blanco'}`}
+                                className={`${isSubActive ? 'text-negro dark:text-blanco' : 'text-negro dark:text-blanco'}`}
                               >
                                 {subItem.title}
                               </Typography>

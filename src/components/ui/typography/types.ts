@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 type TypographyVariant =
   | 'titulo_pequeno'
@@ -12,9 +12,12 @@ type TypographyVariant =
   | 'subtitulo'
   | 'subtitulo_pequeno';
 
+type Bold = 'light' | 'semi-bold' | 'bold';
+
 export interface TypographyProps {
   children: ReactNode;
   className?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: React.ElementType;
   variant?: TypographyVariant;
+  bold?: Bold;
 }
