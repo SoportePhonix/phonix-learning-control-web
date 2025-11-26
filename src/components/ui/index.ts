@@ -21,6 +21,7 @@ export {
   DropdownMenuRadioGroup,
 } from './dropdown-menu';
 export { Input } from './input';
+export { InputPassword } from './input-password';
 export { Label } from './label';
 export { Loader } from './loader';
 export { Separator } from './separator';
@@ -63,4 +64,5 @@ export {
   useSidebar,
 } from './sidebar';
 export { Skeleton } from './skeleton';
+export { Textarea } from './textarea';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip';

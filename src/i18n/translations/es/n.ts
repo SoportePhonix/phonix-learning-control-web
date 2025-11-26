@@ -1,0 +1,16 @@
+export const n = {
+  name: 'Nombre',
+  new: 'Nuevo',
+  next: 'Siguiente',
+  no: 'No',
+  noData: 'Sin datos',
+  noResults: 'Sin resultados',
+  none: 'Ninguno',
+  normal: 'Normal',
+  note: 'Nota',
+  notes: 'Notas',
+  notification: 'Notificación',
+  notifications: 'Notificaciones',
+  notFound: 'No encontrado',
+  nameIsRequerid: 'El nombre es requerido',
+};

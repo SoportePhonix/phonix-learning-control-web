@@ -1,0 +1,113 @@
+/* Semantic Colors - CAPA 2 */
+/* Define el propósito de cada color, independiente del diseño específico */
+
+@layer base {
+  :root {
+    --background-primary-login: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary-sidebar: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary: var(--primitive_fondo_base); /* Fondo principal de la aplicación */
+    --background-secondary: var(--primitive_blanco); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--primitive_fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
+    --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
+    --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
+    --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
+    --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
+    --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
+    --radius-secondary: var(--primitive_gris_medio); /* Bordes secondarios*/
+
+    --primary: var(--primitive_verde_base);
+    --secondary: var(--primitive_azul_principal);
+    --tertiary: var(--primitive_azul_brillante);
+    --disabled: var(--blue_gray_medium);
+    --placeholder: var(--primitive_textos_bajo);
+    --inverse: var(--white);
+    --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
+    --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
+    --link: var(--blue_cta);
+    --link-hover: var(--blue_medium);
+    --success: var(--green-success);
+    --success-emphasis: var(--green-active);
+    --warning: var(--error);
+    --warning-emphasis: var(--error);
+    --error: var(--primitive_error);
+    --error-emphasis: var(--error);
+    --info: var(--blue_cta);
+    --info-emphasis: var(--blue_medium);
+    --base-white: var(--primitive_blanco);
+  }
+
+  .dark {
+    /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
+    --background-primary-login: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary-sidebar: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary: var(--primitive_fondo_base); /* Fondo principal de la aplicación */
+    --background-secondary: var(--primitive_blanco); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--primitive_fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
+    --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
+    --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
+    --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
+    --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
+    --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
+    --radius-secondary: var(--primitive_gris_medio); /* Bordes secondarios*/
+
+    --primary: var(--primitive_verde_base);
+    --secondary: var(--primitive_azul_principal);
+    --tertiary: var(--primitive_azul_brillante);
+    --disabled: var(--blue_gray_medium);
+    --placeholder: var(--primitive_textos_bajo);
+    --inverse: var(--white);
+    --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
+    --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
+    --link: var(--blue_cta);
+    --link-hover: var(--blue_medium);
+    --success: var(--green-success);
+    --success-emphasis: var(--green-active);
+    --warning: var(--error);
+    --warning-emphasis: var(--error);
+    --error: var(--primitive_error);
+    --error-emphasis: var(--error);
+    --info: var(--blue_cta);
+    --info-emphasis: var(--blue_medium);
+    --base-white: var(--primitive_blanco);
+  }
+}
+
+/* Tailwind Theme Mappings para Tokens Semánticos */
+@theme {
+  /* === 1. Background & Surface === */
+  --color-background-primary-login: hsl(var(--background-primary-login));
+  --color-background-primary-sidebar: hsl(var(--background-primary-sidebar));
+  --color-background-primary: hsl(var(--background-primary));
+  --color-background-secondary: hsl(var(--background-secondary));
+  --color-background-tertiary: hsl(var(--background-tertiary));
+  --color-surface-raised: hsl(var(--surface-raised));
+  --color-surface-overlay: hsl(var(--surface-overlay));
+  --color-surface-sunken: hsl(var(--surface-sunken));
+  --color-surface-inverse: hsl(var(--surface-inverse));
+  --color-radius-primary: hsl(var(--radius-primary));
+  --color-radius-secondary: hsl(var(--radius-secondary));
+
+  /* === 2. Text & Foreground === */
+  --color-primary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-disabled: hsl(var(--disabled));
+  --color-placeholder: hsl(var(--placeholder));
+  --color-tooltip-bg: hsl(var(--tooltip-bg));
+  --color-tooltip-text: hsl(var(--tooltip-text));
+  --color-inverse: hsl(var(--inverse));
+  --color-label: hsl(var(--label));
+  --color-label-secondary: hsl(var(--label-secondary));
+  --color-link: hsl(var(--link));
+  --color-link-hover: hsl(var(--link-hover));
+  --color-success: hsl(var(--success));
+  --color-success-emphasis: hsl(var(--success-emphasis));
+  --color-warning: hsl(var(--warning));
+  --color-warning-emphasis: hsl(var(--warning-emphasis));
+  --color-error: hsl(var(--error));
+  --color-error-emphasis: hsl(var(--error-emphasis));
+  --color-info: hsl(var(--info));
+  --color-info-emphasis: hsl(var(--info-emphasis));
+  --color-info-emphasis: hsl(var(--info-emphasis));
+  --color-base-white: hsl(var(--base-white));
+}

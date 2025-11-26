@@ -22,6 +22,7 @@ export function NavUser({
   user,
 }: {
   user: {
+    /*  */
     name: string;
     email: string;
     avatar: string;
@@ -38,12 +39,13 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-0 -ml-10 text-base-white w-full">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
-            className="text-var--brand hover:bg-var--primary-50 dark:hover:bg-background dark:hover:text-var--blanco border-[0.1rem] border-var--primary-50 dark:border-var--brand-dark"
+            className="text-brand hover:text-brand cursor-pointer"
+            // className="text-brand hover:bg-verde_base hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
           >
             {isLoading ? (
               <SidebarMenuButton size="lg" className="p-2">
@@ -56,36 +58,33 @@ export function NavUser({
             ) : (
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-var--primary-50 dark:data-[state=open]:bg-background"
+                className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover w-auto text-center justify-self-center"
               >
-                <Avatar className="h-8 w-8 rounded-full bg-var--morado-oscuro">
-                  {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                  <AvatarFallback className="bg-var--primary-50 text-var--blanco font-bold">
+                <Avatar className="h-8 w-8 rounded-full bg-nav-item-user-bg">
+                  <AvatarFallback className="bg-verde_base text-nav-item-user-text font-bold">
                     {avatarName}
                   </AvatarFallback>
                 </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
-                </div>
-                <ChevronsUpDown className="ml-auto size-4" />
+                <span className="truncate font-normal">Mi perfil</span>
+                {/* <ChevronsUpDown className="ml-auto size-4" /> */}
               </SidebarMenuButton>
             )}
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-              side={isMobile ? 'bottom' : 'right'}
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radius-primary ml-5"
+              side={isMobile ? 'bottom' : 'bottom'}
               align="end"
-              sideOffset={4}
+              sideOffset={0}
             >
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                    <AvatarFallback className="rounded-lg bg-var--primary-50">{avatarName}</AvatarFallback>
+                    <AvatarFallback className="rounded-lg bg-nav-item-user-bg text-base-white font-bold">
+                      {avatarName}
+                    </AvatarFallback>
                   </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
+                  <div className="grid flex-1 text-left text-sm leading-tight text-nav-item-user-text-dropdown">
                     <span className="truncate font-semibold">{user.name}</span>
                     <span className="truncate text-xs">{user.email}</span>
                   </div>
@@ -93,6 +92,7 @@ export function NavUser({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
+                className="cursor-pointer hover:bg-gray-"
                 onClick={() => {
                   router.push('/logout');
                 }}

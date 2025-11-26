@@ -1,0 +1,20 @@
+export const p = {
+  page: 'Page',
+  password: 'Password',
+  pending: 'Pending',
+  phone: 'Phone',
+  preview: 'Preview',
+  previous: 'Previous',
+  priority: 'Priority',
+  privacy: 'Privacy',
+  profile: 'Profile',
+  progress: 'Progress',
+  public: 'Public',
+  publish: 'Publish',
+  published: 'Published',
+  passwordRequired: 'Password required',
+  passport: 'Passport',
+  passwordValidationMessage:
+    'The password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (~£!@#$%^&*()-_=+{}[]\\|:;"\' <>,.?/).',
+  passwordValidationMessageLength: 'The password must be at least 8 characters long.',
+};

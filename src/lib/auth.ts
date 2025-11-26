@@ -17,7 +17,7 @@ export const authOptions: AuthOptions = {
           };
 
           const response = await (
-            await fetch(`${process.env.API_ADMIN_URL}/user/login`, {
+            await fetch(`${process.env.API_URL}/auth/login`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -42,17 +42,15 @@ export const authOptions: AuthOptions = {
           }
 
           return {
-            accessToken: response.data[0].token,
-            token_expires: response.data[0].token_expires,
-            token_type: response.data[0].token_type,
-            expiresAt: new Date(response.data[0].token_expires).getTime() - 5 * 60 * 1000,
-            id: response.data[0].user.id,
-            name: response.data[0].user.name,
-            last_name: response.data[0].user.last_name,
-            document: response.data[0].user.document,
-            email: response.data[0].user.email,
-            email_verified_at: response.data[0].user.email_verified_at,
-            rol: response.data[0].user.rol,
+            id: response.data.user.id,
+            name: response.data.user.name,
+            lastName: response.data.user.lastName,
+            identificationDocument: response.data.user.identificationDocument,
+            email: response.data.user.email,
+            companyId: response.data.user.companyId,
+            role: response.data.user.role,
+            accessToken: response.data.token,
+            expiresAt: new Date(response.data.token_expires).getTime(),
           };
         }
 
@@ -67,35 +65,49 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.accessToken = user.accessToken as string;
-        token.token_expires = user.token_expires as string;
-        token.token_type = user.token_type as string;
-        token.expiresAt = user.expiresAt as number;
-        token.id = user.id as number;
-        token.name = user.name as string;
-        token.last_name = user.last_name as string;
-        token.document = user.document as string;
-        token.email = user.email as string;
-        token.email_verified_at = user.email_verified_at as string;
-        token.rol = user.rol as string;
+        token.accessToken = user.accessToken;
+        token.expiresAt = user.expiresAt;
+        token.id = user.id;
+        token.name = user.name;
+        token.lastName = user.lastName;
+        token.identificationDocument = user.identificationDocument;
+        token.email = user.email;
+        token.companyId = user.companyId;
+        token.role = user.role;
+      }
+
+      // Verificar si el token ha expirado
+      const expiresAt = Number(token.expiresAt);
+      const now = Date.now();
+
+      if (expiresAt && now > expiresAt) {
+        console.warn('Token JWT expirado en callback');
+        return {
+          ...token,
+          error: 'TokenExpired',
+        };
       }
 
       return token;
     },
 
     async session({ session, token }) {
+      // Si el token tiene error, no retornar sesión
+      if ('error' in token && token.error === 'TokenExpired') {
+        throw new Error('Token expirado');
+      }
+
       session.user = {
-        accessToken: token.accessToken as string,
-        token_expires: token.token_expires as string,
-        token_type: token.token_type as string,
-        expiresAt: token.expiresAt as number,
-        id: token.id as number,
-        name: token.name as string,
-        last_name: token.last_name as string,
-        document: token.document as string,
-        email: token.email as string,
-        email_verified_at: token.email_verified_at as string,
-        rol: token.rol as string,
+        ...session.user,
+        accessToken: String(token.accessToken),
+        expiresAt: Number(token.expiresAt),
+        id: Number(token.id),
+        name: String(token.name),
+        lastName: String(token.lastName),
+        identificationDocument: String(token.identificationDocument),
+        email: String(token.email),
+        companyId: Number(token.companyId),
+        role: token.role as { id: number; name: string }[],
       };
       return session;
     },
