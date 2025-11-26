@@ -62,18 +62,30 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
         var: {
-          '-brand': '#e8f4f7',
-          '-white': '#ffffff',
           '-primary-50': '#13404d',
           '-primary-100': '#091e24',
           '-secondary': '#091e24',
-          '-blue_cta': '#0067d7',
-          '-gray_medium': '#90a7ae',
+          '-white': '#ffffff',
+
+          '-brand': '#e8f4f7',
           '-bg_blue': '#e8f4f7',
-          '-light_blue': '#93e0f7',
+          '-blue_cta': '#0067d7',
           '-blue_medium': '#76b4c7',
           '-blue_gray_medium': '#3a484c',
+          '-blue_overlay': '#0b262e1a',
+
           '-brand-dark': '#030712',
+
+          '-gray_medium': '#90a7ae',
+          '-gray_login': '#e7e9ea',
+
+          '-light_blue': '#93e0f7',
+
+          '-red-error': '#c85948',
+          '-red-destructive': '#d32525',
+
+          '-green-active': '#699235',
+          '-green-success': '#25d366',
         },
       },
       borderRadius: {
@@ -83,5 +95,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar')],
 } satisfies Config;

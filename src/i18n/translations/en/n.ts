@@ -1,0 +1,15 @@
+export const n = {
+  name: 'Name',
+  new: 'New',
+  next: 'Next',
+  no: 'No',
+  noData: 'No data',
+  noResults: 'No results',
+  none: 'None',
+  normal: 'Normal',
+  note: 'Note',
+  notes: 'Notes',
+  notification: 'Notification',
+  notifications: 'Notifications',
+  notFound: 'Not found',
+};

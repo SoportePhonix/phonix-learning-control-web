@@ -1,0 +1,16 @@
+export const u = {
+  unavailable: 'No disponible',
+  undo: 'Deshacer',
+  unknown: 'Desconocido',
+  unlimited: 'Ilimitado',
+  unlock: 'Desbloquear',
+  unpublish: 'Despublicar',
+  update: 'Actualizar',
+  updated: 'Actualizado',
+  updatedAt: 'Actualizado el',
+  upload: 'Cargar',
+  url: 'URL',
+  user: 'Usuario',
+  username: 'Nombre de usuario',
+  users: 'Usuarios',
+};

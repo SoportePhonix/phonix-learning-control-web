@@ -46,10 +46,10 @@ export function LogoSwitcher({
       <SidebarMenuItem>
         <div
           ref={containerRef}
-          className={`flex gap-4 h-20 ${sidebarWidth === null ? '' : sidebarWidth < 100 ? '-mt-2 mb-2 py-8 ml-2' : 'px-6'}`}
+          className={`flex gap-4 h-20 ${sidebarWidth === null ? '' : sidebarWidth < 100 ? '-mt-2 mb-2 py-8 ml-2' : 'px-6 pt-8'}`}
         >
           {sidebarWidth === null ? (
-            <Skeleton className="w-16 h-16 rounded-full" />
+            <Skeleton className="w-full h-16 rounded-none" />
           ) : sidebarWidth < 100 ? (
             isDarkMode ? (
               activeLogo.collapsedLogo.dark

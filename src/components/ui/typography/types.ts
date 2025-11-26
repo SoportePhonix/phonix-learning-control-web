@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 type TypographyVariant =
   | 'titulo_pequeno'
@@ -15,6 +15,6 @@ type TypographyVariant =
 export interface TypographyProps {
   children: ReactNode;
   className?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: React.ElementType;
   variant?: TypographyVariant;
 }

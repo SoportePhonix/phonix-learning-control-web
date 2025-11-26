@@ -1,0 +1,15 @@
+export const t = {
+  table: 'Table',
+  tag: 'Tag',
+  tags: 'Tags',
+  task: 'Task',
+  tasks: 'Tasks',
+  text: 'Text',
+  time: 'Time',
+  title: 'Title',
+  to: 'To',
+  today: 'Today',
+  token: 'Token',
+  total: 'Total',
+  type: 'Type',
+};

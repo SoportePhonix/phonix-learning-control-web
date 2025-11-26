@@ -38,12 +38,13 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-4 ml-0 ">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
-            className="text-var--brand hover:bg-var--primary-50 dark:hover:bg-background dark:hover:text-var--blanco border-[0.1rem] border-var--primary-50 dark:border-var--brand-dark"
+            className="text-var--brand hover:bg-var--primary-50 hover:text-var--brand"
+            // className="text-var--brand hover:bg-var--primary-50 hover:text-var--brand dark:hover:bg-background dark:hover:text-var--blanco"
           >
             {isLoading ? (
               <SidebarMenuButton size="lg" className="p-2">
@@ -61,6 +62,7 @@ export function NavUser({
                 <Avatar className="h-8 w-8 rounded-full bg-var--morado-oscuro">
                   {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
                   <AvatarFallback className="bg-var--primary-50 text-var--blanco font-bold">
+                    {/* <AvatarFallback className="bg-var--primary-50 text-var--blanco font-bold dark:bg-var--brand-dark"> */}
                     {avatarName}
                   </AvatarFallback>
                 </Avatar>

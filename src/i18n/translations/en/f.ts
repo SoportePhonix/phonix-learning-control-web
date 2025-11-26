@@ -1,0 +1,14 @@
+export const f = {
+  failed: 'Failed',
+  file: 'File',
+  files: 'Files',
+  filter: 'Filter',
+  filters: 'Filters',
+  finish: 'Finish',
+  first: 'First',
+  firstName: 'First name',
+  forgot: 'Forgot',
+  forgotPassword: 'Forgot your password?',
+  form: 'Form',
+  from: 'From',
+};
