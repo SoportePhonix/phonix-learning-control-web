@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function StoreProvider({ children }: Props) {
-  const storeRef = useRef<AppStore>();
+  const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
     storeRef.current = makeStore();
   }

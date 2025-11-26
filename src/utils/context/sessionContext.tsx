@@ -10,7 +10,8 @@ export interface Session {
     name: string;
     email: string;
     accessToken: string;
-    last_name: string;
+    lastName: string;
+    companyId: string;
     expiresAt: string;
   };
   expires: string;

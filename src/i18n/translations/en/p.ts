@@ -1,0 +1,15 @@
+export const p = {
+  page: 'Page',
+  password: 'Password',
+  pending: 'Pending',
+  phone: 'Phone',
+  preview: 'Preview',
+  previous: 'Previous',
+  priority: 'Priority',
+  privacy: 'Privacy',
+  profile: 'Profile',
+  progress: 'Progress',
+  public: 'Public',
+  publish: 'Publish',
+  published: 'Published',
+};

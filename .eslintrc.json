@@ -12,9 +12,17 @@
     "react/jsx-uses-react": "off",
     "react/jsx-uses-vars": "warn",
     "react/prop-types": "off",
-    "no-undef": "off", // Desactiva la regla global que afecta JSX
+    "no-undef": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
   },
+  "overrides": [
+    {
+      "files": ["*.d.ts"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ],
   "settings": {
     "react": {
       "version": "detect"

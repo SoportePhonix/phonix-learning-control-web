@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Iniciar sesión - Diezforlife',
-  description: 'Login Diezforlife',
+  title: 'Login - Phonix Contact',
+  description: 'Login Phonix Contact',
 };
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {

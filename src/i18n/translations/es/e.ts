@@ -1,0 +1,15 @@
+export const e = {
+  edit: 'Editar',
+  email: 'Correo electrónico',
+  emailAddress: 'Dirección de correo',
+  empty: 'Vacío',
+  enabled: 'Habilitado',
+  end: 'Fin',
+  endDate: 'Fecha de fin',
+  enter: 'Ingresar',
+  error: 'Error',
+  errorMessage: 'Mensaje de error',
+  example: 'Ejemplo',
+  exit: 'Salir',
+  export: 'Exportar',
+};

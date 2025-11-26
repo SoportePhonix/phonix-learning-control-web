@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import { TypographyProps } from './types';
 
 export const Typography = ({ children, tag, variant, className }: TypographyProps) => {
-  const Tag = tag || 'h1';
+  const Tag = tag || ('h1' as React.ElementType);
 
   return (
     <Tag

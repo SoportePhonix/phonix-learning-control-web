@@ -1,61 +1,77 @@
-name: CI Pipeline
+name: Build Project
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - 'release/*'
 
 jobs:
   build:
-    name: Build and Test Project
+    if: startsWith(github.ref, 'refs/heads/release/')
+
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout the code
+      - name: Monitor disk space
+        run: df -h
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2. Set up Node.js environment
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
         with:
-          node-version: 18
-          cache: 'yarn'
+          clean: true
 
-      # 3. Install dependencies using Yarn
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
 
-      # 4. Run linting
-      - name: Run Linting
-        run: yarn lint
+      - name: Install project dependencies
+        run: yarn install
 
-      # 5. Run tests (if applicable)
-      # Uncomment this step if you have tests in your project
-      # - name: Run Tests
-      #   run: yarn test
-
-      # 6. Build the project
-      - name: Build Project
+      - name: Build project
         run: yarn build
 
-  lint-staged-check:
-    name: Lint-staged Validation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          node-version: 18
+          registry: registry.phonix.network
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
 
-      - name: Validate lint-staged
+      - name: Set Git identity
         run: |
-          yarn install --frozen-lockfile
-          npx lint-staged
+          git config user.email "soporte@phonix.network"
+          git config user.name "SoportePhonix"
+
+      - name: Read package.json and set version
+        id: package
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          echo "::set-output name=version::$VERSION"
+
+      - name: Create a tag with the version from package.json
+        run: |
+          git tag -a v${{ steps.package.outputs.version }} -m "Version ${{ steps.package.outputs.version }}"
+          git push origin v${{ steps.package.outputs.version }}
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: false
+          docker-images: false
+          swap-storage: true
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            registry.phonix.network/phonix-contact-interactions/phonix-web-interactions-system-service:latest
+            registry.phonix.network/phonix-contact-interactions/phonix-web-interactions-system-service:${{ steps.package.outputs.version }}

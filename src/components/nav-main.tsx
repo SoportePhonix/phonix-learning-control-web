@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
@@ -24,7 +26,7 @@ export function NavMain({
   items: {
     title: string;
     url: string;
-    icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+    icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
     isActive?: boolean;
     items?: {
       title: string;
