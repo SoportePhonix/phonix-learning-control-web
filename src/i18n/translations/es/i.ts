@@ -9,4 +9,5 @@ export const i = {
   input: 'Entrada',
   invalid: 'Inválido',
   invalidCredentials: 'Credenciales inválidas',
+  identificationDocument: 'Documento de identificación',
 };
