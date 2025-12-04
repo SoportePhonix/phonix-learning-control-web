@@ -1,8 +1,11 @@
 'use client';
 
+import { DataTable } from '@/components/ui/data-table';
 import { Typography } from '@/components/ui/typography';
 import { useTranslation } from '@/i18n';
 import { useGetAllUsersQuery } from '@/lib/services/api/usersApi/usersApi';
+
+import { columns } from './columns';
 
 export default function Page() {
   const { t } = useTranslation();
@@ -16,7 +19,7 @@ export default function Page() {
       </Typography>
 
       <Typography variant="parrafo" className="text-var--negro font-light mb-4">
-        <pre className="bg-gray-100 p-4 rounded overflow-auto">{JSON.stringify(usersData, null, 2)}</pre>
+        <DataTable columns={columns(t)} data={usersData?.data ?? []} />
       </Typography>
     </div>
   );

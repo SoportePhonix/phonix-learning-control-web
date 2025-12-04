@@ -12,4 +12,5 @@ export const t = {
   token: 'Token',
   total: 'Total',
   type: 'Tipo',
+  typeOfIdentificationDocument: 'Tipo de documento de identificación',
 };
