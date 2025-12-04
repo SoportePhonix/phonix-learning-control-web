@@ -1,7 +1,7 @@
 import { authOptions } from '@/lib/auth';
+import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
-import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
@@ -17,16 +17,12 @@ export async function GET() {
       })
     ).json();
 
-    if (response.errors || response.statusCode === 401) {
-      throw response;
-    }
+    // Verifica si hay error en la respuesta externa
+    const errorResponse = ApiRes.fromExternalResponse(response);
+    if (errorResponse) return errorResponse;
 
-    const data = response.data;
-
-    return NextResponse.json({
-      data,
-    });
+    return ApiRes.success(response.data);
   } catch (error: unknown) {
-    return NextResponse.json(error);
+    return ApiRes.fromException(error);
   }
 }
