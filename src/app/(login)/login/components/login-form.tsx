@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { ExpandedLogoLight } from '@/components';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';

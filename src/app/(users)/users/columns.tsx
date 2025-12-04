@@ -26,7 +26,7 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
     header: t('e.email'),
   },
   {
-    header: 'Rol',
+    header: t('r.role'),
     cell: ({ row }) => {
       //Te da el control total del contenido de la celda
       const roles = row.original.role; //COntiene el objeto del usuario
