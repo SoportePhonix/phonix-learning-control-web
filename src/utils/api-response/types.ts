@@ -1,8 +1,3 @@
-/**
- * Tipos para el sistema de respuestas API estandarizadas
- */
-
-// Estructura de un error de API
 export interface ApiErrorData {
   statusCode: number;
   message: string;

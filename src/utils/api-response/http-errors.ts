@@ -1,10 +1,4 @@
-/**
- * Catálogo de errores HTTP con mensajes por defecto
- * Puedes personalizar el mensaje al momento de usar cada error
- */
-
 export const HttpErrors = {
-  // 4xx - Errores del cliente
   BAD_REQUEST: {
     statusCode: 400,
     message: 'Bad request',
