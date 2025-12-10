@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { RolesResponse } from './interface/roles.interface';
+import { RolesResponse } from './interface';
 
 export const rolesApi = api.injectEndpoints({
   endpoints: (builder) => ({
