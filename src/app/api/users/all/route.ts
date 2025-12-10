@@ -17,7 +17,6 @@ export async function GET() {
       })
     ).json();
 
-    // Verifica si hay error en la respuesta externa
     const errorResponse = ApiRes.fromExternalResponse(response);
     if (errorResponse) return errorResponse;
 

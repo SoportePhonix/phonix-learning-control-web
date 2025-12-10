@@ -1,5 +1,9 @@
-import { User } from '../../usersApi/interface';
-
-export interface TypeOfIdentificationDocument {
-  data: User['typeOfIdentificationDocument'];
+export interface DocumentTypesResponse {
+  sucess: boolean;
+  data: [
+    {
+      id: string;
+      name: string;
+    },
+  ];
 }

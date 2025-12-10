@@ -1,9 +1,9 @@
 import { api } from '../api';
-import { TypeOfIdentificationDocument } from './interface/typeOfIdentificationDocument.interface';
+import { DocumentTypesResponse } from './interface';
 
 export const typeOfDocumentApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllTypeOfIdentificationDocument: builder.query<TypeOfIdentificationDocument, void>({
+    getAllTypeOfIdentificationDocument: builder.query<DocumentTypesResponse, void>({
       query: () => {
         return '/documentTypes/all';
       },
