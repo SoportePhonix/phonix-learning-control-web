@@ -21,15 +21,6 @@ export default function Page() {
         {t('u.users')}
       </Typography>
 
-      {/* Para cuando este lsiat la parte de agregar usuarios
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <Link href="/users">Users</Link>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb> */}
-
       <div>
         <Link href={'/users/add'}>
           <Button variant="secondary">
