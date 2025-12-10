@@ -21,11 +21,11 @@ export default function Page() {
         {t('u.users')}
       </Typography>
 
-      <div className="mt-5 text-left h-12 w-45">
+      <div>
         <Link href={'/users/add'}>
           <Button variant="secondary">
             <UserPlus />
-            {t('a.add')} {t('n.new')} {t('u.user')}
+            {t('a.addUsers')}
           </Button>
         </Link>
       </div>

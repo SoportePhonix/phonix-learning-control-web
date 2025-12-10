@@ -21,4 +21,5 @@ export const a = {
   attachment: 'Attachment',
   attachments: 'Attachments',
   available: 'Available',
+  addUsers: 'Add users',
 };

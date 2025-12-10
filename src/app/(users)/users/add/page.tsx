@@ -1,40 +1,19 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
+import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 
 export default function Page() {
+  const { t } = useTranslation();
+  const { data: typeOfIdentificationDocumentData, isLoading } = useGetAllTypeOfIdentificationDocumentQuery();
   const { data: rolesData, isSuccess } = useGetAllRolesQuery();
+  console.log(typeOfIdentificationDocumentData);
   console.log(rolesData);
 
   return (
-    <div className="mt-6">
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Selecciona un rol" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Roles</SelectLabel>
-            {isSuccess &&
-              rolesData?.data?.map((role) => (
-                <SelectItem key={role.id} value={role.id.toString()}>
-                  {role.name}
-                </SelectItem>
-              ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-
-      <pre>{JSON.stringify(rolesData, null, 2)}</pre>
+    <div>
+      <h1>{t('a.addUsers')}</h1>
     </div>
   );
 }
