@@ -21,4 +21,5 @@ export const a = {
   attachment: 'Adjunto',
   attachments: 'Adjuntos',
   available: 'Disponible',
+  addUsers: 'Agregar usuarios',
 };
