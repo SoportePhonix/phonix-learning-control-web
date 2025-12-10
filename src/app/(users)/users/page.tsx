@@ -29,7 +29,7 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <Typography variant="titulo_medio" className="text-var--negro font-light mb-4">
-        {t('l.login')}
+        {t('u.users')}
       </Typography>
 
       {/* Para cuando este lsiat la parte de agregar usuarios
@@ -42,7 +42,7 @@ export default function Page() {
       </Breadcrumb> */}
 
       <div>
-        <Link href={'/addusers'}>
+        <Link href={'/users/add'}>
           <Button variant="secondary">
             <UserPlus />
             Agregar usuario
