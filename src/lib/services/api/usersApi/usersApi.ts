@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { GetUsersResponse } from './interface';
+import { AddUserDataResponse, AddUserRequest, GetUsersResponse } from './interface';
 
 export const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,6 +7,13 @@ export const usersApi = api.injectEndpoints({
       query: () => {
         return '/users/all';
       },
+    }),
+    addUsers: builder.mutation<AddUserDataResponse, AddUserRequest>({
+      query: (params) => ({
+        url: '/users/add',
+        method: 'POST',
+        body: params,
+      }),
     }),
   }),
   overrideExisting: false,
@@ -25,4 +32,5 @@ export const {
   /**
    * Mutations
    */
+  useAddUsersMutation,
 } = usersApi;
