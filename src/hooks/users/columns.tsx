@@ -13,7 +13,7 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
   },
   {
     accessorKey: 'typeOfIdentificationDocument.name',
-    header: t('t.typeOfIdentificacionDocument'),
+    header: t('t.typeOfIdentificationDocument'),
   },
   {
     accessorKey: 'identificationDocument',

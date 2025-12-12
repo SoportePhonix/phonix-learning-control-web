@@ -13,10 +13,4 @@ export const t = {
   total: 'Total',
   type: 'Tipo',
   typeOfIdentificationDocument: 'Tipo de documento de identificación',
-  typeDocument: {
-    'ID Card': 'Cédula',
-    Passport: 'Pasaporte',
-    'Foreign ID': 'Cédula extranjera',
-    'Driver License': 'Licencia de conducir',
-  },
 };

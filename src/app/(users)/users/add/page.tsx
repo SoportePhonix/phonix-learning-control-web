@@ -4,15 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
 import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
-  const { t } = useTranslation();
   const { data: roles } = useGetAllRolesQuery();
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
   const [addUser, { isLoading }] = useAddUsersMutation();
@@ -194,12 +193,14 @@ export default function Page() {
 
           {/* Buttons */}
           <div className="col-span-2 flex justify-end gap-4 mt-6">
-            <Button type="button" variant="outline">
-              Cancelar
-            </Button>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Creando...' : 'Agregar'}
-            </Button>
+            <Link href={'/users'}>
+              <Button type="button" variant="outline">
+                Cancelar
+              </Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? 'Creando...' : 'Agregar'}
+              </Button>
+            </Link>
           </div>
         </form>
       </Form>
