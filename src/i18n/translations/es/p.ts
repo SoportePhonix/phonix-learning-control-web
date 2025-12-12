@@ -12,4 +12,5 @@ export const p = {
   public: 'Público',
   publish: 'Publicar',
   published: 'Publicado',
+  passport: 'Pasaporte',
 };

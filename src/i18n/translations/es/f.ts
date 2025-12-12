@@ -11,4 +11,5 @@ export const f = {
   forgotPassword: '¿Olvidaste tu contraseña?',
   form: 'Formulario',
   from: 'Desde',
+  foreignId: 'Cédula extranjera',
 };

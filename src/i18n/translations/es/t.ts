@@ -12,5 +12,11 @@ export const t = {
   token: 'Token',
   total: 'Total',
   type: 'Tipo',
-  typeOfIdentificacionDocument: 'Tipo de documento de identificación',
+  typeOfIdentificationDocument: 'Tipo de documento de identificación',
+  typeDocument: {
+    'ID Card': 'Cédula',
+    Passport: 'Pasaporte',
+    'Foreign ID': 'Cédula extranjera',
+    'Driver License': 'Licencia de conducir',
+  },
 };
