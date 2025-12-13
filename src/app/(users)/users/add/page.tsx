@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -9,14 +11,27 @@ import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/t
 import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
 import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+
+type FormValues = {
+  name: string;
+  lastName: string;
+  typeOfIdentificationDocument: string;
+  identificationDocument: string;
+  email: string;
+  password: string;
+  roleId: string;
+};
 
 export default function Page() {
   const { data: roles } = useGetAllRolesQuery();
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
-  const [addUser, { isLoading }] = useAddUsersMutation();
+  const router = useRouter();
 
-  const form = useForm({
+  const [addUser, { isLoading, isSuccess, isError, error }] = useAddUsersMutation();
+
+  const form = useForm<FormValues>({
     defaultValues: {
       name: '',
       lastName: '',
@@ -28,15 +43,7 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (values: any) => {
-    // Validación mínima: verificar que todos los campos tengan valor
-    for (const key in values) {
-      if (!values[key]) {
-        console.error('Falta completar:', key);
-        return;
-      }
-    }
-
+  const onSubmit = (values: FormValues) => {
     const payload: AddUserRequest = {
       name: values.name,
       lastName: values.lastName,
@@ -47,163 +54,190 @@ export default function Page() {
       role: [{ id: Number(values.roleId) }],
     };
 
-    console.log('Enviando a backend:', payload);
     addUser(payload);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      router.push('/users');
+    }
+  }, [isSuccess, router]);
+
   return (
-    <div className="max-w-5xl mx-auto p-10">
-      <h1 className="text-2xl font-semibold mb-8">Crear Usuario</h1>
+    <div
+      className="min-h-screen w-full"
+      style={{
+        backgroundImage: `
+        linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1)),
+        url('/images/bg-pattern.svg')
+      `,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="px-1 pt-10 pb-2">
+        <h1 className="text-xl font-normal mb-10">Creación de Usuario</h1>
+      </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-6">
-          {/* Name */}
-          <FormField
-            control={form.control}
-            name="name"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nombre</FormLabel>
-                <FormControl>
-                  <Input placeholder="Ingrese un valor" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <div className="bg-white/70 backdrop-blur-sm rounded-md shadow-sm">
+        <p className="text-center text-sm py-6 border-b">Para crear un usuario, por favor completa los campos</p>
 
-          {/* Apellidos */}
-          <FormField
-            control={form.control}
-            name="lastName"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Apellidos</FormLabel>
-                <FormControl>
-                  <Input placeholder="Ingrese un valor" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Tipo de doc */}
-          <FormField
-            control={form.control}
-            name="typeOfIdentificationDocument"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tipo de identificación</FormLabel>
-                <Select onValueChange={field.onChange}>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full grid grid-cols-2 md:grid-cols-2 gap-x-12 gap-y-6 px-12 py-10"
+          >
+            {/* Nombre */}
+            <FormField
+              control={form.control}
+              name="name"
+              rules={{ required: 'El nombre es requerido' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccione una opción" />
-                    </SelectTrigger>
+                    <Input className="h-10" {...field} />
                   </FormControl>
-                  <SelectContent>
-                    {typesId?.data?.map((t: any) => (
-                      <SelectItem key={t.id} value={String(t.id)}>
-                        {t.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Documento */}
-          <FormField
-            control={form.control}
-            name="identificationDocument"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Documento de identidad</FormLabel>
-                <FormControl>
-                  <Input placeholder="Ingrese un valor" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Email */}
-          <FormField
-            control={form.control}
-            name="email"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Correo electrónico</FormLabel>
-                <FormControl>
-                  <Input placeholder="Ingrese un valor" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Password */}
-          <FormField
-            control={form.control}
-            name="password"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contraseña</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="Ingrese un valor" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Roles */}
-          <FormField
-            control={form.control}
-            name="roleId"
-            rules={{ required: 'Campo obligatorio' }}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Roles</FormLabel>
-                <Select onValueChange={field.onChange}>
+            {/* Apellidos */}
+            <FormField
+              control={form.control}
+              name="lastName"
+              rules={{ required: 'Los apellidos son requeridos' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Apellidos</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Seleccione una opción" />
-                    </SelectTrigger>
+                    <Input className="h-10" {...field} />
                   </FormControl>
-                  <SelectContent>
-                    {roles?.data?.map((r: any) => (
-                      <SelectItem key={r.id} value={String(r.id)}>
-                        {r.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          {/* Buttons */}
-          <div className="col-span-2 flex justify-end gap-4 mt-6">
-            <Link href={'/users'}>
-              <Button type="button" variant="outline">
-                Cancelar
-              </Button>
+            {/* Tipo identificación */}
+            <FormField
+              control={form.control}
+              name="typeOfIdentificationDocument"
+              rules={{ required: 'El tipo de identificación es requerido' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tipo de identificación</FormLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Seleccione una opción" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {typesId?.data?.map((t: any) => (
+                        <SelectItem key={t.id} value={String(t.id)}>
+                          {t.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Documento */}
+            <FormField
+              control={form.control}
+              name="identificationDocument"
+              rules={{ required: 'El documento de identidad es requerido' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Documento</FormLabel>
+                  <FormControl>
+                    <Input className="h-10" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              rules={{ required: 'El correo electrónico es requerido' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Correo electrónico</FormLabel>
+                  <FormControl>
+                    <Input className="h-10" type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Password */}
+            <FormField
+              control={form.control}
+              name="password"
+              rules={{ required: 'La contraseña es requerida' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contraseña</FormLabel>
+                  <FormControl>
+                    <Input className="h-10" type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Rol */}
+            <FormField
+              control={form.control}
+              name="roleId"
+              rules={{ required: 'Los roles son requeridos' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Rol</FormLabel>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="h-10">
+                        <SelectValue placeholder="Seleccione una opción" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {roles?.data?.map((r: any) => (
+                        <SelectItem key={r.id} value={String(r.id)}>
+                          {r.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Botones */}
+            <div className="col-span-2 flex justify-end gap-4 pt-8">
+              <Link href="/users">
+                <Button type="button" variant="outline">
+                  Cancelar
+                </Button>
+              </Link>
+
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? 'Creando...' : 'Agregar'}
               </Button>
-            </Link>
-          </div>
-        </form>
-      </Form>
+            </div>
+
+            {isError && <p className="col-span-2 text-red-500 text-sm">Ocurrió un error al crear el usuario</p>}
+          </form>
+        </Form>
+      </div>
     </div>
   );
 }
