@@ -25,7 +25,7 @@ type FormValues = {
   roleId: string;
 };
 
-export function AddForm() {
+export default function Page() {
   const { t } = useTranslation();
   const { data: roles } = useGetAllRolesQuery();
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
