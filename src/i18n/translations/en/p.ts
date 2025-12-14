@@ -12,4 +12,5 @@ export const p = {
   public: 'Public',
   publish: 'Publish',
   published: 'Published',
+  passwordRequired: 'Password required',
 };

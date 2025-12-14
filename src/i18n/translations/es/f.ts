@@ -12,4 +12,5 @@ export const f = {
   form: 'Formulario',
   from: 'Desde',
   foreignId: 'Cédula extranjera',
+  firstNameRequired: 'El nombre es requerido',
 };

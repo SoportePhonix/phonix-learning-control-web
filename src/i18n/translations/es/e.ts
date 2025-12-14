@@ -12,4 +12,6 @@ export const e = {
   example: 'Ejemplo',
   exit: 'Salir',
   export: 'Exportar',
+  enterAValue: 'Ingrese un valor',
+  emailAddressRequired: 'Email address required',
 };

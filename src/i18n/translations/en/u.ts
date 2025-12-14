@@ -13,4 +13,5 @@ export const u = {
   user: 'User',
   username: 'Username',
   users: 'Users',
+  userCreation: 'Creación de usuario',
 };

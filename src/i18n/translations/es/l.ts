@@ -9,4 +9,5 @@ export const l = {
   location: 'Ubicación',
   login: 'Iniciar sesión',
   logout: 'Cerrar sesión',
+  lastNameRequired: 'Los apellidos son requeridos',
 };

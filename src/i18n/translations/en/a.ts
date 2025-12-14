@@ -22,4 +22,5 @@ export const a = {
   attachments: 'Attachments',
   available: 'Available',
   addUsers: 'Add users',
+  anUnknownErrorOccurred: 'An unknown error occurred',
 };

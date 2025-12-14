@@ -21,5 +21,5 @@ export const c = {
   createdAt: 'Creado el',
   createdBy: 'Creado por',
   current: 'Actual',
-  idCard: 'Cédula',
+  creating: 'Creando',
 };

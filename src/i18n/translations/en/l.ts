@@ -9,4 +9,5 @@ export const l = {
   location: 'Location',
   login: 'Login',
   logout: 'Logout',
+  lastNameRequired: 'Last name required',
 };

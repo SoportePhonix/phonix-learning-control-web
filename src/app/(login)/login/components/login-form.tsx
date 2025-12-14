@@ -17,19 +17,16 @@ import { Inputs } from '../types';
 import { InputPassword } from './input-password';
 
 export function LoginForm() {
-  const { t, currentLanguage } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState<number>();
 
   const errorMessages: Record<number, string> = {
-    401: currentLanguage === 'es' ? 'Correo y/o contraseña incorrectos' : 'Incorrect email and/or password',
+    401: t('i.incorrectEmailAndOrPassword'),
     403: t('a.accessDenied'),
-    500:
-      currentLanguage === 'es'
-        ? 'Error interno del servidor. Intenta más tarde'
-        : 'Internal server error. Try again later',
-    404: currentLanguage === 'es' ? 'Servicio no encontrado' : 'Service not found',
+    500: t('i.internalServerErrorPleaseTryAgainLater'),
+    404: t('s.serviceNotFound'),
   };
 
   const {
@@ -105,17 +102,15 @@ export function LoginForm() {
                     },
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&+\-=/])[A-Za-z\d@$!%*?&+\-=/]{8,}$/,
-                      message:
-                        currentLanguage === 'es'
-                          ? 'La contraseña debe tener mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial.'
-                          : 'Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character.',
+                      message: t(
+                        't.thePasswordMustBeAtLeast8CharactersLongWith1UppercaseLetter1LowercaseLetter1NumberAnd1SpecialCharacter'
+                      ),
                     },
                   })}
                 />
                 {loginError && !errors.password && (
                   <Typography variant="parrafo-pequeno" className="text-var--red-error">
-                    {errorMessages[loginError] ||
-                      (currentLanguage === 'es' ? 'Ocurrió un error desconocido' : 'An unknown error occurred')}
+                    {errorMessages[loginError] || t('a.anUnknownErrorOccurred')}
                   </Typography>
                 )}
               </div>

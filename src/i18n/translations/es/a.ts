@@ -22,4 +22,6 @@ export const a = {
   attachments: 'Adjuntos',
   available: 'Disponible',
   addUsers: 'Agregar usuarios',
+  anErrorOccurredWhileCreatingTheUser: 'Ocurrió un error al crear el usuario',
+  anUnknownErrorOccurred: 'Ocurrió un error desconocido',
 };

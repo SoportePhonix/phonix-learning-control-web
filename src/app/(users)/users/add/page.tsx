@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
@@ -24,7 +25,8 @@ type FormValues = {
   roleId: string;
 };
 
-export default function Page() {
+export function AddForm() {
+  const { t } = useTranslation();
   const { data: roles } = useGetAllRolesQuery();
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
   const router = useRouter();
@@ -76,11 +78,11 @@ export default function Page() {
       }}
     >
       <div className="px-1 pt-10 pb-2">
-        <h1 className="text-xl font-normal mb-10">Creación de Usuario</h1>
+        <h1 className="text-xl font-normal mb-10"> {t('u.userCreation')} </h1>
       </div>
 
       <div className="bg-white/70 backdrop-blur-sm rounded-md shadow-sm">
-        <p className="text-center text-sm py-6 border-b">Para crear un usuario, por favor completa los campos</p>
+        <p className="text-center text-sm py-6 border-b">{t('t.toCreateAUserPleaseFillInTheFields')}</p>
 
         <Form {...form}>
           <form
@@ -94,9 +96,9 @@ export default function Page() {
               rules={{ required: 'El nombre es requerido' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nombre</FormLabel>
+                  <FormLabel>{t('n.name')}</FormLabel>
                   <FormControl>
-                    <Input className="h-10" {...field} />
+                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,9 +112,9 @@ export default function Page() {
               rules={{ required: 'Los apellidos son requeridos' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Apellidos</FormLabel>
+                  <FormLabel>{t('l.lastName')}</FormLabel>
                   <FormControl>
-                    <Input className="h-10" {...field} />
+                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +128,7 @@ export default function Page() {
               rules={{ required: 'El tipo de identificación es requerido' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tipo de identificación</FormLabel>
+                  <FormLabel>{t('t.typeOfIdentificationDocument')}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="h-10">
@@ -153,9 +155,9 @@ export default function Page() {
               rules={{ required: 'El documento de identidad es requerido' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Documento</FormLabel>
+                  <FormLabel>{t('i.identificationDocument')}</FormLabel>
                   <FormControl>
-                    <Input className="h-10" {...field} />
+                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -169,9 +171,9 @@ export default function Page() {
               rules={{ required: 'El correo electrónico es requerido' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Correo electrónico</FormLabel>
+                  <FormLabel>{t('e.email')}</FormLabel>
                   <FormControl>
-                    <Input className="h-10" type="email" {...field} />
+                    <Input className="h-10" type="email" {...field} placeholder="Ingrese un valor" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -185,9 +187,9 @@ export default function Page() {
               rules={{ required: 'La contraseña es requerida' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Contraseña</FormLabel>
+                  <FormLabel>{t('p.password')}</FormLabel>
                   <FormControl>
-                    <Input className="h-10" type="password" {...field} />
+                    <Input className="h-10" type="password" {...field} placeholder="Ingrese un valor" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -198,10 +200,10 @@ export default function Page() {
             <FormField
               control={form.control}
               name="roleId"
-              rules={{ required: 'Los roles son requeridos' }}
+              rules={{ required: 'Seleccione una opción' }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Rol</FormLabel>
+                  <FormLabel>{t('r.role')}</FormLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="h-10">
@@ -225,12 +227,12 @@ export default function Page() {
             <div className="col-span-2 flex justify-end gap-4 pt-8">
               <Link href="/users">
                 <Button type="button" variant="outline">
-                  Cancelar
+                  {t('c.cancel')}
                 </Button>
               </Link>
 
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Creando...' : 'Agregar'}
+                {isLoading ? t('c.creating') : t('a.add')}
               </Button>
             </div>
 
