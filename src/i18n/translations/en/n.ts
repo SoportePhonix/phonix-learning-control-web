@@ -12,4 +12,5 @@ export const n = {
   notification: 'Notification',
   notifications: 'Notifications',
   notFound: 'Not found',
+  nameIsRequerid: 'Name is requerid',
 };

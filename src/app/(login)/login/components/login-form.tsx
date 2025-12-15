@@ -81,7 +81,7 @@ export function LoginForm() {
                   placeholder={t('e.emailAddress')}
                   error={errors.email && errors.email?.message}
                   {...register('email', {
-                    required: t('r.required'),
+                    required: t('e.emailAddressRequired'),
                     pattern: {
                       value: /\S+@\S+\.\S+/,
                       message: t('i.invalid'),
@@ -98,7 +98,7 @@ export function LoginForm() {
                   {...register('password', {
                     required: {
                       value: true,
-                      message: t('r.required'),
+                      message: t('p.passwordRequired'),
                     },
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&+\-=/])[A-Za-z\d@$!%*?&+\-=/]{8,}$/,

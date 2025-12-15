@@ -16,4 +16,7 @@ export const t = {
   toCreateAUserPleaseFillInTheFields: 'Para crear un usuario, por favor completa los campos',
   thePasswordMustBeAtLeast8CharactersLongWith1UppercaseLetter1LowercaseLetter1NumberAnd1SpecialCharacter:
     'La contraseña debe tener mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial.',
+  theIdentityDocumentIsRequired: 'El documento de identidad es requerido',
+  typeOfIdentificationDocumentRequired: 'Tipo de documento de identificación requerido',
+  theRolesAreRequired: 'Los roles son requeridos',
 };

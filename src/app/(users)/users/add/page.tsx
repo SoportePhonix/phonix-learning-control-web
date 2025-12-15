@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -13,7 +13,7 @@ import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
 import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 type FormValues = {
   name: string;
@@ -31,7 +31,14 @@ export default function Page() {
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
   const router = useRouter();
 
-  const [addUser, { isLoading, isSuccess, isError, error }] = useAddUsersMutation();
+  const [addUser, { isLoading }] = useAddUsersMutation();
+  const [apiError, setApiError] = useState<number | null>(null);
+
+  const errorMessages: Record<number, string> = {
+    400: t('r.required'),
+    409: t('u.user'),
+    500: t('i.internalServerErrorPleaseTryAgainLater'),
+  };
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -45,7 +52,13 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+
+  const onSubmit = async (values: FormValues) => {
     const payload: AddUserRequest = {
       name: values.name,
       lastName: values.lastName,
@@ -55,15 +68,14 @@ export default function Page() {
       password: values.password,
       role: [{ id: Number(values.roleId) }],
     };
-
-    addUser(payload);
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
+    setApiError(null);
+    try {
+      await addUser(payload).unwrap();
       router.push('/users');
+    } catch (err: any) {
+      setApiError(err?.status ?? 500);
     }
-  }, [isSuccess, router]);
+  };
 
   return (
     <div
@@ -90,138 +102,118 @@ export default function Page() {
             className="w-full grid grid-cols-2 md:grid-cols-2 gap-x-12 gap-y-6 px-12 py-10"
           >
             {/* Nombre */}
-            <FormField
-              control={form.control}
-              name="name"
-              rules={{ required: 'El nombre es requerido' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('n.name')}</FormLabel>
-                  <FormControl>
-                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">{t('n.name')}</label>
+              <Input
+                {...register('name', { required: t('n.nameIsRequerid') })}
+                error={errors.name?.message}
+                placeholder={t('e.enterAValue')}
+              />
+            </div>
 
             {/* Apellidos */}
-            <FormField
-              control={form.control}
-              name="lastName"
-              rules={{ required: 'Los apellidos son requeridos' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('l.lastName')}</FormLabel>
-                  <FormControl>
-                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+            <div className="grid gap-2">
+              <label className="text-sm font-medium"> {t('l.lastName')} </label>
+              <Input
+                {...register('lastName', { required: t('l.lastNameRequired') })}
+                error={errors.lastName?.message}
+                placeholder={t('e.enterAValue')}
+              />
+            </div>
 
             {/* Tipo identificación */}
-            <FormField
-              control={form.control}
-              name="typeOfIdentificationDocument"
-              rules={{ required: 'El tipo de identificación es requerido' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('t.typeOfIdentificationDocument')}</FormLabel>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">{t('t.typeOfIdentificationDocument')}</label>
+
+              <Controller
+                control={form.control}
+                name="typeOfIdentificationDocument"
+                rules={{ required: t('t.typeOfIdentificationDocumentRequired') }}
+                render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger className="h-10">
-                        <SelectValue placeholder="Seleccione una opción" />
-                      </SelectTrigger>
-                    </FormControl>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder={t('s.selectAnOption')} />
+                    </SelectTrigger>
                     <SelectContent>
-                      {typesId?.data?.map((t: any) => (
-                        <SelectItem key={t.id} value={String(t.id)}>
-                          {t.name}
+                      {typesId?.data?.map((item: any) => (
+                        <SelectItem key={item.id} value={String(item.id)}>
+                          {item.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage />
-                </FormItem>
+                )}
+              />
+
+              {errors.typeOfIdentificationDocument && (
+                <p className="text-sm text-var--red-error">{errors.typeOfIdentificationDocument.message}</p>
               )}
-            />
+            </div>
 
             {/* Documento */}
-            <FormField
-              control={form.control}
-              name="identificationDocument"
-              rules={{ required: 'El documento de identidad es requerido' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('i.identificationDocument')}</FormLabel>
-                  <FormControl>
-                    <Input className="h-10" {...field} placeholder="Ingrese un valor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-2">
+              <label className="text-sm font-medium"> {t('i.identificationDocument')} </label>
+              <Input
+                {...register('identificationDocument', { required: t('t.theIdentityDocumentIsRequired') })}
+                error={errors.identificationDocument?.message}
+                placeholder={t('e.enterAValue')}
+              />
+            </div>
 
             {/* Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              rules={{ required: 'El correo electrónico es requerido' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('e.email')}</FormLabel>
-                  <FormControl>
-                    <Input className="h-10" type="email" {...field} placeholder="Ingrese un valor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-2">
+              <label className="text-sm font-medium"> {t('e.email')} </label>
+              <Input
+                {...register('email', { required: t('e.emailAddressRequired') })}
+                error={errors.email?.message}
+                placeholder={t('e.enterAValue')}
+              />
+            </div>
 
             {/* Password */}
-            <FormField
-              control={form.control}
-              name="password"
-              rules={{ required: 'La contraseña es requerida' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('p.password')}</FormLabel>
-                  <FormControl>
-                    <Input className="h-10" type="password" {...field} placeholder="Ingrese un valor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-2">
+              <label className="text-sm font-medium"> {t('p.password')} </label>
+              <Input
+                type="password"
+                {...register('password', { required: t('p.passwordRequired') })}
+                error={errors.password?.message}
+                placeholder={t('e.enterAValue')}
+              />
+            </div>
 
             {/* Rol */}
-            <FormField
-              control={form.control}
-              name="roleId"
-              rules={{ required: 'Seleccione una opción' }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('r.role')}</FormLabel>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">{t('r.role')}</label>
+
+              <Controller
+                control={form.control}
+                name="roleId"
+                rules={{ required: t('t.theRolesAreRequired') }}
+                render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger className="h-10">
-                        <SelectValue placeholder="Seleccione una opción" />
-                      </SelectTrigger>
-                    </FormControl>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder={t('s.selectAnOption')} />
+                    </SelectTrigger>
                     <SelectContent>
-                      {roles?.data?.map((r: any) => (
-                        <SelectItem key={r.id} value={String(r.id)}>
-                          {r.name}
+                      {roles?.data?.map((item: any) => (
+                        <SelectItem key={item.id} value={String(item.id)}>
+                          {item.name}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                )}
+              />
+              {errors.roleId && <p className="text-sm text-var--red-error">{errors.roleId.message}</p>}
+            </div>
+
+            {/*Error backend */}
+            {apiError && Object.keys(errors).length === 0 && (
+              <p className="col-span-2 text-var--red-error text-sm text-center">
+                {errorMessages[apiError] || t('a.anUnknownErrorOccurred')}
+              </p>
+            )}
 
             {/* Botones */}
             <div className="col-span-2 flex justify-end gap-4 pt-8">
@@ -235,8 +227,6 @@ export default function Page() {
                 {isLoading ? t('c.creating') : t('a.add')}
               </Button>
             </div>
-
-            {isError && <p className="col-span-2 text-red-500 text-sm">Ocurrió un error al crear el usuario</p>}
           </form>
         </Form>
       </div>

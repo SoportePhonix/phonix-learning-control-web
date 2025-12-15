@@ -4,9 +4,8 @@ import { AddUserDataResponse, AddUserRequest, GetUsersResponse } from './interfa
 export const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query<GetUsersResponse, void>({
-      query: () => {
-        return '/users/all';
-      },
+      query: () => '/users/all',
+      providesTags: ['Users'],
     }),
     addUsers: builder.mutation<AddUserDataResponse, AddUserRequest>({
       query: (params) => ({
@@ -14,6 +13,7 @@ export const usersApi = api.injectEndpoints({
         method: 'POST',
         body: params,
       }),
+      invalidatesTags: ['Users'],
     }),
   }),
   overrideExisting: false,

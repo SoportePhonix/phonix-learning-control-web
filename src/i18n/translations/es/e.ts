@@ -13,5 +13,5 @@ export const e = {
   exit: 'Salir',
   export: 'Exportar',
   enterAValue: 'Ingrese un valor',
-  emailAddressRequired: 'Email address required',
+  emailAddressRequired: 'Dirección de correo electrónico requerida',
 };
