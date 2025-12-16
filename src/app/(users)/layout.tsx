@@ -1,6 +1,7 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { Toaster } from '@/components/ui/sonner';
 import AuthProvider from '@/providers/auth';
 import { StoreProvider } from '@/providers/store';
 import { SessionContextProvider, SessionExpiredProvider } from '@/utils/context';
@@ -25,6 +26,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
                     <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed text-var--primary-50" />
                     <AppSidebar />
                     <main className="flex-1 md:px-4 overflow-y-scroll">{children}</main>
+                    <Toaster richColors position="top-right" />
                   </div>
                 </RtkRequestsProvider>
               </SidebarProvider>

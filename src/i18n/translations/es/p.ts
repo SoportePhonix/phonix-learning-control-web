@@ -13,5 +13,5 @@ export const p = {
   publish: 'Publicar',
   published: 'Publicado',
   passport: 'Pasaporte',
-  passwordRequired: 'La contraseña es requerida',
+  passwordRequired: 'Contraseña requerida',
 };

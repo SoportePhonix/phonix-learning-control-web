@@ -14,6 +14,7 @@ import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 type FormValues = {
   name: string;
@@ -77,24 +78,17 @@ export default function Page() {
     setApiError(null);
     try {
       await addUser(payload).unwrap();
-      router.push('/users');
+      router.push('/users?created=true');
     } catch (err: any) {
-      setApiError(err?.status ?? 500);
+      const status = err?.status ?? 500;
+      setApiError(status);
+
+      toast.error(t('u.userCreationFailed'));
     }
   };
 
   return (
-    <div
-      className="min-h-screen w-full"
-      style={{
-        backgroundImage: `
-        linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1)),
-        url('/images/bg-pattern.svg')
-      `,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <div className="min-h-screen w-full">
       <div className="px-1 pt-10 pb-2">
         <h1 className="text-xl font-normal mb-10"> {t('u.userCreation')} </h1>
       </div>

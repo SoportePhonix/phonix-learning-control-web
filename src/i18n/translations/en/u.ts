@@ -14,4 +14,6 @@ export const u = {
   username: 'Username',
   users: 'Users',
   userCreation: 'Creación de usuario',
+  userCreatedSuccessfully: 'User created successfully',
+  userCreationFailed: 'User could not be created',
 };
