@@ -13,4 +13,5 @@ export const f = {
   from: 'Desde',
   foreignId: 'Cédula extranjera',
   firstNameRequired: 'El nombre es requerido',
+  foreignerCard: 'Cedula de extranjería',
 };

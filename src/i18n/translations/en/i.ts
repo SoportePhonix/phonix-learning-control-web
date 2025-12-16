@@ -15,4 +15,5 @@ export const i = {
   idTypeRequired: 'El tipo de identificación es requerido',
   incorrectEmailAndOrPassword: 'Incorrect email and/or password',
   internalServerErrorPleaseTryAgainLater: 'Error interno del servidor. Intenta más tarde',
+  identityCard: 'Identity Card',
 };

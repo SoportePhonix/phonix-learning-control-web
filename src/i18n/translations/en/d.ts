@@ -16,4 +16,5 @@ export const d = {
   documents: 'Documents',
   download: 'Download',
   draft: 'Draft',
+  diplomatic: 'Diplomatic',
 };

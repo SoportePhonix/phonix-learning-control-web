@@ -12,4 +12,5 @@ export const f = {
   form: 'Form',
   from: 'From',
   firstNameRequired: 'First name required',
+  foreignerCard: 'Foreigner card',
 };

@@ -22,4 +22,6 @@ export const c = {
   createdBy: 'Creado por',
   current: 'Actual',
   creating: 'Creando',
+  citizenshipCard: 'Cédula de ciudadanía',
+  civilRegistration: 'Registro civil',
 };
