@@ -52,6 +52,12 @@ export default function Page() {
     },
   });
 
+  const selectStyle =
+    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 ' +
+    'bg-white px-3 text-sm font-normal text-gray-500 ' +
+    'focus:outline-none focus:ring-0 focus:border-b-gray-400 ' +
+    'data-[placeholder-shown]:text-gray-400';
+
   const {
     register,
     handleSubmit,
@@ -132,10 +138,11 @@ export default function Page() {
                 rules={{ required: t('t.typeOfIdentificationDocumentRequired') }}
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="h-10">
-                      <SelectValue placeholder={t('s.selectAnOption')} />
+                    <SelectTrigger className={selectStyle}>
+                      <SelectValue placeholder={t('s.selectAnOption')} className="font-normal text-muted-foreground" />
                     </SelectTrigger>
-                    <SelectContent>
+
+                    <SelectContent className="bg-white border border-gray-300 shadow-md rounded-none p-0">
                       {typesId?.data?.map((item: any) => (
                         <SelectItem key={item.id} value={String(item.id)}>
                           {item.name}
@@ -192,7 +199,7 @@ export default function Page() {
                 rules={{ required: t('t.theRolesAreRequired') }}
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="h-10">
+                    <SelectTrigger className={selectStyle}>
                       <SelectValue placeholder={t('s.selectAnOption')} />
                     </SelectTrigger>
                     <SelectContent>
