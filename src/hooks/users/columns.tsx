@@ -1,6 +1,9 @@
+import { Button } from '@/components/ui/button';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
+import { Edit, Edit3 } from 'lucide-react';
+import Link from 'next/link';
 
 export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<User>[] => [
   {
@@ -43,6 +46,23 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
             )
           )}
         </div>
+      );
+    },
+  },
+
+  {
+    id: 'actions',
+    header: '',
+    cell: ({ row }) => {
+      const userId = row.original.id;
+
+      return (
+        <Link href={`/users/${userId}/update`}>
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+            <Edit3 className="h-4 w-4" />
+            <span className="sr-only">Editar usuario</span>
+          </Button>
+        </Link>
       );
     },
   },

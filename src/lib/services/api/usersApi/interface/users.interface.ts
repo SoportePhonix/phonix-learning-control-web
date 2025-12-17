@@ -48,3 +48,32 @@ export interface AddUserDataResponse {
   };
   isSuccess: boolean;
 }
+
+export interface GetUserByIdResponse {
+  data: User;
+}
+
+export interface UpdateUserRequest {
+  name: string;
+  lastName: string;
+  typeOfIdentificationDocument: number;
+  identificationDocument: string;
+  email: string;
+  role: [
+    {
+      id: number;
+    },
+  ];
+}
+
+export interface UpdateUserResponse {
+  data: {
+    name: string;
+    lastName: string;
+    typeOfIdentificationDocument: DocumentTypesResponse;
+    identificationDocument: string;
+    email: string;
+    role: RolesResponse[];
+  };
+  isSuccess: boolean;
+}
