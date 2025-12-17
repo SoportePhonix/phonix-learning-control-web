@@ -3,18 +3,15 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useCreateUser } from '@/hooks/users/useCreateUser';
 import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
-import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
-import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 type FormValues = {
   name: string;
@@ -30,20 +27,9 @@ export default function Page() {
   const { t } = useTranslation();
   const { data: roles } = useGetAllRolesQuery();
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
-  const router = useRouter();
 
-  const [addUser, { isLoading, error, status, isSuccess, isError }] = useAddUsersMutation();
-  const [apiError, setApiError] = useState<number | null>(null);
-
-  const errorMessages: Record<number, string> = {
-    400: t('r.required'),
-    409: t('e.existingIdentificationDocument'),
-    500: t('i.internalServerErrorPleaseTryAgainLater'),
-  };
-  console.log(error);
-  console.log(isError);
-  console.log(status);
-  console.log(isSuccess);
+  // 👇 aquí usamos el custom hook
+  const { createUser, isLoading, apiError } = useCreateUser();
 
   const form = useForm<FormValues>({
     mode: 'onChange',
@@ -72,27 +58,15 @@ export default function Page() {
     formState: { errors },
   } = form;
 
+  // 👇 onSubmit ahora solo llama al hook
   const onSubmit = async (values: FormValues) => {
-    const payload: AddUserRequest = {
-      name: values.name,
-      lastName: values.lastName,
-      typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
-      identificationDocument: values.identificationDocument,
-      email: values.email,
-      password: values.password,
-      role: [{ id: Number(values.roleId) }],
-    };
-    setApiError(null);
-    try {
-      await addUser(payload).unwrap();
-      toast.success(` ${values.name} ${values.lastName} ${t('u.addedSuccessfully')} `, { id: 'user-created-success' });
-      router.push('/users');
-    } catch (err: any) {
-      const status = err?.status ?? 500;
-      setApiError(status);
+    await createUser(values);
+  };
 
-      toast.error(t('u.userCreationFailed'));
-    }
+  const errorMessages: Record<number, string> = {
+    400: t('r.required'),
+    409: t('e.existingIdentificationDocument'),
+    500: t('i.internalServerErrorPleaseTryAgainLater'),
   };
 
   return (
@@ -106,7 +80,7 @@ export default function Page() {
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="w-full grid grid-cols-2 md:grid-cols-2 gap-x-12 gap-y-6 px-12 py-10"
           >
             {/* Nombre */}
@@ -120,7 +94,6 @@ export default function Page() {
             </div>
 
             {/* Apellidos */}
-
             <div className="grid gap-2">
               <label className="text-sm font-medium"> {t('l.lastName')} </label>
               <Input
@@ -135,7 +108,7 @@ export default function Page() {
               <label className="text-sm font-medium">{t('t.typeOfIdentificationDocument')}</label>
 
               <Controller
-                control={form.control}
+                control={control}
                 name="typeOfIdentificationDocument"
                 rules={{ required: t('t.typeOfIdentificationDocumentRequired') }}
                 render={({ field }) => (
@@ -203,7 +176,7 @@ export default function Page() {
               <label className="text-sm font-medium">{t('r.role')}</label>
 
               <Controller
-                control={form.control}
+                control={control}
                 name="roleId"
                 rules={{ required: t('t.theRolesAreRequired') }}
                 render={({ field }) => (
