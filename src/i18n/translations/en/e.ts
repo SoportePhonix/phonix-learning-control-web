@@ -14,4 +14,5 @@ export const e = {
   export: 'Export',
   enterAValue: 'Enter a value',
   emailAddressRequired: 'Email address required',
+  identificationDocumentExists: 'Identification document exists',
 };

@@ -32,16 +32,22 @@ export default function Page() {
   const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
   const router = useRouter();
 
-  const [addUser, { isLoading }] = useAddUsersMutation();
+  const [addUser, { isLoading, error, status, isSuccess, isError }] = useAddUsersMutation();
   const [apiError, setApiError] = useState<number | null>(null);
 
   const errorMessages: Record<number, string> = {
     400: t('r.required'),
-    409: t('u.user'),
+    409: t('e.existingIdentificationDocument'),
     500: t('i.internalServerErrorPleaseTryAgainLater'),
   };
+  console.log(error);
+  console.log(isError);
+  console.log(status);
+  console.log(isSuccess);
 
   const form = useForm<FormValues>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       name: '',
       lastName: '',
@@ -61,6 +67,7 @@ export default function Page() {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = form;
@@ -78,7 +85,8 @@ export default function Page() {
     setApiError(null);
     try {
       await addUser(payload).unwrap();
-      router.push('/users?created=true');
+      toast.success(` ${values.name} ${values.lastName} ${t('u.addedSuccessfully')} `, { id: 'user-created-success' });
+      router.push('/users');
     } catch (err: any) {
       const status = err?.status ?? 500;
       setApiError(status);
@@ -154,12 +162,19 @@ export default function Page() {
 
             {/* Documento */}
             <div className="grid gap-2">
-              <label className="text-sm font-medium"> {t('i.identificationDocument')} </label>
+              <label className="text-sm font-medium">{t('i.identificationDocument')}</label>
               <Input
-                {...register('identificationDocument', { required: t('t.theIdentityDocumentIsRequired') })}
+                {...register('identificationDocument', {
+                  required: t('t.theIdentityDocumentIsRequired'),
+                })}
                 error={errors.identificationDocument?.message}
                 placeholder={t('e.enterAValue')}
               />
+              {apiError && Object.keys(errors).length === 0 && (
+                <p className="col-span-1 text-var--red-error text-sm text-left">
+                  {errorMessages[apiError] || t('a.anUnknownErrorOccurred')}
+                </p>
+              )}
             </div>
 
             {/* Email */}
@@ -208,13 +223,6 @@ export default function Page() {
               />
               {errors.roleId && <p className="text-sm text-var--red-error">{errors.roleId.message}</p>}
             </div>
-
-            {/*Error backend */}
-            {apiError && Object.keys(errors).length === 0 && (
-              <p className="col-span-2 text-var--red-error text-sm text-center">
-                {errorMessages[apiError] || t('a.anUnknownErrorOccurred')}
-              </p>
-            )}
 
             {/* Botones */}
             <div className="col-span-2 flex justify-end gap-4 pt-8">

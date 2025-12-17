@@ -19,4 +19,5 @@ export const t = {
   theIdentityDocumentIsRequired: 'El documento de identidad es requerido',
   typeOfIdentificationDocumentRequired: 'Tipo de documento de identificación requerido',
   theRolesAreRequired: 'Los roles son requeridos',
+  theUserAlreadyExists: 'El usuario ya existe',
 };

@@ -16,4 +16,5 @@ export const u = {
   userCreation: 'Creación de usuario',
   userCreatedSuccessfully: 'Usuario creado con éxito',
   userCreationFailed: 'No se pudo crear el usuario',
+  addedSuccessfully: 'Agregad@ con éxito',
 };

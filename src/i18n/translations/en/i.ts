@@ -16,4 +16,5 @@ export const i = {
   incorrectEmailAndOrPassword: 'Incorrect email and/or password',
   internalServerErrorPleaseTryAgainLater: 'Error interno del servidor. Intenta más tarde',
   identityCard: 'Identity Card',
+  identificationDocumentExists: 'Identification document exists',
 };
