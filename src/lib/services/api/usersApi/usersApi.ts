@@ -26,7 +26,7 @@ export const usersApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Users'],
     }),
-    updateUser: builder.mutation<UpdateUserResponse, { id: string } & UpdateUserRequest>({
+    updateUser: builder.mutation<UpdateUserResponse, UpdateUserRequest>({
       query: ({ id, ...params }) => ({
         url: `/users/edit/${id}`,
         method: 'PUT',

@@ -54,6 +54,7 @@ export interface GetUserByIdResponse {
 }
 
 export interface UpdateUserRequest {
+  id: number;
   name: string;
   lastName: string;
   typeOfIdentificationDocument: number;
