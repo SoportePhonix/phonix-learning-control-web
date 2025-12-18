@@ -1,27 +1,27 @@
 'use client';
 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 
 import { UserForm } from '@/components/users/UserForm';
 import { UserFormValues } from '@/components/users/types';
-
-/* import { useUpdateUser } from '@/hooks/users/useUpdateUser'; */
+import { useUpdateUser } from '@/hooks/users/useUpdateUser';
 import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { useGetUserByIdQuery } from '@/lib/services/api/usersApi/usersApi';
-import { useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-/*export default function Page() {
+export default function Page({ params }: { params: Promise<{ userId: string }> }) {
+  const { userId } = use(params);
   const { t } = useTranslation();
-  const { id } = useParams<{ id: string }>();
 
-  const { data: roles } = useGetAllRolesQuery();
-  const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
-  const { data: user } = useGetUserByIdQuery(id);
+  const userById = useGetUserByIdQuery({ userId });
+  const roles = useGetAllRolesQuery();
+  const typeOfDocument = useGetAllTypeOfIdentificationDocumentQuery();
 
-  const { updateUser, isLoading, apiError } = useUpdateUser(id);
+  const { updateUser, isLoading, apiError } = useUpdateUser(userId);
+
+  console.log({ userById, roles, typeOfDocument });
 
   const form = useForm<UserFormValues>({
     defaultValues: {
@@ -35,47 +35,19 @@ import { useForm } from 'react-hook-form';
     },
   });
 
-  // 🔑 Cargar datos cuando llega el usuario
-  useEffect(() => {
-    if (!user) return;
-
-    form.reset({
-      name: user.name,
-      lastName: user.lastName,
-      typeOfIdentificationDocument: user.typeOfIdentificationDocumentId,
-      identificationDocument: user.identificationDocument,
-      email: user.email,
-      password: '',
-      roleId: user.roleId,
-    });
-  }, [user, form]);
-
   return (
-    <div className="min-h-screen w-full">
-      <div className="px-1 pt-10 pb-2">
-        <h1 className="text-xl font-normal mb-10">
-          {t('u.userUpdate')}
-        </h1>
-      </div>
-
-      <div className="bg-white/70 backdrop-blur-sm rounded-md shadow-sm">
-        <p className="text-center text-sm py-6 border-b">
-          {t('t.toUpdateAUserCompleteTheFields')}
-        </p>
-
-        <UserForm
-          mode="edit"
-          form={form}
-          onSubmit={updateUser}
-          roles={roles?.data ?? []}
-          typesId={typesId?.data ?? []}
-          isLoading={isLoading}
-          apiError={apiError}
-          t={t}
-        />
-      </div>
-    </div>
+    <>
+      <div>Actualizar Usuario {userById.data?.data.name}</div>;
+      <UserForm
+        mode="edit"
+        form={form}
+        roles={roles?.data?.data ?? []}
+        typesId={typeOfDocument?.data?.data ?? []}
+        onSubmit={updateUser}
+        isLoading={userById?.isLoading}
+        apiError={userById?.error as any}
+        t={t}
+      />
+    </>
   );
-}*/
-
-export default function Page() {}
+}

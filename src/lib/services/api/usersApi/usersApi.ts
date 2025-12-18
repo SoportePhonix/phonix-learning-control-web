@@ -2,6 +2,7 @@ import { api } from '../api';
 import {
   AddUserDataResponse,
   AddUserRequest,
+  GetUserByIdRequest,
   GetUserByIdResponse,
   GetUsersResponse,
   UpdateUserRequest,
@@ -14,9 +15,9 @@ export const usersApi = api.injectEndpoints({
       query: () => '/users/all',
       providesTags: ['Users'],
     }),
-    getUserById: builder.query<GetUserByIdResponse, string>({
-      query: (id) => `/users/${id}`,
-      providesTags: (result, error, id) => [{ type: 'Users', id }],
+    getUserById: builder.query<GetUserByIdResponse, GetUserByIdRequest>({
+      query: ({ userId }) => `/users/${userId}`,
+      providesTags: (result, error, { userId }) => [{ type: 'Users', id: userId }],
     }),
     addUsers: builder.mutation<AddUserDataResponse, AddUserRequest>({
       query: (params) => ({
@@ -43,7 +44,7 @@ export const {
    * Get
    */
   useGetAllUsersQuery,
-
+  useGetUserByIdQuery,
   /**
    * Lazy Get
    */
@@ -52,6 +53,5 @@ export const {
    * Mutations
    */
   useAddUsersMutation,
-  useGetUserByIdQuery,
   useUpdateUserMutation,
 } = usersApi;

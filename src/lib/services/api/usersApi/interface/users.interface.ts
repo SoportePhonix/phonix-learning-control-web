@@ -53,6 +53,10 @@ export interface GetUserByIdResponse {
   data: User;
 }
 
+export interface GetUserByIdRequest {
+  userId: string;
+}
+
 export interface UpdateUserRequest {
   id: number;
   name: string;
