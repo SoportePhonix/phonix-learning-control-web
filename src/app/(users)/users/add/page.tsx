@@ -36,6 +36,7 @@ export default function Page() {
         <p className="text-center text-sm py-6 border-b">{t('t.toCreateAUserPleaseFillInTheFields')}</p>
 
         <UserForm
+          mode="create"
           form={form}
           onSubmit={createUser}
           roles={roles?.data ?? []}

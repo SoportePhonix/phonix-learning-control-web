@@ -52,4 +52,6 @@ export const {
    * Mutations
    */
   useAddUsersMutation,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
 } = usersApi;

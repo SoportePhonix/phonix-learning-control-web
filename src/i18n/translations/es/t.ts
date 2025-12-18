@@ -20,4 +20,5 @@ export const t = {
   typeOfIdentificationDocumentRequired: 'Tipo de documento de identificación requerido',
   theRolesAreRequired: 'Los roles son requeridos',
   theUserAlreadyExists: 'El usuario ya existe',
+  toUpdateAUserCompleteTheFields: 'Para actualizar un usuario, complete los campos',
 };

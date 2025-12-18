@@ -10,6 +10,8 @@ import { Controller, UseFormReturn } from 'react-hook-form';
 
 import { UserFormValues } from './types';
 
+type FormMode = 'create' | 'edit';
+
 type Props = {
   form: UseFormReturn<UserFormValues>;
   onSubmit: (values: UserFormValues) => void;
@@ -18,9 +20,10 @@ type Props = {
   isLoading?: boolean;
   apiError?: number | null;
   t: (key: TranslationKey) => string;
+  mode?: FormMode;
 };
 
-export function UserForm({ form, onSubmit, roles, typesId, isLoading, apiError, t }: Props) {
+export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLoading, apiError, t }: Props) {
   const {
     register,
     control,
@@ -162,7 +165,13 @@ export function UserForm({ form, onSubmit, roles, typesId, isLoading, apiError, 
           </Link>
 
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? t('c.creating') : t('a.add')}
+            {isLoading
+              ? mode === 'edit'
+                ? t('u.updating')
+                : t('c.creating')
+              : mode === 'edit'
+                ? t('u.update')
+                : t('a.add')}
           </Button>
         </div>
       </form>
