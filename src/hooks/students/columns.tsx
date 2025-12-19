@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui';
 import { ColumnDef } from '@tanstack/react-table';
 import { Eye } from 'lucide-react';
+import Link from 'next/link';
 
 import { Student } from './students.mock';
 
@@ -32,15 +33,17 @@ export const columns: ColumnDef<Student>[] = [
       const student = row.original;
 
       return (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => {
-            console.log('Detalle estudiante:', student);
-          }}
-        >
-          <Eye className="h-4 w-4" />
-        </Button>
+        <Link href={'/students/info'}>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => {
+              console.log('Detalle estudiante:', student);
+            }}
+          >
+            <Eye className="h-4 w-4" />
+          </Button>
+        </Link>
       );
     },
   },
