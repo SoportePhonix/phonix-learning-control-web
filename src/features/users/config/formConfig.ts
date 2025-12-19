@@ -32,13 +32,6 @@ export const userFormConfig: FormConfig = {
       required: true, // Obligatorio en ambos modos
     },
     {
-      name: 'email',
-      label: 'e.email',
-      type: 'email',
-      placeholder: 'e.enterAValue',
-      required: true, // Obligatorio en ambos modos
-    },
-    {
       name: 'password',
       label: 'p.password',
       type: 'password',
@@ -51,6 +44,15 @@ export const userFormConfig: FormConfig = {
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/])[A-Za-z\d~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/]{8,}$/,
         patternMessage: 'p.passwordValidationMessage',
       },
+      errorTooltip: true,
+      errorTooltipTrigger: 'r.reviewPassword',
+    },
+    {
+      name: 'email',
+      label: 'e.email',
+      type: 'email',
+      placeholder: 'e.enterAValue',
+      required: true, // Obligatorio en ambos modos
     },
     {
       name: 'roleId',

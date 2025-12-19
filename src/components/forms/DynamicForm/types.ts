@@ -35,6 +35,8 @@ export type FieldConfig = {
   disabled?: boolean;
   rows?: number; // Para textarea
   className?: string; // Clases adicionales
+  errorTooltip?: boolean; // Mostrar error en tooltip en lugar de inline
+  errorTooltipTrigger?: TranslationKey; // Mensaje corto para trigger del tooltip
 };
 
 export type FormConfig = {

@@ -155,6 +155,8 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             error={error?.message as string}
             disabled={field.disabled}
             className={field.className}
+            errorTooltip={field.errorTooltip}
+            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
           />
         );
 
@@ -170,6 +172,8 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             error={error?.message as string}
             disabled={field.disabled}
             className={field.className}
+            errorTooltip={field.errorTooltip}
+            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
           />
         );
     }
