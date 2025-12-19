@@ -81,16 +81,19 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             name={fieldName}
             rules={validationRules}
             render={({ field: controllerField }) => {
-              // Convertir valor vacío a undefined para que el Select funcione correctamente
-              // y asegurarse de que el valor sea string cuando existe
+              // Convertir el valor a string solo si existe y no está vacío
+              // De lo contrario, usar undefined para que el Select muestre el placeholder
               const selectValue =
-                controllerField.value && String(controllerField.value).trim() !== ''
+                controllerField.value !== undefined &&
+                controllerField.value !== null &&
+                String(controllerField.value).trim() !== ''
                   ? String(controllerField.value)
-                  : '';
+                  : undefined;
 
               return (
                 <Select
-                  value={selectValue || undefined}
+                  key={`${fieldName}-${selectValue || 'empty'}`}
+                  value={selectValue}
                   onValueChange={controllerField.onChange}
                   disabled={field.disabled}
                 >

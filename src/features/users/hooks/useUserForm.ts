@@ -77,12 +77,10 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
         roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : '',
       };
 
-      console.log('🔄 Resetting form with:', formData);
-      console.log('📋 Available options:', { typesIdOptions, rolesOptions });
-
-      form.reset(formData);
+      // Usar reset con keepDefaultValues: false para asegurar que los valores se actualicen
+      form.reset(formData, { keepDefaultValues: false });
     }
-  }, [mode, userById.data, form, typesIdOptions, rolesOptions]);
+  }, [mode, userById.data, typesIdOptions, rolesOptions, form, userId]);
 
   return {
     formConfig,
