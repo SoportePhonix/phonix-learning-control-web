@@ -2,6 +2,7 @@
 
 import { Textarea } from '@/components/ui';
 import { Input } from '@/components/ui/input';
+import { InputPassword } from '@/components/ui/input-password';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TranslationKey } from '@/i18n';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
@@ -140,22 +141,32 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
           />
         );
 
+      case 'password':
+        return (
+          <InputPassword
+            {...register(fieldName, validationRules)}
+            placeholder={
+              mode === 'edit'
+                ? t('l.leaveBlankToKeepCurrent')
+                : field.placeholder
+                  ? t(field.placeholder)
+                  : t('e.enterAValue')
+            }
+            error={error?.message as string}
+            disabled={field.disabled}
+            className={field.className}
+          />
+        );
+
       case 'text':
       case 'email':
-      case 'password':
       case 'number':
       default:
         return (
           <Input
             type={field.type}
             {...register(fieldName, validationRules)}
-            placeholder={
-              mode === 'edit' && field.type === 'password'
-                ? t('l.leaveBlankToKeepCurrent')
-                : field.placeholder
-                  ? t(field.placeholder)
-                  : t('e.enterAValue')
-            }
+            placeholder={field.placeholder ? t(field.placeholder) : t('e.enterAValue')}
             error={error?.message as string}
             disabled={field.disabled}
             className={field.className}
@@ -176,9 +187,11 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
       {renderField()}
 
-      {error && field.type !== 'text' && field.type !== 'email' && field.type !== 'password' && (
-        <p className="text-sm text-var--red-error">{error.message as string}</p>
-      )}
+      {error &&
+        field.type !== 'text' &&
+        field.type !== 'email' &&
+        field.type !== 'number' &&
+        field.type !== 'password' && <p className="text-sm text-var--red-error">{error.message as string}</p>}
     </div>
   );
 }
