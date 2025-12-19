@@ -265,7 +265,7 @@ export function DataTable<TData>({
                 return (
                   <TableHead
                     key={header.id}
-                    className="text-left hover:bg-gray-200/60 bg-var--white text-var--primary-50 text-[0.9rem]"
+                    className="text-left hover:bg-var--primary-50/90 bg-var--primary-50 text-var--white text-[0.9rem]"
                   >
                     {header.isPlaceholder ? null : canSort ? (
                       <div className="flex items-start justify-between px-4 py-4 w-full">
