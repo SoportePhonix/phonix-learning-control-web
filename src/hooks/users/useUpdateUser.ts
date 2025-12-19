@@ -17,7 +17,7 @@ export function useUpdateUser(userId: string) {
       identificationDocument: values.identificationDocument,
       email: values.email,
       role: [{ id: Number(values.roleId) }],
-      ...(values.password ? { password: values.password } : {}),
+      password: values.password,
     };
 
     try {

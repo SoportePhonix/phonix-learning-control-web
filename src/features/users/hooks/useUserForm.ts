@@ -86,5 +86,6 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
     formConfig,
     isLoadingData: mode === 'edit' ? userById.isLoading : false,
     userData: userById.data?.data,
+    currentPassword: userById.data?.data?.password,
   };
 }

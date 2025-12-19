@@ -28,11 +28,21 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
     },
   });
 
-  const { formConfig, isLoadingData, userData } = useUserForm({
+  const { formConfig, isLoadingData, userData, currentPassword } = useUserForm({
     mode: 'edit',
     userId,
     form,
   });
+
+  // Función wrapper para manejar la contraseña de forma transparente
+  const handleSubmit = (values: UserFormValues) => {
+    const submitValues = {
+      ...values,
+      // Si no se ingresó una nueva contraseña, usar la actual
+      password: values.password || currentPassword || '',
+    };
+    updateUser(submitValues);
+  };
 
   return (
     <FormPageLayout
@@ -44,7 +54,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
         config={formConfig}
         mode="edit"
         form={form}
-        onSubmit={updateUser}
+        onSubmit={handleSubmit}
         isLoading={isLoading}
         apiError={apiError}
         cancelUrl="/users"
