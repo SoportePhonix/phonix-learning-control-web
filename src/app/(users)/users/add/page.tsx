@@ -18,8 +18,8 @@ export default function Page() {
       lastName: '',
       typeOfIdentificationDocument: '',
       identificationDocument: '',
-      email: '',
       password: '',
+      email: '',
       roleId: '',
     },
   });
