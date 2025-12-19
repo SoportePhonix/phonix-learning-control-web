@@ -1,22 +1,22 @@
 import { Button } from '@/components/ui';
-import { ColumnDef } from '@tanstack/react-table';
+import { CustomColumnDef } from '@/components/ui/data-table';
 import { Eye } from 'lucide-react';
 import Link from 'next/link';
 
-import { Student } from './students.mock';
+import { TrainingPathway } from './trainingPathways.mock';
 
-export const columns: ColumnDef<Student>[] = [
+export const trainingPathwaysColumns: CustomColumnDef<TrainingPathway>[] = [
   {
-    accessorKey: 'document',
-    header: 'Documento',
+    accessorKey: 'code',
+    header: 'Código',
   },
   {
     accessorKey: 'name',
     header: 'Nombre',
   },
   {
-    accessorKey: 'email',
-    header: 'Correo',
+    accessorKey: 'company',
+    header: 'Empresa',
   },
   {
     accessorKey: 'area',
@@ -27,13 +27,21 @@ export const columns: ColumnDef<Student>[] = [
     header: 'Cargo',
   },
   {
+    accessorKey: 'courses',
+    header: 'Cursos',
+  },
+  {
+    accessorKey: 'students',
+    header: 'Estudiantes',
+  },
+  {
     id: 'actions',
     header: 'Detalle',
     cell: ({ row }) => {
       const student = row.original;
 
       return (
-        <Link href={'/students/info'}>
+        <Link href={'/trainingPathways/info'}>
           <Button
             variant="ghost"
             size="icon"
