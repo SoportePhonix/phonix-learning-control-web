@@ -10,4 +10,5 @@ export const l = {
   login: 'Iniciar sesión',
   logout: 'Cerrar sesión',
   lastNameRequired: 'Los apellidos son requeridos',
+  leaveBlankToKeepCurrent: 'Dejar en blanco para mantener la actual',
 };

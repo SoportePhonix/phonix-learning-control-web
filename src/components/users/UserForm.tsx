@@ -45,9 +45,12 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
       <form onSubmit={handleSubmit(onSubmit)} className="w-full grid grid-cols-2 gap-x-12 gap-y-6 px-12 py-10">
         {/* Nombre */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('n.name')}</label>
+          <label className="text-sm font-medium">
+            {t('n.name')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
           <Input
-            {...register('name', { required: t('n.nameIsRequerid') })}
+            {...register('name', { required: mode === 'create' ? t('n.nameIsRequerid') : false })}
             error={errors.name?.message}
             placeholder={t('e.enterAValue')}
           />
@@ -55,9 +58,12 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
 
         {/* Apellidos */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('l.lastName')}</label>
+          <label className="text-sm font-medium">
+            {t('l.lastName')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
           <Input
-            {...register('lastName', { required: t('l.lastNameRequired') })}
+            {...register('lastName', { required: mode === 'create' ? t('l.lastNameRequired') : false })}
             error={errors.lastName?.message}
             placeholder={t('e.enterAValue')}
           />
@@ -65,12 +71,15 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
 
         {/* Tipo identificación */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('t.typeOfIdentificationDocument')}</label>
+          <label className="text-sm font-medium">
+            {t('t.typeOfIdentificationDocument')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
 
           <Controller
             control={control}
             name="typeOfIdentificationDocument"
-            rules={{ required: t('t.typeOfIdentificationDocumentRequired') }}
+            rules={{ required: mode === 'create' ? t('t.typeOfIdentificationDocumentRequired') : false }}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger className={selectStyle}>
@@ -94,10 +103,13 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
 
         {/* Documento */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('i.identificationDocument')}</label>
+          <label className="text-sm font-medium">
+            {t('i.identificationDocument')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
           <Input
             {...register('identificationDocument', {
-              required: t('t.theIdentityDocumentIsRequired'),
+              required: mode === 'create' ? t('t.theIdentityDocumentIsRequired') : false,
             })}
             error={errors.identificationDocument?.message}
             placeholder={t('e.enterAValue')}
@@ -110,9 +122,12 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
 
         {/* Email */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('e.email')}</label>
+          <label className="text-sm font-medium">
+            {t('e.email')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
           <Input
-            {...register('email', { required: t('e.emailAddressRequired') })}
+            {...register('email', { required: mode === 'create' ? t('e.emailAddressRequired') : false })}
             error={errors.email?.message}
             placeholder={t('e.enterAValue')}
           />
@@ -120,23 +135,30 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
 
         {/* Password */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('p.password')}</label>
+          <label className="text-sm font-medium">
+            {t('p.password')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+            {mode === 'edit' && <span className="text-sm text-gray-500 ml-2">({t('o.optional')})</span>}
+          </label>
           <Input
             type="password"
-            {...register('password', { required: t('p.passwordRequired') })}
+            {...register('password', { required: mode === 'create' ? t('p.passwordRequired') : false })}
             error={errors.password?.message}
-            placeholder={t('e.enterAValue')}
+            placeholder={mode === 'edit' ? t('l.leaveBlankToKeepCurrent') : t('e.enterAValue')}
           />
         </div>
 
         {/* Rol */}
         <div className="grid gap-2">
-          <label className="text-sm font-medium">{t('r.role')}</label>
+          <label className="text-sm font-medium">
+            {t('r.role')}
+            {mode === 'create' && <span className="text-red-500">*</span>}
+          </label>
 
           <Controller
             control={control}
             name="roleId"
-            rules={{ required: t('t.theRolesAreRequired') }}
+            rules={{ required: mode === 'create' ? t('t.theRolesAreRequired') : false }}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger className={selectStyle}>

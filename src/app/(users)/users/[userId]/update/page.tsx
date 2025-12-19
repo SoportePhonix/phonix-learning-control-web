@@ -21,8 +21,6 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
 
   const { updateUser, isLoading, apiError } = useUpdateUser(userId);
 
-  console.log({ userById, roles, typeOfDocument });
-
   const form = useForm<UserFormValues>({
     defaultValues: {
       name: '',
@@ -35,19 +33,42 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
     },
   });
 
+  // Cargar los datos del usuario en el formulario cuando estén disponibles
+  useEffect(() => {
+    if (userById.data?.data) {
+      const userData = userById.data.data;
+
+      form.reset({
+        name: userData.name || '',
+        lastName: userData.lastName || '',
+        typeOfIdentificationDocument: userData.typeOfIdentificationDocument?.id
+          ? String(userData.typeOfIdentificationDocument.id)
+          : undefined,
+        identificationDocument: userData.identificationDocument || '',
+        email: userData.email || '',
+        password: '', // La contraseña siempre vacía por seguridad
+        roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : undefined,
+      });
+    }
+  }, [userById.data, form]);
+
   return (
     <>
-      <div>Actualizar Usuario {userById.data?.data.name}</div>;
-      <UserForm
-        mode="edit"
-        form={form}
-        roles={roles?.data?.data ?? []}
-        typesId={typeOfDocument?.data?.data ?? []}
-        onSubmit={updateUser}
-        isLoading={userById?.isLoading}
-        apiError={userById?.error as any}
-        t={t}
-      />
+      <div className="container mx-auto py-6">
+        <h1 className="text-2xl font-bold mb-6">
+          {t('u.updateUser')}: {userById.data?.data.name || ''}
+        </h1>
+        <UserForm
+          mode="edit"
+          form={form}
+          roles={roles?.data?.data ?? []}
+          typesId={typeOfDocument?.data?.data ?? []}
+          onSubmit={updateUser}
+          isLoading={userById?.isLoading || isLoading}
+          apiError={apiError}
+          t={t}
+        />
+      </div>
     </>
   );
 }

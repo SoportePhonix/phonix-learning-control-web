@@ -18,4 +18,5 @@ export const u = {
   userCreationFailed: 'User could not be created',
   addedSuccessfully: 'Added successfully',
   updating: 'Updating',
+  updateUser: 'Update user',
 };

@@ -18,4 +18,5 @@ export const u = {
   userCreationFailed: 'No se pudo crear el usuario',
   addedSuccessfully: 'Agregad@ con éxito',
   updating: 'Actualizando',
+  updateUser: 'Actualizar usuario',
 };

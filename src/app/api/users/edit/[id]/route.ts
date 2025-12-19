@@ -2,9 +2,9 @@ import { authOptions } from '@/lib/auth';
 import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
-import { NextRequest } from 'next/server';
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: any) {
+  const { id: userId } = await params;
   try {
     const body = await req.json();
     const session: CustomSession | null = await getServerSession(authOptions);
@@ -15,8 +15,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       });
     }
 
-    const response = await fetch(`${process.env.API_URL}/users/update/${params.id}`, {
-      method: 'PUT',
+    const response = await fetch(`${process.env.API_URL}/users/update/${userId}`, {
+      method: 'PATCH',
       body: JSON.stringify(body),
       headers: {
         authorization: `Bearer ${session?.user?.accessToken}`,
@@ -26,6 +26,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     });
 
     const data = await response.json();
+
+    console.log('Response data:', data);
     const errorResponse = ApiRes.fromExternalResponse(data);
     if (errorResponse) return errorResponse;
 

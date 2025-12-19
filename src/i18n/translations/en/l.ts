@@ -10,4 +10,5 @@ export const l = {
   login: 'Login',
   logout: 'Logout',
   lastNameRequired: 'Last name required',
+  leaveBlankToKeepCurrent: 'Leave blank to keep current',
 };
