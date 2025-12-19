@@ -16,4 +16,6 @@ export const i = {
   incorrectEmailAndOrPassword: 'Correo y/o contraseña incorrectos',
   internalServerErrorPleaseTryAgainLater: 'Internal server error please try again later',
   identityCard: 'Tarjeta de identidad',
+  isRequired: 'es requerido',
+  invalidFormat: 'Formato inválido',
 };

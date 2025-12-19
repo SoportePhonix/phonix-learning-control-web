@@ -1,17 +1,15 @@
 'use client';
 
-import { UserForm } from '@/components/users/UserForm';
+import { DynamicForm } from '@/components/forms/DynamicForm';
+import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { UserFormValues } from '@/components/users/types';
+import { useUserForm } from '@/features/users/hooks/useUserForm';
 import { useCreateUser } from '@/hooks/users/useCreateUser';
 import { useTranslation } from '@/i18n';
-import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
-import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
-  const { data: roles } = useGetAllRolesQuery();
-  const { data: typesId } = useGetAllTypeOfIdentificationDocumentQuery();
   const { createUser, isLoading, apiError } = useCreateUser();
 
   const form = useForm<UserFormValues>({
@@ -26,26 +24,23 @@ export default function Page() {
     },
   });
 
+  const { formConfig } = useUserForm({
+    mode: 'create',
+    form,
+  });
+
   return (
-    <div className="min-h-screen w-full">
-      <div className="px-1 pt-10 pb-2">
-        <h1 className="text-xl font-normal mb-10">{t('u.userCreation')}</h1>
-      </div>
-
-      <div className="bg-white/70 backdrop-blur-sm rounded-md shadow-sm">
-        <p className="text-center text-sm py-6 border-b">{t('t.toCreateAUserPleaseFillInTheFields')}</p>
-
-        <UserForm
-          mode="create"
-          form={form}
-          onSubmit={createUser}
-          roles={roles?.data ?? []}
-          typesId={typesId?.data ?? []}
-          isLoading={isLoading}
-          apiError={apiError}
-          t={t}
-        />
-      </div>
-    </div>
+    <FormPageLayout title={t('u.userCreation')} description={t('t.toCreateAUserPleaseFillInTheFields')}>
+      <DynamicForm
+        config={formConfig}
+        mode="create"
+        form={form}
+        onSubmit={createUser}
+        isLoading={isLoading}
+        apiError={apiError}
+        cancelUrl="/users"
+        t={t}
+      />
+    </FormPageLayout>
   );
 }

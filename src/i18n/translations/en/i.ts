@@ -17,4 +17,6 @@ export const i = {
   internalServerErrorPleaseTryAgainLater: 'Error interno del servidor. Intenta más tarde',
   identityCard: 'Identity Card',
   identificationDocumentExists: 'Identification document exists',
+  isRequired: 'is required',
+  invalidFormat: 'Invalid format',
 };

@@ -63,4 +63,5 @@ export {
   useSidebar,
 } from './sidebar';
 export { Skeleton } from './skeleton';
+export { Textarea } from './textarea';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip';

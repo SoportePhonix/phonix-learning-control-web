@@ -4,4 +4,8 @@ export const m = {
   messages: 'Messages',
   modify: 'Modify',
   more: 'More',
+  minimumLength: 'Minimum length',
+  maximumLength: 'Maximum length',
+  minimumValue: 'Minimum value',
+  maximumValue: 'Maximum value',
 };
