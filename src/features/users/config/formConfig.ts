@@ -7,21 +7,21 @@ export const userFormConfig: FormConfig = {
       label: 'n.name',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
     },
     {
       name: 'lastName',
       label: 'l.lastName',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
     },
     {
       name: 'typeOfIdentificationDocument',
       label: 't.typeOfIdentificationDocument',
       type: 'select',
       placeholder: 's.selectAnOption',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
       options: [], // Se llenará dinámicamente desde la página
     },
     {
@@ -29,28 +29,28 @@ export const userFormConfig: FormConfig = {
       label: 'i.identificationDocument',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
     },
     {
       name: 'email',
       label: 'e.email',
       type: 'email',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
     },
     {
       name: 'password',
       label: 'p.password',
       type: 'password',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: { create: true, edit: false }, // Obligatorio solo al crear
     },
     {
       name: 'roleId',
       label: 'r.role',
       type: 'select',
       placeholder: 's.selectAnOption',
-      required: { create: true, edit: false },
+      required: true, // Obligatorio en ambos modos
       options: [], // Se llenará dinámicamente desde la página
     },
   ],

@@ -152,8 +152,8 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
     <div className="grid gap-2">
       <label className="text-sm font-medium">
         {t(field.label)}
-        {mode === 'create' && isRequired && <span className="text-red-500">*</span>}
-        {mode === 'edit' && field.type === 'password' && (
+        {isRequired && <span className="text-red-500">*</span>}
+        {mode === 'edit' && field.type === 'password' && !isRequired && (
           <span className="text-sm text-gray-500 ml-2">({t('o.optional')})</span>
         )}
       </label>
