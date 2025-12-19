@@ -19,4 +19,6 @@ export const u = {
   addedSuccessfully: 'Agregad@ con éxito',
   updating: 'Actualizando',
   updateUser: 'Actualizar usuario',
+  updatedSuccessfully: 'Actualizad@ con éxito',
+  userUpdateFailed: 'No se pudo actualizar el usuario',
 };

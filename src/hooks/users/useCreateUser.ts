@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import { useTranslation } from '@/i18n';
 import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
 import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
@@ -21,9 +19,7 @@ type FormValues = {
 export function useCreateUser() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [apiError, setApiError] = useState<number | null>(null);
-
-  const [addUser, { isLoading, isError, isSuccess, status, error }] = useAddUsersMutation();
+  const [addUser, { isLoading, error }] = useAddUsersMutation();
 
   const createUser = async (values: FormValues) => {
     const payload: AddUserRequest = {
@@ -36,17 +32,14 @@ export function useCreateUser() {
       role: [{ id: Number(values.roleId) }],
     };
 
-    setApiError(null);
-
     try {
       await addUser(payload).unwrap();
-      toast.success(` ${values.name} ${values.lastName} ${t('u.addedSuccessfully')} `, {
+      toast.success(`${values.name} ${values.lastName} ${t('u.addedSuccessfully')}`, {
         id: 'user-created-success',
       });
       router.push('/users');
-    } catch (err: any) {
-      const status = err?.status ?? 500;
-      setApiError(status);
+    } catch (err) {
+      // El error ya está manejado por RTK Query en el estado 'error'
       toast.error(t('u.userCreationFailed'));
     }
   };
@@ -54,11 +47,6 @@ export function useCreateUser() {
   return {
     createUser,
     isLoading,
-    isError,
-    isSuccess,
-    status,
-    error,
-    apiError,
-    setApiError,
+    apiError: (error as any)?.status ?? null,
   };
 }
