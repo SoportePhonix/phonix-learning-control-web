@@ -35,33 +35,33 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
   if (field.validation) {
     if (field.validation.pattern) {
-      validationRules.pattern = {
-        value: field.validation.pattern,
-        message: t('i.invalidFormat'),
+      // Para el patrón, solo validar si hay un valor ingresado (para el caso de password en modo edit)
+      validationRules.validate = {
+        pattern: (value: string) => {
+          // Si no hay valor y no es requerido, no validar
+          if (!value && !isRequired) return true;
+          // Si hay valor, validar el patrón
+          if (value && !field.validation?.pattern?.test(value)) {
+            // Mensaje personalizado para password
+            if (field.type === 'password') {
+              return t('p.passwordValidationMessage');
+            }
+            return t('i.invalidFormat');
+          }
+          return true;
+        },
       };
     }
     if (field.validation.minLength) {
       validationRules.minLength = {
         value: field.validation.minLength,
-        message: `${t('m.minimumLength')}: ${field.validation.minLength}`,
-      };
-    }
-    if (field.validation.maxLength) {
-      validationRules.maxLength = {
-        value: field.validation.maxLength,
-        message: `${t('m.maximumLength')}: ${field.validation.maxLength}`,
+        message: `${t('p.passwordValidationMessageLength')}`,
       };
     }
     if (field.validation.min !== undefined) {
       validationRules.min = {
         value: field.validation.min,
-        message: `${t('m.minimumValue')}: ${field.validation.min}`,
-      };
-    }
-    if (field.validation.max !== undefined) {
-      validationRules.max = {
-        value: field.validation.max,
-        message: `${t('m.maximumValue')}: ${field.validation.max}`,
+        message: `${t('p.passwordValidationMessageLength')}`,
       };
     }
   }

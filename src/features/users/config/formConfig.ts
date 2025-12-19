@@ -44,6 +44,11 @@ export const userFormConfig: FormConfig = {
       type: 'password',
       placeholder: 'e.enterAValue',
       required: { create: true, edit: false }, // Obligatorio solo al crear
+      validation: {
+        minLength: 8,
+        pattern:
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/])[A-Za-z\d~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/]{8,}$/,
+      },
     },
     {
       name: 'roleId',
