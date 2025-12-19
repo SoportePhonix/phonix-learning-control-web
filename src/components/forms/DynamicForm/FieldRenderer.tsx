@@ -80,24 +80,33 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             control={control}
             name={fieldName}
             rules={validationRules}
-            render={({ field: controllerField }) => (
-              <Select
-                value={controllerField.value as string}
-                onValueChange={controllerField.onChange}
-                disabled={field.disabled}
-              >
-                <SelectTrigger className={selectStyle}>
-                  <SelectValue placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {options.map((option) => (
-                    <SelectItem key={option.value} value={String(option.value)}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
+            render={({ field: controllerField }) => {
+              // Convertir valor vacío a undefined para que el Select funcione correctamente
+              // y asegurarse de que el valor sea string cuando existe
+              const selectValue =
+                controllerField.value && String(controllerField.value).trim() !== ''
+                  ? String(controllerField.value)
+                  : '';
+
+              return (
+                <Select
+                  value={selectValue || undefined}
+                  onValueChange={controllerField.onChange}
+                  disabled={field.disabled}
+                >
+                  <SelectTrigger className={selectStyle}>
+                    <SelectValue placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.map((option) => (
+                      <SelectItem key={option.value} value={String(option.value)}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              );
+            }}
           />
         );
 

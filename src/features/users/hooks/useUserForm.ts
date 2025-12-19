@@ -62,10 +62,10 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
 
   // Cargar datos del usuario en modo edición
   useEffect(() => {
-    if (mode === 'edit' && userById.data?.data) {
+    if (mode === 'edit' && userById.data?.data && typesIdOptions.length > 0 && rolesOptions.length > 0) {
       const userData = userById.data.data;
 
-      form.reset({
+      const formData = {
         name: userData.name || '',
         lastName: userData.lastName || '',
         typeOfIdentificationDocument: userData.typeOfIdentificationDocument?.id
@@ -75,9 +75,14 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
         email: userData.email || '',
         password: '',
         roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : '',
-      });
+      };
+
+      console.log('🔄 Resetting form with:', formData);
+      console.log('📋 Available options:', { typesIdOptions, rolesOptions });
+
+      form.reset(formData);
     }
-  }, [mode, userById.data, form]);
+  }, [mode, userById.data, form, typesIdOptions, rolesOptions]);
 
   return {
     formConfig,
