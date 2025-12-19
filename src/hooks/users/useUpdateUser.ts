@@ -16,7 +16,7 @@ export function useUpdateUser(userId: string) {
       typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
       identificationDocument: values.identificationDocument,
       email: values.email,
-      role: [{ id: Number(values.roleId) }],
+      role: [{ id: Number(values.roleId) }] as [{ id: number }],
       password: values.password,
     };
 
@@ -24,7 +24,7 @@ export function useUpdateUser(userId: string) {
       await updateUserMutation({
         id: Number(userId),
         ...payload,
-      } as Parameters<typeof updateUserMutation>[0]).unwrap();
+      }).unwrap();
 
       toast.success(`${values.name} ${values.lastName} ${t('u.updatedSuccessfully')}`, {
         id: 'user-updated-success',
