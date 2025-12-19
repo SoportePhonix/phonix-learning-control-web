@@ -35,18 +35,14 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
   if (field.validation) {
     if (field.validation.pattern) {
-      // Para el patrón, solo validar si hay un valor ingresado (para el caso de password en modo edit)
+      // Para el patrón, solo validar si hay un valor ingresado (útil para campos opcionales en modo edit)
       validationRules.validate = {
         pattern: (value: string) => {
           // Si no hay valor y no es requerido, no validar
           if (!value && !isRequired) return true;
           // Si hay valor, validar el patrón
-          if (value && !field.validation?.pattern?.test(value)) {
-            // Mensaje personalizado para password
-            if (field.type === 'password') {
-              return t('p.passwordValidationMessage');
-            }
-            return t('i.invalidFormat');
+          if (value && field.validation?.pattern && !field.validation.pattern.test(value)) {
+            return field.validation.patternMessage ? t(field.validation.patternMessage) : t('i.invalidFormat');
           }
           return true;
         },
@@ -55,13 +51,33 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
     if (field.validation.minLength) {
       validationRules.minLength = {
         value: field.validation.minLength,
-        message: `${t('p.passwordValidationMessageLength')}`,
+        message: field.validation.minLengthMessage
+          ? t(field.validation.minLengthMessage)
+          : `${t('m.minimumLength')}: ${field.validation.minLength}`,
+      };
+    }
+    if (field.validation.maxLength) {
+      validationRules.maxLength = {
+        value: field.validation.maxLength,
+        message: field.validation.maxLengthMessage
+          ? t(field.validation.maxLengthMessage)
+          : `${t('m.maximumLength')}: ${field.validation.maxLength}`,
       };
     }
     if (field.validation.min !== undefined) {
       validationRules.min = {
         value: field.validation.min,
-        message: `${t('p.passwordValidationMessageLength')}`,
+        message: field.validation.minMessage
+          ? t(field.validation.minMessage)
+          : `${t('m.minimumValue')}: ${field.validation.min}`,
+      };
+    }
+    if (field.validation.max !== undefined) {
+      validationRules.max = {
+        value: field.validation.max,
+        message: field.validation.maxMessage
+          ? t(field.validation.maxMessage)
+          : `${t('m.maximumValue')}: ${field.validation.max}`,
       };
     }
   }

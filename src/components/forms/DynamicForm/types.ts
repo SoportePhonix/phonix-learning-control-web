@@ -12,10 +12,15 @@ export type SelectOption = {
 
 export type FieldValidation = {
   pattern?: RegExp;
+  patternMessage?: TranslationKey; // Mensaje personalizado para validación de pattern
   minLength?: number;
+  minLengthMessage?: TranslationKey; // Mensaje personalizado para minLength
   maxLength?: number;
+  maxLengthMessage?: TranslationKey; // Mensaje personalizado para maxLength
   min?: number;
+  minMessage?: TranslationKey; // Mensaje personalizado para min
   max?: number;
+  maxMessage?: TranslationKey; // Mensaje personalizado para max
   custom?: (value: any) => boolean | string;
 };
 
