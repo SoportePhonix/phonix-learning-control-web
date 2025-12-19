@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { Student } from './students.mock';
 
-export const studentsColumns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: 'document',
     header: 'Documento',
