@@ -14,6 +14,10 @@ import {
 } from '@/components/ui/sidebar';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { Users } from 'lucide-react';
+import { ShieldPlus } from 'lucide-react';
+import { UserRound } from 'lucide-react';
+import { Book } from 'lucide-react';
+import { Library } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { IoHomeOutline } from 'react-icons/io5';
 
@@ -53,7 +57,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         name: 'Usuarios',
         url: '/users',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Users {...props} />,
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <ShieldPlus {...props} />,
+      },
+      {
+        name: 'Estudiantes',
+        url: '/students',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserRound {...props} />,
+      },
+      {
+        name: 'Cursos',
+        url: '/courses',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Book {...props} />,
+      },
+      {
+        name: 'Rutas de formación',
+        url: '/trainingPathways',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Library {...props} />,
       },
     ],
   };
