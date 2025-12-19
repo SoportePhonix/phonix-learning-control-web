@@ -12,7 +12,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, errorTooltip, errorTooltipTrigger, ...props }, ref) => {
     return (
-      <div className={cn('flex flex-col space-y-1 relative', error && !errorTooltip && 'mb-6')}>
+      <div className="flex flex-col space-y-1 relative mb-6">
         {label && <label className="text-sm font-light text-var--gray_medium">{label}</label>}
         <input
           type={type}
