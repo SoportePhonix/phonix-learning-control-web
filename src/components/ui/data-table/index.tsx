@@ -254,67 +254,69 @@ export function DataTable<TData>({
         )}
       </div>
 
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                const canSort = header.column.columnDef.enableSorting ?? false;
-                const isSorted = header.column.getIsSorted();
+      <div className="bg-white rounded-lg">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  const canSort = header.column.columnDef.enableSorting ?? false;
+                  const isSorted = header.column.getIsSorted();
 
-                return (
-                  <TableHead
-                    key={header.id}
-                    className="text-left hover:bg-var--primary-50/90 bg-var--primary-50 text-var--white text-[0.9rem]"
-                  >
-                    {header.isPlaceholder ? null : canSort ? (
-                      <div className="flex items-start justify-between px-4 py-4 w-full">
-                        <button
-                          className="font-semibold flex items-start gap-2 w-full"
-                          onClick={() => header.column.toggleSorting(isSorted === 'asc')}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 flex-shrink-0" />}
-                          {isSorted === 'desc' && <MoveDown className="w-5 h-5 flex-shrink-0" />}
-                          {isSorted === 'asc' && <MoveDown className="w-5 h-5 flex-shrink-0 rotate-180" />}
-                        </button>
-
-                        {isSorted !== false && (
+                  return (
+                    <TableHead
+                      key={header.id}
+                      className="text-left hover:bg-var--primary-50/90 bg-var--primary-50 text-var--white text-[0.9rem]"
+                    >
+                      {header.isPlaceholder ? null : canSort ? (
+                        <div className="flex items-start justify-between px-4 py-4 w-full">
                           <button
-                            className="text-var-gray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
-                            onClick={() => header.column.clearSorting()}
+                            className="font-semibold flex items-start gap-2 w-full"
+                            onClick={() => header.column.toggleSorting(isSorted === 'asc')}
                           >
-                            <CircleX className="w-5 h-5 flex-shrink-0" />
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 flex-shrink-0" />}
+                            {isSorted === 'desc' && <MoveDown className="w-5 h-5 flex-shrink-0" />}
+                            {isSorted === 'asc' && <MoveDown className="w-5 h-5 flex-shrink-0 rotate-180" />}
                           </button>
-                        )}
-                      </div>
-                    ) : (
-                      <button className="font-semibold w-full flex justify-left px-4 py-4">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                      </button>
-                    )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {isLoading && data.length === 0 ? (
-            Array.from({ length: isPaginatedFromApi ? sizePageValue : pagination.pageSize }).map((_, index) => (
-              <SkeletonRow key={index} visibleColumns={table.getVisibleLeafColumns()} />
-            ))
-          ) : table.getRowModel().rows.length > 0 ? (
-            <TableRows rows={table.getRowModel().rows} columns={columns} />
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="text-center text-xl h-[32.5rem] bg-white/50">
-                No existe información para mostrar
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+
+                          {isSorted !== false && (
+                            <button
+                              className="text-var-gray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
+                              onClick={() => header.column.clearSorting()}
+                            >
+                              <CircleX className="w-5 h-5 flex-shrink-0" />
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <button className="font-semibold w-full flex justify-left px-4 py-4">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </button>
+                      )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isLoading && data.length === 0 ? (
+              Array.from({ length: isPaginatedFromApi ? sizePageValue : pagination.pageSize }).map((_, index) => (
+                <SkeletonRow key={index} visibleColumns={table.getVisibleLeafColumns()} />
+              ))
+            ) : table.getRowModel().rows.length > 0 ? (
+              <TableRows rows={table.getRowModel().rows} columns={columns} />
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center text-xl h-[32.5rem] bg-white">
+                  No existe información para mostrar
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
       <div className="flex items-center justify-center py-4 relative">
         <DropdownMenu>
