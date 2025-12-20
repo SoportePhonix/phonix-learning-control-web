@@ -33,7 +33,7 @@ export const studentsColumns: ColumnDef<Student>[] = [
       const student = row.original;
 
       return (
-        <Link href={'/students/info'}>
+        <Link href={`/students/info/${student.id}`}>
           <Button
             variant="ghost"
             size="icon"
