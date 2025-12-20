@@ -4,6 +4,7 @@ import { use } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
+import { SectionTitle } from '@/components/section-title';
 import { UserFormValues } from '@/components/users/types';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
 import { useUpdateUser } from '@/hooks/users/useUpdateUser';
@@ -45,21 +46,20 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
   };
 
   return (
-    <FormPageLayout
-      title={`${t('u.updateUser')}: ${userData?.name || ''}`}
-      description={t('t.toUpdateAUserCompleteTheFields')}
-      isLoading={isLoadingData}
-    >
-      <DynamicForm
-        config={formConfig}
-        mode="edit"
-        form={form}
-        onSubmit={handleSubmit}
-        isLoading={isLoading}
-        apiError={apiError}
-        cancelUrl="/users"
-        t={t}
-      />
-    </FormPageLayout>
+    <>
+      <SectionTitle title={`${t('u.updateUser')}: ${userData?.name || ''}`} />
+      <FormPageLayout description={t('t.toUpdateAUserCompleteTheFields')} isLoading={isLoadingData}>
+        <DynamicForm
+          config={formConfig}
+          mode="edit"
+          form={form}
+          onSubmit={handleSubmit}
+          isLoading={isLoading}
+          apiError={apiError}
+          cancelUrl="/users"
+          t={t}
+        />
+      </FormPageLayout>
+    </>
   );
 }

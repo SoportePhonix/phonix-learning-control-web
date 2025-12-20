@@ -2,6 +2,7 @@
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
+import { SectionTitle } from '@/components/section-title';
 import { UserFormValues } from '@/components/users/types';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
 import { useCreateUser } from '@/hooks/users/useCreateUser';
@@ -30,17 +31,20 @@ export default function Page() {
   });
 
   return (
-    <FormPageLayout title={t('u.userCreation')} description={t('t.toCreateAUserPleaseFillInTheFields')}>
-      <DynamicForm
-        config={formConfig}
-        mode="create"
-        form={form}
-        onSubmit={createUser}
-        isLoading={isLoading}
-        apiError={apiError}
-        cancelUrl="/users"
-        t={t}
-      />
-    </FormPageLayout>
+    <>
+      <SectionTitle title={t('a.addUser')} />
+      <FormPageLayout description={t('t.toCreateAUserPleaseFillInTheFields')}>
+        <DynamicForm
+          config={formConfig}
+          mode="create"
+          form={form}
+          onSubmit={createUser}
+          isLoading={isLoading}
+          apiError={apiError}
+          cancelUrl="/users"
+          t={t}
+        />
+      </FormPageLayout>
+    </>
   );
 }

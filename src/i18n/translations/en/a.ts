@@ -9,6 +9,7 @@ export const a = {
   activeGroup: 'Active Group',
   add: 'Add',
   address: 'Address',
+  addUser: 'Add User',
   admin: 'Admin',
   all: 'All',
   apply: 'Apply',
