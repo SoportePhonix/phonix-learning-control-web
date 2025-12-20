@@ -31,7 +31,7 @@ export default function Page() {
   });
 
   return (
-    <>
+    <div className="p-8">
       <SectionTitle title={t('a.addUser')} />
       <FormPageLayout description={t('t.toCreateAUserPleaseFillInTheFields')}>
         <DynamicForm
@@ -45,6 +45,6 @@ export default function Page() {
           t={t}
         />
       </FormPageLayout>
-    </>
+    </div>
   );
 }
