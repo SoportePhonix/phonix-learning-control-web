@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Pen } from 'lucide-react';
 
 import { CircularProgress } from './CircularProgress';
 
@@ -26,56 +26,47 @@ export function StudentDetailCard({ student, stats }: Props) {
     .join('');
 
   return (
-    <Card className="w-[505px] h-[582px] p-[19px_21px] flex flex-col gap-[10px]">
-      <CardHeader className="p-0 flex flex-col items-center gap-2">
+    <Card className="max-w-[505px] max-h-[582px] p-8 flex flex-col gap-1 rounded-[8px] border-[#3A5761]/35">
+      <CardHeader className="py-4 flex flex-col items-center gap-2">
         <Avatar className="h-14 w-14">
-          <AvatarFallback className="text-sm font-semibold">{initials}</AvatarFallback>
+          <AvatarFallback className="text-sm font-normal bg-red-300 text-white ">{initials}</AvatarFallback>
         </Avatar>
-        <p className="text-[18px] font-semibold leading-none text-[#1F2A37]">{student.name}</p>
-        <div className="border-b border-[#3A576133] w-full pt-2" />
+        <p className="text-[18px] font-semibold leading-none text-[#3A484C]">{student.name}</p>
+        <div className="flex text-[14px] font-normal leading-none text-[#0067D7] pt-4 cursor-not-allowed">
+          <Pen size={16} />
+          <span className="mt-0.5 mx-2 border-b-[1px] border-[#0067D7]">Editar información del estudiante</span>
+        </div>
       </CardHeader>
 
-      <CardContent className="w-[448px] flex flex-col gap-[23px] p-0">
-        <div className="relative flex items-center px-[18px] py-[15px]">
-          {/* Rutas (más angosto) */}
-          <div className="flex flex-col items-center gap-[6px] w-[90px]">
-            <p className="text-[32px] font-light leading-none text-[#1F2A37]">4</p>
-            <p className="text-[18px] font-semibold leading-none text-[#4B5563]">Rutas</p>
+      <CardContent className="w-full flex flex-col gap-6 p-0">
+        <div className="relative grid grid-cols-3 items-center justify-center py-2 w-full border-y border-[#3A5761]/35">
+          <div className="flex flex-col items-center relative">
+            <p className="text-[32px] font-light leading-none text-[#0B262E] py-5">4</p>
+            <p className="text-[18px] font-semibold leading-none text-[#3A484C]">Rutas</p>
           </div>
 
-          {/* Línea 1 */}
-          <div className="h-[100px] w-px bg-[#3A576133] mx-[28px]" />
-
-          {/* Cursos (más ancho) */}
-          <div className="flex flex-col items-center gap-[6px] w-[150px]">
-            <p className="text-[32px] font-light leading-none text-[#1F2A37]">15</p>
-            <p className="text-[18px] font-semibold leading-none text-[#4B5563]">Cursos totales</p>
+          <div className="flex flex-col items-center text-center border-[#3A5761]/35 border-x py-6">
+            <p className="text-[32px] font-light leading-none text-[#0B262E] py-5">15</p>
+            <p className="text-[18px] font-semibold leading-none text-[#3A484C]">Cursos</p>
           </div>
 
-          {/* Línea 2 */}
-          <div className="h-[100px] w-px bg-[#3A576133] mx-[28px]" />
-
-          {/* Progreso (el más ancho) */}
-          <div className="flex items-center justify-center w-[127px]">
+          <div className="flex items-center justify-center ">
             <CircularProgress value={stats.progress} />
           </div>
-
-          {/* Línea inferior */}
-          <div className="absolute left-[9px] bottom-0 h-px w-[445px] bg-[#3A576133]" />
         </div>
 
-        <div className="grid grid-cols-[1fr_auto] gap-y-[25px] gap-x-[24px] w-full">
-          <span className="text-[16px] font-semibold leading-none text-[#4B5563]">Documento</span>
-          <span className="text-[18px] font-normal leading-none text-[#1F2A37] ">{student.document}</span>
+        <div className="grid grid-cols-[1fr_auto] gap-y-7 w-full">
+          <span className="text-[16px] font-bold leading-none text-[#3A484C]">Documento</span>
+          <span className="text-[18px] font-normal leading-none text-[#0B262E] ">{student.document}</span>
 
-          <span className="text-[16px] font-semibold leading-none text-[#4B5563]">Correo</span>
-          <span className="text-[18px] font-normal leading-none text-[#1F2A37] ">{student.email}</span>
+          <span className="text-[16px] font-bold leading-none text-[#3A484C]">Correo</span>
+          <span className="text-[18px] font-normal leading-none text-[#0B262E] ">{student.email}</span>
 
-          <span className="text-[16px] font-semibold leading-none text-[#4B5563]">Área</span>
-          <span className="text-[18px] font-normal leading-none text-[#1F2A37] ">{student.area}</span>
+          <span className="text-[16px] font-bold leading-none text-[#3A484C]">Área</span>
+          <span className="text-[18px] font-normal leading-none text-[#0B262E] ">{student.area}</span>
 
-          <span className="text-[16px] font-semibold leading-none text-[#4B5563]">Cargo</span>
-          <span className="text-[18px] font-normal leading-none text-[#1F2A37] ">{student.role}</span>
+          <span className="text-[16px] font-bold leading-none text-[#3A484C]">Cargo</span>
+          <span className="text-[18px] font-normal leading-none text-[#0B262E] ">{student.role}</span>
         </div>
       </CardContent>
     </Card>

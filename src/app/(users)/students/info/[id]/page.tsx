@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionTitle } from '@/components/section-title';
 import { StudentDetailCard } from '@/components/student-detail-card/StudentDetailCard';
 import { Typography } from '@/components/ui/typography';
 import { studentStatsMock } from '@/hooks/students/studentStats.mock';
@@ -17,13 +18,13 @@ export default function StudentInfoPage() {
   }
 
   return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <Typography variant="titulo_medio" className="text-var--negro font-light mb-4">
-        Detalle de estudiante
-      </Typography>
-      <div className="p-6 flex">
-        {/* Card a la izquierda */}
-        <StudentDetailCard student={student} stats={stats} />
+    <div className="p-8 mb-20 h-full w-full flex flex-col">
+      <SectionTitle title="Detalle de estudiante" />
+      <div className="grid grid-cols-7 gap-4">
+        <div className="col-span-3">
+          <StudentDetailCard student={student} stats={stats} />
+        </div>
+        <div className="col-span-4 bg-yellow-300">Aca poner la tabla</div>
       </div>
     </div>
   );
