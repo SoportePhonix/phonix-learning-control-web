@@ -23,5 +23,6 @@ export const a = {
   attachments: 'Attachments',
   available: 'Available',
   addUsers: 'Add users',
+  anErrorOccurredWhileCreatingTheUser: 'An error occurred while creating the user',
   anUnknownErrorOccurred: 'An unknown error occurred',
 };

@@ -21,6 +21,7 @@ export const c = {
   createdAt: 'Created at',
   createdBy: 'Created by',
   current: 'Current',
+  creating: 'Creating',
   citizenshipCard: 'Citizenship card',
   civilRegistration: 'Civil registration',
 };

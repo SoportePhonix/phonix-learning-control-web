@@ -38,6 +38,7 @@ export const HttpErrors = {
   UNPROCESSABLE_ENTITY: {
     statusCode: 422,
     message: 'Validation failed',
+    error: 'Unprocessable Entity',
   },
 
   TOO_MANY_REQUESTS: {
