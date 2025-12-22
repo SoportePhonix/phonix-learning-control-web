@@ -22,4 +22,6 @@ export const s = {
   submit: 'Enviar',
   success: 'Éxito',
   successMessage: 'Mensaje de éxito',
+  selectAnOption: 'Seleccione una opción',
+  serviceNotFound: 'Servicio no encontrado',
 };

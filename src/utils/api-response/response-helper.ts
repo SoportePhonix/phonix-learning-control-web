@@ -17,7 +17,8 @@ export class ApiResponseHelper {
       error: {
         statusCode: httpError.statusCode,
         message: options?.message ?? httpError.message,
-        error: options?.error ?? httpError.error,
+        ...(options?.error && { error: options.error }),
+        ...(!options?.error && httpError.error && { error: httpError.error }),
         ...(options?.details && { details: options.details }),
       },
     });

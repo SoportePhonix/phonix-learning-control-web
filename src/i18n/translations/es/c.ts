@@ -2,6 +2,8 @@ export const c = {
   cancel: 'Cancelar',
   category: 'Categoría',
   categories: 'Categorías',
+  citizenshipCard: 'Cédula de ciudadanía',
+  civilRegistration: 'Registro civil',
   change: 'Cambiar',
   changePassword: 'Cambiar contraseña',
   clear: 'Limpiar',
@@ -13,6 +15,7 @@ export const c = {
   completed: 'Completado',
   confirm: 'Confirmar',
   confirmPassword: 'Confirmar contraseña',
+  correctEmailAndOrPassword: 'Correo y/o contraseña incorrectos',
   contact: 'Contacto',
   continue: 'Continuar',
   copy: 'Copiar',
@@ -21,4 +24,5 @@ export const c = {
   createdAt: 'Creado el',
   createdBy: 'Creado por',
   current: 'Actual',
+  creating: 'Creando',
 };

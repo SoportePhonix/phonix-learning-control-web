@@ -12,4 +12,8 @@ export const e = {
   example: 'Example',
   exit: 'Exit',
   export: 'Export',
+  enterAValue: 'Enter a value',
+  emailAddressRequired: 'Email address required',
+  existingIdentificationDocument: 'Existing identification document',
+  identificationDocumentExists: 'Identification document exists',
 };

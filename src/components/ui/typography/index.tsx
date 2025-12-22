@@ -3,8 +3,14 @@ import cs from 'classnames';
 import styles from './styles.module.css';
 import { TypographyProps } from './types';
 
-export const Typography = ({ children, tag, variant, className }: TypographyProps) => {
+export const Typography = ({ children, tag, variant, className, bold }: TypographyProps) => {
   const Tag = tag || ('h1' as React.ElementType);
+
+  const fontWeightMap = {
+    light: 300,
+    'semi-bold': 400,
+    bold: 500,
+  };
 
   return (
     <Tag
@@ -23,6 +29,7 @@ export const Typography = ({ children, tag, variant, className }: TypographyProp
         },
         className
       )}
+      style={bold ? { fontWeight: fontWeightMap[bold] } : undefined}
     >
       {children}
     </Tag>

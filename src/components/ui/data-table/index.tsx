@@ -200,17 +200,17 @@ export function DataTable<TData>({
             placeholder="Buscar..."
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-full border border-var--white rounded-lg focus:border-var--gray_medium hover:border-var--gray_medium pr-10"
+            className="w-full border border-white rounded-lg focus:border-gray_medium hover:border-gray_medium pr-10"
           />
           {globalFilter ? (
             <button
               onClick={() => setGlobalFilter('')}
-              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-var--primary-50 transition-transform hover:scale-110"
+              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50 transition-transform hover:scale-110"
             >
               <CircleX className="w-5 h-5" />
             </button>
           ) : (
-            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-var--primary-50" />
+            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50" />
           )}
         </div>
 
@@ -219,14 +219,14 @@ export function DataTable<TData>({
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="bg-var--white px-2 py-3 text-sm rounded-lg shadow-md shadow-var--primary-50/50 transition-colors duration-200 hover:bg-var--white font-medium text-var--primary-100"
+              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-primary-50/50 transition-colors duration-200 hover:bg-white font-medium text-primary-100"
             >
               Columnas
               <ChevronDown className="h-4 w-4 transition-transform duration-200" />
             </Button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-[400px] overflow-y-auto text-sm">
+              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
                 <div className="py-1">
                   {table
                     .getAllColumns()
@@ -254,81 +254,86 @@ export function DataTable<TData>({
         )}
       </div>
 
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                const canSort = header.column.columnDef.enableSorting ?? false;
-                const isSorted = header.column.getIsSorted();
+      <div className="bg-white rounded-lg">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  const canSort = header.column.columnDef.enableSorting ?? false;
+                  const isSorted = header.column.getIsSorted();
 
-                return (
-                  <TableHead
-                    key={header.id}
-                    className="text-left hover:bg-gray-200/60 bg-var--white text-var--primary-50 text-[0.9rem]"
-                  >
-                    {header.isPlaceholder ? null : canSort ? (
-                      <div className="flex items-start justify-between px-4 py-4 w-full">
-                        <button
-                          className="font-semibold flex items-start gap-2 w-full"
-                          onClick={() => header.column.toggleSorting(isSorted === 'asc')}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 flex-shrink-0" />}
-                          {isSorted === 'desc' && <MoveDown className="w-5 h-5 flex-shrink-0" />}
-                          {isSorted === 'asc' && <MoveDown className="w-5 h-5 flex-shrink-0 rotate-180" />}
-                        </button>
-
-                        {isSorted !== false && (
+                  return (
+                    <TableHead
+                      key={header.id}
+                      className="text-left hover:bg-primary-50/90 bg-primary-50 text-white text-[0.9rem]"
+                    >
+                      {header.isPlaceholder ? null : canSort ? (
+                        <div className="flex items-start justify-between px-4 py-4 w-full">
                           <button
-                            className="text-var-gray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
-                            onClick={() => header.column.clearSorting()}
+                            className="font-semibold flex items-start gap-2 w-full"
+                            onClick={() => header.column.toggleSorting(isSorted === 'asc')}
                           >
-                            <CircleX className="w-5 h-5 flex-shrink-0" />
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 shrink-0" />}
+                            {isSorted === 'desc' && <MoveDown className="w-5 h-5 shrink-0" />}
+                            {isSorted === 'asc' && <MoveDown className="w-5 h-5 shrink-0 rotate-180" />}
                           </button>
-                        )}
-                      </div>
-                    ) : (
-                      <button className="font-semibold w-full flex justify-left px-4 py-4">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                      </button>
-                    )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {isLoading && data.length === 0 ? (
-            Array.from({ length: isPaginatedFromApi ? sizePageValue : pagination.pageSize }).map((_, index) => (
-              <SkeletonRow key={index} visibleColumns={table.getVisibleLeafColumns()} />
-            ))
-          ) : table.getRowModel().rows.length > 0 ? (
-            <TableRows rows={table.getRowModel().rows} columns={columns} />
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="text-center text-xl h-[32.5rem] bg-white/50">
-                No existe información para mostrar
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+
+                          {isSorted !== false && (
+                            <button
+                              className="textgray-200 hover:underline transition-transform duration-200 hover:scale-110 shrink-0"
+                              onClick={() => header.column.clearSorting()}
+                            >
+                              <CircleX className="w-5 h-5 shrink-0" />
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <button className="font-semibold w-full flex justify-left px-4 py-4">
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </button>
+                      )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isLoading && data.length === 0 ? (
+              Array.from({ length: isPaginatedFromApi ? sizePageValue : pagination.pageSize }).map((_, index) => (
+                <SkeletonRow key={index} visibleColumns={table.getVisibleLeafColumns()} />
+              ))
+            ) : table.getRowModel().rows.length > 0 ? (
+              <TableRows rows={table.getRowModel().rows} columns={columns} />
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-white">
+                  No existe información para mostrar
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
       <div className="flex items-center justify-center py-4 relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-8 px-2 py-3 rounded-lg shadow-md shadow-var--primary-50/50 transition-colors duration-200 data-[state=open]:bg-var--white bg-white text-var--primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-primary-50/50 border-primary-50/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="min-w-[8rem] shadow-var--primary-50/50 rounded-lg">
+          <DropdownMenuContent
+            align="start"
+            className="min-w-32 shadow-primary-50/50 rounded-lg bg-white border-primary-50/20"
+          >
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem
                 key={size}
@@ -410,7 +415,7 @@ export function DataTable<TData>({
             </PaginationItem>
           </PaginationContent>
 
-          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text-var--primary-100">
+          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text-primary-100">
             {`Resultados ${isLoading ? previousStartResult : startResult} - ${
               isLoading ? previousEndResult : endResult
             } de ${isLoading ? previousTotalResults : totalRecords}`}

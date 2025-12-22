@@ -12,5 +12,13 @@ export const t = {
   token: 'Token',
   total: 'Total',
   type: 'Type',
-  typeOfIdentificacionDocument: 'Type of identification document',
+  typeOfIdentificationDocument: 'Type of identification document',
+  toCreateAUserPleaseFillInTheFields: 'To create a user, please fill in the fields',
+  thePasswordMustBeAtLeast8CharactersLongWith1UppercaseLetter1LowercaseLetter1NumberAnd1SpecialCharacter:
+    'The password must be at least 8 characters long, with 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.',
+  theIdentityDocumentIsRequired: 'The identity document is required',
+  typeOfIdentificationDocumentRequired: 'Type of identification document required',
+  theRolesAreRequired: 'The roles are required',
+  theUserAlreadyExists: 'The user already exists',
+  toUpdateAUserCompleteTheFields: 'To update a user, complete the fields',
 };

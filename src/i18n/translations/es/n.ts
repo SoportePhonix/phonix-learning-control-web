@@ -12,4 +12,5 @@ export const n = {
   notification: 'Notificación',
   notifications: 'Notificaciones',
   notFound: 'No encontrado',
+  nameIsRequerid: 'El nombre es requerido',
 };

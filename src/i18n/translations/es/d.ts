@@ -16,4 +16,5 @@ export const d = {
   documents: 'Documentos',
   download: 'Descargar',
   draft: 'Borrador',
+  diplomatic: 'Diploma',
 };

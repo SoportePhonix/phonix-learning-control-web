@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
+import { SectionTitle } from '@/components/section-title';
 import { Button } from '@/components/ui';
 import { DataTable } from '@/components/ui/data-table';
 import { Typography } from '@/components/ui/typography';
@@ -17,11 +20,8 @@ export default function Page() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <Typography variant="titulo_medio" className="text-var--negro font-light mb-4">
-        {t('u.users')}
-      </Typography>
-
-      <div>
+      <SectionTitle title={t('u.users')} />
+      <div className="flex justify-end mb-4">
         <Link href={'/users/add'}>
           <Button variant="secondary">
             <UserPlus />

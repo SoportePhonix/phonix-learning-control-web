@@ -18,6 +18,7 @@ export const r = {
   result: 'Resultado',
   results: 'Resultados',
   retry: 'Reintentar',
+  reviewPassword: 'Revisar contraseña',
   role: 'Rol',
   roles: 'Roles',
 };

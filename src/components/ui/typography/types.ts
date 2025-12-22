@@ -12,9 +12,12 @@ type TypographyVariant =
   | 'subtitulo'
   | 'subtitulo_pequeno';
 
+type Bold = 'light' | 'semi-bold' | 'bold';
+
 export interface TypographyProps {
   children: ReactNode;
   className?: string;
   tag?: React.ElementType;
   variant?: TypographyVariant;
+  bold?: Bold;
 }

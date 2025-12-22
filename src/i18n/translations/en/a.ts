@@ -9,6 +9,7 @@ export const a = {
   activeGroup: 'Active Group',
   add: 'Add',
   address: 'Address',
+  addUser: 'Add User',
   admin: 'Admin',
   all: 'All',
   apply: 'Apply',
@@ -22,4 +23,6 @@ export const a = {
   attachments: 'Attachments',
   available: 'Available',
   addUsers: 'Add users',
+  anErrorOccurredWhileCreatingTheUser: 'An error occurred while creating the user',
+  anUnknownErrorOccurred: 'An unknown error occurred',
 };

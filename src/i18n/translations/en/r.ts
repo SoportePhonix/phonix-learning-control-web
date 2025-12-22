@@ -18,6 +18,7 @@ export const r = {
   result: 'Result',
   results: 'Results',
   retry: 'Retry',
+  reviewPassword: 'Review password',
   role: 'Role',
   roles: 'Roles',
 };

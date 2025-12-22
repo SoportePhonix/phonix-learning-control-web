@@ -12,4 +12,7 @@ export const e = {
   example: 'Ejemplo',
   exit: 'Salir',
   export: 'Exportar',
+  enterAValue: 'Ingrese un valor',
+  emailAddressRequired: 'Correo electrónico requerido',
+  existingIdentificationDocument: 'Documento de identificación existente',
 };

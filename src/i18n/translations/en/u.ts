@@ -13,4 +13,12 @@ export const u = {
   user: 'User',
   username: 'Username',
   users: 'Users',
+  userCreation: 'Creación de usuario',
+  userCreatedSuccessfully: 'User created successfully',
+  userCreationFailed: 'User could not be created',
+  addedSuccessfully: 'Added successfully',
+  updating: 'Updating',
+  updateUser: 'Update user',
+  updatedSuccessfully: 'Updated successfully',
+  userUpdateFailed: 'User could not be updated',
 };

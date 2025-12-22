@@ -12,4 +12,9 @@ export const p = {
   public: 'Public',
   publish: 'Publish',
   published: 'Published',
+  passwordRequired: 'Password required',
+  passport: 'Passport',
+  passwordValidationMessage:
+    'The password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character (~£!@#$%^&*()-_=+{}[]\\|:;"\' <>,.?/).',
+  passwordValidationMessageLength: 'The password must be at least 8 characters long.',
 };

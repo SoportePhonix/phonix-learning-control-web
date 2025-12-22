@@ -10,4 +10,13 @@ export const i = {
   invalid: 'Invalid',
   invalidCredentials: 'Invalid credentials',
   identificationDocument: 'Documento de identificación',
+  idCard: 'Id card',
+  idRequired: 'Id required',
+  idTypeRequired: 'El tipo de identificación es requerido',
+  incorrectEmailAndOrPassword: 'Incorrect email and/or password',
+  internalServerErrorPleaseTryAgainLater: 'Error interno del servidor. Intenta más tarde',
+  identityCard: 'Identity Card',
+  identificationDocumentExists: 'Identification document exists',
+  isRequired: 'is required',
+  invalidFormat: 'Invalid format',
 };

@@ -22,6 +22,7 @@ export function NavUser({
   user,
 }: {
   user: {
+    /*  */
     name: string;
     email: string;
     avatar: string;
@@ -43,8 +44,8 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
-            className="text-var--brand hover:bg-var--primary-50 hover:text-var--brand"
-            // className="text-var--brand hover:bg-var--primary-50 hover:text-var--brand dark:hover:bg-background dark:hover:text-var--blanco"
+            className="text-brand hover:bg-primary-50 hover:text-brand"
+            // className="text-brand hover:bg-primary-50 hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
           >
             {isLoading ? (
               <SidebarMenuButton size="lg" className="p-2">
@@ -57,12 +58,12 @@ export function NavUser({
             ) : (
               <SidebarMenuButton
                 size="lg"
-                className="data-[state=open]:bg-var--primary-50 dark:data-[state=open]:bg-background"
+                className="data-[state=open]:bg-primary-50 dark:data-[state=open]:bg-background"
               >
-                <Avatar className="h-8 w-8 rounded-full bg-var--morado-oscuro">
+                <Avatar className="h-8 w-8 rounded-full bg-morado-oscuro">
                   {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                  <AvatarFallback className="bg-var--primary-50 text-var--blanco font-bold">
-                    {/* <AvatarFallback className="bg-var--primary-50 text-var--blanco font-bold dark:bg-var--brand-dark"> */}
+                  <AvatarFallback className="bg-primary-50 text-blanco font-bold">
+                    {/* <AvatarFallback className="bg-primary-50 text-blanco font-bold dark:bg-brand-dark"> */}
                     {avatarName}
                   </AvatarFallback>
                 </Avatar>
@@ -76,7 +77,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login"
               side={isMobile ? 'bottom' : 'right'}
               align="end"
               sideOffset={4}
@@ -85,7 +86,7 @@ export function NavUser({
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
                     {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                    <AvatarFallback className="rounded-lg bg-var--primary-50">{avatarName}</AvatarFallback>
+                    <AvatarFallback className="rounded-lg bg-primary-50">{avatarName}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">{user.name}</span>

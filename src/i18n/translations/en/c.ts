@@ -13,6 +13,7 @@ export const c = {
   completed: 'Completed',
   confirm: 'Confirm',
   confirmPassword: 'Confirm password',
+  correctEmailAndOrPassword: 'Email and/or password incorrect',
   contact: 'Contact',
   continue: 'Continue',
   copy: 'Copy',
@@ -21,4 +22,7 @@ export const c = {
   createdAt: 'Created at',
   createdBy: 'Created by',
   current: 'Current',
+  creating: 'Creating',
+  citizenshipCard: 'Citizenship card',
+  civilRegistration: 'Civil registration',
 };

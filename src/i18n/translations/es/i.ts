@@ -10,4 +10,12 @@ export const i = {
   invalid: 'Inválido',
   invalidCredentials: 'Credenciales inválidas',
   identificationDocument: 'Documento de identificación',
+  idCard: 'Cédula',
+  idRequired: 'El documento de identidad es requerido',
+  idTypeRequired: 'El tipo de identificación es requerido',
+  incorrectEmailAndOrPassword: 'Correo y/o contraseña incorrectos',
+  internalServerErrorPleaseTryAgainLater: 'Internal server error please try again later',
+  identityCard: 'Tarjeta de identidad',
+  isRequired: 'es requerido',
+  invalidFormat: 'Formato inválido',
 };
