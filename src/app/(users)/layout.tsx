@@ -7,20 +7,26 @@ import { StoreProvider } from '@/providers/store';
 import { SessionContextProvider, SessionExpiredProvider } from '@/utils/context';
 import { RtkRequestsProvider } from '@/utils/context/rtkRequests';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Phonix Contact',
   description: 'Phonix Contact',
 };
 
-export default function UserLayout({ children }: { children: React.ReactNode }) {
+export default async function UserLayout({ children }: { children: React.ReactNode }) {
+  // Read sidebar state from cookies on the server
+  const cookieStore = await cookies();
+  const sidebarState = cookieStore.get('sidebar:state');
+  const defaultOpen = sidebarState ? sidebarState.value === 'true' : true;
+
   return (
     <AuthProvider>
       <StoreProvider>
         <SessionExpiredProvider>
           <SessionContextProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-              <SidebarProvider>
+              <SidebarProvider defaultOpen={defaultOpen}>
                 <RtkRequestsProvider>
                   <div className="flex h-screen w-screen">
                     <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed text-var--primary-50" />

@@ -54,26 +54,26 @@ const SidebarProvider = React.forwardRef<
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
 
-  // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
+  // Initialize state - will be updated by useEffect
   const [_open, _setOpen] = React.useState(defaultOpen);
-  const [mounted, setMounted] = React.useState(false);
 
-  // Read from localStorage after component mounts (client-side only)
+  // Read from localStorage on mount (client-side only)
   React.useEffect(() => {
-    setMounted(true);
-
-    // Only read from localStorage if not controlled from outside
     if (openProp === undefined) {
       try {
         const stored = localStorage.getItem(SIDEBAR_COOKIE_NAME);
         if (stored !== null) {
-          _setOpen(stored === 'true');
+          const storedValue = stored === 'true';
+          // Only update if different to avoid unnecessary re-renders
+          if (storedValue !== _open) {
+            _setOpen(storedValue);
+          }
         }
       } catch (error) {
         console.error('Error reading sidebar state from localStorage:', error);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openProp]);
 
   const open = openProp ?? _open;
@@ -87,18 +87,16 @@ const SidebarProvider = React.forwardRef<
       }
 
       // Save state to localStorage
-      if (mounted) {
-        try {
-          localStorage.setItem(SIDEBAR_COOKIE_NAME, String(openState));
-        } catch (error) {
-          console.error('Error saving sidebar state to localStorage:', error);
-        }
+      try {
+        localStorage.setItem(SIDEBAR_COOKIE_NAME, String(openState));
+      } catch (error) {
+        console.error('Error saving sidebar state to localStorage:', error);
       }
 
       // This sets the cookie to keep the sidebar state.
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
     },
-    [setOpenProp, open, mounted]
+    [setOpenProp, open]
   );
 
   // Helper to toggle the sidebar.
@@ -149,6 +147,7 @@ const SidebarProvider = React.forwardRef<
           }
           className={cn('group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar', className)}
           ref={ref}
+          suppressHydrationWarning
           {...props}
         >
           {children}
@@ -223,6 +222,7 @@ const Sidebar = React.forwardRef<
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
       data-side={side}
+      suppressHydrationWarning
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -265,10 +265,38 @@ Sidebar.displayName = 'Sidebar';
 const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.ComponentProps<typeof Button>>(
   ({ className, onClick, ...props }, ref) => {
     const { toggleSidebar, state, isMobile, openMobile } = useSidebar();
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+      setMounted(true);
+    }, []);
 
     // En mobile, usar openMobile para determinar el estado del icono
     // En desktop, usar el state normal
     const isOpen = isMobile ? openMobile : state === 'expanded';
+
+    // Si no está montado, renderizar el estado por defecto sin icono para evitar hydration
+    if (!mounted) {
+      return (
+        <Button
+          ref={ref}
+          data-sidebar="trigger"
+          variant="default"
+          className={cn(
+            'h-4 w-4 p-0 flex items-center justify-center bg-blanco rounded-3xl hover:bg-blanco cursor-pointer',
+            className
+          )}
+          onClick={(event) => {
+            onClick?.(event);
+            toggleSidebar();
+          }}
+          {...props}
+        >
+          <ChevronLeft className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          <span className="sr-only">Toggle Sidebar</span>
+        </Button>
+      );
+    }
 
     return (
       <Button
