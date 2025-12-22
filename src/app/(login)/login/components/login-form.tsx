@@ -3,41 +3,35 @@
 import { useState } from 'react';
 
 import { ExpandedLogoLight } from '@/components';
-import { Button } from '@/components/ui/button';
+import { DynamicForm } from '@/components/forms/DynamicForm';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Loader } from '@/components/ui/loader';
 import { Typography } from '@/components/ui/typography';
 import { useTranslation } from '@/i18n';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
+import { loginFormConfig } from '../config/login-form.config';
 import { Inputs } from '../types';
-import { InputPassword } from './input-password';
 
 export function LoginForm() {
   const { t } = useTranslation();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState<number>();
+  const [loginError, setLoginError] = useState<number | null>(null);
 
-  const errorMessages: Record<number, string> = {
-    401: t('i.incorrectEmailAndOrPassword'),
-    403: t('a.accessDenied'),
-    500: t('i.internalServerErrorPleaseTryAgainLater'),
-    404: t('s.serviceNotFound'),
-  };
+  const form = useForm<Inputs>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit = async (data: Inputs) => {
     try {
       setIsLoading(true);
+      setLoginError(null);
       const res = await signIn('credentials', {
         ...data,
         redirect: false,
@@ -45,13 +39,14 @@ export function LoginForm() {
       });
 
       if (res && res.error) {
-        setLoginError(res.status);
+        setLoginError(res.status || 401);
         return;
       }
 
       router.push('/users');
     } catch (err) {
       console.error(err);
+      setLoginError(500);
     } finally {
       setIsLoading(false);
     }
@@ -60,67 +55,29 @@ export function LoginForm() {
   return (
     <div className="w-96">
       {isLoading && <Loader />}
-      <div className="ml-14 mb-8 flex justify-between items-center">
+      <div className="px-10 mb-8 flex justify-between items-center">
         <ExpandedLogoLight />
-        {/* <LanguageSwitcher /> */}
       </div>
-      <Card className="mx-auto w-auto px-4 py-8 min-h-88 rounded-lg bg-gray_login">
-        <CardHeader>
-          <Typography variant="titulo_pequeno" className="text-center text-negro font-medium -mt-6">
-            {t('l.login')}
-          </Typography>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-8">
-              <div className="grid gap-2">
-                <Input
-                  id="email"
-                  label={t('u.user')}
-                  autoComplete="current-password"
-                  placeholder={t('e.emailAddress')}
-                  error={errors.email && errors.email?.message}
-                  {...register('email', {
-                    required: t('e.emailAddressRequired'),
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: t('i.invalid'),
-                    },
-                  })}
-                />
-              </div>
-              <div className="grid gap-2">
-                <InputPassword
-                  label={t('p.password')}
-                  placeholder={t('p.password')}
-                  id="password"
-                  error={errors.password && errors.password?.message}
-                  {...register('password', {
-                    required: {
-                      value: true,
-                      message: t('p.passwordRequired'),
-                    },
-                    pattern: {
-                      value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&+\-=/])[A-Za-z\d@$!%*?&+\-=/]{8,}$/,
-                      message: t(
-                        't.thePasswordMustBeAtLeast8CharactersLongWith1UppercaseLetter1LowercaseLetter1NumberAnd1SpecialCharacter'
-                      ),
-                    },
-                  })}
-                />
-                {loginError && !errors.password && (
-                  <Typography variant="parrafo-pequeno" className="text-red-error">
-                    {errorMessages[loginError] || t('a.anUnknownErrorOccurred')}
-                  </Typography>
-                )}
-              </div>
-              <Button type="submit" variant="secondary">
-                {isLoading ? t('l.loading') : t('e.enter')}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+
+      <div className="bg-gray_login rounded-lg -mt-6">
+        <Typography variant="titulo_pequeno" className="text-center text-negro font-medium pt-6">
+          {t('l.login')}
+        </Typography>
+
+        <div className="w-full">
+          <DynamicForm
+            config={loginFormConfig}
+            mode="create"
+            form={form}
+            onSubmit={onSubmit}
+            isLoading={isLoading}
+            apiError={loginError}
+            t={t}
+            submitLabel="e.enter"
+            showCancelButton={false}
+          />
+        </div>
+      </div>
     </div>
   );
 }

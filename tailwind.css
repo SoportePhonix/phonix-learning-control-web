@@ -42,18 +42,24 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Referencias a colores del proyecto */
-  --color-brand: var(--brand);
-  --color-white: var(--white);
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
   --color-secondary: var(--secondary);
+  --color-white: var(--white);
+  --color-brand: var(--brand);
+  --color-bg_blue: var(--bg_blue);
   --color-blue_cta: var(--blue_cta);
+  --color-blue_medium: var(--blue_medium);
+  --color-blue_gray_medium: var(--blue_gray_medium);
+  --color-blue_overlay: var(--blue_overlay);
+  --color-brand-dark: var(--brand-dark);
   --color-gray_medium: var(--gray_medium);
   --color-gray_login: var(--gray_login);
   --color-light_blue: var(--light_blue);
-  --color-blue_medium: var(--blue_medium);
-  --color-blue_gray_medium: var(--blue_gray_medium);
-  --color-brand: var(--brand);
+  --color-red-error: var(--red-error);
+  --color-red-destructive: var(--red-destructive);
+  --color-green-active: var(--green-active);
+  --color-green-success: var(--green-success);
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);

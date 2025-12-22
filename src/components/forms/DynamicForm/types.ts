@@ -51,8 +51,9 @@ export type DynamicFormProps<T extends Record<string, any>> = {
   onSubmit: (values: T) => void;
   isLoading?: boolean;
   apiError?: number | null;
-  cancelUrl: string;
+  cancelUrl?: string; // Ahora es opcional
   t: (key: TranslationKey) => string;
   submitLabel?: TranslationKey;
   cancelLabel?: TranslationKey;
+  showCancelButton?: boolean; // Nueva prop para controlar la visibilidad del botón cancelar
 };

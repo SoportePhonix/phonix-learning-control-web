@@ -13,6 +13,7 @@ export const c = {
   completed: 'Completed',
   confirm: 'Confirm',
   confirmPassword: 'Confirm password',
+  correctEmailAndOrPassword: 'Email and/or password incorrect',
   contact: 'Contact',
   continue: 'Continue',
   copy: 'Copy',

@@ -20,8 +20,12 @@ export function DynamicForm<T extends FieldValues>({
   t,
   submitLabel,
   cancelLabel,
+  showCancelButton = true,
 }: DynamicFormProps<T>) {
   const { handleSubmit } = form;
+
+  // Determinar si mostrar el botón de cancelar
+  const displayCancelButton = showCancelButton && cancelUrl;
 
   const errorMessages: Record<number, TranslationKey> = {
     400: 'r.required',
@@ -48,14 +52,21 @@ export function DynamicForm<T extends FieldValues>({
         )}
 
         {/* Botones */}
-        <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 pt-8`}>
-          <Link href={cancelUrl}>
-            <Button type="button" variant="outline">
-              {cancelLabel ? t(cancelLabel) : t('c.cancel')}
-            </Button>
-          </Link>
+        <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 pt-4`}>
+          {displayCancelButton && (
+            <Link href={cancelUrl!}>
+              <Button type="button" variant="outline">
+                {cancelLabel ? t(cancelLabel) : t('c.cancel')}
+              </Button>
+            </Link>
+          )}
 
-          <Button type="submit" disabled={isLoading}>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className={!displayCancelButton ? 'w-full' : ''}
+            variant="secondary"
+          >
             {isLoading
               ? mode === 'edit'
                 ? t('u.updating')
