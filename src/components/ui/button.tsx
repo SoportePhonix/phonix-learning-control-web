@@ -12,11 +12,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'rounded-t-[4px] text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-white text-blue_gray_medium hover:bg-primary-50 hover:text-white',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-white text-blue_gray_medium hover:bg-primary-50 hover:text-white',
         secondary:
-          'rounded-t-[4px] text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-blue_cta text-white hover:bg-blue_cta/80',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-blue_cta text-white hover:bg-blue_cta/80',
         tertiary:
-          'rounded-t-[4px] text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-primary-50 text-white hover:bg-white hover:text-blue_gray_medium',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-primary-50 text-white hover:bg-white hover:text-blue_gray_medium',
         contour:
           'rounded-[4px] text-normal font-medio border-[1.5px] bg-white/80 border-gray_medium text-primary-50 hover:bg-white',
 

@@ -51,6 +51,7 @@ export type DynamicFormProps<T extends Record<string, any>> = {
   onSubmit: (values: T) => void;
   isLoading?: boolean;
   apiError?: number | null;
+  apiErrorMessage?: string; // Mensaje de error personalizado
   cancelUrl?: string; // Ahora es opcional
   t: (key: TranslationKey) => string;
   submitLabel?: TranslationKey;

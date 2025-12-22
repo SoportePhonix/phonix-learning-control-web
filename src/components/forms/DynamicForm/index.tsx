@@ -16,6 +16,7 @@ export function DynamicForm<T extends FieldValues>({
   onSubmit,
   isLoading = false,
   apiError = null,
+  apiErrorMessage,
   cancelUrl,
   t,
   submitLabel,
@@ -37,22 +38,25 @@ export function DynamicForm<T extends FieldValues>({
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className={`w-full grid ${gridCols} gap-x-12 gap-y-6 px-12 py-10`}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={`w-full grid ${gridCols} gap-x-12 gap-y-6 px-12 py-10 relative`}
+      >
         {config.fields.map((field) => (
           <FieldRenderer key={field.name} field={field} form={form} mode={mode} t={t} />
         ))}
-
         {/* Mostrar error de API si existe */}
         {apiError && Object.keys(form.formState.errors).length === 0 && (
-          <div className="col-span-full">
+          <div className="col-span-full absolute bottom-24">
             <p className="text-sm text-red-error">
-              {errorMessages[apiError] ? t(errorMessages[apiError]) : t('a.anUnknownErrorOccurred')}
+              {apiErrorMessage ||
+                (errorMessages[apiError] ? t(errorMessages[apiError]) : t('a.anUnknownErrorOccurred'))}
             </p>
           </div>
         )}
 
         {/* Botones */}
-        <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 pt-4`}>
+        <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 mt-4`}>
           {displayCancelButton && (
             <Link href={cancelUrl!}>
               <Button type="button" variant="outline">

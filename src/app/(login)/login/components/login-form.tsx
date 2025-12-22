@@ -75,6 +75,7 @@ export function LoginForm() {
             t={t}
             submitLabel="e.enter"
             showCancelButton={false}
+            apiErrorMessage={t('c.correctEmailAndOrPassword')}
           />
         </div>
       </div>
