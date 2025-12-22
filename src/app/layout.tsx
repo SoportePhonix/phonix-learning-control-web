@@ -2,6 +2,7 @@ import { prompt } from '@/components/fonts';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/i18n';
 import { StoreProvider } from '@/providers/store';
+import { ConfigProvider } from '@/utils/context';
 import localFont from 'next/font/local';
 
 import './globals.css';
@@ -25,12 +26,14 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} ${prompt.className} antialiased`}>
-        <StoreProvider>
-          <LanguageProvider>
-            {children}
-            <Toaster />
-          </LanguageProvider>
-        </StoreProvider>
+        <ConfigProvider>
+          <StoreProvider>
+            <LanguageProvider>
+              {children}
+              <Toaster />
+            </LanguageProvider>
+          </StoreProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

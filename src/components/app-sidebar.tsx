@@ -13,8 +13,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { Users } from 'lucide-react';
-import { ShieldPlus } from 'lucide-react';
+import { ShieldPlus, ShieldUser } from 'lucide-react';
 import { UserRound } from 'lucide-react';
 import { Book } from 'lucide-react';
 import { Library } from 'lucide-react';
@@ -57,7 +56,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         name: 'Usuarios',
         url: '/users',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <ShieldPlus {...props} />,
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <ShieldUser {...props} />,
       },
       {
         name: 'Estudiantes',

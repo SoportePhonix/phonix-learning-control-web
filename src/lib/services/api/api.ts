@@ -17,8 +17,24 @@ const baseQueryWithErrorHandling: BaseQueryFn<string | FetchArgs, unknown, Fetch
   api,
   extraOptions
 ) => {
+  // Obtener baseUrl dinámicamente desde el config
+  let baseUrl = '/api';
+
+  // Intentar obtener la configuración runtime del window si está disponible
+  if (typeof window !== 'undefined') {
+    try {
+      const configResponse = await fetch('/api/config');
+      if (configResponse.ok) {
+        const config = await configResponse.json();
+        baseUrl = config.baseUrl ? `${config.baseUrl}/api` : '/api';
+      }
+    } catch (error) {
+      console.warn('Could not fetch runtime config, using default baseUrl');
+    }
+  }
+
   const baseQuery = fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api`,
+    baseUrl,
   });
 
   const result = await baseQuery(args, api, extraOptions);
