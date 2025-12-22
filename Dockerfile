@@ -57,14 +57,12 @@ RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001
 
 # Copiar la aplicación construida desde la etapa anterior
-# Copiar la aplicación construida desde la etapa anterior
 COPY --from=build --chown=nextjs:nodejs /app/package.json /app/yarn.lock ./
 COPY --from=build --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=build --chown=nextjs:nodejs /app/next.config.ts ./
+COPY --from=build --chown=nextjs:nodejs /app/public ./public
 
-# Copiar public solo si existe
-RUN mkdir -p /app/public
 # Configurar permisos seguros
 RUN chmod -R 755 /app && \
     chown -R nextjs:nodejs /app
