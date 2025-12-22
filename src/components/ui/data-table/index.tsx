@@ -323,14 +323,17 @@ export function DataTable<TData>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-8 px-2 py-3 rounded-lg shadow-md shadow-primary-50/50 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-primary-50/50 border-primary-50/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="min-w-32 shadow-primary-50/50 rounded-lg">
+          <DropdownMenuContent
+            align="start"
+            className="min-w-32 shadow-primary-50/50 rounded-lg bg-white border-primary-50/20"
+          >
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem
                 key={size}

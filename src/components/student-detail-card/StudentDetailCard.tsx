@@ -26,7 +26,7 @@ export function StudentDetailCard({ student, stats }: Props) {
     .join('');
 
   return (
-    <Card className="max-w-[505px] max-h-[582px] p-8 flex flex-col gap-1 rounded-[8px] border-[#3A5761]/35">
+    <Card className="max-w-126.25 max-h-145.5 p-8 flex flex-col gap-1 rounded-[8px] border-[#3A5761]/35 bg-[#F6F9FB]">
       <CardHeader className="py-4 flex flex-col items-center gap-2">
         <Avatar className="h-14 w-14">
           <AvatarFallback className="text-sm font-normal bg-red-300 text-white ">{initials}</AvatarFallback>
@@ -34,7 +34,7 @@ export function StudentDetailCard({ student, stats }: Props) {
         <p className="text-[18px] font-semibold leading-none text-[#3A484C]">{student.name}</p>
         <div className="flex text-[14px] font-normal leading-none text-[#0067D7] pt-4 cursor-not-allowed">
           <Pen size={16} />
-          <span className="mt-0.5 mx-2 border-b-[1px] border-[#0067D7]">Editar información del estudiante</span>
+          <span className="mt-0.5 mx-2 border-b border-[#0067D7]">Editar información del estudiante</span>
         </div>
       </CardHeader>
 
