@@ -195,7 +195,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
         field.type !== 'text' &&
         field.type !== 'email' &&
         field.type !== 'number' &&
-        field.type !== 'password' && <p className="text-sm text-var--red-error">{error.message as string}</p>}
+        field.type !== 'password' && <p className="text-sm text-red-error">{error.message as string}</p>}
     </div>
   );
 }

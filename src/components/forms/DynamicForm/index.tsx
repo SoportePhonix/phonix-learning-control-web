@@ -41,7 +41,7 @@ export function DynamicForm<T extends FieldValues>({
         {/* Mostrar error de API si existe */}
         {apiError && Object.keys(form.formState.errors).length === 0 && (
           <div className="col-span-full">
-            <p className="text-sm text-var--red-error">
+            <p className="text-sm text-red-error">
               {errorMessages[apiError] ? t(errorMessages[apiError]) : t('a.anUnknownErrorOccurred')}
             </p>
           </div>

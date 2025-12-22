@@ -13,11 +13,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, errorTooltip, errorTooltipTrigger, ...props }, ref) => {
     return (
       <div className="flex flex-col space-y-1 relative mb-6">
-        {label && <label className="text-sm font-light text-var--gray_medium">{label}</label>}
+        {label && <label className="text-sm font-light text-gray_medium">{label}</label>}
         <input
           type={type}
           className={cn(
-            'flex h-9 w-full rounded-t-[4px] border-input border-0 border-b-[1.5px] border-var--gray_medium bg-var--white px-3 py-1 text-base font-light shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground hover:border-var--primary-100 focus:border-var--blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+            'flex h-9 w-full rounded-t-[4px] border-input border-0 border-b-[1.5px] border-gray_medium bg-white px-3 py-1 text-base font-light shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
             error,
             className
           )}
@@ -25,10 +25,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error && !errorTooltip && (
-          <span className="absolute top-full left-0 mt-1 text-sm text-var--red-error whitespace-pre-line">{error}</span>
+          <span className="absolute top-full left-0 mt-1 text-sm text-red-error whitespace-pre-line">{error}</span>
         )}
         {error && errorTooltip && (
-          <div className="absolute top-full left-0 mt-1 flex items-center gap-1 text-sm text-var--red-error group cursor-help">
+          <div className="absolute top-full left-0 mt-1 flex items-center gap-1 text-sm text-red-error group cursor-help">
             <span>{errorTooltipTrigger || 'Review field'}</span>
             <div className="relative inline-block">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

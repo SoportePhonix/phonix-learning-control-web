@@ -97,7 +97,7 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
 
           {errors.typeOfIdentificationDocument && (
-            <p className="text-sm text-var--red-error">{errors.typeOfIdentificationDocument.message}</p>
+            <p className="text-sm text-red-error">{errors.typeOfIdentificationDocument.message}</p>
           )}
         </div>
 
@@ -116,7 +116,7 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
 
           {apiError && Object.keys(errors).length === 0 && (
-            <p className="text-sm text-var--red-error">{errorMessages[apiError] || t('a.anUnknownErrorOccurred')}</p>
+            <p className="text-sm text-red-error">{errorMessages[apiError] || t('a.anUnknownErrorOccurred')}</p>
           )}
         </div>
 
@@ -175,7 +175,7 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
             )}
           />
 
-          {errors.roleId && <p className="text-sm text-var--red-error">{errors.roleId.message}</p>}
+          {errors.roleId && <p className="text-sm text-red-error">{errors.roleId.message}</p>}
         </div>
 
         {/* Botones */}

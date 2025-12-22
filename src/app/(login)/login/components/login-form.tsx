@@ -64,9 +64,9 @@ export function LoginForm() {
         <ExpandedLogoLight />
         {/* <LanguageSwitcher /> */}
       </div>
-      <Card className="mx-auto w-auto px-4 py-8 min-h-[22rem] rounded-lg bg-var--gray_login">
+      <Card className="mx-auto w-auto px-4 py-8 min-h-88 rounded-lg bg-gray_login">
         <CardHeader>
-          <Typography variant="titulo_pequeno" className="text-center text-var--negro font-medium -mt-6">
+          <Typography variant="titulo_pequeno" className="text-center text-negro font-medium -mt-6">
             {t('l.login')}
           </Typography>
         </CardHeader>
@@ -109,7 +109,7 @@ export function LoginForm() {
                   })}
                 />
                 {loginError && !errors.password && (
-                  <Typography variant="parrafo-pequeno" className="text-var--red-error">
+                  <Typography variant="parrafo-pequeno" className="text-red-error">
                     {errorMessages[loginError] || t('a.anUnknownErrorOccurred')}
                   </Typography>
                 )}

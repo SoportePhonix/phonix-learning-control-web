@@ -19,13 +19,13 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
       <StoreProvider>
         <SessionExpiredProvider>
           <SessionContextProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
               <SidebarProvider>
                 <RtkRequestsProvider>
                   <div className="flex h-screen w-screen">
                     <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed text-var--primary-50" />
                     <AppSidebar />
-                    <main className="flex-1 md:px-4 overflow-y-scroll">{children}</main>
+                    <main className="flex-1 md:px-8 overflow-y-scroll">{children}</main>
                     <Toaster richColors position="top-right" />
                   </div>
                 </RtkRequestsProvider>

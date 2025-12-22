@@ -2,7 +2,6 @@
 
 import { SectionTitle } from '@/components/section-title';
 import { StudentDetailCard } from '@/components/student-detail-card/StudentDetailCard';
-import { Typography } from '@/components/ui/typography';
 import { studentStatsMock } from '@/hooks/students/studentStats.mock';
 import { studentsMock } from '@/hooks/students/students.mock';
 import { useParams } from 'next/navigation';
@@ -24,7 +23,7 @@ export default function StudentInfoPage() {
         <div className="col-span-3">
           <StudentDetailCard student={student} stats={stats} />
         </div>
-        <div className="col-span-4 bg-yellow-300">Aca poner la tabla</div>
+        {/* <div className="col-span-4 bg-yellow-300">Aca poner la tabla</div> */}
       </div>
     </div>
   );

@@ -35,8 +35,8 @@ const toastVariants = cva(
     variants: {
       variant: {
         default: 'border bg-background text-foreground',
-        destructive: 'border-none bg-var--red-destructive text-white',
-        success: 'border-none bg-var--green-success text-var-primary-50',
+        destructive: 'border-none bg-red-destructive text-white',
+        success: 'border-none bg-green-success textprimary-50',
       },
     },
     defaultVariants: {
@@ -56,7 +56,7 @@ const Toast = React.forwardRef<
       className={cn('flex items-center space-x-3 relative', toastVariants({ variant }), className)}
       {...props}
     >
-      {variant === 'success' && <CheckCircle className="absolute top-4 w-5 h-5 text-var--primary-100" />}
+      {variant === 'success' && <CheckCircle className="absolute top-4 w-5 h-5 text-primary-100" />}
       {variant === 'destructive' && <CircleAlert className="absolute top-4 w-5 h-5 text-white" />}
       <div className="flex-1 pl-6">{props.children}</div>
 

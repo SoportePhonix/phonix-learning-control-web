@@ -1,15 +1,7 @@
 /* @import url(./youniversity.css); */
 @import '../../tailwind.css';
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: auto;
-  background-image: url('/images/background/background.svg');
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  background-size: contain;
-  overflow: hidden;
-}
+/* @custom-variant dark (&:is(.dark *)); */
 
 @layer base {
   :root {
@@ -50,7 +42,7 @@ body {
     --secondary: #091e24;
     --blue_cta: #0067d7;
     --gray_medium: #90a7ae;
-    --gray_medium: #90a7ae;
+    --gray_login: #e7e9ea;
     --light_blue: #93e0f7; /* Seleccionado */
     --blue_medium: #76b4c7;
     --blue_gray_medium: #3a484c;
@@ -58,46 +50,61 @@ body {
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-
+    --background: 192 48.4% 93.9%;
+    --background-hover: 192 48.4% 93.9%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
     --primary: 193 60% 8.8%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
-
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
-    --border: 224 71.4% 4.1%;
+    --border: 192 48.4% 93.9%;
     --input: 220 13% 91%;
     --ring: 193 60% 8.8%;
-
+    --radius: 0.2rem;
     --sidebar-background: 193 60% 8.8%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 192 48.4% 93.9%;
-    --sidebar-accent-foreground: 193 60% 8.8%;
-    --sidebar-border: 224 71.4% 4.1%;
+    --sidebar-accent: 192 48.4% 93.9%; /* Clic en el boton del sidebar */
+    --sidebar-accent-foreground: 193 60% 8.8%; /* Clic en el texto del boton del sidebar */
+    --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --brand: #e8f4f7;
+    --white: #ffffff;
+    --primary-50: #13404d;
+    --primary-100: #091e24; /* hover */
+    --secondary: #091e24;
+    --blue_cta: #0067d7;
+    --gray_medium: #90a7ae;
+    --gray_login: #e7e9ea;
+    --light_blue: #93e0f7; /* Seleccionado */
+    --blue_medium: #76b4c7;
+    --blue_gray_medium: #3a484c;
+    --brand-dark: #030712;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    font-family: Arial, Helvetica, sans-serif;
+    scroll-behavior: auto;
+    background-image: url('/images/background/background.svg');
+    background-color: #e8f4f7;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
   }
   .login {
     background-image: url('/images/background/background.svg');
@@ -106,14 +113,5 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

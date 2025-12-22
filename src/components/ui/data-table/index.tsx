@@ -200,17 +200,17 @@ export function DataTable<TData>({
             placeholder="Buscar..."
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-full border border-var--white rounded-lg focus:border-var--gray_medium hover:border-var--gray_medium pr-10"
+            className="w-full border border-white rounded-lg focus:border-gray_medium hover:border-gray_medium pr-10"
           />
           {globalFilter ? (
             <button
               onClick={() => setGlobalFilter('')}
-              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-var--primary-50 transition-transform hover:scale-110"
+              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50 transition-transform hover:scale-110"
             >
               <CircleX className="w-5 h-5" />
             </button>
           ) : (
-            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-var--primary-50" />
+            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50" />
           )}
         </div>
 
@@ -219,7 +219,7 @@ export function DataTable<TData>({
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="bg-var--white px-2 py-3 text-sm rounded-lg shadow-md shadow-var--primary-50/50 transition-colors duration-200 hover:bg-var--white font-medium text-var--primary-100"
+              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-primary-50/50 transition-colors duration-200 hover:bg-white font-medium text-primary-100"
             >
               Columnas
               <ChevronDown className="h-4 w-4 transition-transform duration-200" />
@@ -266,7 +266,7 @@ export function DataTable<TData>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-left hover:bg-var--primary-50/90 bg-var--primary-50 text-var--white text-[0.9rem]"
+                      className="text-left hover:bg-primary-50/90 bg-primary-50 text-white text-[0.9rem]"
                     >
                       {header.isPlaceholder ? null : canSort ? (
                         <div className="flex items-start justify-between px-4 py-4 w-full">
@@ -282,7 +282,7 @@ export function DataTable<TData>({
 
                           {isSorted !== false && (
                             <button
-                              className="text-var-gray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
+                              className="textgray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
                               onClick={() => header.column.clearSorting()}
                             >
                               <CircleX className="w-5 h-5 flex-shrink-0" />
@@ -323,14 +323,14 @@ export function DataTable<TData>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-8 px-2 py-3 rounded-lg shadow-md shadow-var--primary-50/50 transition-colors duration-200 data-[state=open]:bg-var--white bg-white text-var--primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-8 px-2 py-3 rounded-lg shadow-md shadow-primary-50/50 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="min-w-[8rem] shadow-var--primary-50/50 rounded-lg">
+          <DropdownMenuContent align="start" className="min-w-[8rem] shadow-primary-50/50 rounded-lg">
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem
                 key={size}
@@ -412,7 +412,7 @@ export function DataTable<TData>({
             </PaginationItem>
           </PaginationContent>
 
-          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text-var--primary-100">
+          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text-primary-100">
             {`Resultados ${isLoading ? previousStartResult : startResult} - ${
               isLoading ? previousEndResult : endResult
             } de ${isLoading ? previousTotalResults : totalRecords}`}
