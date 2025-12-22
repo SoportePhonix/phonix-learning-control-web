@@ -59,7 +59,7 @@ export function DynamicForm<T extends FieldValues>({
         <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 mt-4`}>
           {displayCancelButton && (
             <Link href={cancelUrl!}>
-              <Button type="button" variant="outline">
+              <Button type="button" variant="primary">
                 {cancelLabel ? t(cancelLabel) : t('c.cancel')}
               </Button>
             </Link>

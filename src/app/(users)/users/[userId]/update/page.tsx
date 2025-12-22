@@ -46,8 +46,8 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
   };
 
   return (
-    <>
-      <SectionTitle title={`${t('u.updateUser')}: ${userData?.name || ''}`} />
+    <div className="p-8">
+      <SectionTitle title={`${t('u.updateUser')}`} />
       <FormPageLayout description={t('t.toUpdateAUserCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}
@@ -60,6 +60,6 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
           t={t}
         />
       </FormPageLayout>
-    </>
+    </div>
   );
 }

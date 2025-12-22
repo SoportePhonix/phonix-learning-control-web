@@ -226,7 +226,7 @@ export function DataTable<TData>({
             </Button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-[400px] overflow-y-auto text-sm">
+              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
                 <div className="py-1">
                   {table
                     .getAllColumns()
@@ -275,17 +275,17 @@ export function DataTable<TData>({
                             onClick={() => header.column.toggleSorting(isSorted === 'asc')}
                           >
                             {flexRender(header.column.columnDef.header, header.getContext())}
-                            {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 flex-shrink-0" />}
-                            {isSorted === 'desc' && <MoveDown className="w-5 h-5 flex-shrink-0" />}
-                            {isSorted === 'asc' && <MoveDown className="w-5 h-5 flex-shrink-0 rotate-180" />}
+                            {isSorted === false && <ArrowUpDown className="w-5 h-5 opacity-20 shrink-0" />}
+                            {isSorted === 'desc' && <MoveDown className="w-5 h-5 shrink-0" />}
+                            {isSorted === 'asc' && <MoveDown className="w-5 h-5 shrink-0 rotate-180" />}
                           </button>
 
                           {isSorted !== false && (
                             <button
-                              className="textgray-200 hover:underline transition-transform duration-200 hover:scale-110 flex-shrink-0"
+                              className="textgray-200 hover:underline transition-transform duration-200 hover:scale-110 shrink-0"
                               onClick={() => header.column.clearSorting()}
                             >
-                              <CircleX className="w-5 h-5 flex-shrink-0" />
+                              <CircleX className="w-5 h-5 shrink-0" />
                             </button>
                           )}
                         </div>
@@ -309,7 +309,7 @@ export function DataTable<TData>({
               <TableRows rows={table.getRowModel().rows} columns={columns} />
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="text-center text-xl h-[32.5rem] bg-white">
+                <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-white">
                   No existe información para mostrar
                 </TableCell>
               </TableRow>
@@ -330,7 +330,7 @@ export function DataTable<TData>({
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="min-w-[8rem] shadow-primary-50/50 rounded-lg">
+          <DropdownMenuContent align="start" className="min-w-32 shadow-primary-50/50 rounded-lg">
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem
                 key={size}
