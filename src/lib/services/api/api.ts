@@ -11,55 +11,14 @@ interface ApiErrorResponse {
   };
 }
 
-// Cache para la configuración runtime
-let runtimeConfig: { baseUrl: string } | null = null;
-let configPromise: Promise<{ baseUrl: string }> | null = null;
-
-// Función para obtener la configuración runtime una sola vez
-const getRuntimeConfig = async (): Promise<string> => {
-  if (runtimeConfig) {
-    return runtimeConfig.baseUrl;
-  }
-
-  if (configPromise) {
-    const config = await configPromise;
-    return config.baseUrl;
-  }
-
-  configPromise = fetch('/api/config')
-    .then((res) => res.json())
-    .then((config) => {
-      const baseUrl = config.baseUrl || '';
-      runtimeConfig = { baseUrl };
-      return { baseUrl };
-    })
-    .catch((error) => {
-      console.warn('Could not fetch runtime config:', error);
-      const baseUrl = '';
-      runtimeConfig = { baseUrl };
-      return { baseUrl };
-    });
-
-  const config = await configPromise;
-  return config.baseUrl;
-};
-
 // BaseQuery personalizada que detecta errores por success:false
 const baseQueryWithErrorHandling: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
   args,
   api,
   extraOptions
 ) => {
-  // Obtener baseUrl dinámicamente (solo en el cliente)
-  let baseUrl = '/api';
-
-  if (typeof window !== 'undefined') {
-    const configBaseUrl = await getRuntimeConfig();
-    baseUrl = configBaseUrl ? `${configBaseUrl}/api` : '/api';
-  }
-
   const baseQuery = fetchBaseQuery({
-    baseUrl,
+    baseUrl: `/api`,
   });
 
   const result = await baseQuery(args, api, extraOptions);
