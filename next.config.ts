@@ -16,20 +16,26 @@ const nextConfig: NextConfig = {
         port: process.env.NODE_ENV === 'development' ? process.env.HOSTNAME_SERVER_PORT || '8000' : '',
       },
       // HTTPS Client (producción)
-      process.env.HOSTNAME_CLIENT && {
-        protocol: 'https',
-        hostname: process.env.HOSTNAME_CLIENT,
-        port: '',
-      },
+      ...(process.env.HOSTNAME_CLIENT
+        ? [
+            {
+              protocol: 'https' as const,
+              hostname: process.env.HOSTNAME_CLIENT,
+              port: '',
+            },
+          ]
+        : []),
       // HTTPS Server (producción)
-      process.env.HOSTNAME_SERVER && {
-        protocol: 'https',
-        hostname: process.env.HOSTNAME_SERVER,
-        port: '',
-      },
-    ].filter((pattern): pattern is NonNullable<typeof pattern> =>
-      Boolean(pattern && pattern.protocol && pattern.hostname)
-    ),
+      ...(process.env.HOSTNAME_SERVER
+        ? [
+            {
+              protocol: 'https' as const,
+              hostname: process.env.HOSTNAME_SERVER,
+              port: '',
+            },
+          ]
+        : []),
+    ],
   },
 };
 
