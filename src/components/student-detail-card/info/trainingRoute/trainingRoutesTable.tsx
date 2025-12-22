@@ -1,8 +1,8 @@
 'use client';
 
 import { DataTable } from '@/components/ui/data-table';
-import { trainingRoutesColumns } from '@/hooks/students/info/trainingRoutes.columns';
-import { trainingRoutesMock } from '@/hooks/students/info/trainingRoutes.mock';
+import { trainingRoutesColumns } from '@/hooks/students/info/trainingRoute/trainingRoutes.columns';
+import { trainingRoutesMock } from '@/hooks/students/info/trainingRoute/trainingRoutes.mock';
 
 export function TrainingRoutesTable() {
   return (

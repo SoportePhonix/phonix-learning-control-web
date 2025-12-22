@@ -2,7 +2,10 @@
 
 import { SectionTitle } from '@/components/section-title';
 import { StudentDetailCard } from '@/components/student-detail-card/StudentDetailCard';
-import { TrainingRoutesTable } from '@/components/student-detail-card/info/trainingRoutesTable';
+import { RecruitmentAndSelectionTable } from '@/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
+import { TrainingRoutesTable } from '@/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
+import { DataTable } from '@/components/ui/data-table';
+import { studentsColumns } from '@/hooks/students/columns';
 import { studentStatsMock } from '@/hooks/students/studentStats.mock';
 import { studentsMock } from '@/hooks/students/students.mock';
 import Link from 'next/link';
@@ -34,6 +37,14 @@ export default function StudentInfoPage() {
           </Link>
           <TrainingRoutesTable></TrainingRoutesTable>
         </div>
+      </div>
+      <div className=" h-full w-full flex flex-col">
+        <div className="whitespace-nowrap text-sm">
+          <SectionTitle title="Cursos" />
+        </div>
+        <h2>Fundamentos del Reclutamiento y Selección</h2>
+
+        <RecruitmentAndSelectionTable></RecruitmentAndSelectionTable>
       </div>
     </div>
   );
