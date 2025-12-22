@@ -195,7 +195,7 @@ export function DataTable<TData>({
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-5">
-        <div className="relative w-full max-w-lg mr-10">
+        <div className="data-table-search relative w-full max-w-lg mr-10">
           <Input
             placeholder="Buscar..."
             value={globalFilter}
@@ -215,7 +215,7 @@ export function DataTable<TData>({
         </div>
 
         {table.getAllColumns().some((column) => (column.columnDef as CustomColumnDef<TData>).canHide ?? true) && (
-          <div className="relative inline-block text-left">
+          <div className="data-table-filters relative inline-block text-left">
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -318,7 +318,7 @@ export function DataTable<TData>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-center py-4 relative">
+      <div className="data-table-pagination flex items-center justify-center py-4 relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

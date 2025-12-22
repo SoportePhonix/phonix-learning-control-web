@@ -2,8 +2,10 @@
 
 import { SectionTitle } from '@/components/section-title';
 import { StudentDetailCard } from '@/components/student-detail-card/StudentDetailCard';
+import { TrainingRoutesTable } from '@/components/student-detail-card/info/trainingRoutesTable';
 import { studentStatsMock } from '@/hooks/students/studentStats.mock';
 import { studentsMock } from '@/hooks/students/students.mock';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export default function StudentInfoPage() {
@@ -23,7 +25,15 @@ export default function StudentInfoPage() {
         <div className="col-span-3">
           <StudentDetailCard student={student} stats={stats} />
         </div>
-        {/* <div className="col-span-4 bg-yellow-300">Aca poner la tabla</div> */}
+        <div className=" h-full w-full flex flex-col">
+          <div className="whitespace-nowrap text-sm">
+            <SectionTitle title="Rutas de formación" />
+          </div>
+          <Link href={'/courses'} className="underline underline-offset-4 hover:no-underline">
+            Todos los cursos
+          </Link>
+          <TrainingRoutesTable></TrainingRoutesTable>
+        </div>
       </div>
     </div>
   );
