@@ -46,13 +46,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     sections: [
-      {
-        name: 'Dashboard',
-        url: '/dashboard',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-          <IoHomeOutline {...props} />
-        ),
-      },
+      // {
+      //   name: 'Dashboard',
+      //   url: '/dashboard',
+      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+      //     <IoHomeOutline {...props} />
+      //   ),
+      // },
       {
         name: 'Usuarios',
         url: '/users',
