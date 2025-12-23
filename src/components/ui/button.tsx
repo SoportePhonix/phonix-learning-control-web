@@ -12,7 +12,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-white text-blue_gray_medium hover:bg-primary-50 hover:text-white',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-white text-blue_gray_medium hover:bg-primary-50 hover:text-white text-gray-medium',
         secondary:
           'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-blue_cta text-white hover:bg-blue_cta/80',
         tertiary:
