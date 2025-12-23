@@ -44,7 +44,7 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
-            className="text-brand hover:bg-primary-50 hover:text-brand"
+            className="text-brand hover:text-brand cursor-pointer"
             // className="text-brand hover:bg-primary-50 hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
           >
             {isLoading ? (
@@ -77,7 +77,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login border-primary-50/30"
               side={isMobile ? 'bottom' : 'right'}
               align="end"
               sideOffset={4}
@@ -96,6 +96,7 @@ export function NavUser({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
+                className="cursor-pointer hover:bg-gray-"
                 onClick={() => {
                   router.push('/logout');
                 }}
