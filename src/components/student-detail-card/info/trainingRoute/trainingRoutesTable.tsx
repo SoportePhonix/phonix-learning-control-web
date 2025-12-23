@@ -17,9 +17,7 @@ export function TrainingRoutesTable({
       className="
         [&_.data-table-search]:hidden
         [&_.data-table-filters]:hidden
-        [&_.data-table-pagination]:hidden
-    
-    w-[748px] h-[341px] flex flex-col"
+        [&_.data-table-pagination]:hiddenflex flex-col"
     >
       <DataTable columns={getTrainingRoutesColumns(onSelect, selectedRouteId)} data={trainingRoutesMock} />
     </div>

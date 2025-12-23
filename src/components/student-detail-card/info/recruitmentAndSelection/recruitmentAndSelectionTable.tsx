@@ -16,8 +16,8 @@ export function RecruitmentAndSelectionTable({ data }: { data: RecruitmentAndSel
         [&_.data-table-pagination]:hidden
 
         /* HEADER */
-        [&_th]:!bg-[rgba(11,38,46,1)]
-        [&_th]:!text-white
+        [&_th]:bg-[rgba(11,38,46,1)]!
+        [&_th]:text-white!
         [&_th]:font-medium
 
         /* FILAS */

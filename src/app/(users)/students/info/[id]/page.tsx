@@ -32,15 +32,13 @@ export default function StudentInfoPage() {
     <div className="p-8 mb-20 h-full w-full flex flex-col">
       <SectionTitle title="Detalle de estudiante" />
 
-      <div className="grid grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-12">
         <div className="col-span-3">
           <StudentDetailCard student={student} stats={stats} />
         </div>
 
-        <div className="h-full w-full flex flex-col">
-          <div className="whitespace-nowrap text-sm">
-            <SectionTitle title="Rutas de formación" />
-          </div>
+        <div className="h-full w-full flex flex-col col-span-4">
+          <SectionTitle title="Rutas de formación" />
 
           <Link href="/courses" className="underline underline-offset-4 hover:no-underline">
             Todos los cursos
