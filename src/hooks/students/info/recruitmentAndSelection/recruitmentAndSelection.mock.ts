@@ -54,7 +54,7 @@ export const recruitmentAndSelectionByRoute: Record<string, RecruitmentAndSelect
       status: 'Sin iniciar',
     },
     {
-      code: 'N0102',
+      code: 'N0103',
       name: 'Canales Digitales de Atracción de Talento',
       trainingRoute: 'Atracción de Talento y Employer Branding',
       startDate: '15/08/2025',

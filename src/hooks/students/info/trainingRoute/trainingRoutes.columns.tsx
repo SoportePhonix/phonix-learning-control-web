@@ -17,11 +17,10 @@ export const getTrainingRoutesColumns = (
         <button
           title={!isSelected ? 'Selecciona una ruta' : undefined}
           onClick={() => onSelect(row.original)}
-          className={`
-            w-full text-left font-medium px-2 py-1 rounded
-            transition-colors
-            ${isSelected ? 'bg-[#0B262E] text-white' : 'text-[#3A484C] hover:bg-[rgba(11,38,46,0.08)]'}
-          `}
+          className={`w-full text-left font-medium transition-colors no-underline 
+              ${isSelected ? 'text-[#0067D7]' : 'text-[#3A484C] hover:text-[#0067D7]'}
+  `}
+          style={{ textDecoration: 'none' }}
         >
           {row.original.name}
         </button>

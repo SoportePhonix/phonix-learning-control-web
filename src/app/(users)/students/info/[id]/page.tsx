@@ -7,6 +7,7 @@ import { StudentDetailCard } from '@/components/student-detail-card/StudentDetai
 import { RecruitmentAndSelectionTable } from '@/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
 import { TrainingRoutesTable } from '@/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
 import { recruitmentAndSelectionByRoute } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.mock';
+import { trainingRoutesMock } from '@/hooks/students/info/trainingRoute/trainingRoutes.mock';
 import { TrainingRoute } from '@/hooks/students/info/trainingRoute/trainingRoutes.types';
 import { studentStatsMock } from '@/hooks/students/studentStats.mock';
 import { studentsMock } from '@/hooks/students/students.mock';
@@ -19,7 +20,7 @@ export default function StudentInfoPage() {
   const student = studentsMock.find((s) => s.id === id);
   const stats = studentStatsMock.find((s) => s.studentId === id);
 
-  const [selectedRoute, setSelectedRoute] = useState<TrainingRoute | null>(null);
+  const [selectedRoute, setSelectedRoute] = useState<TrainingRoute>(trainingRoutesMock[0]);
 
   if (!student || !stats) {
     return <div>Estudiante no encontrado</div>;

@@ -7,6 +7,7 @@ import { TrainingRoute } from '@/hooks/students/info/trainingRoute/trainingRoute
 
 export function TrainingRoutesTable({
   onSelect,
+  selectedRouteId,
 }: {
   onSelect: (route: TrainingRoute) => void;
   selectedRouteId?: string;
@@ -20,7 +21,7 @@ export function TrainingRoutesTable({
     
     w-[748px] h-[341px] flex flex-col"
     >
-      <DataTable columns={getTrainingRoutesColumns(onSelect)} data={trainingRoutesMock} />
+      <DataTable columns={getTrainingRoutesColumns(onSelect, selectedRouteId)} data={trainingRoutesMock} />
     </div>
   );
 }
