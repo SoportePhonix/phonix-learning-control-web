@@ -1,0 +1,73 @@
+/* Project Custom Colors */
+/* Custom color palette for the application + Tailwind theme mappings */
+
+@layer base {
+  :root {
+    /* Project Custom Colors - HSL format (universal) */
+    --primary-50: 193 60% 19%; /* #13404d */
+    --primary-100: 193 60% 9%; /* #091e24 */
+    --secondary: 193 60% 9%; /* #091e24 */
+    --white: 0 0% 100%; /* #ffffff */
+    --brand: 192 48% 94%; /* #e8f4f7 */
+    --bg_blue: 192 48% 94%; /* #e8f4f7 */
+    --blue_cta: 210 100% 42%; /* #0067d7 */
+    --blue_medium: 194 35% 61%; /* #76b4c7 */
+    --blue_gray_login: 180 5% 91%; /* #e7e9ea */
+    --blue_gray_medium: 195 10% 62%; /* #90a7ae */
+    --blue_overlay: 192 60% 10% / 0.1; /* #0b262e1a */
+    --brand-dark: 222 89% 2%; /* #030712 */
+    --gray_medium: 193 13% 27%; /* #3a484c */
+    --gray_login: 180 5% 91%; /* #e7e9ea */
+    --light_blue: 193 87% 77%; /* #93e0f7 */
+    --red-error: 7 44% 53%; /* #c85948 */
+    --red-destructive: 0 68% 49%; /* #d32525 */
+    --green-active: 82 34% 43%; /* #699235 */
+    --green-success: 142 71% 49%; /* #25d366 */
+  }
+
+  .dark {
+    /* Project Custom Colors - HSL format (universal) */
+    --primary-50: 193 60% 19%; /* #13404d */
+    --primary-100: 193 60% 9%; /* #091e24 */
+    --secondary: 193 60% 9%; /* #091e24 */
+    --white: 0 0% 100%; /* #ffffff */
+    --brand: 192 48% 94%; /* #e8f4f7 */
+    --bg_blue: 192 48% 94%; /* #e8f4f7 */
+    --blue_cta: 210 100% 42%; /* #0067d7 */
+    --blue_medium: 194 35% 61%; /* #76b4c7 */
+    --blue_gray_login: 180 5% 91%; /* #e7e9ea */
+    --blue_gray_medium: 195 10% 62%; /* #90a7ae */
+    --blue_overlay: 192 60% 10% / 0.1; /* #0b262e1a */
+    --brand-dark: 222 89% 2%; /* #030712 */
+    --gray_medium: 193 13% 27%; /* #3a484c */
+    --gray_login: 180 5% 91%; /* #e7e9ea */
+    --light_blue: 193 87% 77%; /* #93e0f7 */
+    --red-error: 7 44% 53%; /* #c85948 */
+    --red-destructive: 0 68% 49%; /* #d32525 */
+    --green-active: 82 34% 43%; /* #699235 */
+    --green-success: 142 71% 49%; /* #25d366 */
+  }
+}
+
+/* Tailwind Theme Mappings */
+@theme {
+  /* Project Custom Colors */
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-secondary: var(--secondary);
+  --color-white: var(--white);
+  --color-brand: var(--brand);
+  --color-bg_blue: var(--bg_blue);
+  --color-blue_cta: var(--blue_cta);
+  --color-blue_medium: var(--blue_medium);
+  --color-blue_gray_medium: var(--blue_gray_medium);
+  --color-blue_overlay: var(--blue_overlay);
+  --color-brand-dark: var(--brand-dark);
+  --color-gray_medium: var(--gray_medium);
+  --color-gray_login: var(--gray_login);
+  --color-light_blue: var(--light_blue);
+  --color-red-error: var(--red-error);
+  --color-red-destructive: var(--red-destructive);
+  --color-green-active: var(--green-active);
+  --color-green-success: var(--green-success);
+}

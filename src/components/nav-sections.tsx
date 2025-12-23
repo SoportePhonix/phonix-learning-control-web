@@ -57,34 +57,39 @@ export function NavSections({
                 style={{
                   clipPath: 'polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem)',
                 }}
-                className={`p-4 ml-4 rounded-none hover:bg-brand ${
+                className={`p-4 ml-4 rounded-none transition-colors ${
                   isActive(item.url)
-                    ? 'bg-brand hover:text-primary-100 group-data-[state=collapsed]:bg-blue_cta group-data-[state=collapsed]:hover:bg-blue_cta'
-                    : 'hover:bg-primary-50 text-brand hover:text-brand'
-                } group-data-[state=collapsed]:w-20!`}
+                    ? 'bg-nav-item-active-bg text-nav-item-active-text hover:bg-nav-item-active-hover-bg hover:text-nav-item-active-hover-text active:bg-nav-item-active-hover-bg active:text-nav-item-active-hover-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-hover-bg'
+                    : 'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-active-bg active:text-nav-item-inactive-active-text'
+                } group-data-[state=collapsed]:w-23!`}
               >
-                <div className="flex items-center gap-2 w-full cursor-pointer relative">
-                  <div className="ml-7">
+                <div className="flex items-center gap-2 w-full cursor-pointer relative whitespace-nowrap overflow-hidden">
+                  <div className="ml-7 shrink-0">
                     <item.icon
                       className={`${
                         isActive(item.url)
-                          ? 'stroke-primary-100 group-data-[state=collapsed]:stroke-white hover:stroke-brand'
-                          : 'stroke-light_blue'
-                      } w-4 h-4`}
+                          ? 'stroke-nav-icon-active group-data-[state=collapsed]:stroke-nav-icon-active-collapsed'
+                          : 'stroke-nav-icon-inactive'
+                      } w-4 h-4 ml-1`}
                     />
                   </div>
-                  <Typography variant="parrafo-pequeno" className="group-data-[state=collapsed]:hidden">
+                  <Typography
+                    variant="parrafo-pequeno"
+                    className="group-data-[state=collapsed]:hidden whitespace-nowrap overflow-hidden text-ellipsis"
+                  >
                     {item.name}
                   </Typography>
 
                   <span
-                    className={`absolute left-1 text-white bg-red-error group-data-[state=collapsed]:-top-0.5 ${item.notificationCount === 0 || !item.notificationCount ? 'hidden' : ''} text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 ease-in-out`}
+                    className={`absolute left-1 text-nav-badge-text bg-nav-badge-bg group-data-[state=collapsed]:-top-0.5 ${
+                      item.notificationCount === 0 || !item.notificationCount ? 'hidden' : ''
+                    } text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center transition-all duration-300 ease-in-out`}
                   >
                     {item.notificationCount && item.notificationCount > 99 ? '99+' : item.notificationCount}
                   </span>
                 </div>
               </SidebarMenuButton>
-              <Separator className="bg-primary-50 opacity-50 h-[0.05rem] ml-4 my-2 w-10/12" />
+              <Separator className="bg-nav-separator-bg opacity-50 h-[0.05rem] ml-4 my-2 w-10/12" />
             </SidebarMenuItem>
           </div>
         ))}

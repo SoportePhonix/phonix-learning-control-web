@@ -39,7 +39,7 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu className="group-data-[collapsible=icon]:ml-4 ml-0 ">
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-7 ml-0 text-amber-50">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
