@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { VariantProps, cva } from 'class-variance-authority';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, PanelRightClose, PanelRightOpen } from 'lucide-react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -54,27 +54,28 @@ const SidebarProvider = React.forwardRef<
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
 
-  // Initialize state - will be updated by useEffect
-  const [_open, _setOpen] = React.useState(defaultOpen);
-
-  // Read from localStorage on mount (client-side only)
-  React.useEffect(() => {
-    if (openProp === undefined) {
+  // This is the internal state of the sidebar.
+  // We use openProp and setOpenProp for control from outside the component.
+  const [_open, _setOpen] = React.useState(() => {
+    // Try to read from localStorage synchronously on initial render
+    if (typeof window !== 'undefined' && openProp === undefined) {
       try {
         const stored = localStorage.getItem(SIDEBAR_COOKIE_NAME);
         if (stored !== null) {
-          const storedValue = stored === 'true';
-          // Only update if different to avoid unnecessary re-renders
-          if (storedValue !== _open) {
-            _setOpen(storedValue);
-          }
+          return stored === 'true';
         }
       } catch (error) {
-        console.error('Error reading sidebar state from localStorage:', error);
+        // Ignore errors, use defaultOpen
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openProp]);
+    return defaultOpen;
+  });
+  const [mounted, setMounted] = React.useState(false);
+
+  // Mark as mounted
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const open = openProp ?? _open;
   const setOpen = React.useCallback(
@@ -278,35 +279,41 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
     // Si no está montado, renderizar el estado por defecto sin icono para evitar hydration
     if (!mounted) {
       return (
-        <Button
+        <button
           ref={ref}
           data-sidebar="trigger"
           variant="default"
-          className={cn(
-            'h-4 w-4 p-0 flex items-center justify-center bg-blanco rounded-3xl hover:bg-blanco cursor-pointer',
-            className
-          )}
+          className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
           onClick={(event) => {
             onClick?.(event);
             toggleSidebar();
           }}
           {...props}
         >
-          <ChevronLeft className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          {isOpen ? (
+            <PanelRightOpen
+              className={isOpen && isMobile ? 'text-white' : isMobile ? 'text-primary-50' : 'text-white'}
+              size={20}
+              strokeWidth={1.5}
+            />
+          ) : (
+            <PanelRightClose
+              className={isOpen && isMobile ? 'text-white' : isMobile ? 'text-primary-50' : 'text-white'}
+              size={20}
+              strokeWidth={1.5}
+            />
+          )}
           <span className="sr-only">Toggle Sidebar</span>
-        </Button>
+        </button>
       );
     }
 
     return (
-      <Button
+      <button
         ref={ref}
         data-sidebar="trigger"
         variant="default"
-        className={cn(
-          'h-4 w-4 p-0 flex items-center justify-center bg-blanco rounded-3xl hover:bg-blanco cursor-pointer',
-          className
-        )}
+        className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
         onClick={(event) => {
           onClick?.(event);
           toggleSidebar();
@@ -314,12 +321,20 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         {...props}
       >
         {isOpen ? (
-          <ChevronLeft className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          <PanelRightOpen
+            className={isOpen && isMobile ? 'text-white' : isMobile ? 'text-primary-50' : 'text-white'}
+            size={20}
+            strokeWidth={1.5}
+          />
         ) : (
-          <ChevronRight className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          <PanelRightClose
+            className={isOpen && isMobile ? 'text-white' : isMobile ? 'text-primary-50' : 'text-white'}
+            size={20}
+            strokeWidth={1.5}
+          />
         )}
         <span className="sr-only">Toggle Sidebar</span>
-      </Button>
+      </button>
     );
   }
 );
