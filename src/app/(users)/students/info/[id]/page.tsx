@@ -49,9 +49,7 @@ export default function StudentInfoPage() {
       </div>
 
       <div className="h-full w-full flex flex-col mt-6">
-        <div className="whitespace-nowrap text-sm">
-          <SectionTitle title="Cursos" />
-        </div>
+        <SectionTitle title="Cursos" />
 
         <h2 className="text-sm font-medium text-[#3A484C]">
           {selectedRoute?.name ?? 'Selecciona una ruta de formación'}

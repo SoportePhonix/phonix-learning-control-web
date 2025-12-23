@@ -1,3 +1,4 @@
+import { SectionTitle } from '@/components/section-title';
 import { TrainingPathwayDetailCard } from '@/components/trainingPathways-detail-card/TrainingPathwaysDetailCard';
 import { trainingPathwaysMock } from '@/hooks/trainingPathways/trainingPathways.mock';
 import { trainingPathwaysStatsMock } from '@/hooks/trainingPathways/trainingPathwaysStats.mock';
@@ -19,5 +20,13 @@ export default async function Page({ params }: Props) {
     return <p>No encontrado</p>;
   }
 
-  return <TrainingPathwayDetailCard trainingPathway={trainingPathway} stats={stats} />;
+  return (
+    <div>
+      <SectionTitle title="Rutas de información" />
+      <TrainingPathwayDetailCard trainingPathway={trainingPathway} stats={stats} />
+      <div className="py-12">
+        <SectionTitle title="Cursos" />
+      </div>
+    </div>
+  );
 }
