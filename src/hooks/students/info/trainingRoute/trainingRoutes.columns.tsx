@@ -3,15 +3,28 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { TrainingRoute } from './trainingRoutes.types';
 
-export const trainingRoutesColumns: ColumnDef<TrainingRoute>[] = [
+export const getTrainingRoutesColumns = (
+  onSelect: (route: TrainingRoute) => void,
+  selectedRouteId?: string
+): ColumnDef<TrainingRoute>[] => [
   {
     accessorKey: 'name',
     header: 'Nombre',
     cell: ({ row }) => {
-      const isFirst = row.index === 0;
+      const isSelected = row.original.id === selectedRouteId;
 
       return (
-        <span className={`font-medium ${isFirst ? 'text-[#0A66C2]' : 'text-[#3A484C]'}`}>{row.original.name}</span>
+        <button
+          title={!isSelected ? 'Selecciona una ruta' : undefined}
+          onClick={() => onSelect(row.original)}
+          className={`
+            w-full text-left font-medium px-2 py-1 rounded
+            transition-colors
+            ${isSelected ? 'bg-[#0B262E] text-white' : 'text-[#3A484C] hover:bg-[rgba(11,38,46,0.08)]'}
+          `}
+        >
+          {row.original.name}
+        </button>
       );
     },
   },

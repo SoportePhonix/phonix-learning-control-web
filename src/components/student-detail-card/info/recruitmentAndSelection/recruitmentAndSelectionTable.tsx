@@ -2,9 +2,9 @@
 
 import { DataTable } from '@/components/ui/data-table';
 import { recruitmentAndSelectionColumns } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.columns';
-import { recruitmentAndSelectionMock } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.mock';
+import { RecruitmentAndSelection } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.types';
 
-export function RecruitmentAndSelectionTable() {
+export function RecruitmentAndSelectionTable({ data }: { data: RecruitmentAndSelection[] }) {
   return (
     <div
       className="
@@ -26,7 +26,7 @@ export function RecruitmentAndSelectionTable() {
         [&_tbody_tr:hover]:bg-inherit
       "
     >
-      <DataTable columns={recruitmentAndSelectionColumns} data={recruitmentAndSelectionMock} />
+      <DataTable columns={recruitmentAndSelectionColumns} data={data} />
     </div>
   );
 }
