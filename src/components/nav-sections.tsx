@@ -35,6 +35,15 @@ export function NavSections({
     }
   };
 
+  const isActive = (url: string) => {
+    // Normalizar las rutas eliminando trailing slashes
+    const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+    const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
+
+    // Verificar si es exactamente la misma ruta o si es una ruta hija
+    return normalizedPathname === normalizedUrl || normalizedPathname.startsWith(normalizedUrl + '/');
+  };
+
   return (
     <SidebarGroup className="mt-8">
       {showLabel && <SidebarGroupLabel>sections</SidebarGroupLabel>}
@@ -49,18 +58,16 @@ export function NavSections({
                   clipPath: 'polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem)',
                 }}
                 className={`p-4 ml-4 rounded-none hover:bg-brand ${
-                  pathname === item.url
+                  isActive(item.url)
                     ? 'bg-brand hover:text-primary-100 text-primary-100'
                     : 'hover:bg-primary-50 text-brand hover:text-brand'
-                  // ? 'bg-brand hover:text-primary-100 text-primary-100 dark:bg-brand-dark dark:hover:bg-brand-dark dark:text-brand'
-                  // : 'hover:bg-primary-50 text-brand dark:hover:bg-brand-dark hover:text-brand dark:text-brand '
                 } group-data-[state=collapsed]:w-24!`}
               >
                 <div className="flex items-center gap-2 w-full cursor-pointer relative">
                   <div className="ml-7">
                     <item.icon
                       className={`${
-                        pathname === item.url ? 'stroke-primary-100 hover:stroke-brand' : 'stroke-light_blue'
+                        isActive(item.url) ? 'stroke-primary-100 hover:stroke-brand' : 'stroke-light_blue'
                       } w-4 h-4`}
                     />
                   </div>
