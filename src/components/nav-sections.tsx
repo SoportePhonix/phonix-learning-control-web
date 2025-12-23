@@ -59,15 +59,17 @@ export function NavSections({
                 }}
                 className={`p-4 ml-4 rounded-none hover:bg-brand ${
                   isActive(item.url)
-                    ? 'bg-brand hover:text-primary-100 text-primary-100'
+                    ? 'bg-brand hover:text-primary-100 group-data-[state=collapsed]:bg-blue_cta group-data-[state=collapsed]:hover:bg-blue_cta'
                     : 'hover:bg-primary-50 text-brand hover:text-brand'
-                } group-data-[state=collapsed]:w-24!`}
+                } group-data-[state=collapsed]:w-20!`}
               >
                 <div className="flex items-center gap-2 w-full cursor-pointer relative">
                   <div className="ml-7">
                     <item.icon
                       className={`${
-                        isActive(item.url) ? 'stroke-primary-100 hover:stroke-brand' : 'stroke-light_blue'
+                        isActive(item.url)
+                          ? 'stroke-primary-100 group-data-[state=collapsed]:stroke-white hover:stroke-brand'
+                          : 'stroke-light_blue'
                       } w-4 h-4`}
                     />
                   </div>
