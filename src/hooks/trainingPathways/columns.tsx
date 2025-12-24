@@ -38,15 +38,15 @@ export const trainingPathwaysColumns: CustomColumnDef<TrainingPathway>[] = [
     id: 'actions',
     header: 'Detalle',
     cell: ({ row }) => {
-      const student = row.original;
+      const trainingPathway = row.original;
 
       return (
-        <Link href={'/trainingPathways/info'}>
+        <Link href={`/trainingPathways/info/${trainingPathway.id}`}>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => {
-              console.log('Detalle estudiante:', student);
+              console.log('Detalle estudiante:', trainingPathway);
             }}
           >
             <Eye className="h-4 w-4" />

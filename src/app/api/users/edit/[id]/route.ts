@@ -27,7 +27,6 @@ export async function PUT(req: Request, { params }: any) {
 
     const data = await response.json();
 
-    console.log('Response data:', data);
     const errorResponse = ApiRes.fromExternalResponse(data);
     if (errorResponse) return errorResponse;
 

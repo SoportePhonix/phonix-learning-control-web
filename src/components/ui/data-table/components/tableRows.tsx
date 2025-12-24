@@ -20,7 +20,10 @@ const TableRows = <TData,>({ rows, columns }: TableRowsProps<TData>) => {
   return (
     <>
       {rows.map((row, index) => (
-        <TableRow key={row.id} className={index % 2 === 0 ? '' : 'bg-gray-200/60 text-blue_gray_medium'}>
+        <TableRow
+          key={row.id}
+          className={index % 2 === 0 ? 'text-gray_medium' : 'bg-gray-200/60 text-gray_medium hover:bg-gray-200/60'}
+        >
           {row.getVisibleCells().map((cell) => (
             <TableCell className="px-6 py-4 text-left" key={cell.id}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -18,7 +18,7 @@ const baseQueryWithErrorHandling: BaseQueryFn<string | FetchArgs, unknown, Fetch
   extraOptions
 ) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api`,
+    baseUrl: `/api`,
   });
 
   const result = await baseQuery(args, api, extraOptions);

@@ -84,7 +84,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   }
 
   const selectStyle =
-    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-white px-3 text-sm text-gray-500';
+    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-white px-3 text-sm text-[#3A484C]';
 
   // Renderizar según tipo de campo
   const renderField = () => {
@@ -98,8 +98,6 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             name={fieldName}
             rules={validationRules}
             render={({ field: controllerField }) => {
-              // Convertir el valor a string solo si existe y no está vacío
-              // De lo contrario, usar undefined para que el Select muestre el placeholder
               const selectValue =
                 controllerField.value !== undefined &&
                 controllerField.value !== null &&
@@ -117,9 +115,9 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   <SelectTrigger className={selectStyle}>
                     <SelectValue placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')} />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="rounded-lg border-primary-50/30 bg-brand z-50 text-[#3A484C]">
                     {options.map((option) => (
-                      <SelectItem key={option.value} value={String(option.value)}>
+                      <SelectItem key={option.value} value={String(option.value)} className="bg-white">
                         {option.label}
                       </SelectItem>
                     ))}

@@ -39,12 +39,12 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu className="group-data-[collapsible=icon]:ml-4 ml-0 ">
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-7 ml-0 text-amber-50">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
-            className="text-brand hover:bg-primary-50 hover:text-brand"
+            className="text-brand hover:text-brand cursor-pointer"
             // className="text-brand hover:bg-primary-50 hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
           >
             {isLoading ? (
@@ -56,10 +56,7 @@ export function NavUser({
                 </div>
               </SidebarMenuButton>
             ) : (
-              <SidebarMenuButton
-                size="lg"
-                className="data-[state=open]:bg-primary-50 dark:data-[state=open]:bg-background"
-              >
+              <SidebarMenuButton size="lg" className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover">
                 <Avatar className="h-8 w-8 rounded-full bg-morado-oscuro">
                   {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
                   <AvatarFallback className="bg-primary-50 text-blanco font-bold">
@@ -77,7 +74,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login border-primary-50/30"
               side={isMobile ? 'bottom' : 'right'}
               align="end"
               sideOffset={4}
@@ -96,6 +93,7 @@ export function NavUser({
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
+                className="cursor-pointer hover:bg-gray-"
                 onClick={() => {
                   router.push('/logout');
                 }}

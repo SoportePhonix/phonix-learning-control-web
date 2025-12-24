@@ -17,7 +17,7 @@ export const authOptions: AuthOptions = {
           };
 
           const response = await (
-            await fetch(`${process.env.NEXTAUTH_URL}/auth/login`, {
+            await fetch(`${process.env.API_URL}/auth/login`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

@@ -13,13 +13,13 @@ import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { VariantProps, cva } from 'class-variance-authority';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { PanelRightClose, PanelRightOpen } from 'lucide-react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar:state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = '18rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
-const SIDEBAR_WIDTH_ICON = '7rem';
+const SIDEBAR_WIDTH_ICON = '7.8rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 type SidebarContextProps = {
@@ -56,7 +56,27 @@ const SidebarProvider = React.forwardRef<
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(defaultOpen);
+  const [_open, _setOpen] = React.useState(() => {
+    // Try to read from localStorage synchronously on initial render
+    if (typeof window !== 'undefined' && openProp === undefined) {
+      try {
+        const stored = localStorage.getItem(SIDEBAR_COOKIE_NAME);
+        if (stored !== null) {
+          return stored === 'true';
+        }
+      } catch (error) {
+        // Ignore errors, use defaultOpen
+      }
+    }
+    return defaultOpen;
+  });
+  const [mounted, setMounted] = React.useState(false);
+
+  // Mark as mounted
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const open = openProp ?? _open;
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -65,6 +85,13 @@ const SidebarProvider = React.forwardRef<
         setOpenProp(openState);
       } else {
         _setOpen(openState);
+      }
+
+      // Save state to localStorage
+      try {
+        localStorage.setItem(SIDEBAR_COOKIE_NAME, String(openState));
+      } catch (error) {
+        console.error('Error saving sidebar state to localStorage:', error);
       }
 
       // This sets the cookie to keep the sidebar state.
@@ -121,6 +148,7 @@ const SidebarProvider = React.forwardRef<
           }
           className={cn('group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar', className)}
           ref={ref}
+          suppressHydrationWarning
           {...props}
         >
           {children}
@@ -195,6 +223,7 @@ const Sidebar = React.forwardRef<
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
       data-side={side}
+      suppressHydrationWarning
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -237,20 +266,54 @@ Sidebar.displayName = 'Sidebar';
 const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.ComponentProps<typeof Button>>(
   ({ className, onClick, ...props }, ref) => {
     const { toggleSidebar, state, isMobile, openMobile } = useSidebar();
+    const [mounted, setMounted] = React.useState(false);
+
+    React.useEffect(() => {
+      setMounted(true);
+    }, []);
 
     // En mobile, usar openMobile para determinar el estado del icono
     // En desktop, usar el state normal
     const isOpen = isMobile ? openMobile : state === 'expanded';
 
+    // Si no está montado, renderizar el estado por defecto sin icono para evitar hydration
+    if (!mounted) {
+      return (
+        <button
+          ref={ref}
+          data-sidebar="trigger"
+          variant="default"
+          className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
+          onClick={(event) => {
+            onClick?.(event);
+            toggleSidebar();
+          }}
+          {...props}
+        >
+          {isOpen ? (
+            <PanelRightOpen
+              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+              size={20}
+              strokeWidth={1.5}
+            />
+          ) : (
+            <PanelRightClose
+              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+              size={20}
+              strokeWidth={1.5}
+            />
+          )}
+          <span className="sr-only">Toggle Sidebar</span>
+        </button>
+      );
+    }
+
     return (
-      <Button
+      <button
         ref={ref}
         data-sidebar="trigger"
         variant="default"
-        className={cn(
-          'h-4 w-4 p-0 flex items-center justify-center bg-blanco rounded-3xl hover:bg-blanco cursor-pointer',
-          className
-        )}
+        className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
         onClick={(event) => {
           onClick?.(event);
           toggleSidebar();
@@ -258,12 +321,20 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         {...props}
       >
         {isOpen ? (
-          <ChevronLeft className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          <PanelRightOpen
+            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+            size={20}
+            strokeWidth={1.5}
+          />
         ) : (
-          <ChevronRight className="text-morado-oscuro" style={{ width: '20px', height: '20px' }} />
+          <PanelRightClose
+            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+            size={20}
+            strokeWidth={1.5}
+          />
         )}
         <span className="sr-only">Toggle Sidebar</span>
-      </Button>
+      </button>
     );
   }
 );

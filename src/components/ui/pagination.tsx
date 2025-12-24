@@ -39,9 +39,9 @@ const PaginationLink = ({ className, isActive, size = 'icon', ...props }: Pagina
         variant: isActive ? 'outline' : 'ghost',
         size,
       }),
-      'hover:!bg-transparent hover:!shadow-none hover:!text-inherit',
-      isActive ? 'font-bold bg-transparent !border-none !ring-0 !outline-none !shadow-none border-transparent' : '',
-      '!border-0 !ring-0 !outline-none !shadow-none focus:!border-none focus:!ring-0 focus:!outline-none active:!border-none active:!ring-0 active:!outline-none',
+      'hover:bg-transparent! hover:shadow-none! hover:text-inherit!',
+      isActive ? 'font-bold bg-transparent border-none! ring-0! outline-none! shadow-none! border-transparent' : '',
+      'border-0! ring-0! outline-none! shadow-none! focus:border-none! focus:ring-0! focus:outline-none! active:border-none! active:ring-0! active:outline-none!',
       className
     )}
     {...props}
@@ -53,7 +53,7 @@ const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
-    className={cn('bg-opacity-0 gap-1 pl-2.5 hover:!bg-transparent hover:!shadow-none', className)}
+    className={cn('bg-opacity-0 gap-1 pl-2.5 hover:bg-transparent! hover:shadow-none!', className)}
     {...props}
   >
     <ChevronLeft />
@@ -66,7 +66,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
   <PaginationLink
     aria-label="Go to next page"
     size="default"
-    className={cn('bg-opacity-0 gap-1 pr-2.5 hover:!bg-transparent hover:!shadow-none', className)}
+    className={cn('bg-opacity-0 gap-1 pr-2.5 hover:bg-transparent! hover:shadow-none!', className)}
     {...props}
   >
     {/* <span>Next</span> */}
