@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
 /* Import modular CSS variables with integrated Tailwind themes */
-@import './src/app/styles/variables/base-colors.css';
-@import './src/app/styles/variables/sidebar-colors.css';
-@import './src/app/styles/variables/project-colors.css';
+@import './src/app/styles/variables/shadcn-colors.css';
+@import './styles/variables/sidebar-tokens.css';
+@import './src/app/styles/variables/primitive-colors.css';
 @import './src/app/styles/variables/nav-colors.css';
 
 /* Tailwind Breakpoints */

@@ -4,108 +4,163 @@
 @layer base {
   :root {
     /* === 1. Background & Surface === */
-    --color-background-primary: var(--brand); /* Fondo principal de la aplicación */
-    --color-background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
-    --color-background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
-    --color-surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
-    --color-surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
-    --color-surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
-    --color-surface-inverse: var(--primary-100); /* Fondos inversos (tooltips) */
+    --background-primary: var(--brand); /* Fondo principal de la aplicación */
+    --background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
+    --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
+    --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
+    --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
+    --surface-inverse: var(--primary-100); /* Fondos inversos (tooltips) */
 
     /* === 2. Text & Foreground === */
-    --color-text-primary: var(--primary-100); /* Texto principal, mayor contraste */
-    --color-text-secondary: var(--gray_medium); /* Texto secundario, menor énfasis */
-    --color-text-tertiary: var(--blue_gray_medium); /* Texto terciario, mínimo énfasis */
-    --color-text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
-    --color-text-placeholder: var(--blue_gray_medium); /* Placeholders en inputs */
-    --color-text-inverse: var(--white); /* Texto sobre fondos oscuros/brand */
-    --color-text-link: var(--blue_cta); /* Enlaces de texto */
-    --color-text-link-hover: var(--blue_medium); /* Enlaces en hover */
+    --text-primary: var(--primary-100); /* Texto principal, mayor contraste */
+    --text-secondary: var(--gray_medium); /* Texto secundario, menor énfasis */
+    --text-tertiary: var(--blue_gray_medium); /* Texto terciario, mínimo énfasis */
+    --text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
+    --text-placeholder: var(--blue_gray_medium); /* Placeholders en inputs */
+    --text-inverse: var(--white); /* Texto sobre fondos oscuros/brand */
+    --text-link: var(--blue_cta); /* Enlaces de texto */
+    --text-link-hover: var(--blue_medium); /* Enlaces en hover */
 
     /* === 3. Borders & Dividers === */
-    --color-border-default: var(--blue_gray_login); /* Bordes estándar */
-    --color-border-subtle: var(--brand); /* Bordes sutiles, bajo contraste */
-    --color-border-strong: var(--gray_medium); /* Bordes con mayor contraste */
-    --color-border-interactive: var(--blue_cta); /* Bordes de elementos interactivos */
-    --color-border-focus: var(--blue_cta); /* Borde de focus/outline (a11y) */
-    --color-border-error: var(--red-error); /* Bordes de error en validación */
-    --color-divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
+    --border-default: var(--blue_gray_login); /* Bordes estándar */
+    --border-subtle: var(--brand); /* Bordes sutiles, bajo contraste */
+    --border-strong: var(--gray_medium); /* Bordes con mayor contraste */
+    --border-interactive: var(--blue_cta); /* Bordes de elementos interactivos */
+    --border-focus: var(--blue_cta); /* Borde de focus/outline (a11y) */
+    --border-error: var(--red-error); /* Bordes de error en validación */
+    --divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
 
     /* === 4. Interactive States === */
-    --color-interactive-default: var(--primary-50); /* Estado normal/reposo */
-    --color-interactive-hover: var(--primary-100); /* Estado hover */
-    --color-interactive-active: var(--primary-100); /* Estado pressed/activo */
-    --color-interactive-focus: var(--blue_cta); /* Estado focus (a11y) */
-    --color-interactive-disabled: var(--blue_gray_medium); /* Estado deshabilitado */
+    --interactive-default: var(--primary-50); /* Estado normal/reposo */
+    --interactive-hover: var(--primary-100); /* Estado hover */
+    --interactive-active: var(--primary-100); /* Estado pressed/activo */
+    --interactive-focus: var(--blue_cta); /* Estado focus (a11y) */
+    --interactive-disabled: var(--blue_gray_medium); /* Estado deshabilitado */
 
     /* === 5. Semantic Feedback === */
-    --color-success: var(--green-success); /* Operaciones exitosas */
-    --color-success-emphasis: var(--green-active); /* Texto/íconos de éxito */
+    --success: var(--green-success); /* Operaciones exitosas */
+    --success-emphasis: var(--green-active); /* Texto/íconos de éxito */
 
-    --color-warning: var(--red-error); /* Advertencias */
-    --color-warning-emphasis: var(--red-error); /* Texto/íconos de advertencia */
+    --warning: var(--red-error); /* Advertencias */
+    --warning-emphasis: var(--red-error); /* Texto/íconos de advertencia */
 
-    --color-error: var(--red-destructive); /* Errores, acciones destructivas */
-    --color-error-emphasis: var(--red-destructive); /* Texto/íconos de error */
+    --error: var(--red-destructive); /* Errores, acciones destructivas */
+    --error-emphasis: var(--red-destructive); /* Texto/íconos de error */
 
-    --color-info: var(--blue_cta); /* Información neutral */
-    --color-info-emphasis: var(--blue_medium); /* Texto/íconos informativos */
+    --info: var(--blue_cta); /* Información neutral */
+    --info-emphasis: var(--blue_medium); /* Texto/íconos informativos */
 
     /* === 6. Brand & Accent === */
-    --color-brand-primary: var(--primary-50); /* Color principal de marca */
-    --color-brand-primary-hover: var(--primary-100); /* Hover del color primario */
-    --color-brand-primary-active: var(--primary-100); /* Active del color primario */
-    --color-brand-secondary: var(--blue_cta); /* Color secundario de marca */
-    --color-accent: var(--brand); /* Color de acento/highlight */
+    --brand-primary: var(--primary-50); /* Color principal de marca */
+    --brand-primary-hover: var(--primary-100); /* Hover del color primario */
+    --brand-primary-active: var(--primary-100); /* Active del color primario */
+    --brand-secondary: var(--blue_cta); /* Color secundario de marca */
+    --accent: var(--brand); /* Color de acento/highlight */
   }
 
   .dark {
     /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
     /* Por ahora usamos los mismos valores, pero aquí es donde cambiarían */
-    --color-background-primary: var(--brand);
-    --color-background-secondary: var(--white);
-    --color-background-tertiary: var(--blue_gray_login);
-    --color-surface-raised: var(--white);
-    --color-surface-overlay: var(--blue_overlay);
-    --color-surface-sunken: var(--blue_gray_login);
-    --color-surface-inverse: var(--primary-100);
+    --background-primary: var(--brand);
+    --background-secondary: var(--white);
+    --background-tertiary: var(--blue_gray_login);
+    --surface-raised: var(--white);
+    --surface-overlay: var(--blue_overlay);
+    --surface-sunken: var(--blue_gray_login);
+    --surface-inverse: var(--primary-100);
 
-    --color-text-primary: var(--primary-100);
-    --color-text-secondary: var(--gray_medium);
-    --color-text-tertiary: var(--blue_gray_medium);
-    --color-text-disabled: var(--blue_gray_medium);
-    --color-text-placeholder: var(--blue_gray_medium);
-    --color-text-inverse: var(--white);
-    --color-text-link: var(--blue_cta);
-    --color-text-link-hover: var(--blue_medium);
+    --text-primary: var(--primary-100);
+    --text-secondary: var(--gray_medium);
+    --text-tertiary: var(--blue_gray_medium);
+    --text-disabled: var(--blue_gray_medium);
+    --text-placeholder: var(--blue_gray_medium);
+    --text-inverse: var(--white);
+    --text-link: var(--blue_cta);
+    --text-link-hover: var(--blue_medium);
 
-    --color-border-default: var(--blue_gray_login);
-    --color-border-subtle: var(--brand);
-    --color-border-strong: var(--gray_medium);
-    --color-border-interactive: var(--blue_cta);
-    --color-border-focus: var(--blue_cta);
-    --color-border-error: var(--red-error);
-    --color-divider: var(--blue_gray_login);
+    --border-default: var(--blue_gray_login);
+    --border-subtle: var(--brand);
+    --border-strong: var(--gray_medium);
+    --border-interactive: var(--blue_cta);
+    --border-focus: var(--blue_cta);
+    --border-error: var(--red-error);
+    --divider: var(--blue_gray_login);
 
-    --color-interactive-default: var(--primary-50);
-    --color-interactive-hover: var(--primary-100);
-    --color-interactive-active: var(--primary-100);
-    --color-interactive-focus: var(--blue_cta);
-    --color-interactive-disabled: var(--blue_gray_medium);
+    --interactive-default: var(--primary-50);
+    --interactive-hover: var(--primary-100);
+    --interactive-active: var(--primary-100);
+    --interactive-focus: var(--blue_cta);
+    --interactive-disabled: var(--blue_gray_medium);
 
-    --color-success: var(--green-success);
-    --color-success-emphasis: var(--green-active);
-    --color-warning: var(--red-error);
-    --color-warning-emphasis: var(--red-error);
-    --color-error: var(--red-destructive);
-    --color-error-emphasis: var(--red-destructive);
-    --color-info: var(--blue_cta);
-    --color-info-emphasis: var(--blue_medium);
+    --success: var(--green-success);
+    --success-emphasis: var(--green-active);
+    --warning: var(--red-error);
+    --warning-emphasis: var(--red-error);
+    --error: var(--red-destructive);
+    --error-emphasis: var(--red-destructive);
+    --info: var(--blue_cta);
+    --info-emphasis: var(--blue_medium);
 
-    --color-brand-primary: var(--primary-50);
-    --color-brand-primary-hover: var(--primary-100);
-    --color-brand-primary-active: var(--primary-100);
-    --color-brand-secondary: var(--blue_cta);
-    --color-accent: var(--brand);
+    --brand-primary: var(--primary-50);
+    --brand-primary-hover: var(--primary-100);
+    --brand-primary-active: var(--primary-100);
+    --brand-secondary: var(--blue_cta);
+    --accent: var(--brand);
   }
+}
+
+/* Tailwind Theme Mappings para Tokens Semánticos */
+@theme {
+  /* === 1. Background & Surface === */
+  --color-background-primary: hsl(var(--background-primary));
+  --color-background-secondary: hsl(var(--background-secondary));
+  --color-background-tertiary: hsl(var(--background-tertiary));
+  --color-surface-raised: hsl(var(--surface-raised));
+  --color-surface-overlay: hsl(var(--surface-overlay));
+  --color-surface-sunken: hsl(var(--surface-sunken));
+  --color-surface-inverse: hsl(var(--surface-inverse));
+
+  /* === 2. Text & Foreground === */
+  --color-text-primary: hsl(var(--text-primary));
+  --color-text-secondary: hsl(var(--text-secondary));
+  --color-text-tertiary: hsl(var(--text-tertiary));
+  --color-text-disabled: hsl(var(--text-disabled));
+  --color-text-placeholder: hsl(var(--text-placeholder));
+  --color-text-inverse: hsl(var(--text-inverse));
+  --color-text-link: hsl(var(--text-link));
+  --color-text-link-hover: hsl(var(--text-link-hover));
+
+  /* === 3. Borders & Dividers === */
+  --color-border-default: hsl(var(--border-default));
+  --color-border-subtle: hsl(var(--border-subtle));
+  --color-border-strong: hsl(var(--border-strong));
+  --color-border-interactive: hsl(var(--border-interactive));
+  --color-border-focus: hsl(var(--border-focus));
+  --color-border-error: hsl(var(--border-error));
+  --color-divider: hsl(var(--divider));
+
+  /* === 4. Interactive States === */
+  --color-interactive-default: hsl(var(--interactive-default));
+  --color-interactive-hover: hsl(var(--interactive-hover));
+  --color-interactive-active: hsl(var(--interactive-active));
+  --color-interactive-focus: hsl(var(--interactive-focus));
+  --color-interactive-disabled: hsl(var(--interactive-disabled));
+
+  /* === 5. Semantic Feedback === */
+  --color-success: hsl(var(--success));
+  --color-success-emphasis: hsl(var(--success-emphasis));
+  --color-warning: hsl(var(--warning));
+  --color-warning-emphasis: hsl(var(--warning-emphasis));
+  --color-error: hsl(var(--error));
+  --color-error-emphasis: hsl(var(--error-emphasis));
+  --color-info: hsl(var(--info));
+  --color-info-emphasis: hsl(var(--info-emphasis));
+
+  /* === 6. Brand & Accent === */
+  --color-brand-primary: hsl(var(--brand-primary));
+  --color-brand-primary-hover: hsl(var(--brand-primary-hover));
+  --color-brand-primary-active: hsl(var(--brand-primary-active));
+  --color-brand-secondary: hsl(var(--brand-secondary));
+  --color-accent: hsl(var(--accent));
 }
