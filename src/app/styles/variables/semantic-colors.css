@@ -1,0 +1,111 @@
+/* Semantic Colors - CAPA 2 */
+/* Define el propósito de cada color, independiente del diseño específico */
+
+@layer base {
+  :root {
+    /* === 1. Background & Surface === */
+    --color-background-primary: var(--brand); /* Fondo principal de la aplicación */
+    --color-background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
+    --color-background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
+    --color-surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
+    --color-surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
+    --color-surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
+    --color-surface-inverse: var(--primary-100); /* Fondos inversos (tooltips) */
+
+    /* === 2. Text & Foreground === */
+    --color-text-primary: var(--primary-100); /* Texto principal, mayor contraste */
+    --color-text-secondary: var(--gray_medium); /* Texto secundario, menor énfasis */
+    --color-text-tertiary: var(--blue_gray_medium); /* Texto terciario, mínimo énfasis */
+    --color-text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
+    --color-text-placeholder: var(--blue_gray_medium); /* Placeholders en inputs */
+    --color-text-inverse: var(--white); /* Texto sobre fondos oscuros/brand */
+    --color-text-link: var(--blue_cta); /* Enlaces de texto */
+    --color-text-link-hover: var(--blue_medium); /* Enlaces en hover */
+
+    /* === 3. Borders & Dividers === */
+    --color-border-default: var(--blue_gray_login); /* Bordes estándar */
+    --color-border-subtle: var(--brand); /* Bordes sutiles, bajo contraste */
+    --color-border-strong: var(--gray_medium); /* Bordes con mayor contraste */
+    --color-border-interactive: var(--blue_cta); /* Bordes de elementos interactivos */
+    --color-border-focus: var(--blue_cta); /* Borde de focus/outline (a11y) */
+    --color-border-error: var(--red-error); /* Bordes de error en validación */
+    --color-divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
+
+    /* === 4. Interactive States === */
+    --color-interactive-default: var(--primary-50); /* Estado normal/reposo */
+    --color-interactive-hover: var(--primary-100); /* Estado hover */
+    --color-interactive-active: var(--primary-100); /* Estado pressed/activo */
+    --color-interactive-focus: var(--blue_cta); /* Estado focus (a11y) */
+    --color-interactive-disabled: var(--blue_gray_medium); /* Estado deshabilitado */
+
+    /* === 5. Semantic Feedback === */
+    --color-success: var(--green-success); /* Operaciones exitosas */
+    --color-success-emphasis: var(--green-active); /* Texto/íconos de éxito */
+
+    --color-warning: var(--red-error); /* Advertencias */
+    --color-warning-emphasis: var(--red-error); /* Texto/íconos de advertencia */
+
+    --color-error: var(--red-destructive); /* Errores, acciones destructivas */
+    --color-error-emphasis: var(--red-destructive); /* Texto/íconos de error */
+
+    --color-info: var(--blue_cta); /* Información neutral */
+    --color-info-emphasis: var(--blue_medium); /* Texto/íconos informativos */
+
+    /* === 6. Brand & Accent === */
+    --color-brand-primary: var(--primary-50); /* Color principal de marca */
+    --color-brand-primary-hover: var(--primary-100); /* Hover del color primario */
+    --color-brand-primary-active: var(--primary-100); /* Active del color primario */
+    --color-brand-secondary: var(--blue_cta); /* Color secundario de marca */
+    --color-accent: var(--brand); /* Color de acento/highlight */
+  }
+
+  .dark {
+    /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
+    /* Por ahora usamos los mismos valores, pero aquí es donde cambiarían */
+    --color-background-primary: var(--brand);
+    --color-background-secondary: var(--white);
+    --color-background-tertiary: var(--blue_gray_login);
+    --color-surface-raised: var(--white);
+    --color-surface-overlay: var(--blue_overlay);
+    --color-surface-sunken: var(--blue_gray_login);
+    --color-surface-inverse: var(--primary-100);
+
+    --color-text-primary: var(--primary-100);
+    --color-text-secondary: var(--gray_medium);
+    --color-text-tertiary: var(--blue_gray_medium);
+    --color-text-disabled: var(--blue_gray_medium);
+    --color-text-placeholder: var(--blue_gray_medium);
+    --color-text-inverse: var(--white);
+    --color-text-link: var(--blue_cta);
+    --color-text-link-hover: var(--blue_medium);
+
+    --color-border-default: var(--blue_gray_login);
+    --color-border-subtle: var(--brand);
+    --color-border-strong: var(--gray_medium);
+    --color-border-interactive: var(--blue_cta);
+    --color-border-focus: var(--blue_cta);
+    --color-border-error: var(--red-error);
+    --color-divider: var(--blue_gray_login);
+
+    --color-interactive-default: var(--primary-50);
+    --color-interactive-hover: var(--primary-100);
+    --color-interactive-active: var(--primary-100);
+    --color-interactive-focus: var(--blue_cta);
+    --color-interactive-disabled: var(--blue_gray_medium);
+
+    --color-success: var(--green-success);
+    --color-success-emphasis: var(--green-active);
+    --color-warning: var(--red-error);
+    --color-warning-emphasis: var(--red-error);
+    --color-error: var(--red-destructive);
+    --color-error-emphasis: var(--red-destructive);
+    --color-info: var(--blue_cta);
+    --color-info-emphasis: var(--blue_medium);
+
+    --color-brand-primary: var(--primary-50);
+    --color-brand-primary-hover: var(--primary-100);
+    --color-brand-primary-active: var(--primary-100);
+    --color-brand-secondary: var(--blue_cta);
+    --color-accent: var(--brand);
+  }
+}
