@@ -1,112 +1,90 @@
-/* Navigation Colors */
-/* Colors for navigation items, icons, separators and badges + Tailwind theme mappings */
-
 @layer base {
   :root {
-    /* Navigation Items - Active State - Mapped to project colors */
-    --nav-item-active-bg: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-active-text: hsl(var(--primary-100)); /* #091e24 */
-    --nav-item-active-hover-bg: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-active-hover-text: hsl(var(--primary-100)); /* #091e24 */
-
-    /* Navigation Items - Active Collapsed State */
-    --nav-item-active-collapsed-bg: hsl(var(--blue_cta)); /* #0067d7 */
-    --nav-item-active-collapsed-hover-bg: hsl(var(--blue_cta)); /* #0067d7 */
-
-    /* Navigation Items - Inactive State */
+    --nav-item-active-bg: var(--brand);
+    --nav-item-active-text: var(--primary-100);
+    --nav-item-active-hover-bg: var(--brand);
+    --nav-item-active-hover-text: var(--primary-100);
+    --nav-item-active-collapsed-bg: var(--blue_cta);
+    --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-inactive-hover-bg: hsl(var(--brand) / 0.3); /* rgba(232, 244, 247, 0.3) */
-    --nav-item-inactive-hover-text: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-inactive-active-bg: hsl(var(--primary-50)); /* #13404d */
-    --nav-item-inactive-active-text: hsl(var(--brand)); /* #e8f4f7 */
+    --nav-item-inactive-text: var(--brand);
+    --nav-item-inactive-hover-bg: var(--brand) / 0.3;
+    --nav-item-inactive-hover-text: var(--brand);
+    --nav-item-inactive-active-bg: var(--primary-50);
+    --nav-item-inactive-active-text: var(--brand);
+    --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
-    /* Navigation Items - Inactive Collapsed State */
-    --nav-item-inactive-collapsed-hover-bg: hsl(var(--blue_cta) / 0.5); /* rgba(0, 103, 215, 0.5) */
+    --nav-item-user-bg: var(--primary-100);
+    --nav-item-user-hover-bg: var(--primary-100);
+    --nav-item-user-text: var(--primary-100);
+    --nav-item-user-hover-text: var(--primary-100);
 
-    /* Navigation Icons */
-    --nav-icon-active: hsl(var(--primary-100)); /* #091e24 */
-    --nav-icon-active-collapsed: hsl(var(--white)); /* #ffffff */
-    --nav-icon-inactive: hsl(var(--light_blue)); /* #93e0f7 */
+    --nav-icon-active: var(--primary-100);
+    --nav-icon-active-collapsed: var(--white);
+    --nav-icon-inactive: var(--light_blue);
 
-    /* Navigation Separator */
-    --nav-separator-bg: hsl(var(--primary-50)); /* #13404d */
+    --nav-separator-bg: var(--primary-50);
     --nav-separator-opacity: 0.5;
-
-    /* Navigation Badge */
-    --nav-badge-bg: hsl(var(--red-error)); /* #c85948 */
-    --nav-badge-text: hsl(var(--white)); /* #ffffff */
+    --nav-badge-bg: var(--red-error);
+    --nav-badge-text: var(--white);
   }
 
   .dark {
-    /* Navigation Items - Active State - Mapped to project colors */
-    --nav-item-active-bg: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-active-text: hsl(var(--primary-100)); /* #091e24 */
-    --nav-item-active-hover-bg: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-active-hover-text: hsl(var(--primary-100)); /* #091e24 */
-
-    /* Navigation Items - Active Collapsed State */
-    --nav-item-active-collapsed-bg: hsl(var(--blue_cta)); /* #0067d7 */
-    --nav-item-active-collapsed-hover-bg: hsl(var(--blue_cta)); /* #0067d7 */
-
-    /* Navigation Items - Inactive State */
+    --nav-item-active-bg: var(--brand);
+    --nav-item-active-text: var(--primary-100);
+    --nav-item-active-hover-bg: var(--brand);
+    --nav-item-active-hover-text: var(--primary-100);
+    --nav-item-active-collapsed-bg: var(--blue_cta);
+    --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-inactive-hover-bg: hsl(var(--brand) / 0.3); /* rgba(232, 244, 247, 0.3) */
-    --nav-item-inactive-hover-text: hsl(var(--brand)); /* #e8f4f7 */
-    --nav-item-inactive-active-bg: hsl(var(--primary-50)); /* #13404d */
-    --nav-item-inactive-active-text: hsl(var(--brand)); /* #e8f4f7 */
+    --nav-item-inactive-text: var(--brand);
+    --nav-item-inactive-hover-bg: var(--brand) / 0.3;
+    --nav-item-inactive-hover-text: var(--brand);
+    --nav-item-inactive-active-bg: var(--primary-50);
+    --nav-item-inactive-active-text: var(--brand);
+    --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
-    /* Navigation Items - Inactive Collapsed State */
-    --nav-item-inactive-collapsed-hover-bg: hsl(var(--blue_cta) / 0.5); /* rgba(0, 103, 215, 0.5) */
+    --nav-item-user-bg: var(--primary-100);
+    --nav-item-user-hover-bg: var(--primary-100);
+    --nav-item-user-text: var(--primary-100);
+    --nav-item-user-hover-text: var(--primary-100);
 
-    /* Navigation Icons */
-    --nav-icon-active: hsl(var(--primary-100)); /* #091e24 */
-    --nav-icon-active-collapsed: hsl(var(--white)); /* #ffffff */
-    --nav-icon-inactive: hsl(var(--light_blue)); /* #93e0f7 */
+    --nav-icon-active: var(--primary-100);
+    --nav-icon-active-collapsed: var(--white);
+    --nav-icon-inactive: var(--light_blue);
 
-    /* Navigation Separator */
-    --nav-separator-bg: hsl(var(--primary-50)); /* #13404d */
+    --nav-separator-bg: var(--primary-50);
     --nav-separator-opacity: 0.5;
-
-    /* Navigation Badge */
-    --nav-badge-bg: hsl(var(--red-error)); /* #c85948 */
-    --nav-badge-text: hsl(var(--white)); /* #ffffff */
+    --nav-badge-bg: var(--red-error);
+    --nav-badge-text: var(--white);
   }
 }
 
-/* Tailwind Theme Mappings */
 @theme {
-  /* Navigation Items - Active State */
-  --color-nav-item-active-bg: var(--nav-item-active-bg);
-  --color-nav-item-active-text: var(--nav-item-active-text);
-  --color-nav-item-active-hover-bg: var(--nav-item-active-hover-bg);
-  --color-nav-item-active-hover-text: var(--nav-item-active-hover-text);
+  --color-nav-item-active-bg: hsl(var(--nav-item-active-bg));
+  --color-nav-item-active-text: hsl(var(--nav-item-active-text));
+  --color-nav-item-active-hover-bg: hsl(var(--nav-item-active-hover-bg));
+  --color-nav-item-active-hover-text: hsl(var(--nav-item-active-hover-text));
+  --color-nav-item-active-collapsed-bg: hsl(var(--nav-item-active-collapsed-bg));
+  --color-nav-item-active-collapsed-hover-bg: hsl(var(--nav-item-active-collapsed-hover-bg));
+  --color-nav-item-inactive-bg: hsl(var(--nav-item-inactive-bg));
+  --color-nav-item-inactive-text: hsl(var(--nav-item-inactive-text));
+  --color-nav-item-inactive-hover-bg: hsl(var(--nav-item-inactive-hover-bg));
+  --color-nav-item-inactive-hover-text: hsl(var(--nav-item-inactive-hover-text));
+  --color-nav-item-inactive-active-bg: hsl(var(--nav-item-inactive-active-bg));
+  --color-nav-item-inactive-active-text: hsl(var(--nav-item-inactive-active-text));
+  --color-nav-item-inactive-collapsed-hover-bg: hsl(var(--nav-item-inactive-collapsed-hover-bg));
 
-  /* Navigation Items - Active Collapsed State */
-  --color-nav-item-active-collapsed-bg: var(--nav-item-active-collapsed-bg);
-  --color-nav-item-active-collapsed-hover-bg: var(--nav-item-active-collapsed-hover-bg);
+  --color-nav-item-user-bg: hsl(var(--nav-item-user-bg));
+  --color-nav-item-user-hover-bg: hsl(var(--nav-item-user-hover-bg));
+  --color-nav-item-user-text: hsl(var(--nav-item-user-text));
+  --color-nav-item-user-hover-text: hsl(var(--nav-item-user-hover-text));
 
-  /* Navigation Items - Inactive State */
-  --color-nav-item-inactive-bg: var(--nav-item-inactive-bg);
-  --color-nav-item-inactive-text: var(--nav-item-inactive-text);
-  --color-nav-item-inactive-hover-bg: var(--nav-item-inactive-hover-bg);
-  --color-nav-item-inactive-hover-text: var(--nav-item-inactive-hover-text);
-  --color-nav-item-inactive-active-bg: var(--nav-item-inactive-active-bg);
-  --color-nav-item-inactive-active-text: var(--nav-item-inactive-active-text);
+  --color-nav-icon-active: hsl(var(--nav-icon-active));
+  --color-nav-icon-active-collapsed: hsl(var(--nav-icon-active-collapsed));
+  --color-nav-icon-inactive: hsl(var(--nav-icon-inactive));
 
-  /* Navigation Items - Inactive Collapsed State */
-  --color-nav-item-inactive-collapsed-hover-bg: var(--nav-item-inactive-collapsed-hover-bg);
-
-  /* Navigation Icons */
-  --color-nav-icon-active: var(--nav-icon-active);
-  --color-nav-icon-active-collapsed: var(--nav-icon-active-collapsed);
-  --color-nav-icon-inactive: var(--nav-icon-inactive);
-
-  /* Navigation Separator */
-  --color-nav-separator-bg: var(--nav-separator-bg);
-
-  /* Navigation Badge */
-  --color-nav-badge-bg: var(--nav-badge-bg);
-  --color-nav-badge-text: var(--nav-badge-text);
+  --color-nav-separator-bg: hsl(var(--nav-separator-bg));
+  --color-nav-badge-bg: hsl(var(--nav-badge-bg));
+  --color-nav-badge-text: hsl(var(--nav-badge-text));
 }

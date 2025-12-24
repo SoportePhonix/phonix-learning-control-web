@@ -56,10 +56,7 @@ export function NavUser({
                 </div>
               </SidebarMenuButton>
             ) : (
-              <SidebarMenuButton
-                size="lg"
-                className="data-[state=open]:bg-primary-50 dark:data-[state=open]:bg-background"
-              >
+              <SidebarMenuButton size="lg" className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover">
                 <Avatar className="h-8 w-8 rounded-full bg-morado-oscuro">
                   {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
                   <AvatarFallback className="bg-primary-50 text-blanco font-bold">

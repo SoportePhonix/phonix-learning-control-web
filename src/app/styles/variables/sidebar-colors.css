@@ -4,9 +4,9 @@
 @layer base {
   :root {
     /* Sidebar Base Colors - Mapped to project colors (HSL format) */
-    --sidebar-background: var(--primary-50); /* 193 60% 19% -> #13404d */
+    --sidebar-background: var(--primary-100); /* 193 60% 19% -> #13404d */
     --sidebar-foreground: var(--gray_medium); /* 193 13% 27% -> #3a484c */
-    --sidebar-primary: var(--primary-100); /* 193 60% 9% -> #091e24 */
+    --sidebar-primary: var(--primary-50); /* 193 60% 9% -> #091e24 */
     --sidebar-primary-foreground: var(--white); /* 0 0% 100% -> #ffffff */
     --sidebar-accent: var(--brand); /* 192 48% 94% -> #e8f4f7 - Clic en el boton del sidebar */
     --sidebar-accent-foreground: var(
@@ -18,7 +18,7 @@
 
   .dark {
     /* Sidebar Base Colors - Mapped to project colors (HSL format) */
-    --sidebar-background: var(--primary-50); /* 193 60% 19% -> #13404d */
+    --sidebar-background: var(--primary-100); /* 193 60% 19% -> #13404d */
     --sidebar-foreground: var(--gray_medium); /* 193 13% 27% -> #3a484c */
     --sidebar-primary: var(--primary-100); /* 193 60% 9% -> #091e24 */
     --sidebar-primary-foreground: var(--white); /* 0 0% 100% -> #ffffff */
