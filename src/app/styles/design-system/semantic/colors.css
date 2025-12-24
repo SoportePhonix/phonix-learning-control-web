@@ -4,7 +4,7 @@
 @layer base {
   :root {
     /* === 1. Background & Surface === */
-    --background-primary: var(--brand); /* Fondo principal de la aplicación */
+    --background-primary: var(--primary-100); /* Fondo principal de la aplicación */
     --background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
     --background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
     --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
