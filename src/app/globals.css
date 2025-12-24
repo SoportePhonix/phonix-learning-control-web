@@ -1,18 +1,15 @@
+@import 'tailwindcss';
 /* @import url(./youniversity.css); */
-@import '../../tailwind.css';
+/* Layout específico de la app */
+@import './styles/design-system/primitive-colors.css';
 
-/* Import modular CSS variables */
-/* CAPA 1: Colores primitivos */
-@import './styles/variables/primitive-colors.css';
+/* Components */
+@import './styles/design-system/components/sidebar.css';
+@import './styles/design-system/components/nav-colors.css';
 
-/* CAPA 2: Tokens semánticos */
-@import './styles/variables/semantic-colors.css';
+/* Semantics */
+@import './styles/design-system/semantic/colors.css';
 
-/* CAPA 3: Tokens de componentes */
-@import './styles/variables/sidebar-tokens.css';
-
-/* Legacy imports (mantener temporalmente para compatibilidad) */
-@import './styles/variables/shadcn-colors.css';
-@import './styles/variables/primitive-colors.css';
-@import './styles/variables/nav-colors.css';
-@import './styles/variables/layout.css';
+/* legacy */
+@import './styles/design-system/legacy/layout.css';
+@import './styles/design-system/legacy/shadcn-colors.css';
