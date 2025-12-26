@@ -146,7 +146,10 @@ const SidebarProvider = React.forwardRef<
               ...style,
             } as React.CSSProperties
           }
-          className={cn('group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar', className)}
+          className={cn(
+            'group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar-background',
+            className
+          )}
           ref={ref}
           suppressHydrationWarning
           {...props}
@@ -197,7 +200,7 @@ const Sidebar = React.forwardRef<
         <SheetContent
           data-sidebar="sidebar"
           data-mobile="true"
-          className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+          className="w-(--sidebar-width) bg-sidebar-background p-0 text-sidebar-foreground [&>button]:hidden"
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -252,7 +255,7 @@ const Sidebar = React.forwardRef<
       >
         <div
           data-sidebar="sidebar"
-          className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+          className="flex h-full w-full flex-col bg-sidebar-background group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
           style={sidebarStyle}
         >
           {children}
@@ -292,13 +295,13 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         >
           {isOpen ? (
             <PanelRightOpen
-              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-verde_base' : 'text-light_blue'}
+              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
               size={20}
               strokeWidth={1.5}
             />
           ) : (
             <PanelRightClose
-              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-verde_base' : 'text-light_blue'}
+              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
               size={20}
               strokeWidth={1.5}
             />
@@ -322,13 +325,13 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
       >
         {isOpen ? (
           <PanelRightOpen
-            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-verde_base' : 'text-light_blue'}
+            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
             size={20}
             strokeWidth={1.5}
           />
         ) : (
           <PanelRightClose
-            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-verde_base' : 'text-light_blue'}
+            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
             size={20}
             strokeWidth={1.5}
           />
@@ -356,7 +359,7 @@ const SidebarRail = React.forwardRef<HTMLButtonElement, React.ComponentProps<'bu
           'absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 hover:after:bg-sidebar-border group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex',
           'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
           '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
-          'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar',
+          'group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full group-data-[collapsible=offcanvas]:hover:bg-sidebar-background',
           '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
           '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
           className

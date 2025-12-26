@@ -22,7 +22,7 @@ const ToastViewport = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Viewport
     ref={ref}
-    className={cn('fixed top-4 right-4 z-[100] flex max-h-screen w-full flex-col p-4 md:max-w-[420px]', className)}
+    className={cn('fixed top-4 right-4 z-100 flex max-h-screen w-full flex-col p-4 md:max-w-105', className)}
     {...props}
   />
 ));
@@ -56,7 +56,7 @@ const Toast = React.forwardRef<
       className={cn('flex items-center space-x-3 relative', toastVariants({ variant }), className)}
       {...props}
     >
-      {variant === 'success' && <CheckCircle className="absolute top-4 w-5 h-5 text-primary-100" />}
+      {variant === 'success' && <CheckCircle className="absolute top-4 w-5 h-5 text_primary-100" />}
       {variant === 'destructive' && <CircleAlert className="absolute top-4 w-5 h-5 text-white" />}
       <div className="flex-1 pl-6">{props.children}</div>
 

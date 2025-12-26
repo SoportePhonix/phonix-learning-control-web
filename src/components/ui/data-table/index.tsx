@@ -219,14 +219,14 @@ export function DataTable<TData>({
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-verde_base/50 transition-colors duration-200 hover:bg-white font-medium text-primary-100"
+              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-verde_base/50 transition-colors duration-200 hover:bg-white font-medium text_primary-100"
             >
               Columnas
               <ChevronDown className="h-4 w-4 transition-transform duration-200" />
             </Button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
+              <div className="absolute right-0 z-1000 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
                 <div className="py-1">
                   {table
                     .getAllColumns()
@@ -323,7 +323,7 @@ export function DataTable<TData>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-verde_base/50 border-verde_base/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-verde_base/50 border-verde_base/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text_primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
@@ -415,7 +415,7 @@ export function DataTable<TData>({
             </PaginationItem>
           </PaginationContent>
 
-          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text-primary-100">
+          <span className="text-base absolute right-0 bottom-0 tablet:top-8 text_primary-100">
             {`Resultados ${isLoading ? previousStartResult : startResult} - ${
               isLoading ? previousEndResult : endResult
             } de ${isLoading ? previousTotalResults : totalRecords}`}
