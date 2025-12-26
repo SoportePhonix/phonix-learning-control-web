@@ -53,7 +53,7 @@ export function LoginForm() {
   };
 
   return (
-    <div className="w-96">
+    <div className="w-full tablet:w-125.25">
       {isLoading && <Loader />}
       <div className="px-10 mb-8 flex justify-between items-center">
         <ExpandedLogoLight />
