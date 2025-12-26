@@ -4,24 +4,6 @@
 @layer base {
   :root {
     /* Project Custom Colors - HSL format (universal) */
-    --secondary: 193 60% 9%; /* #091e24 */
-    --white: 0 0% 100%; /* #ffffff */
-    --brand: 192 48% 94%; /* #e8f4f7 */
-    --bg_blue: 192 48% 94%; /* #e8f4f7 */
-    --blue_cta: 210 100% 42%; /* #0067d7 */
-    --blue_medium: 194 35% 61%; /* #76b4c7 */
-    --blue_gray_login: 180 5% 91%; /* #e7e9ea */
-    --blue_gray_medium: 195 10% 62%; /* #90a7ae */
-    --blue_overlay: 192 60% 10% / 0.1; /* #0b262e1a */
-    --brand-dark: 222 89% 2%; /* #030712 */
-    --gray_medium: 193 13% 27%; /* #3a484c */
-    --gray_login: 180 5% 91%; /* #e7e9ea */
-    --light_blue: 193 87% 77%; /* #93e0f7 */
-    --red-error: 7 44% 53%; /* #c85948 */
-    --red-destructive: 0 68% 49%; /* #d32525 */
-    --green-active: 82 34% 43%; /* #699235 */
-    --green-success: 142 71% 49%; /* #25d366 */
-
     --verde_base: 194 61.4% 11.2%; /* #0B262E */
     --verde_medio: 197 64.1% 15.3%; /* #0E3240 */
     --verde_oscuro: 194 77.8% 5.3%; /* #031318 */
@@ -40,24 +22,6 @@
 
   .dark {
     /* Project Custom Colors - HSL format (universal) */
-    --secondary: 193 60% 9%; /* #091e24 */
-    --white: 0 0% 100%; /* #ffffff */
-    --brand: 192 48% 94%; /* #e8f4f7 */
-    --bg_blue: 192 48% 94%; /* #e8f4f7 */
-    --blue_cta: 210 100% 42%; /* #0067d7 */
-    --blue_medium: 194 35% 61%; /* #76b4c7 */
-    --blue_gray_login: 180 5% 91%; /* #e7e9ea */
-    --blue_gray_medium: 195 10% 62%; /* #90a7ae */
-    --blue_overlay: 192 60% 10% / 0.1; /* #0b262e1a */
-    --brand-dark: 222 89% 2%; /* #030712 */
-    --gray_medium: 193 13% 27%; /* #3a484c */
-    --gray_login: 180 5% 91%; /* #e7e9ea */
-    --light_blue: 193 87% 77%; /* #93e0f7 */
-    --red-error: 7 44% 53%; /* #c85948 */
-    --red-destructive: 0 68% 49%; /* #d32525 */
-    --green-active: 82 34% 43%; /* #699235 */
-    --green-success: 142 71% 49%; /* #25d366 */
-
     --verde_base: 194 61.4% 11.2%; /* #0B262E */
     --verde_medio: 197 64.1% 15.3%; /* #0E3240 */
     --verde_oscuro: 194 77.8% 5.3%; /* #031318 */
@@ -78,22 +42,19 @@
 /* Tailwind Theme Mappings */
 @theme {
   /* Project Custom Colors */
-  --color-primary-50: hsl(var(--verde_base));
-  --color-primary-100: hsl(var(--verde_base));
-  --color-secondary: hsl(var(--secondary));
-  --color-white: hsl(var(--white));
-  --color-brand: hsl(var(--brand));
-  --color-bg_blue: hsl(var(--bg_blue));
-  --color-blue_cta: hsl(var(--blue_cta));
-  --color-blue_medium: hsl(var(--blue_medium));
-  --color-blue_gray_medium: hsl(var(--blue_gray_medium));
-  --color-blue_overlay: hsl(var(--blue_overlay));
-  --color-brand-dark: hsl(var(--brand-dark));
-  --color-gray_medium: hsl(var(--gray_medium));
-  --color-gray_login: hsl(var(--gray_login));
-  --color-light_blue: hsl(var(--light_blue));
-  --color-red-error: hsl(var(--red-error));
-  --color-red-destructive: hsl(var(--red-destructive));
-  --color-green-active: hsl(var(--green-active));
-  --color-green-success: hsl(var(--green-success));
+
+  --color-verde_base: hsl(var(--verde_base));
+  --color-verde_medio: hsl(var(--verde_medio));
+  --color-verde_oscuro: hsl(var(--verde_oscuro));
+  --color-azul_principal: hsl(var(--azul_principal));
+  --color-azul_textos_medio: hsl(var(--azul_textos_medio));
+  --color-azul_brillante: hsl(var(--azul_brillante));
+  --color-blanco: hsl(var(--blanco));
+  --color-fondo_base: hsl(var(--fondo_base));
+  --color-progreso: hsl(var(--progreso));
+  --color-exito: hsl(var(--exito));
+  --color-alerta: hsl(var(--alerta));
+  --color-error: hsl(var(--error));
+  --color-textos_bajo: hsl(var(--textos_bajo));
+  --color-lineas: hsl(var(--lineas));
 }

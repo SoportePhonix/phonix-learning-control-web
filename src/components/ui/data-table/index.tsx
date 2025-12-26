@@ -205,12 +205,12 @@ export function DataTable<TData>({
           {globalFilter ? (
             <button
               onClick={() => setGlobalFilter('')}
-              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50 transition-transform hover:scale-110"
+              className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-verde_base transition-transform hover:scale-110"
             >
               <CircleX className="w-5 h-5" />
             </button>
           ) : (
-            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-primary-50" />
+            <SearchIcon className="absolute top-2 right-2 transform-translate-y-1/2 h-5 w-5 text-verde_base" />
           )}
         </div>
 
@@ -219,7 +219,7 @@ export function DataTable<TData>({
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-primary-50/50 transition-colors duration-200 hover:bg-white font-medium text-primary-100"
+              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-verde_base/50 transition-colors duration-200 hover:bg-white font-medium text-primary-100"
             >
               Columnas
               <ChevronDown className="h-4 w-4 transition-transform duration-200" />
@@ -266,7 +266,7 @@ export function DataTable<TData>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-left hover:bg-primary-50/90 bg-primary-50 text-white text-[0.9rem]"
+                      className="text-left hover:bg-verde_base/90 bg-verde_base text-white text-[0.9rem]"
                     >
                       {header.isPlaceholder ? null : canSort ? (
                         <div className="flex items-start justify-between px-4 py-4 w-full">
@@ -323,7 +323,7 @@ export function DataTable<TData>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-primary-50/50 border-primary-50/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-verde_base/50 border-verde_base/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text-primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
@@ -332,7 +332,7 @@ export function DataTable<TData>({
 
           <DropdownMenuContent
             align="start"
-            className="min-w-32 shadow-primary-50/50 rounded-lg bg-white border-primary-50/20"
+            className="min-w-32 shadow-verde_base/50 rounded-lg bg-white border-verde_base/20"
           >
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem

@@ -4,7 +4,7 @@
 @layer base {
   :root {
     /* === Sidebar Background === */
-    --sidebar-background: var(--background-primary); /* Fondo principal del sidebar */
+    --sidebar-background: var(--background-primary-sidebar); /* Fondo principal del sidebar */
     --sidebar-background-hover: var(--interactive-hover); /* Fondo en hover */
     --sidebar-background-active: var(--interactive-active); /* Fondo cuando está activo */
 

@@ -62,7 +62,7 @@ export default {
           ring: 'hsl(var(--sidebar-ring))',
         },
         var: {
-          '-primary-50': '#13404d',
+          '-verde_base': '#13404d',
           '-primary-100': '#091e24',
           '-secondary': '#091e24',
           '-white': '#ffffff',

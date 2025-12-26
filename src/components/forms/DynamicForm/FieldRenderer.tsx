@@ -115,7 +115,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   <SelectTrigger className={selectStyle}>
                     <SelectValue placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')} />
                   </SelectTrigger>
-                  <SelectContent className="rounded-lg border-primary-50/30 bg-brand z-50 text-[#3A484C]">
+                  <SelectContent className="rounded-lg border-verde_base/30 bg-brand z-50 text-[#3A484C]">
                     {options.map((option) => (
                       <SelectItem key={option.value} value={String(option.value)} className="bg-white">
                         {option.label}

@@ -45,7 +45,7 @@ export function NavUser({
           <DropdownMenuTrigger
             asChild
             className="text-brand hover:text-brand cursor-pointer"
-            // className="text-brand hover:bg-primary-50 hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
+            // className="text-brand hover:bg-verde_base hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
           >
             {isLoading ? (
               <SidebarMenuButton size="lg" className="p-2">
@@ -59,8 +59,8 @@ export function NavUser({
               <SidebarMenuButton size="lg" className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover">
                 <Avatar className="h-8 w-8 rounded-full bg-morado-oscuro">
                   {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                  <AvatarFallback className="bg-primary-50 text-blanco font-bold">
-                    {/* <AvatarFallback className="bg-primary-50 text-blanco font-bold dark:bg-brand-dark"> */}
+                  <AvatarFallback className="bg-verde_base text-blanco font-bold">
+                    {/* <AvatarFallback className="bg-verde_base text-blanco font-bold dark:bg-brand-dark"> */}
                     {avatarName}
                   </AvatarFallback>
                 </Avatar>
@@ -74,7 +74,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login border-primary-50/30"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-gray_login border-verde_base/30"
               side={isMobile ? 'bottom' : 'right'}
               align="end"
               sideOffset={4}
@@ -83,7 +83,7 @@ export function NavUser({
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
                     {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                    <AvatarFallback className="rounded-lg bg-primary-50">{avatarName}</AvatarFallback>
+                    <AvatarFallback className="rounded-lg bg-verde_base">{avatarName}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">{user.name}</span>

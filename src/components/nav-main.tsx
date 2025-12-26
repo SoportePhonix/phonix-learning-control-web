@@ -48,13 +48,13 @@ export function NavMain({
               <SidebarMenuItem>
                 <CollapsibleTrigger
                   asChild
-                  className="rounded-l-none rounded-r-3xl hover:bg-primary-50 dark:hover:bg-primary-50 w-full"
+                  className="rounded-l-none rounded-r-3xl hover:bg-verde_base dark:hover:bg-verde_base w-full"
                 >
                   <SidebarMenuButton
                     tooltip={item.title}
                     className={`p-[1.1rem] ${
                       isActive
-                        ? 'bg-primary-50 hover:bg-primary-50 text-white'
+                        ? 'bg-verde_base hover:bg-verde_base text-white'
                         : 'text-white dark:text-white hover:text-white'
                     } group-data-[state=collapsed]:!w-16`}
                   >

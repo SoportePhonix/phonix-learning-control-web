@@ -67,13 +67,13 @@ export function SelectSearch<T>({
           variant="contour"
           role="combobox"
           aria-expanded={open}
-          className={`${displayValue === placeholder ? 'text-primary-50/50' : 'text-primary-50 font-semibold'} w-full justify-between`}
+          className={`${displayValue === placeholder ? 'text-verde_base/50' : 'text-verde_base font-semibold'} w-full justify-between`}
         >
           {displayValue}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: buttonWidth }} className="p-1 shadow-primary-50 rounded-[0.5rem]">
+      <PopoverContent style={{ width: buttonWidth }} className="p-1 shadow-verde_base rounded-[0.5rem]">
         <Command>
           <CommandInput placeholder="Buscar..." />
           <CommandList>
