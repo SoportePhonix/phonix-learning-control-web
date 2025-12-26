@@ -21,49 +21,16 @@ Define los diferentes niveles de profundidad y jerarquía visual de fondos.
 Define la jerarquía y estados del texto.
 
 ```css
---color-text-primary            /* Texto principal, mayor contraste */
---color-text-secondary          /* Texto secundario, menor énfasis */
---color-text-tertiary           /* Texto terciario, mínimo énfasis */
---color-text-disabled           /* Texto deshabilitado */
---color-text-placeholder        /* Placeholders en inputs */
---color-text-inverse            /* Texto sobre fondos oscuros/brand */
---color-text-link               /* Enlaces de texto */
---color-text-link-hover         /* Enlaces en hover */
---color-text-link-visited       /* Enlaces visitados (opcional) */
-```
+--color-primary            /* Texto principal, mayor contraste */
+--color-secondary          /* Texto secundario, menor énfasis */
+--color-tertiary           /* Texto terciario, mínimo énfasis */
+--color-disabled           /* Texto deshabilitado */
+--color-placeholder        /* Placeholders en inputs */
+--color-inverse            /* Texto sobre fondos oscuros/brand */
+--color-link               /* Enlaces de texto */
+--color-link-hover         /* Enlaces en hover */
+--color-link-visited       /* Enlaces visitados (opcional) */
 
-## 3. Borders & Dividers (Bordes y Separadores)
-
-Define los bordes y líneas de separación.
-
-```css
---color-border-default          /* Bordes estándar */
---color-border-subtle           /* Bordes sutiles, bajo contraste */
---color-border-strong           /* Bordes con mayor contraste */
---color-border-interactive      /* Bordes de elementos interactivos */
---color-border-focus            /* Borde de focus/outline (a11y) */
---color-border-error            /* Bordes de error en validación */
---color-divider                 /* Líneas divisoras (hr, separadores) */
-```
-
-## 4. Interactive States (Estados Interactivos)
-
-Define los estados de elementos interactivos (botones, links, inputs).
-
-```css
---color-interactive-default     /* Estado normal/reposo */
---color-interactive-hover       /* Estado hover */
---color-interactive-active      /* Estado pressed/activo */
---color-interactive-focus       /* Estado focus (a11y) */
---color-interactive-disabled    /* Estado deshabilitado */
---color-interactive-visited     /* Estado visitado (links) */
-```
-
-## 5. Semantic Feedback (Retroalimentación Semántica)
-
-Define colores para mensajes y estados del sistema.
-
-```css
 --color-success                 /* Operaciones exitosas */
 --color-success-subtle          /* Fondo sutil para mensajes de éxito */
 --color-success-emphasis        /* Texto/íconos de éxito */
@@ -79,20 +46,6 @@ Define colores para mensajes y estados del sistema.
 --color-info                    /* Información neutral */
 --color-info-subtle             /* Fondo sutil para información */
 --color-info-emphasis           /* Texto/íconos informativos */
-```
-
-## 6. Brand & Accent (Marca y Acentos)
-
-Define los colores de identidad de marca.
-
-```css
---color-brand-primary           /* Color principal de marca */
---color-brand-primary-hover     /* Hover del color primario */
---color-brand-primary-active    /* Active del color primario */
---color-brand-secondary         /* Color secundario de marca */
---color-brand-tertiary          /* Color terciario (si aplica) */
---color-accent                  /* Color de acento/highlight */
---color-accent-subtle           /* Versión sutil del acento */
 ```
 
 ## 7. Shadows & Elevation (Sombras y Elevación)

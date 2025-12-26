@@ -3,115 +3,66 @@
 
 @layer base {
   :root {
-    /* === 1. Background & Surface === */
-    --background-primary-login: var(--verde_base); /* Fondo principal de la aplicación */
-    --background-primary-sidebar: var(--verde_base); /* Fondo principal de la aplicación */
-    --background-primary: var(--fondo_base); /* Fondo principal de la aplicación */
-    --background-secondary: var(--blanco); /* Fondos secundarios (cards, paneles) */
-    --background-tertiary: var(--fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
+    --background-primary-login: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary-sidebar: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary: var(--primitive_fondo_base); /* Fondo principal de la aplicación */
+    --background-secondary: var(--primitive_blanco); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--primitive_fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
     --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
-    --surface-inverse: var(--verde_base); /* Fondos inversos (tooltips) */
+    --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
 
-    /* === 2. Text & Foreground === */
-    --text-primary: var(--verde_oscuro); /* Texto principal, mayor contraste */
-    --text-secondary: var(--azul_principal); /* Texto secundario, menor énfasis */
-    --text-tertiary: var(--azul_textos_medio); /* Texto terciario, mínimo énfasis */
-    --text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
-    --text-placeholder: var(--blue_gray_medium); /* Placeholders en inputs */
-    --text-inverse: var(--white); /* Texto sobre fondos oscuros/brand */
-    --text-link: var(--blue_cta); /* Enlaces de texto */
-    --text-link-hover: var(--blue_medium); /* Enlaces en hover */
-    --text-error: var(--error); /* Mensajes de error */
-
-    /* === 3. Borders & Dividers === */
-    --border-default: var(--blue_gray_login); /* Bordes estándar */
-    --border-subtle: var(--brand); /* Bordes sutiles, bajo contraste */
-    --border-strong: var(--gray_medium); /* Bordes con mayor contraste */
-    --border-interactive: var(--blue_cta); /* Bordes de elementos interactivos */
-    --border-focus: var(--blue_cta); /* Borde de focus/outline (a11y) */
-    --border-error: var(--error); /* Bordes de error en validación */
-    --divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
-
-    /* === 4. Interactive States === */
-    --interactive-default: var(--verde_base); /* Estado normal/reposo */
-    --interactive-hover: var(--verde_base); /* Estado hover */
-    --interactive-active: var(--verde_base); /* Estado pressed/activo */
-    --interactive-focus: var(--blue_cta); /* Estado focus (a11y) */
-    --interactive-disabled: var(--blue_gray_medium); /* Estado deshabilitado */
-
-    /* === 5. Semantic Feedback === */
-    --success: var(--green-success); /* Operaciones exitosas */
-    --success-emphasis: var(--green-active); /* Texto/íconos de éxito */
-
-    --warning: var(--error); /* Advertencias */
-    --warning-emphasis: var(--error); /* Texto/íconos de advertencia */
-
-    --error: var(--red-destructive); /* Errores, acciones destructivas */
-    --error-emphasis: var(--red-destructive); /* Texto/íconos de error */
-
-    --info: var(--blue_cta); /* Información neutral */
-    --info-emphasis: var(--blue_medium); /* Texto/íconos informativos */
-
-    /* === 6. Brand & Accent === */
-    --brand-primary: var(--verde_base); /* Color principal de marca */
-    --brand-primary-hover: var(--verde_base); /* Hover del color primario */
-    --brand-primary-active: var(--verde_base); /* Active del color primario */
-    --brand-secondary: var(--blue_cta); /* Color secundario de marca */
-    --accent: var(--brand); /* Color de acento/highlight */
-  }
-
-  .dark {
-    /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
-    /* Por ahora usamos los mismos valores, pero aquí es donde cambiarían */
-    --background-primary-login: var(--verde_base); /* Fondo principal de la aplicación */
-    --background-primary-sidebar: var(--verde_base); /* Fondo principal de la aplicación */
-    --background-primary: var(--brand);
-    --background-secondary: var(--white);
-    --background-tertiary: var(--blue_gray_login);
-    --surface-raised: var(--white);
-    --surface-overlay: var(--blue_overlay);
-    --surface-sunken: var(--blue_gray_login);
-    --surface-inverse: var(--verde_base);
-
-    --text-primary: var(--verde_base);
-    --text-secondary: var(--gray_medium);
-    --text-tertiary: var(--blue_gray_medium);
-    --text-disabled: var(--blue_gray_medium);
-    --text-placeholder: var(--blue_gray_medium);
-    --text-inverse: var(--white);
-    --text-link: var(--blue_cta);
-    --text-link-hover: var(--blue_medium);
-
-    --border-default: var(--blue_gray_login);
-    --border-subtle: var(--brand);
-    --border-strong: var(--gray_medium);
-    --border-interactive: var(--blue_cta);
-    --border-focus: var(--blue_cta);
-    --border-error: var(--error);
-    --divider: var(--blue_gray_login);
-
-    --interactive-default: var(--verde_base);
-    --interactive-hover: var(--verde_base);
-    --interactive-active: var(--verde_base);
-    --interactive-focus: var(--blue_cta);
-    --interactive-disabled: var(--blue_gray_medium);
-
+    --primary: var(--primitive_verde_oscuro);
+    --secondary: var(--primitive_verde_base);
+    --tertiary: var(--blue_gray_medium);
+    --disabled: var(--blue_gray_medium);
+    --placeholder: var(--primitive_textos_bajo);
+    --inverse: var(--white);
+    --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
+    --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
+    --link: var(--blue_cta);
+    --link-hover: var(--blue_medium);
     --success: var(--green-success);
     --success-emphasis: var(--green-active);
     --warning: var(--error);
     --warning-emphasis: var(--error);
-    --error: var(--red-destructive);
-    --error-emphasis: var(--red-destructive);
+    --error: var(--primitive_error);
+    --error-emphasis: var(--error);
     --info: var(--blue_cta);
     --info-emphasis: var(--blue_medium);
+  }
 
-    --brand-primary: var(--verde_base);
-    --brand-primary-hover: var(--verde_base);
-    --brand-primary-active: var(--verde_base);
-    --brand-secondary: var(--blue_cta);
-    --accent: var(--brand);
+  .dark {
+    /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
+    --background-primary-login: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary-sidebar: var(--primitive_verde_base); /* Fondo principal de la aplicación */
+    --background-primary: var(--primitive_fondo_base); /* Fondo principal de la aplicación */
+    --background-secondary: var(--primitive_blanco); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--primitive_fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
+    --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
+    --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
+    --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
+    --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
+
+    --primary: var(--primitive_verde_base);
+    --secondary: var(--gray_medium);
+    --tertiary: var(--blue_gray_medium);
+    --disabled: var(--blue_gray_medium);
+    --placeholder: var(--primitive_textos_bajo);
+    --inverse: var(--white);
+    --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
+    --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
+    --link: var(--blue_cta);
+    --link-hover: var(--blue_medium);
+    --success: var(--green-success);
+    --success-emphasis: var(--green-active);
+    --warning: var(--error);
+    --warning-emphasis: var(--error);
+    --error: var(--error);
+    --error-emphasis: var(--error);
+    --info: var(--blue_cta);
+    --info-emphasis: var(--blue_medium);
   }
 }
 
@@ -129,33 +80,16 @@
   --color-surface-inverse: hsl(var(--surface-inverse));
 
   /* === 2. Text & Foreground === */
-  --color-text-primary: hsl(var(--text-primary));
-  --color-text-secondary: hsl(var(--text-secondary));
-  --color-text-tertiary: hsl(var(--text-tertiary));
-  --color-text-disabled: hsl(var(--text-disabled));
-  --color-text-placeholder: hsl(var(--text-placeholder));
-  --color-text-inverse: hsl(var(--text-inverse));
-  --color-text-link: hsl(var(--text-link));
-  --color-text-link-hover: hsl(var(--text-link-hover));
-  --color-text-error: hsl(var(--text-error));
-
-  /* === 3. Borders & Dividers === */
-  --color-border-default: hsl(var(--border-default));
-  --color-border-subtle: hsl(var(--border-subtle));
-  --color-border-strong: hsl(var(--border-strong));
-  --color-border-interactive: hsl(var(--border-interactive));
-  --color-border-focus: hsl(var(--border-focus));
-  --color-border-error: hsl(var(--border-error));
-  --color-divider: hsl(var(--divider));
-
-  /* === 4. Interactive States === */
-  --color-interactive-default: hsl(var(--interactive-default));
-  --color-interactive-hover: hsl(var(--interactive-hover));
-  --color-interactive-active: hsl(var(--interactive-active));
-  --color-interactive-focus: hsl(var(--interactive-focus));
-  --color-interactive-disabled: hsl(var(--interactive-disabled));
-
-  /* === 5. Semantic Feedback === */
+  --color-primary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-disabled: hsl(var(--disabled));
+  --color-placeholder: hsl(var(--placeholder));
+  --color-inverse: hsl(var(--inverse));
+  --color-label: hsl(var(--label));
+  --color-label-secondary: hsl(var(--label-secondary));
+  --color-link: hsl(var(--link));
+  --color-link-hover: hsl(var(--link-hover));
   --color-success: hsl(var(--success));
   --color-success-emphasis: hsl(var(--success-emphasis));
   --color-warning: hsl(var(--warning));

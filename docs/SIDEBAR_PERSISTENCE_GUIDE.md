@@ -108,7 +108,7 @@ export default async function UserLayout({ children }: { children: React.ReactNo
               <SidebarProvider defaultOpen={defaultOpen}>
                 <RtkRequestsProvider>
                   <div className="flex h-screen w-screen">
-                    <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed text-var--primary-50" />
+                    <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed text-var--primitive_verde_base" />
                     <AppSidebar />
                     <main className="flex-1 md:px-8 overflow-y-scroll">{children}</main>
                     <Toaster richColors position="top-right" />

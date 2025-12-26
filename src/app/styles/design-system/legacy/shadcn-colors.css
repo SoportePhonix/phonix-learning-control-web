@@ -6,24 +6,24 @@
     /* Shadcn UI Base Colors - Mapped to project colors (HSL format) */
     --background: var(--brand); /* 192 48% 94% -> #e8f4f7 */
     --background-hover: var(--brand); /* 192 48% 94% -> #e8f4f7 */
-    --foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --card: var(--white); /* 0 0% 100% -> #ffffff */
-    --card-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --card-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --popover: var(--white); /* 0 0% 100% -> #ffffff */
-    --popover-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
-    --primary: var(--verde_base); /* 193 60% 19% -> #13404d */
+    --popover-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
+    --primary: var(--primitive_verde_base); /* 193 60% 19% -> #13404d */
     --primary-foreground: var(--white); /* 0 0% 100% -> #ffffff */
     --secondary: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --secondary-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --secondary-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --muted: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
     --muted-foreground: var(--blue_gray_medium); /* 195 10% 62% -> #90a7ae */
     --accent: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --accent-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --accent-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --destructive: var(--red-destructive); /* 0 68% 49% -> #d32525 */
     --destructive-foreground: var(--white); /* 0 0% 100% -> #ffffff */
     --border: var(--brand); /* 192 48% 94% -> #e8f4f7 */
     --input: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --ring: var(--verde_base); /* 193 60% 19% -> #13404d */
+    --ring: var(--primitive_verde_base); /* 193 60% 19% -> #13404d */
     --radius: 0.2rem;
   }
 
@@ -31,24 +31,24 @@
     /* Shadcn UI Base Colors - Mapped to project colors (HSL format) */
     --background: var(--brand); /* 192 48% 94% -> #e8f4f7 */
     --background-hover: var(--brand); /* 192 48% 94% -> #e8f4f7 */
-    --foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --card: var(--white); /* 0 0% 100% -> #ffffff */
-    --card-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --card-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --popover: var(--white); /* 0 0% 100% -> #ffffff */
-    --popover-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
-    --primary: var(--verde_base); /* 193 60% 19% -> #13404d */
+    --popover-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
+    --primary: var(--primitive_verde_base); /* 193 60% 19% -> #13404d */
     --primary-foreground: var(--white); /* 0 0% 100% -> #ffffff */
     --secondary: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --secondary-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --secondary-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --muted: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
     --muted-foreground: var(--blue_gray_medium); /* 195 10% 62% -> #90a7ae */
     --accent: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --accent-foreground: var(--verde_base); /* 193 60% 9% -> #091e24 */
+    --accent-foreground: var(--primitive_verde_base); /* 193 60% 9% -> #091e24 */
     --destructive: var(--red-destructive); /* 0 68% 49% -> #d32525 */
     --destructive-foreground: var(--white); /* 0 0% 100% -> #ffffff */
     --border: var(--brand); /* 192 48% 94% -> #e8f4f7 */
     --input: var(--blue_gray_login); /* 180 5% 91% -> #e7e9ea */
-    --ring: var(--verde_base); /* 193 60% 19% -> #13404d */
+    --ring: var(--primitive_verde_base); /* 193 60% 19% -> #13404d */
     --radius: 0.2rem;
   }
 }

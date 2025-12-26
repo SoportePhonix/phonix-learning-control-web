@@ -22,7 +22,7 @@ export const InputPassword = forwardRef<HTMLInputElement, InputProps>(
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-2.5 top-4.5 -translate-y-1/2 text-[#3A484C] hover:text-slate-800 transition-colors z-10"
+          className="absolute right-2.5 top-4.5 -translate-y-1/2 text-label hover:text-primary transition-colors z-10"
           tabIndex={-1}
         >
           {showPassword ? <ImEyeBlocked size={18} /> : <ImEye size={18} />}

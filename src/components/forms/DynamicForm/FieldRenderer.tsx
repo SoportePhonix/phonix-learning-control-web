@@ -179,11 +179,11 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
   return (
     <div className="grid gap-2">
-      <label className="text-sm text-secondary">
+      <label className="text-sm text-label">
         {t(field.label)}
         {isRequired && <span className="text-error">*</span>}
         {mode === 'edit' && field.type === 'password' && !isRequired && (
-          <span className="text-sm text-gray-500 ml-2">({t('o.optional')})</span>
+          <span className="text-sm text-label ml-2">({t('o.optional')})</span>
         )}
       </label>
 
@@ -193,7 +193,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
         field.type !== 'text' &&
         field.type !== 'email' &&
         field.type !== 'number' &&
-        field.type !== 'password' && <p className="text-sm text-yellow-300">{error.message as string}</p>}
+        field.type !== 'password' && <p className="text-sm text-error">{error.message as string}</p>}
     </div>
   );
 }
