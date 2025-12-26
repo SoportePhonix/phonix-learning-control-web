@@ -4,16 +4,16 @@
 @layer base {
   :root {
     /* === 1. Background & Surface === */
-    --background-primary: var(--primary-100); /* Fondo principal de la aplicación */
+    --background-primary: var(--verde_base); /* Fondo principal de la aplicación */
     --background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
     --background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
     --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
-    --surface-inverse: var(--primary-100); /* Fondos inversos (tooltips) */
+    --surface-inverse: var(--verde_base); /* Fondos inversos (tooltips) */
 
     /* === 2. Text & Foreground === */
-    --text-primary: var(--primary-100); /* Texto principal, mayor contraste */
+    --text-primary: var(--verde_base); /* Texto principal, mayor contraste */
     --text-secondary: var(--gray_medium); /* Texto secundario, menor énfasis */
     --text-tertiary: var(--blue_gray_medium); /* Texto terciario, mínimo énfasis */
     --text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
@@ -32,9 +32,9 @@
     --divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
 
     /* === 4. Interactive States === */
-    --interactive-default: var(--primary-50); /* Estado normal/reposo */
-    --interactive-hover: var(--primary-100); /* Estado hover */
-    --interactive-active: var(--primary-100); /* Estado pressed/activo */
+    --interactive-default: var(--verde_base); /* Estado normal/reposo */
+    --interactive-hover: var(--verde_base); /* Estado hover */
+    --interactive-active: var(--verde_base); /* Estado pressed/activo */
     --interactive-focus: var(--blue_cta); /* Estado focus (a11y) */
     --interactive-disabled: var(--blue_gray_medium); /* Estado deshabilitado */
 
@@ -52,9 +52,9 @@
     --info-emphasis: var(--blue_medium); /* Texto/íconos informativos */
 
     /* === 6. Brand & Accent === */
-    --brand-primary: var(--primary-50); /* Color principal de marca */
-    --brand-primary-hover: var(--primary-100); /* Hover del color primario */
-    --brand-primary-active: var(--primary-100); /* Active del color primario */
+    --brand-primary: var(--verde_base); /* Color principal de marca */
+    --brand-primary-hover: var(--verde_base); /* Hover del color primario */
+    --brand-primary-active: var(--verde_base); /* Active del color primario */
     --brand-secondary: var(--blue_cta); /* Color secundario de marca */
     --accent: var(--brand); /* Color de acento/highlight */
   }
@@ -68,9 +68,9 @@
     --surface-raised: var(--white);
     --surface-overlay: var(--blue_overlay);
     --surface-sunken: var(--blue_gray_login);
-    --surface-inverse: var(--primary-100);
+    --surface-inverse: var(--verde_base);
 
-    --text-primary: var(--primary-100);
+    --text-primary: var(--verde_base);
     --text-secondary: var(--gray_medium);
     --text-tertiary: var(--blue_gray_medium);
     --text-disabled: var(--blue_gray_medium);
@@ -87,9 +87,9 @@
     --border-error: var(--red-error);
     --divider: var(--blue_gray_login);
 
-    --interactive-default: var(--primary-50);
-    --interactive-hover: var(--primary-100);
-    --interactive-active: var(--primary-100);
+    --interactive-default: var(--verde_base);
+    --interactive-hover: var(--verde_base);
+    --interactive-active: var(--verde_base);
     --interactive-focus: var(--blue_cta);
     --interactive-disabled: var(--blue_gray_medium);
 
@@ -102,9 +102,9 @@
     --info: var(--blue_cta);
     --info-emphasis: var(--blue_medium);
 
-    --brand-primary: var(--primary-50);
-    --brand-primary-hover: var(--primary-100);
-    --brand-primary-active: var(--primary-100);
+    --brand-primary: var(--verde_base);
+    --brand-primary-hover: var(--verde_base);
+    --brand-primary-active: var(--verde_base);
     --brand-secondary: var(--blue_cta);
     --accent: var(--brand);
   }

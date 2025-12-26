@@ -1,29 +1,29 @@
 @layer base {
   :root {
     --nav-item-active-bg: var(--brand);
-    --nav-item-active-text: var(--primary-100);
+    --nav-item-active-text: var(--verde_base);
     --nav-item-active-hover-bg: var(--brand);
-    --nav-item-active-hover-text: var(--primary-100);
+    --nav-item-active-hover-text: var(--verde_base);
     --nav-item-active-collapsed-bg: var(--blue_cta);
     --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--brand);
     --nav-item-inactive-hover-bg: var(--brand) / 0.3;
     --nav-item-inactive-hover-text: var(--brand);
-    --nav-item-inactive-active-bg: var(--primary-50);
+    --nav-item-inactive-active-bg: var(--verde_base);
     --nav-item-inactive-active-text: var(--brand);
     --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
-    --nav-item-user-bg: var(--primary-100);
-    --nav-item-user-hover-bg: var(--primary-100);
-    --nav-item-user-text: var(--primary-100);
-    --nav-item-user-hover-text: var(--primary-100);
+    --nav-item-user-bg: var(--verde_base);
+    --nav-item-user-hover-bg: var(--verde_base);
+    --nav-item-user-text: var(--verde_base);
+    --nav-item-user-hover-text: var(--verde_base);
 
-    --nav-icon-active: var(--primary-100);
+    --nav-icon-active: var(--verde_base);
     --nav-icon-active-collapsed: var(--white);
     --nav-icon-inactive: var(--light_blue);
 
-    --nav-separator-bg: var(--primary-50);
+    --nav-separator-bg: var(--verde_base);
     --nav-separator-opacity: 0.5;
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
@@ -31,29 +31,29 @@
 
   .dark {
     --nav-item-active-bg: var(--brand);
-    --nav-item-active-text: var(--primary-100);
+    --nav-item-active-text: var(--verde_base);
     --nav-item-active-hover-bg: var(--brand);
-    --nav-item-active-hover-text: var(--primary-100);
+    --nav-item-active-hover-text: var(--verde_base);
     --nav-item-active-collapsed-bg: var(--blue_cta);
     --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--brand);
     --nav-item-inactive-hover-bg: var(--brand) / 0.3;
     --nav-item-inactive-hover-text: var(--brand);
-    --nav-item-inactive-active-bg: var(--primary-50);
+    --nav-item-inactive-active-bg: var(--verde_base);
     --nav-item-inactive-active-text: var(--brand);
     --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
-    --nav-item-user-bg: var(--primary-100);
-    --nav-item-user-hover-bg: var(--primary-100);
-    --nav-item-user-text: var(--primary-100);
-    --nav-item-user-hover-text: var(--primary-100);
+    --nav-item-user-bg: var(--verde_base);
+    --nav-item-user-hover-bg: var(--verde_base);
+    --nav-item-user-text: var(--verde_base);
+    --nav-item-user-hover-text: var(--verde_base);
 
-    --nav-icon-active: var(--primary-100);
+    --nav-icon-active: var(--verde_base);
     --nav-icon-active-collapsed: var(--white);
     --nav-icon-inactive: var(--light_blue);
 
-    --nav-separator-bg: var(--primary-50);
+    --nav-separator-bg: var(--verde_base);
     --nav-separator-opacity: 0.5;
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);

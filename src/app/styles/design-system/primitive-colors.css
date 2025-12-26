@@ -4,8 +4,6 @@
 @layer base {
   :root {
     /* Project Custom Colors - HSL format (universal) */
-    --primary-50: 193 60% 19%; /* #13404d */
-    --primary-100: 193 60% 9%; /* #091e24 */
     --secondary: 193 60% 9%; /* #091e24 */
     --white: 0 0% 100%; /* #ffffff */
     --brand: 192 48% 94%; /* #e8f4f7 */
@@ -34,7 +32,7 @@
     --fondo_base: 200 25.7% 93.1%; /* #E9EFF2 */
     --progreso: 187 100% 41.6%; /* #00BCD4 */
     --exito: 148 50.2% 46.5%; /* #3BB273 */
-    --exito: 45 86.5% 62.4%; /* #F2C94C */
+    --alerta: 45 86.5% 62.4%; /* #F2C94C */
     --error: 1 60.9% 56.9%; /* #D4514E */
     --textos_bajo: 195 25.2% 30.4% / 0.6; /* #3A5761/60 */
     --lineas: 195 25.2% 30.4% / 0.2; /* #3A5761/20 */
@@ -42,8 +40,6 @@
 
   .dark {
     /* Project Custom Colors - HSL format (universal) */
-    --primary-50: 193 60% 19%; /* #13404d */
-    --primary-100: 193 60% 9%; /* #091e24 */
     --secondary: 193 60% 9%; /* #091e24 */
     --white: 0 0% 100%; /* #ffffff */
     --brand: 192 48% 94%; /* #e8f4f7 */
@@ -72,7 +68,7 @@
     --fondo_base: 200 25.7% 93.1%; /* #E9EFF2 */
     --progreso: 187 100% 41.6%; /* #00BCD4 */
     --exito: 148 50.2% 46.5%; /* #3BB273 */
-    --exito: 45 86.5% 62.4%; /* #F2C94C */
+    --alerta: 45 86.5% 62.4%; /* #F2C94C */
     --error: 1 60.9% 56.9%; /* #D4514E */
     --textos_bajo: 195 25.2% 30.4% / 0.6; /* #3A5761/60 */
     --lineas: 195 25.2% 30.4% / 0.2; /* #3A5761/20 */
@@ -82,8 +78,8 @@
 /* Tailwind Theme Mappings */
 @theme {
   /* Project Custom Colors */
-  --color-primary-50: hsl(var(--primary-50));
-  --color-primary-100: hsl(var(--primary-100));
+  --color-primary-50: hsl(var(--verde_base));
+  --color-primary-100: hsl(var(--verde_base));
   --color-secondary: hsl(var(--secondary));
   --color-white: hsl(var(--white));
   --color-brand: hsl(var(--brand));
