@@ -2,6 +2,8 @@ import { api } from '../api';
 import {
   AddUserDataResponse,
   AddUserRequest,
+  DeleteUserRequest,
+  DeleteUserResponse,
   GetUserByIdRequest,
   GetUserByIdResponse,
   GetUsersResponse,
@@ -35,8 +37,15 @@ export const usersApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, { id }) => [{ type: 'Users' }, { type: 'Users', id }],
     }),
+    deleteUser: builder.mutation<DeleteUserResponse, DeleteUserRequest>({
+      query: ({ id }) => ({
+        url: `/delete/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Users' }, { type: 'Users', id }],
+    }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const {
@@ -54,4 +63,5 @@ export const {
    */
   useAddUsersMutation,
   useUpdateUserMutation,
+  useDeleteUserMutation,
 } = usersApi;
