@@ -1,17 +1,17 @@
 @layer base {
   :root {
-    --nav-item-active-bg: var(--brand);
+    --nav-item-active-bg: var(--primitive_fondo_base);
     --nav-item-active-text: var(--primitive_verde_base);
-    --nav-item-active-hover-bg: var(--brand);
+    --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
     --nav-item-active-collapsed-bg: var(--blue_cta);
     --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: var(--brand);
-    --nav-item-inactive-hover-bg: var(--brand) / 0.3;
-    --nav-item-inactive-hover-text: var(--brand);
+    --nav-item-inactive-text: var(--primitive_fondo_base);
+    --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-item-inactive-hover-text: var(--primitive_fondo_base);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
-    --nav-item-inactive-active-text: var(--brand);
+    --nav-item-inactive-active-text: var(--primitive_fondo_base);
     --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
     --nav-item-user-bg: var(--primitive_verde_base);
@@ -30,18 +30,18 @@
   }
 
   .dark {
-    --nav-item-active-bg: var(--brand);
+    --nav-item-active-bg: var(--primitive_fondo_base);
     --nav-item-active-text: var(--primitive_verde_base);
-    --nav-item-active-hover-bg: var(--brand);
+    --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
     --nav-item-active-collapsed-bg: var(--blue_cta);
     --nav-item-active-collapsed-hover-bg: var(--blue_cta);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: var(--brand);
-    --nav-item-inactive-hover-bg: var(--brand) / 0.3;
-    --nav-item-inactive-hover-text: var(--brand);
+    --nav-item-inactive-text: var(--primitive_fondo_base);
+    --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-item-inactive-hover-text: var(--primitive_fondo_base);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
-    --nav-item-inactive-active-text: var(--brand);
+    --nav-item-inactive-active-text: var(--primitive_fondo_base);
     --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
 
     --nav-item-user-bg: var(--primitive_verde_base);
