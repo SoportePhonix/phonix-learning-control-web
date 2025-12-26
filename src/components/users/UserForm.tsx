@@ -32,7 +32,7 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
   } = form;
 
   const selectStyle =
-    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-white px-3 text-sm text-gray-500';
+    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-base-white px-3 text-sm text-gray-500';
 
   const errorMessages: Record<number, string> = {
     400: t('r.required'),

@@ -14,7 +14,7 @@ export function FormPageLayout({ description, children, isLoading = false }: For
 
   return (
     <div className="min-h-screen w-full">
-      <div className="bg-white/70 backdrop-blur-sm rounded-md shadow-sm">
+      <div className="bg-base-white/70 backdrop-blur-sm rounded-md shadow-sm">
         {description && <p className="text-center text-sm py-6 border-b">{description}</p>}
         {children}
       </div>

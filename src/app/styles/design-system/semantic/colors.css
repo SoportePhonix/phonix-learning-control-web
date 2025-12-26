@@ -31,6 +31,7 @@
     --error-emphasis: var(--error);
     --info: var(--blue_cta);
     --info-emphasis: var(--blue_medium);
+    --base-white: var(--primitive_blanco);
   }
 
   .dark {
@@ -45,8 +46,8 @@
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
 
-    --primary: var(--primitive_verde_base);
-    --secondary: var(--gray_medium);
+    --primary: var(--primitive_verde_oscuro);
+    --secondary: var(--primitive_verde_base);
     --tertiary: var(--blue_gray_medium);
     --disabled: var(--blue_gray_medium);
     --placeholder: var(--primitive_textos_bajo);
@@ -59,10 +60,11 @@
     --success-emphasis: var(--green-active);
     --warning: var(--error);
     --warning-emphasis: var(--error);
-    --error: var(--error);
+    --error: var(--primitive_error);
     --error-emphasis: var(--error);
     --info: var(--blue_cta);
     --info-emphasis: var(--blue_medium);
+    --base-white: var(--primitive_blanco);
   }
 }
 
@@ -98,11 +100,6 @@
   --color-error-emphasis: hsl(var(--error-emphasis));
   --color-info: hsl(var(--info));
   --color-info-emphasis: hsl(var(--info-emphasis));
-
-  /* === 6. Brand & Accent === */
-  --color-brand-primary: hsl(var(--brand-primary));
-  --color-brand-primary-hover: hsl(var(--brand-primary-hover));
-  --color-brand-primary-active: hsl(var(--brand-primary-active));
-  --color-brand-secondary: hsl(var(--brand-secondary));
-  --color-accent: hsl(var(--accent));
+  --color-info-emphasis: hsl(var(--info-emphasis));
+  --color-base-white: hsl(var(--base-white));
 }

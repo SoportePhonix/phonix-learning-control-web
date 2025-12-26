@@ -10,7 +10,7 @@ const TableRows = <TData,>({ rows, columns }: TableRowsProps<TData>) => {
   if (rows.length === 0) {
     return (
       <TableRow>
-        <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-white/50">
+        <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-base-white/50">
           No existe información para mostrar
         </TableCell>
       </TableRow>

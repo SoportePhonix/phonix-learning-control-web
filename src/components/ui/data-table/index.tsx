@@ -219,14 +219,14 @@ export function DataTable<TData>({
             <Button
               variant="ghost"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="bg-white px-2 py-3 text-sm rounded-lg shadow-md shadow-verde_base/50 transition-colors duration-200 hover:bg-white font-medium text_primary-100"
+              className="bg-base-white px-2 py-3 text-sm rounded-lg shadow-md shadow-verde_base/50 transition-colors duration-200 hover:bg-base-white font-medium text_primary-100"
             >
               Columnas
               <ChevronDown className="h-4 w-4 transition-transform duration-200" />
             </Button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 z-1000 mt-2 w-56 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
+              <div className="absolute right-0 z-1000 mt-2 w-56 origin-top-right rounded-lg bg-base-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none max-h-100 overflow-y-auto text-sm">
                 <div className="py-1">
                   {table
                     .getAllColumns()
@@ -254,7 +254,7 @@ export function DataTable<TData>({
         )}
       </div>
 
-      <div className="bg-white rounded-lg">
+      <div className="bg-base-white rounded-lg">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -309,7 +309,7 @@ export function DataTable<TData>({
               <TableRows rows={table.getRowModel().rows} columns={columns} />
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-white">
+                <TableCell colSpan={columns.length} className="text-center text-xl h-130 bg-base-white">
                   No existe información para mostrar
                 </TableCell>
               </TableRow>
@@ -323,7 +323,7 @@ export function DataTable<TData>({
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-verde_base/50 border-verde_base/20 transition-colors duration-200 data-[state=open]:bg-white bg-white text_primary-100 font-medium text-sm"
+              className="absolute left-0 -bottom-2 tablet:bottom-2 px-2 py-3 rounded-lg shadow-md shadow-verde_base/50 border-verde_base/20 transition-colors duration-200 data-[state=open]:bg-base-white bg-base-white text_primary-100 font-medium text-sm"
             >
               {isPaginatedFromApi ? sizePageValue : pagination.pageSize} filas
               <ChevronDown className="h-4 w-4 transition-transform duration-200 min-w-8" />
@@ -332,7 +332,7 @@ export function DataTable<TData>({
 
           <DropdownMenuContent
             align="start"
-            className="min-w-32 shadow-verde_base/50 rounded-lg bg-white border-verde_base/20"
+            className="min-w-32 shadow-verde_base/50 rounded-lg bg-base-white border-verde_base/20"
           >
             {[5, 10, 20, 50, 100].map((size) => (
               <DropdownMenuCheckboxItem

@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            'flex h-9 w-full rounded-t-lg border-gray_medium border-0 border-b-[1.5px] bg-white px-3 py-1 text-base font-light shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+            'flex h-9 w-full rounded-t-lg border-gray_medium border-0 border-b-[1.5px] bg-base-white px-3 py-1 text-base font-light shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
             error,
             className
           )}
@@ -38,7 +38,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   clipRule="evenodd"
                 />
               </svg>
-              <div className="invisible group-hover:visible absolute left-0 top-6 z-50 w-72 p-3 text-sm bg-white border border-gray-200 rounded-md shadow-lg text-gray-700 whitespace-normal">
+              <div className="invisible group-hover:visible absolute left-0 top-6 z-50 w-72 p-3 text-sm bg-base-white border border-gray-200 rounded-md shadow-lg text-gray-700 whitespace-normal">
                 {error}
               </div>
             </div>

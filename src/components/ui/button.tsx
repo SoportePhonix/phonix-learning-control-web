@@ -12,13 +12,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-white text-blue_gray_medium hover:bg-verde_base hover:text-white text-gray-medium',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-base-white text-blue_gray_medium hover:bg-verde_base hover:text-white text-gray-medium',
         secondary:
           'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-blue_cta text-white hover:bg-blue_cta/80',
         tertiary:
-          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-verde_base text-white hover:bg-white hover:text-blue_gray_medium',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-verde_base text-white hover:bg-base-white hover:text-blue_gray_medium',
         contour:
-          'rounded-[4px] text-normal font-medio border-[1.5px] bg-white/80 border-gray_medium text-verde_base hover:bg-white',
+          'rounded-[4px] text-normal font-medio border-[1.5px] bg-base-white/80 border-gray_medium text-verde_base hover:bg-base-white',
 
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',

@@ -84,7 +84,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   }
 
   const selectStyle =
-    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-white px-3 text-sm text-[#3A484C]';
+    'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-base-white px-3 text-sm text-[#3A484C]';
 
   // Renderizar según tipo de campo
   const renderField = () => {
@@ -117,7 +117,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   </SelectTrigger>
                   <SelectContent className="rounded-lg border-verde_base/30 bg-brand z-50 text-[#3A484C]">
                     {options.map((option) => (
-                      <SelectItem key={option.value} value={String(option.value)} className="bg-white">
+                      <SelectItem key={option.value} value={String(option.value)} className="bg-base-white">
                         {option.label}
                       </SelectItem>
                     ))}

@@ -7,7 +7,7 @@ export const SkeletonRow = <TData,>({ visibleColumns }: { visibleColumns: Column
   <TableRow>
     {visibleColumns.map((column, index) => (
       <TableCell key={column.id || index} className="py-5">
-        <Skeleton className="h-3 w-3/4 rounded bg-white/70" />
+        <Skeleton className="h-3 w-3/4 rounded bg-base-white/70" />
       </TableCell>
     ))}
   </TableRow>
