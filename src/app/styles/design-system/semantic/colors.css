@@ -7,22 +7,23 @@
     --background-primary-login: var(--verde_base); /* Fondo principal de la aplicación */
     --background-primary-sidebar: var(--verde_base); /* Fondo principal de la aplicación */
     --background-primary: var(--fondo_base); /* Fondo principal de la aplicación */
-    --background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
-    --background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
+    --background-secondary: var(--blanco); /* Fondos secundarios (cards, paneles) */
+    --background-tertiary: var(--fondo_base); /* Fondos terciarios (áreas de menos énfasis) */
     --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--verde_base); /* Fondos inversos (tooltips) */
 
     /* === 2. Text & Foreground === */
-    --text-primary: var(--verde_base); /* Texto principal, mayor contraste */
-    --text-secondary: var(--gray_medium); /* Texto secundario, menor énfasis */
-    --text-tertiary: var(--blue_gray_medium); /* Texto terciario, mínimo énfasis */
+    --text-primary: var(--verde_oscuro); /* Texto principal, mayor contraste */
+    --text-secondary: var(--azul_principal); /* Texto secundario, menor énfasis */
+    --text-tertiary: var(--azul_textos_medio); /* Texto terciario, mínimo énfasis */
     --text-disabled: var(--blue_gray_medium); /* Texto deshabilitado */
     --text-placeholder: var(--blue_gray_medium); /* Placeholders en inputs */
     --text-inverse: var(--white); /* Texto sobre fondos oscuros/brand */
     --text-link: var(--blue_cta); /* Enlaces de texto */
     --text-link-hover: var(--blue_medium); /* Enlaces en hover */
+    --text-error: var(--error); /* Mensajes de error */
 
     /* === 3. Borders & Dividers === */
     --border-default: var(--blue_gray_login); /* Bordes estándar */
@@ -30,7 +31,7 @@
     --border-strong: var(--gray_medium); /* Bordes con mayor contraste */
     --border-interactive: var(--blue_cta); /* Bordes de elementos interactivos */
     --border-focus: var(--blue_cta); /* Borde de focus/outline (a11y) */
-    --border-error: var(--red-error); /* Bordes de error en validación */
+    --border-error: var(--error); /* Bordes de error en validación */
     --divider: var(--blue_gray_login); /* Líneas divisoras (hr, separadores) */
 
     /* === 4. Interactive States === */
@@ -44,8 +45,8 @@
     --success: var(--green-success); /* Operaciones exitosas */
     --success-emphasis: var(--green-active); /* Texto/íconos de éxito */
 
-    --warning: var(--red-error); /* Advertencias */
-    --warning-emphasis: var(--red-error); /* Texto/íconos de advertencia */
+    --warning: var(--error); /* Advertencias */
+    --warning-emphasis: var(--error); /* Texto/íconos de advertencia */
 
     --error: var(--red-destructive); /* Errores, acciones destructivas */
     --error-emphasis: var(--red-destructive); /* Texto/íconos de error */
@@ -88,7 +89,7 @@
     --border-strong: var(--gray_medium);
     --border-interactive: var(--blue_cta);
     --border-focus: var(--blue_cta);
-    --border-error: var(--red-error);
+    --border-error: var(--error);
     --divider: var(--blue_gray_login);
 
     --interactive-default: var(--verde_base);
@@ -99,8 +100,8 @@
 
     --success: var(--green-success);
     --success-emphasis: var(--green-active);
-    --warning: var(--red-error);
-    --warning-emphasis: var(--red-error);
+    --warning: var(--error);
+    --warning-emphasis: var(--error);
     --error: var(--red-destructive);
     --error-emphasis: var(--red-destructive);
     --info: var(--blue_cta);
@@ -136,6 +137,7 @@
   --color-text-inverse: hsl(var(--text-inverse));
   --color-text-link: hsl(var(--text-link));
   --color-text-link-hover: hsl(var(--text-link-hover));
+  --color-text-error: hsl(var(--text-error));
 
   /* === 3. Borders & Dividers === */
   --color-border-default: hsl(var(--border-default));

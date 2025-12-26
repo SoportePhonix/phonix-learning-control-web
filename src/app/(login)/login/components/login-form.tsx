@@ -59,8 +59,8 @@ export function LoginForm() {
         <ExpandedLogoLight />
       </div>
 
-      <div className="bg-gray_login rounded-lg -mt-6">
-        <Typography variant="titulo_pequeno" className="text-center text-negro font-medium pt-6">
+      <div className="bg-background-primary rounded-lg -mt-6">
+        <Typography variant="titulo_pequeno" className="text-center text-primary font-medium pt-6">
           {t('l.login')}
         </Typography>
 

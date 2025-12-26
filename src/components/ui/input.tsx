@@ -13,7 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, errorTooltip, errorTooltipTrigger, ...props }, ref) => {
     return (
       <div className="flex flex-col space-y-1 relative mb-6">
-        {label && <label className="text-sm font-light text-gray_medium">{label}</label>}
+        {label && <label className="text-sm font-light text-purple-400">{label}</label>}
         <input
           type={type}
           className={cn(
