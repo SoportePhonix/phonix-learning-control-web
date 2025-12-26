@@ -6,7 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
     scroll-behavior: auto;
     background-image: url('/images/background/background.svg');
-    background-color: #e9eff2;
+    background-color: hsl(var(--background-primary));
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: contain;
@@ -15,7 +15,7 @@
 
   .login {
     background-image: url('/images/background/background.svg');
-    background-color: #091e24;
+    background-color: hsl(var(--background-primary-login));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

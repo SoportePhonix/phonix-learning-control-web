@@ -4,8 +4,9 @@
 @layer base {
   :root {
     /* === 1. Background & Surface === */
+    --background-primary-login: var(--verde_base); /* Fondo principal de la aplicación */
     --background-primary-sidebar: var(--verde_base); /* Fondo principal de la aplicación */
-    --background-primary: var(--azul_brillante); /* Fondo principal de la aplicación */
+    --background-primary: var(--fondo_base); /* Fondo principal de la aplicación */
     --background-secondary: var(--white); /* Fondos secundarios (cards, paneles) */
     --background-tertiary: var(--blue_gray_login); /* Fondos terciarios (áreas de menos énfasis) */
     --surface-raised: var(--white); /* Elementos elevados (modals, dropdowns, popovers) */
@@ -63,6 +64,7 @@
   .dark {
     /* En dark mode, los tokens semánticos se remapean a diferentes primitives */
     /* Por ahora usamos los mismos valores, pero aquí es donde cambiarían */
+    --background-primary-login: var(--verde_base); /* Fondo principal de la aplicación */
     --background-primary-sidebar: var(--verde_base); /* Fondo principal de la aplicación */
     --background-primary: var(--brand);
     --background-secondary: var(--white);
@@ -115,6 +117,7 @@
 /* Tailwind Theme Mappings para Tokens Semánticos */
 @theme {
   /* === 1. Background & Surface === */
+  --color-background-primary-login: hsl(var(--background-primary-login));
   --color-background-primary-sidebar: hsl(var(--background-primary-sidebar));
   --color-background-primary: hsl(var(--background-primary));
   --color-background-secondary: hsl(var(--background-secondary));
