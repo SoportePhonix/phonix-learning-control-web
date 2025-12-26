@@ -9,9 +9,8 @@ export function useDeleteUser() {
   const deleteUser = async (userId: number) => {
     try {
       await deleteUserMutation({ id: userId }).unwrap();
-
       toast.success('Usuario eliminado correctamente');
-      router.refresh(); // fuerza refetch si la tabla está en la misma página
+      router.refresh(); // 👈 FORZAMOS REFRESH
     } catch (err) {
       toast.error('No se pudo eliminar el usuario');
     }

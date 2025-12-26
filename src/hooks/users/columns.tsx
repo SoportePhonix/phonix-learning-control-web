@@ -18,6 +18,44 @@ import Link from 'next/link';
 
 import { useDeleteUser } from './useDeleteUser';
 
+function DeleteUserCell({ userId }: { userId: number }) {
+  const { deleteUser, isLoading } = useDeleteUser();
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="ghost" size="sm" className="h-8 w-8 p-0" disabled={isLoading}>
+          <Trash2 />
+          <span className="sr-only">Eliminar usuario</span>
+        </Button>
+      </AlertDialogTrigger>
+
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Eliminar usuario</AlertDialogTitle>
+          <AlertDialogDescription>¿Estás seguro de eliminar este usuario?</AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+
+          <AlertDialogAction asChild>
+            <Button
+              type="button"
+              onClick={async () => {
+                await deleteUser(userId);
+              }}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Eliminar
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
 export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<User>[] => [
   {
     accessorKey: 'name',
@@ -82,38 +120,6 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
   {
     id: 'delete',
     header: '',
-    cell: ({ row }) => {
-      const { deleteUser, isLoading } = useDeleteUser();
-      const userId = row.original.id;
-
-      return (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="sm" className="h-8 w-8 p-0" disabled={isLoading}>
-              <Trash2 />
-              <span className="sr-only">Eliminar usuario</span>
-            </Button>
-          </AlertDialogTrigger>
-
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Eliminar usuario</AlertDialogTitle>
-              <AlertDialogDescription>¿Estás seguro de eliminar este usuario?</AlertDialogDescription>
-            </AlertDialogHeader>
-
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-
-              <AlertDialogAction
-                onClick={() => deleteUser(userId)}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
-                Eliminar
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      );
-    },
+    cell: ({ row }) => <DeleteUserCell userId={row.original.id} />,
   },
 ];
