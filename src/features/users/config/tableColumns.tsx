@@ -1,9 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { EditButton } from '@/components/EditButton';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
-import { Edit3, Trash2 } from 'lucide-react';
-import Link from 'next/link';
 
 import { DeleteUser } from '../componentes/DeleteUser';
 
@@ -51,26 +49,18 @@ export const tableColumns = (t: (key: TranslationKey) => string): CustomColumnDe
       );
     },
   },
-
   {
-    id: 'id',
+    accessorKey: 'id',
     header: 'Acciones',
     cell: ({ row }) => {
       const userId = row.original.id;
 
       return (
-        <Link href={`/users/${userId}/update`}>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-            <Edit3 className="h-4 w-4" />
-            <span className="sr-only">Editar usuario</span>
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <EditButton href={`/users/${userId}/update`} tooltipText="Editar usuario" />
+          <DeleteUser userId={userId} />
+        </div>
       );
     },
-  },
-  {
-    id: 'delete',
-    header: '',
-    cell: ({ row }) => <DeleteUser userId={row.original.id} />,
   },
 ];
