@@ -1,4 +1,3 @@
-import { AlertConfirmDialog } from '@/components/AlertConfirmDialog';
 import { Button } from '@/components/ui/button';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
@@ -6,27 +5,9 @@ import { User } from '@/lib/services/api/usersApi/interface/users.interface';
 import { Edit3, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
-import { useDeleteUser } from '../hooks/useDeleteUser';
+import { DeleteUser } from '../componentes/DeleteUser';
 
-function DeleteUserCell({ userId }: { userId: number }) {
-  const { deleteUser, isLoading } = useDeleteUser();
-
-  return (
-    <AlertConfirmDialog
-      icon={Trash2}
-      tooltipText="Eliminar usuario"
-      title="Eliminar usuario"
-      description="¿Estás seguro de eliminar este usuario?"
-      onConfirm={async () => await deleteUser(userId)}
-      confirmText="Eliminar"
-      cancelText="Cancelar"
-      variant="destructive"
-      isLoading={isLoading}
-    />
-  );
-}
-
-export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<User>[] => [
+export const tableColumns = (t: (key: TranslationKey) => string): CustomColumnDef<User>[] => [
   {
     accessorKey: 'name',
     header: t('n.name'),
@@ -72,8 +53,8 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
   },
 
   {
-    id: 'actions',
-    header: '',
+    id: 'id',
+    header: 'Acciones',
     cell: ({ row }) => {
       const userId = row.original.id;
 
@@ -90,6 +71,6 @@ export const columns = (t: (key: TranslationKey) => string): CustomColumnDef<Use
   {
     id: 'delete',
     header: '',
-    cell: ({ row }) => <DeleteUserCell userId={row.original.id} />,
+    cell: ({ row }) => <DeleteUser userId={row.original.id} />,
   },
 ];

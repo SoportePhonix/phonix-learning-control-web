@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { AlertCircle, LucideIcon } from 'lucide-react';
+import { LucideIcon, Trash2 } from 'lucide-react';
 
 interface AlertConfirmDialogProps {
   icon?: LucideIcon;
@@ -31,8 +31,8 @@ interface AlertConfirmDialogProps {
   buttonClassName?: string;
 }
 
-export function AlertConfirmDialog({
-  icon: Icon = AlertCircle,
+export function AlertConfirmDialogDestructive({
+  icon: Icon = Trash2,
   iconClassName = 'h-4 w-4',
   tooltipText,
   title,
