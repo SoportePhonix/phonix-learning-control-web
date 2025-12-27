@@ -1,17 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-
 import { SectionTitle } from '@/components/section-title';
 import { Button } from '@/components/ui';
 import { DataTable } from '@/components/ui/data-table';
-import { Typography } from '@/components/ui/typography';
+import { tableColumns } from '@/features/users/config/tableColumns';
 import { useTranslation } from '@/i18n';
 import { useGetAllUsersQuery } from '@/lib/services/api/usersApi/usersApi';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
-
-import { columns } from '../../../hooks/users/columns';
 
 export default function Page() {
   const { t } = useTranslation();
@@ -30,7 +26,7 @@ export default function Page() {
         </Link>
       </div>
 
-      <DataTable data={usersData?.data ?? []} columns={columns(t)} />
+      <DataTable data={usersData?.data ?? []} columns={tableColumns(t)} />
     </div>
   );
 }

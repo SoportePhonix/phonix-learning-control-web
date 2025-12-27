@@ -1,0 +1,8 @@
+TODO Actualmente estamos cambiando los colores para estandarizar, estamos en el navbar, falta el color de los iconos en estado no activo, entonces mirar el estandar en colors, despues toca mirar el nav-user para finalizar ocn los botones
+TODO despues dejar la tabla funcional, pero sin mucho detalle porque vamos a meter los componentes desde la libreria de componentesa
+TODO Voltear la libreria de componentes para poder comenzar a versionar
+TODO Comenzar solamente limpiando la marca de youniversity
+TODO Continuamos implementando estandar de colores como en este proyecto
+TODO Versionar sin importar colores, solo importa dejar la base para poder comenzar en un futuro más facil
+TODO Input, Buttons, TextArea, Input radio, Input checkbox en libreia de componentes --- aplicando la logica correcta de una vez con ayuda de la IA
+TODO Datatable en libreria de componentes --- aplicando la logica correcta de una vez con ayuda de la IA
