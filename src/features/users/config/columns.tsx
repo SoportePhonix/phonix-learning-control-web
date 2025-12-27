@@ -16,7 +16,7 @@ import { User } from '@/lib/services/api/usersApi/interface/users.interface';
 import { Edit, Edit3, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
-import { useDeleteUser } from './useDeleteUser';
+import { useDeleteUser } from '../hooks/useDeleteUser';
 
 function DeleteUserCell({ userId }: { userId: number }) {
   const { deleteUser, isLoading } = useDeleteUser();

@@ -11,7 +11,7 @@ import { useGetAllUsersQuery } from '@/lib/services/api/usersApi/usersApi';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
-import { columns } from '../../../hooks/users/columns';
+import { columns } from '../../../features/users/config/columns';
 
 export default function Page() {
   const { t } = useTranslation();
