@@ -11,9 +11,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { LucideIcon, Trash2 } from 'lucide-react';
+
+import { Button } from './ui';
 
 interface AlertConfirmDialogProps {
   icon?: LucideIcon;
@@ -24,11 +25,11 @@ interface AlertConfirmDialogProps {
   onConfirm: () => void | Promise<void>;
   confirmText?: string;
   cancelText?: string;
-  variant?: 'default' | 'destructive' | 'warning';
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
   isLoading?: boolean;
-  buttonVariant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-  buttonSize?: 'default' | 'sm' | 'lg' | 'icon';
-  buttonClassName?: string;
+  triggerButtonVariant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  triggerButtonSize?: 'default' | 'sm' | 'lg' | 'icon';
+  triggerButtonClassName?: string;
 }
 
 export function AlertConfirmDialogDestructive({
@@ -40,30 +41,24 @@ export function AlertConfirmDialogDestructive({
   onConfirm,
   confirmText = 'Confirmar',
   cancelText = 'Cancelar',
-  variant = 'default',
+  variant = 'destructive',
   isLoading = false,
-  buttonVariant = 'ghost',
-  buttonSize = 'sm',
-  buttonClassName = 'h-8 w-8 p-0',
+  triggerButtonVariant = 'ghost',
+  triggerButtonSize = 'sm',
+  triggerButtonClassName = 'h-8 w-8 p-0',
 }: AlertConfirmDialogProps) {
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'destructive':
-        return 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
-      case 'warning':
-        return 'bg-yellow-600 text-white hover:bg-yellow-700';
-      default:
-        return '';
-    }
-  };
-
   return (
     <AlertDialog>
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
             <AlertDialogTrigger asChild>
-              <Button variant={buttonVariant} size={buttonSize} className={buttonClassName} disabled={isLoading}>
+              <Button
+                variant={triggerButtonVariant}
+                size={triggerButtonSize}
+                className={triggerButtonClassName}
+                disabled={isLoading}
+              >
                 <Icon className={iconClassName} />
                 <span className="sr-only">{tooltipText}</span>
               </Button>
@@ -87,10 +82,10 @@ export function AlertConfirmDialogDestructive({
           <AlertDialogAction asChild>
             <Button
               type="button"
+              variant={variant}
               onClick={async () => {
                 await onConfirm();
               }}
-              className={getVariantStyles()}
               disabled={isLoading}
             >
               {confirmText}

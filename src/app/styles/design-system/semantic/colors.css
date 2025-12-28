@@ -12,7 +12,8 @@
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
-    --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
+    --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
+    --radius-primary: var(--primitive_gris_medio); /* Bordes secondarios*/
 
     --primary: var(--primitive_verde_base);
     --secondary: var(--primitive_azul_principal);
@@ -46,7 +47,8 @@
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
-    --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
+    --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
+    --radius-primary: var(--primitive_gris_medio); /* Bordes secondarios*/
 
     --primary: var(--primitive_verde_base);
     --secondary: var(--primitive_azul_principal);
@@ -82,7 +84,8 @@
   --color-surface-overlay: hsl(var(--surface-overlay));
   --color-surface-sunken: hsl(var(--surface-sunken));
   --color-surface-inverse: hsl(var(--surface-inverse));
-  --color-radios-primary: hsl(var(--radios-primary));
+  --color-radius-primary: hsl(var(--radius-primary));
+  --color-radius-secondary: hsl(var(--radius-secondary));
 
   /* === 2. Text & Foreground === */
   --color-primary: hsl(var(--primary));

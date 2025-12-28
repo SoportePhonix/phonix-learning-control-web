@@ -3,7 +3,7 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: any) {
   const { id: userId } = await params;
 
   try {
@@ -21,10 +21,13 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     });
 
     if (!response.ok) {
-      return ApiRes.fromExternalResponse({
+      const errorResponse = ApiRes.fromExternalResponse({
         message: 'Error deleting user',
         statusCode: response.status,
       });
+
+      // Si fromExternalResponse devuelve null, devolvemos un error genérico
+      return errorResponse ?? ApiRes.customError(500, 'Error deleting user');
     }
 
     return ApiRes.success({ isSuccess: true });

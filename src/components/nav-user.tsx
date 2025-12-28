@@ -72,7 +72,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radios-primary ml-5"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radius-primary ml-5"
               side={isMobile ? 'bottom' : 'bottom'}
               align="end"
               sideOffset={0}
