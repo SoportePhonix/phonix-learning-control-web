@@ -5,6 +5,7 @@
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
     --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-text: var(--primitive_azul_brillante);
     --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
@@ -34,6 +35,7 @@
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
     --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-text: var(--primitive_azul_brillante);
     --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
@@ -64,6 +66,7 @@
   --color-nav-item-active-hover-bg: hsl(var(--nav-item-active-hover-bg));
   --color-nav-item-active-hover-text: hsl(var(--nav-item-active-hover-text));
   --color-nav-item-active-collapsed-bg: hsl(var(--nav-item-active-collapsed-bg));
+  --color-nav-item-active-collapsed-text: hsl(var(--nav-item-active-collapsed-text));
   --color-nav-item-active-collapsed-hover-bg: hsl(var(--nav-item-active-collapsed-hover-bg));
   --color-nav-item-inactive-bg: hsl(var(--nav-item-inactive-bg));
   --color-nav-item-inactive-text: hsl(var(--nav-item-inactive-text));
