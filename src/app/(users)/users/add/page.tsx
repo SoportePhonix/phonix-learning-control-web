@@ -4,8 +4,8 @@ import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { SectionTitle } from '@/components/section-title';
 import { UserFormValues } from '@/components/users/types';
+import { useCreateUser } from '@/features/users/hooks/useCreateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
-import { useCreateUser } from '@/hooks/users/useCreateUser';
 import { useTranslation } from '@/i18n';
 import { useForm } from 'react-hook-form';
 
