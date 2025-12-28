@@ -21,6 +21,15 @@
     background-repeat: no-repeat;
     overflow: hidden;
   }
+
+  .sidebar-background {
+    /* background-image: url('/images/background/group-sidebar.png'); */
+    background-color: hsl(var(--sidebar-background));
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: normal;
+  }
 }
 
 /* Tailwind Breakpoints */

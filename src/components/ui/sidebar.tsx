@@ -172,20 +172,10 @@ const Sidebar = React.forwardRef<
 >(({ side = 'left', variant = 'sidebar', collapsible = 'offcanvas', className, children, ...props }, ref) => {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
-  const sidebarStyle: React.CSSProperties = {
-    backgroundImage: `url('/images/background/group-sidebar.png')`,
-    backgroundColor: 'hsl(var(--sidebar-background))',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundBlendMode: 'normal',
-  };
-
   if (collapsible === 'none') {
     return (
       <div
-        className={cn('flex h-full w-[--sidebar-width] flex-col text-sidebar-foreground', className)}
-        style={sidebarStyle}
+        className={cn('sidebar-background flex h-full w-[--sidebar-width] flex-col text-sidebar-foreground', className)}
         ref={ref}
         {...props}
       >
@@ -200,11 +190,10 @@ const Sidebar = React.forwardRef<
         <SheetContent
           data-sidebar="sidebar"
           data-mobile="true"
-          className="w-(--sidebar-width) bg-sidebar-background p-0 text-sidebar-foreground [&>button]:hidden"
+          className="sidebar-background w-(--sidebar-width) bg-sidebar-background p-0 text-sidebar-foreground [&>button]:hidden"
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-              ...sidebarStyle,
             } as React.CSSProperties
           }
           side={side}
@@ -255,8 +244,7 @@ const Sidebar = React.forwardRef<
       >
         <div
           data-sidebar="sidebar"
-          className="flex h-full w-full flex-col bg-sidebar-background group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
-          style={sidebarStyle}
+          className="sidebar-background flex h-full w-full flex-col bg-sidebar-background group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
         >
           {children}
         </div>

@@ -57,13 +57,13 @@ export function NavSections({
                 style={{
                   clipPath: 'polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem)',
                 }}
-                className={`p-4 ml-4 rounded-none transition-colors ${
+                className={`p-4 ml-4 rounded-none transition-colors cursor-pointer ${
                   isActive(item.url)
                     ? 'bg-nav-item-active-bg text-nav-item-active-text hover:bg-nav-item-active-hover-bg hover:text-nav-item-active-hover-text active:bg-nav-item-active-bg active:text-nav-item-active-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg'
                     : 'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-active-text'
                 } group-data-[state=collapsed]:w-23!`}
               >
-                <div className="flex items-center gap-2 w-full cursor-pointer relative whitespace-nowrap overflow-hidden">
+                <div className="flex items-center gap-2 w-full curÑor-pointer relative whitespace-nowrap overflow-hidden">
                   <div className="ml-7 shrink-0">
                     <item.icon
                       className={`${
@@ -89,7 +89,7 @@ export function NavSections({
                   </span>
                 </div>
               </SidebarMenuButton>
-              <Separator className="bg-nav-separator-bg opacity-50 h-[0.05rem] ml-4 my-2 w-10/12" />
+              <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12" />
             </SidebarMenuItem>
           </div>
         ))}

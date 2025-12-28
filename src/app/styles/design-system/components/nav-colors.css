@@ -4,27 +4,25 @@
     --nav-item-active-text: var(--primitive_verde_base);
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
-    --nav-item-active-collapsed-bg: var(--blue_cta);
-    --nav-item-active-collapsed-hover-bg: var(--blue_cta);
+    --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: var(--primitive_fondo_base);
+    --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
     --nav-item-inactive-hover-text: var(--primitive_fondo_base);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
     --nav-item-inactive-active-text: var(--primitive_fondo_base);
-    --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
-
-    --nav-item-user-bg: var(--primitive_verde_base);
+    --nav-item-inactive-collapsed-hover-bg: var(--primitive_azul_principal) / 0.3;
+    --nav-item-user-bg: var(--primitive_gris_medio);
     --nav-item-user-hover-bg: var(--primitive_verde_base);
-    --nav-item-user-text: var(--primitive_verde_base);
+    --nav-item-user-text: var(--primitive_blanco);
     --nav-item-user-hover-text: var(--primitive_verde_base);
 
     --nav-icon-active: var(--primitive_verde_base);
-    --nav-icon-active-collapsed: var(--white);
-    --nav-icon-inactive: var(--light_blue);
+    --nav-icon-active-collapsed: var(--primitive_blanco);
+    --nav-icon-inactive: var(--primitive_azul_brillante);
 
-    --nav-separator-bg: var(--primitive_verde_base);
-    --nav-separator-opacity: 0.5;
+    --nav-separator-bg: var(--primitive_verde_medio);
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
   }
@@ -34,27 +32,25 @@
     --nav-item-active-text: var(--primitive_verde_base);
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
-    --nav-item-active-collapsed-bg: var(--blue_cta);
-    --nav-item-active-collapsed-hover-bg: var(--blue_cta);
+    --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
     --nav-item-inactive-bg: transparent;
-    --nav-item-inactive-text: var(--primitive_fondo_base);
+    --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
     --nav-item-inactive-hover-text: var(--primitive_fondo_base);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
     --nav-item-inactive-active-text: var(--primitive_fondo_base);
-    --nav-item-inactive-collapsed-hover-bg: var(--blue_cta) / 0.5;
-
-    --nav-item-user-bg: var(--primitive_verde_base);
+    --nav-item-inactive-collapsed-hover-bg: var(--primitive_azul_principal) / 0.3;
+    --nav-item-user-bg: var(--primitive_gris_medio);
     --nav-item-user-hover-bg: var(--primitive_verde_base);
-    --nav-item-user-text: var(--primitive_verde_base);
+    --nav-item-user-text: var(--primitive_blanco);
     --nav-item-user-hover-text: var(--primitive_verde_base);
 
     --nav-icon-active: var(--primitive_verde_base);
-    --nav-icon-active-collapsed: var(--white);
-    --nav-icon-inactive: var(--light_blue);
+    --nav-icon-active-collapsed: var(--primitive_blanco);
+    --nav-icon-inactive: var(--primitive_azul_brillante);
 
-    --nav-separator-bg: var(--primitive_verde_base);
-    --nav-separator-opacity: 0.5;
+    --nav-separator-bg: var(--primitive_verde_medio);
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
   }
