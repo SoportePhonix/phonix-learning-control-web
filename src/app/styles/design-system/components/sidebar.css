@@ -3,37 +3,28 @@
 
 @layer base {
   :root {
-    /* === Sidebar Background === */
     --sidebar-background: var(--background-primary-sidebar); /* Fondo principal del sidebar */
     --sidebar-background-hover: var(--interactive-hover); /* Fondo en hover */
     --sidebar-background-active: var(--interactive-active); /* Fondo cuando está activo */
-
-    /* === Sidebar Foreground (Text & Icons) === */
     --sidebar-foreground: var(--text-primary); /* Texto principal del sidebar */
     --sidebar-foreground-secondary: var(--text-secondary); /* Texto secundario */
     --sidebar-foreground-disabled: var(--text-disabled); /* Texto deshabilitado */
-
-    /* === Sidebar Borders === */
     --sidebar-border: var(--border-default); /* Bordes del sidebar */
     --sidebar-border-focus: var(--border-focus); /* Borde de focus */
-
-    /* === Sidebar Accent (Elementos destacados) === */
     --sidebar-accent: var(--brand-primary); /* Color de acento para items seleccionados */
     --sidebar-accent-foreground: var(--text-inverse); /* Texto sobre el acento */
     --sidebar-accent-hover: var(--brand-primary-hover); /* Acento en hover */
-
-    /* === Sidebar Interactive States === */
     --sidebar-interactive-default: var(--interactive-default); /* Estado default de items */
     --sidebar-interactive-hover: var(--interactive-hover); /* Estado hover */
     --sidebar-interactive-active: var(--interactive-active); /* Estado activo */
     --sidebar-interactive-focus: var(--interactive-focus); /* Estado focus */
-
-    /* === Sidebar Ring (Focus visible) === */
     --sidebar-ring: var(--border-focus); /* Ring de focus para accesibilidad */
-
-    /* === Sidebar Primary (Brand) === */
     --sidebar-primary: var(--brand-primary); /* Color primario del sidebar */
     --sidebar-primary-foreground: var(--text-inverse); /* Texto sobre el color primario */
+    --sidebar-tooltip-bg: var(--primitive_azul_textos_medio);
+    --sidebar-tooltip-text: var(--primitive_blanco);
+    --sidebar-trigger-text: var(--primitive_azul_brillante);
+    --sidebar-trigger-text-mobile: var(--primary);
 
     /* === Sidebar Dimensions === */
     --sidebar-width: 18rem; /* Ancho expandido */
@@ -42,31 +33,33 @@
   }
 
   .dark {
-    /* En dark mode, los tokens del sidebar pueden usar diferentes valores semánticos */
-    --sidebar-background: var(--background-primary);
-    --sidebar-background-hover: var(--interactive-hover);
-    --sidebar-background-active: var(--interactive-active);
+    --sidebar-background: var(--background-primary-sidebar); /* Fondo principal del sidebar */
+    --sidebar-background-hover: var(--interactive-hover); /* Fondo en hover */
+    --sidebar-background-active: var(--interactive-active); /* Fondo cuando está activo */
+    --sidebar-foreground: var(--text-primary); /* Texto principal del sidebar */
+    --sidebar-foreground-secondary: var(--text-secondary); /* Texto secundario */
+    --sidebar-foreground-disabled: var(--text-disabled); /* Texto deshabilitado */
+    --sidebar-border: var(--border-default); /* Bordes del sidebar */
+    --sidebar-border-focus: var(--border-focus); /* Borde de focus */
+    --sidebar-accent: var(--brand-primary); /* Color de acento para items seleccionados */
+    --sidebar-accent-foreground: var(--text-inverse); /* Texto sobre el acento */
+    --sidebar-accent-hover: var(--brand-primary-hover); /* Acento en hover */
+    --sidebar-interactive-default: var(--interactive-default); /* Estado default de items */
+    --sidebar-interactive-hover: var(--interactive-hover); /* Estado hover */
+    --sidebar-interactive-active: var(--interactive-active); /* Estado activo */
+    --sidebar-interactive-focus: var(--interactive-focus); /* Estado focus */
+    --sidebar-ring: var(--border-focus); /* Ring de focus para accesibilidad */
+    --sidebar-primary: var(--brand-primary); /* Color primario del sidebar */
+    --sidebar-primary-foreground: var(--text-inverse); /* Texto sobre el color primario */
+    --sidebar-tooltip-bg: var(--primitive_azul_textos_medio);
+    --sidebar-tooltip-text: var(--primitive_blanco);
+    --sidebar-trigger-text: var(--primitive_azul_brillante);
+    --sidebar-trigger-text-mobile: var(--primary);
 
-    --sidebar-foreground: var(--text-primary);
-    --sidebar-foreground-secondary: var(--text-secondary);
-    --sidebar-foreground-disabled: var(--text-disabled);
-
-    --sidebar-border: var(--border-default);
-    --sidebar-border-focus: var(--border-focus);
-
-    --sidebar-accent: var(--brand-primary);
-    --sidebar-accent-foreground: var(--text-inverse);
-    --sidebar-accent-hover: var(--brand-primary-hover);
-
-    --sidebar-interactive-default: var(--interactive-default);
-    --sidebar-interactive-hover: var(--interactive-hover);
-    --sidebar-interactive-active: var(--interactive-active);
-    --sidebar-interactive-focus: var(--interactive-focus);
-
-    --sidebar-ring: var(--border-focus);
-
-    --sidebar-primary: var(--brand-primary);
-    --sidebar-primary-foreground: var(--text-inverse);
+    /* === Sidebar Dimensions === */
+    --sidebar-width: 18rem; /* Ancho expandido */
+    --sidebar-width-icon: 7.8rem; /* Ancho colapsado */
+    --sidebar-width-mobile: 18rem; /* Ancho en móvil */
   }
 }
 
@@ -80,4 +73,8 @@
   --color-sidebar-ring: hsl(var(--sidebar-ring));
   --color-sidebar-primary: hsl(var(--sidebar-primary));
   --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-tooltip-bg: hsl(var(--sidebar-tooltip-bg));
+  --color-sidebar-tooltip-text: hsl(var(--sidebar-tooltip-text));
+  --color-sidebar-trigger-text: hsl(var(--sidebar-trigger-text));
+  --color-sidebar-trigger-text-mobile: hsl(var(--sidebar-trigger-text-mobile));
 }

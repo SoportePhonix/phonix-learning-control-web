@@ -283,13 +283,25 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
         >
           {isOpen ? (
             <PanelRightOpen
-              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+              className={
+                isOpen && isMobile
+                  ? 'text-sidebar-trigger-text'
+                  : isMobile
+                    ? 'text-sidebar-trigger-text-mobile'
+                    : 'text-sidebar-trigger-text'
+              }
               size={20}
               strokeWidth={1.5}
             />
           ) : (
             <PanelRightClose
-              className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+              className={
+                isOpen && isMobile
+                  ? 'text-sidebar-trigger-text'
+                  : isMobile
+                    ? 'text-sidebar-trigger-text-mobile'
+                    : 'text-sidebar-trigger-text'
+              }
               size={20}
               strokeWidth={1.5}
             />
@@ -313,13 +325,25 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
       >
         {isOpen ? (
           <PanelRightOpen
-            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+            className={
+              isOpen && isMobile
+                ? 'text-sidebar-trigger-text'
+                : isMobile
+                  ? 'text-sidebar-trigger-text-mobile'
+                  : 'text-sidebar-trigger-text'
+            }
             size={20}
             strokeWidth={1.5}
           />
         ) : (
           <PanelRightClose
-            className={isOpen && isMobile ? 'text-light_blue' : isMobile ? 'text-primary-50' : 'text-light_blue'}
+            className={
+              isOpen && isMobile
+                ? 'text-sidebar-trigger-text'
+                : isMobile
+                  ? 'text-sidebar-trigger-text-mobile'
+                  : 'text-sidebar-trigger-text'
+            }
             size={20}
             strokeWidth={1.5}
           />

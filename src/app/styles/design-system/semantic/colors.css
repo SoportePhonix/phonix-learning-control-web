@@ -12,16 +12,13 @@
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
-
     --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
 
     --primary: var(--primitive_verde_base);
     --secondary: var(--primitive_verde_medio);
-    --tertiary: var(--blue_gray_medium);
+    --tertiary: var(--primitive_azul_brillante);
     --disabled: var(--blue_gray_medium);
     --placeholder: var(--primitive_textos_bajo);
-    --tooltip-bg: var(--primitive_azul_textos_medio);
-    --tooltip-text: var(--primitive_blanco);
     --inverse: var(--white);
     --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
     --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
@@ -49,16 +46,13 @@
     --surface-overlay: var(--blue_overlay); /* Overlay/backdrop para modals */
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
-
     --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
 
-    --primary: var(--primitive_verde_oscuro);
-    --secondary: var(--primitive_verde_base);
-    --tertiary: var(--blue_gray_medium);
+    --primary: var(--primitive_verde_base);
+    --secondary: var(--primitive_verde_medio);
+    --tertiary: var(--primitive_azul_brillante);
     --disabled: var(--blue_gray_medium);
     --placeholder: var(--primitive_textos_bajo);
-    --tooltip-bg: var(--primitive_azul_textos_medio);
-    --tooltip-text: var(--primitive_blanco);
     --inverse: var(--white);
     --label: var(--primitive_azul_textos_medio); /* Labels principales de formularios */
     --label-secondary: var(--primitive_azul_textos_medio); /* Labels secundarios o hints */
@@ -88,7 +82,6 @@
   --color-surface-overlay: hsl(var(--surface-overlay));
   --color-surface-sunken: hsl(var(--surface-sunken));
   --color-surface-inverse: hsl(var(--surface-inverse));
-
   --color-radios-primary: hsl(var(--radios-primary));
 
   /* === 2. Text & Foreground === */

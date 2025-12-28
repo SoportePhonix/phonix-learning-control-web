@@ -39,7 +39,7 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu className="group-data-[collapsible=icon]:ml-7 ml-0 text-amber-50">
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-0 -ml-6 text-base-white w-full">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -56,26 +56,26 @@ export function NavUser({
                 </div>
               </SidebarMenuButton>
             ) : (
-              <SidebarMenuButton size="lg" className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover">
+              <SidebarMenuButton
+                size="lg"
+                className="data-[state=open]:bg-nav-item-user hover:bg-accent-hover w-auto text-center justify-self-center"
+              >
                 <Avatar className="h-8 w-8 rounded-full bg-nav-item-user-bg">
                   <AvatarFallback className="bg-verde_base text-nav-item-user-text font-bold">
                     {avatarName}
                   </AvatarFallback>
                 </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
-                </div>
-                <ChevronsUpDown className="ml-auto size-4" />
+                <span className="truncate font-normal">Mi perfil</span>
+                {/* <ChevronsUpDown className="ml-auto size-4" /> */}
               </SidebarMenuButton>
             )}
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
               className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radios-primary"
-              side={isMobile ? 'bottom' : 'right'}
+              side={isMobile ? 'bottom' : 'bottom'}
               align="end"
-              sideOffset={4}
+              sideOffset={0}
             >
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
@@ -84,7 +84,7 @@ export function NavUser({
                       {avatarName}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
+                  <div className="grid flex-1 text-left text-sm leading-tight text-nav-item-user-text-dropdown">
                     <span className="truncate font-semibold">{user.name}</span>
                     <span className="truncate text-xs">{user.email}</span>
                   </div>

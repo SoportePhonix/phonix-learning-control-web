@@ -17,6 +17,7 @@
     --nav-item-user-hover-bg: var(--primitive_verde_base);
     --nav-item-user-text: var(--primitive_blanco);
     --nav-item-user-hover-text: var(--primitive_verde_base);
+    --nav-item-user-text-dropdown: var(--primary);
 
     --nav-icon-active: var(--primitive_verde_base);
     --nav-icon-active-collapsed: var(--primitive_blanco);
@@ -45,6 +46,7 @@
     --nav-item-user-hover-bg: var(--primitive_verde_base);
     --nav-item-user-text: var(--primitive_blanco);
     --nav-item-user-hover-text: var(--primitive_verde_base);
+    --nav-item-user-text-dropdown: var(--primitive_blanco);
 
     --nav-icon-active: var(--primitive_verde_base);
     --nav-icon-active-collapsed: var(--primitive_blanco);
@@ -75,6 +77,7 @@
   --color-nav-item-user-hover-bg: hsl(var(--nav-item-user-hover-bg));
   --color-nav-item-user-text: hsl(var(--nav-item-user-text));
   --color-nav-item-user-hover-text: hsl(var(--nav-item-user-hover-text));
+  --color-nav-item-user-hover-text-dropdown: hsl(var(--nav-item-user-hover-text-dropdown));
 
   --color-nav-icon-active: hsl(var(--nav-icon-active));
   --color-nav-icon-active-collapsed: hsl(var(--nav-icon-active-collapsed));
