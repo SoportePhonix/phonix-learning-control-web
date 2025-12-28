@@ -12,17 +12,16 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { HomeIcon } from '@/features/home/components/icons/HomeIcon';
+import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
+import { useTranslation } from '@/i18n';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { ShieldPlus, ShieldUser } from 'lucide-react';
-import { UserRound } from 'lucide-react';
-import { Book } from 'lucide-react';
-import { Library } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { IoHomeOutline } from 'react-icons/io5';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionContext();
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const isDarkMode = theme === 'dark';
 
@@ -46,32 +45,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     sections: [
-      // {
-      //   name: 'Dashboard',
-      //   url: '/dashboard',
-      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-      //     <IoHomeOutline {...props} />
-      //   ),
-      // },
       {
-        name: 'Usuarios',
+        name: t('h.home'),
+        url: '/home',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HomeIcon {...props} />,
+      },
+      {
+        name: t('u.users'),
         url: '/users',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <ShieldUser {...props} />,
-      },
-      {
-        name: 'Estudiantes',
-        url: '/students',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserRound {...props} />,
-      },
-      {
-        name: 'Cursos',
-        url: '/courses',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Book {...props} />,
-      },
-      {
-        name: 'Rutas de formación',
-        url: '/trainingPathways',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <Library {...props} />,
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserIcon {...props} />,
       },
     ],
   };

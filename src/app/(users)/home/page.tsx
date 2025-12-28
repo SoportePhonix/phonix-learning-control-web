@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <Typography variant="titulo_medio" className="text-negro font-light mb-4">
-        {t('d.dashboard')}
+        {t('h.home')}
       </Typography>
     </div>
   );

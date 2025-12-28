@@ -9,7 +9,7 @@
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
-    --nav-item-inactive-hover-text: var(--primitive_fondo_base);
+    --nav-item-inactive-hover-text: var(--primitive_azul_brillante);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
     --nav-item-inactive-active-text: var(--primitive_fondo_base);
     --nav-item-inactive-collapsed-hover-bg: var(--primitive_azul_principal) / 0.3;
@@ -38,7 +38,7 @@
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
-    --nav-item-inactive-hover-text: var(--primitive_fondo_base);
+    --nav-item-inactive-hover-text: var(--primitive_azul_brillante);
     --nav-item-inactive-active-bg: var(--primitive_verde_base);
     --nav-item-inactive-active-text: var(--primitive_fondo_base);
     --nav-item-inactive-collapsed-hover-bg: var(--primitive_azul_principal) / 0.3;

@@ -13,7 +13,7 @@
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
     --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
-    --radius-primary: var(--primitive_gris_medio); /* Bordes secondarios*/
+    --radius-secondary: var(--primitive_gris_medio); /* Bordes secondarios*/
 
     --primary: var(--primitive_verde_base);
     --secondary: var(--primitive_azul_principal);
@@ -48,7 +48,7 @@
     --surface-sunken: var(--blue_gray_login); /* Áreas hundidas (inputs, wells) */
     --surface-inverse: var(--primitive_verde_base); /* Fondos inversos (tooltips) */
     --radius-primary: var(--primitive_lineas); /* bordes para cards, y cosas de primer plano*/
-    --radius-primary: var(--primitive_gris_medio); /* Bordes secondarios*/
+    --radius-secondary: var(--primitive_gris_medio); /* Bordes secondarios*/
 
     --primary: var(--primitive_verde_base);
     --secondary: var(--primitive_azul_principal);
