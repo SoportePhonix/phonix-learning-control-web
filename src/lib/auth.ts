@@ -76,10 +76,27 @@ export const authOptions: AuthOptions = {
         token.role = user.role;
       }
 
+      // Verificar si el token ha expirado
+      const expiresAt = Number(token.expiresAt);
+      const now = Date.now();
+
+      if (expiresAt && now > expiresAt) {
+        console.warn('Token JWT expirado en callback');
+        return {
+          ...token,
+          error: 'TokenExpired',
+        };
+      }
+
       return token;
     },
 
     async session({ session, token }) {
+      // Si el token tiene error, no retornar sesión
+      if ('error' in token && token.error === 'TokenExpired') {
+        throw new Error('Token expirado');
+      }
+
       session.user = {
         ...session.user,
         accessToken: String(token.accessToken),
