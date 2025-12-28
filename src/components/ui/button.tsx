@@ -14,7 +14,7 @@ const buttonVariants = cva(
         primary:
           'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-base-white text-blue_gray_medium hover:bg-verde_base hover:text-white text-gray-medium',
         secondary:
-          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-blue_cta text-white hover:bg-blue_cta/80',
+          'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-secondary text-white hover:bg-secondary/80',
         tertiary:
           'rounded-t-lg text-normal font-medio border-0 border-b-[1.5px] border-gray_medium bg-verde_base text-white hover:bg-base-white hover:text-blue_gray_medium',
         contour:

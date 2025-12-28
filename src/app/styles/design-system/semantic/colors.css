@@ -15,7 +15,7 @@
     --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
 
     --primary: var(--primitive_verde_base);
-    --secondary: var(--primitive_verde_medio);
+    --secondary: var(--primitive_azul_principal);
     --tertiary: var(--primitive_azul_brillante);
     --disabled: var(--blue_gray_medium);
     --placeholder: var(--primitive_textos_bajo);
@@ -49,7 +49,7 @@
     --radios-primary: var(--primitive_lineas); /* Fondos inversos (tooltips) */
 
     --primary: var(--primitive_verde_base);
-    --secondary: var(--primitive_verde_medio);
+    --secondary: var(--primitive_azul_principal);
     --tertiary: var(--primitive_azul_brillante);
     --disabled: var(--blue_gray_medium);
     --placeholder: var(--primitive_textos_bajo);
