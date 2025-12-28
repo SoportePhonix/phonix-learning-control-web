@@ -14,4 +14,5 @@ export const f = {
   foreignId: 'Cédula extranjera',
   firstNameRequired: 'El nombre es requerido',
   foreignerCard: 'Cedula de extranjería',
+  forSecurityYouMustLogInAgain: 'Por seguridad, debes volver a iniciar sesión',
 };

@@ -14,4 +14,5 @@ export const f = {
   foreignId: 'Foreign ID',
   firstNameRequired: 'First name required',
   foreignerCard: 'Foreigner card',
+  forSecurityYouMustLogInAgain: 'For security, you must log in again',
 };
