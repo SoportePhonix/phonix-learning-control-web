@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 import { LucideIcon, Trash2 } from 'lucide-react';
 
 import { Button } from './ui';
@@ -82,7 +83,7 @@ export function AlertConfirmDialogDestructive({
           <AlertDialogAction asChild>
             <Button
               type="button"
-              variant={variant}
+              variant="destructive"
               onClick={async () => {
                 await onConfirm();
               }}
