@@ -1,4 +1,4 @@
-import { CircularProgressSmall } from '@/components/student-detail-card/info/circularProgressSmall';
+import { CircularProgressSmall } from '@/app/(users)/students/components/student-detail-card/info/circularProgressSmall';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { TrainingRoute } from './trainingRoutes.types';

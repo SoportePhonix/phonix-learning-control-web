@@ -1,8 +1,8 @@
 'use client';
 
+import { recruitmentAndSelectionColumns } from '@/app/(users)/students/hooks/info/recruitmentAndSelection/recruitmentAndSelection.columns';
+import { RecruitmentAndSelection } from '@/app/(users)/students/hooks/info/recruitmentAndSelection/recruitmentAndSelection.types';
 import { DataTable } from '@/components/ui/data-table';
-import { recruitmentAndSelectionColumns } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.columns';
-import { RecruitmentAndSelection } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.types';
 
 export function RecruitmentAndSelectionTable({ data }: { data: RecruitmentAndSelection[] }) {
   return (

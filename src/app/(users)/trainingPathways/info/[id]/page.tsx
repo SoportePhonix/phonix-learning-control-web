@@ -1,9 +1,10 @@
+import { TrainingPathwayDetailCard } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/TrainingPathwaysDetailCard';
+import { TrainingPathwayCoursesTable } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/info/trainingPathwayCoursesTable';
 import { SectionTitle } from '@/components/section-title';
-import { TrainingPathwayDetailCard } from '@/components/trainingPathways-detail-card/TrainingPathwaysDetailCard';
-import { TrainingPathwayCoursesTable } from '@/components/trainingPathways-detail-card/info/trainingPathwayCoursesTable';
-import { coursesByTrainingPathway } from '@/hooks/trainingPathways/info/courses/courses.mock';
-import { trainingPathwaysMock } from '@/hooks/trainingPathways/trainingPathways.mock';
-import { trainingPathwaysStatsMock } from '@/hooks/trainingPathways/trainingPathwaysStats.mock';
+
+import { coursesByTrainingPathway } from '../../hooks/info/courses/courses.mock';
+import { trainingPathwaysMock } from '../../hooks/trainingPathways.mock';
+import { trainingPathwaysStatsMock } from '../../hooks/trainingPathwaysStats.mock';
 
 type Props = {
   params: Promise<{

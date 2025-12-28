@@ -2,8 +2,9 @@
 
 import { SectionTitle } from '@/components/section-title';
 import { DataTable } from '@/components/ui/data-table';
-import { trainingPathwaysColumns } from '@/hooks/trainingPathways/columns';
-import { trainingPathwaysMock } from '@/hooks/trainingPathways/trainingPathways.mock';
+
+import { trainingPathwaysColumns } from './hooks/columns';
+import { trainingPathwaysMock } from './hooks/trainingPathways.mock';
 
 export default function Page() {
   return (

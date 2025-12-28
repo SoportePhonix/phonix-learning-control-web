@@ -1,9 +1,9 @@
 'use client';
 
+import { courseColumns } from '@/app/(users)/courses/hooks/columns';
+import { coursesMock } from '@/app/(users)/courses/hooks/courses.mock';
 import { SectionTitle } from '@/components/section-title';
 import { DataTable } from '@/components/ui/data-table';
-import { courseColumns } from '@/hooks/courses/columns';
-import { coursesMock } from '@/hooks/courses/courses.mock';
 
 export default function Page() {
   return (

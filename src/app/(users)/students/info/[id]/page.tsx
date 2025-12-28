@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 
+import { StudentDetailCard } from '@/app/(users)/students/components/student-detail-card/StudentDetailCard';
+import { RecruitmentAndSelectionTable } from '@/app/(users)/students/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
+import { TrainingRoutesTable } from '@/app/(users)/students/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
+import { recruitmentAndSelectionByRoute } from '@/app/(users)/students/hooks/info/recruitmentAndSelection/recruitmentAndSelection.mock';
+import { trainingRoutesMock } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.mock';
+import { TrainingRoute } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.types';
+import { studentStatsMock } from '@/app/(users)/students/hooks/studentStats.mock';
+import { studentsMock } from '@/app/(users)/students/hooks/students.mock';
 import { SectionTitle } from '@/components/section-title';
-import { StudentDetailCard } from '@/components/student-detail-card/StudentDetailCard';
-import { RecruitmentAndSelectionTable } from '@/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
-import { TrainingRoutesTable } from '@/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
-import { recruitmentAndSelectionByRoute } from '@/hooks/students/info/recruitmentAndSelection/recruitmentAndSelection.mock';
-import { trainingRoutesMock } from '@/hooks/students/info/trainingRoute/trainingRoutes.mock';
-import { TrainingRoute } from '@/hooks/students/info/trainingRoute/trainingRoutes.types';
-import { studentStatsMock } from '@/hooks/students/studentStats.mock';
-import { studentsMock } from '@/hooks/students/students.mock';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
