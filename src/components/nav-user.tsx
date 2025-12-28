@@ -39,7 +39,7 @@ export function NavUser({
     .join('');
 
   return (
-    <SidebarMenu className="group-data-[collapsible=icon]:ml-0 -ml-6 text-base-white w-full">
+    <SidebarMenu className="group-data-[collapsible=icon]:ml-0 -ml-10 text-base-white w-full">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -72,7 +72,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           {!isLoading && (
             <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radios-primary"
+              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-radios-primary ml-5"
               side={isMobile ? 'bottom' : 'bottom'}
               align="end"
               sideOffset={0}
