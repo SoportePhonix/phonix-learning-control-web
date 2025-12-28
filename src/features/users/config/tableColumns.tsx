@@ -5,7 +5,7 @@ import { User } from '@/lib/services/api/usersApi/interface/users.interface';
 
 import { DeleteUser } from '../componentes/DeleteUser';
 
-export const tableColumns = (t: (key: TranslationKey) => string): CustomColumnDef<User>[] => [
+export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?: number): CustomColumnDef<User>[] => [
   {
     accessorKey: 'name',
     header: t('n.name'),
@@ -54,11 +54,12 @@ export const tableColumns = (t: (key: TranslationKey) => string): CustomColumnDe
     header: 'Acciones',
     cell: ({ row }) => {
       const userId = row.original.id;
+      const isCurrentUser = Number(currentUserId) === Number(userId);
 
       return (
         <div className="flex items-center gap-2">
           <EditButton href={`/users/${userId}/update`} tooltipText="Editar usuario" />
-          <DeleteUser userId={userId} />
+          {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
         </div>
       );
     },
