@@ -3,6 +3,7 @@ export const c = {
   category: 'Categoría',
   categories: 'Categorías',
   citizenshipCard: 'Cédula de ciudadanía',
+  companies: 'Empresas',
   civilRegistration: 'Registro civil',
   change: 'Cambiar',
   changePassword: 'Cambiar contraseña',

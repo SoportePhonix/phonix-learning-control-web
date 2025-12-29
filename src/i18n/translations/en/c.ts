@@ -10,6 +10,7 @@ export const c = {
   comment: 'Comment',
   comments: 'Comments',
   company: 'Company',
+  companies: 'Companies',
   completed: 'Completed',
   confirm: 'Confirm',
   confirmPassword: 'Confirm password',
