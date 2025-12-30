@@ -18,7 +18,7 @@ export default function Page() {
       name: '',
       nit: '',
       email: '',
-      status: '',
+      status: undefined,
     },
   });
 

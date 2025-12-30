@@ -105,9 +105,10 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
                 <SelectTrigger className={selectStyle}>
                   <SelectValue placeholder={t('s.selectAnOption')} />
                 </SelectTrigger>
+
                 <SelectContent>
-                  <SelectItem value="ACTIVE">{t('a.active')}</SelectItem>
-                  <SelectItem value="INACTIVE">{t('i.inactive')}</SelectItem>
+                  <SelectItem value="ACTIVE">Activo</SelectItem>
+                  <SelectItem value="INACTIVE">Inactivo</SelectItem>
                 </SelectContent>
               </Select>
             )}

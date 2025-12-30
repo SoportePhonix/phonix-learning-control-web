@@ -26,7 +26,7 @@ export const companiesFormConfig: FormConfig = {
     {
       name: 'status',
       label: 's.status',
-      type: 'text',
+      type: 'select',
       placeholder: 'e.enterAValue',
       required: true, // Obligatorio en ambos modos
     },

@@ -1,29 +1,23 @@
 'use client';
 
+import { CompaniesFormValues } from '@/components/companies/types';
 import { useTranslation } from '@/i18n';
 import { useAddCompaniesMutation } from '@/lib/services/api/companiesApi/companiesApi';
 import { AddCompaniesRequest } from '@/lib/services/api/companiesApi/interface';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-type FormValues = {
-  name: string;
-  nit: string;
-  email: string;
-  status: string;
-};
-
 export function useCreateCompanies() {
   const { t } = useTranslation();
   const router = useRouter();
   const [addCompany, { isLoading, error }] = useAddCompaniesMutation();
 
-  const createCompany = async (values: FormValues) => {
+  const createCompany = async (values: CompaniesFormValues) => {
     const payload: AddCompaniesRequest = {
       name: values.name,
       nit: values.nit,
       email: values.email,
-      status: values.status,
+      status: values.status!, // ✅ asegurado por validación del form
     };
 
     try {
