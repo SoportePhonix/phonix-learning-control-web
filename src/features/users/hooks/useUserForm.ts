@@ -7,7 +7,7 @@ import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/t
 import { useGetUserByIdQuery } from '@/lib/services/api/usersApi/usersApi';
 import { UseFormReturn } from 'react-hook-form';
 
-import { userFormConfig } from '../config/formConfig';
+import { userFormConfig } from '../config/usersFormConfig';
 
 type UseUserFormProps = {
   mode: 'create' | 'edit';

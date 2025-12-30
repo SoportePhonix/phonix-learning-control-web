@@ -46,7 +46,7 @@ export function DynamicForm<T extends FieldValues>({
           <FieldRenderer key={field.name} field={field} form={form} mode={mode} t={t} />
         ))}
         {/* Mostrar error de API si existe */}
-        {apiError && Object.keys(form.formState.errors).length === 0 && (
+        {apiError && (
           <div className="col-span-full absolute bottom-24">
             <p className="text-sm text-red-error">
               {apiErrorMessage ||

@@ -9,3 +9,28 @@ export interface Companies {
   email: string;
   status: string;
 }
+
+export interface AddCompaniesRequest {
+  name: string;
+  nit: string;
+  email: string;
+  status: string;
+}
+
+export interface AddCompaniesDataResponse {
+  data: {
+    name: string;
+    nit: string;
+    email: string;
+    status: string;
+  };
+  isSuccess: boolean;
+}
+
+export interface GetCompaniesByIdResponse {
+  data: Companies;
+}
+
+export interface GetCompaniesByIdRequest {
+  companiesId: string;
+}

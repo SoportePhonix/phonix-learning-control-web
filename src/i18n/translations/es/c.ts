@@ -26,4 +26,5 @@ export const c = {
   createdBy: 'Creado por',
   current: 'Actual',
   creating: 'Creando',
+  companyCreationFailed: 'Creación de empresa fallida',
 };

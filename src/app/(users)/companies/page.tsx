@@ -21,14 +21,14 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('c.companies')} />
-      {/*       <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4">
         <Link href={'/companies/add'}>
           <Button variant="secondary">
             <UserPlus />
-            {t('a.addUsers')}
+            {t('a.addCompanies')}
           </Button>
         </Link>
-      </div> */}
+      </div>
 
       <DataTable data={companiesData?.data ?? []} columns={tableColumnsCompanies(t, currentUserId)} />
     </div>

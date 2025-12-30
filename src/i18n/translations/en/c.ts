@@ -26,4 +26,5 @@ export const c = {
   creating: 'Creating',
   citizenshipCard: 'Citizenship card',
   civilRegistration: 'Civil registration',
+  companyCreationFailed: 'Company creation failed',
 };

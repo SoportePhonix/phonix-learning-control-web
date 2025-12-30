@@ -21,4 +21,6 @@ export const t = {
   theRolesAreRequired: 'The roles are required',
   theUserAlreadyExists: 'The user already exists',
   toUpdateAUserCompleteTheFields: 'To update a user, complete the fields',
+  toCreateACompanyPleaseFillInTheFields: 'To create a company please fill in the fields',
+  theNITalreadyExists: 'The NIT already exists',
 };

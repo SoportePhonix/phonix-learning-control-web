@@ -9,6 +9,7 @@ export const a = {
   activeGroup: 'Grupo Activo',
   add: 'Agregar',
   address: 'Dirección',
+  addCompanies: 'Agregar empresa',
   addUser: 'Agregar Usuario',
   admin: 'Administrador',
   all: 'Todos',
@@ -25,4 +26,6 @@ export const a = {
   addUsers: 'Agregar usuarios',
   anErrorOccurredWhileCreatingTheUser: 'Ocurrió un error al crear el usuario',
   anUnknownErrorOccurred: 'Ocurrió un error desconocido',
+  addedSuccessfully: 'Añadido exitosamente',
+  addCompany: 'Agregar empresa',
 };
