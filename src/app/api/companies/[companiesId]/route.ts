@@ -3,15 +3,20 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function GET(req: Request, { params }: any) {
-  const { userId } = await params;
+export async function GET(req: Request, context: { params: Promise<{ companiesId: string }> }) {
+  const { companiesId } = await context.params;
+
   try {
     const session: CustomSession | null = await getServerSession(authOptions);
 
+    if (!session?.user?.accessToken) {
+      return ApiRes.fromException(new Error('Unauthorized'));
+    }
+
     const response = await (
-      await fetch(`${process.env.API_URL}/users/${userId}`, {
+      await fetch(`${process.env.API_URL}/companies/${companiesId}`, {
         headers: {
-          authorization: `Bearer ${session?.user?.accessToken}`,
+          authorization: `Bearer ${session.user.accessToken}`,
           accept: 'application/json',
           'Content-Type': 'application/json',
         },

@@ -1,11 +1,21 @@
 import { api } from '../api';
-import { AddCompaniesDataResponse, AddCompaniesRequest, GetCompaniesResponse } from './interface';
+import {
+  AddCompaniesDataResponse,
+  AddCompaniesRequest,
+  GetCompaniesByIdRequest,
+  GetCompaniesByIdResponse,
+  GetCompaniesResponse,
+} from './interface';
 
 export const companiesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCompanies: builder.query<GetCompaniesResponse, void>({
       query: () => '/companies/all',
-      providesTags: ['Users'],
+      providesTags: ['Companies'],
+    }),
+    getCompaniesById: builder.query<GetCompaniesByIdResponse, GetCompaniesByIdRequest>({
+      query: ({ companiesId }) => `/companies/${companiesId}`,
+      providesTags: (result, error, { companiesId }) => [{ type: 'Companies', id: companiesId }],
     }),
     addCompanies: builder.mutation<AddCompaniesDataResponse, AddCompaniesRequest>({
       query: (params) => ({
