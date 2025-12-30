@@ -2,6 +2,7 @@ export const n = {
   name: 'Nombre',
   new: 'Nuevo',
   next: 'Siguiente',
+  nit: 'Nit',
   no: 'No',
   noData: 'Sin datos',
   noResults: 'Sin resultados',

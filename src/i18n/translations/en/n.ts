@@ -1,6 +1,7 @@
 export const n = {
   name: 'Name',
   new: 'New',
+  nit: 'Nit',
   next: 'Next',
   no: 'No',
   noData: 'No data',
