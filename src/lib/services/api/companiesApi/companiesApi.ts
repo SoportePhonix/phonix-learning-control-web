@@ -25,7 +25,7 @@ export const companiesApi = api.injectEndpoints({
         method: 'POST',
         body: params,
       }),
-      invalidatesTags: ['Users'],
+      invalidatesTags: ['Companies'],
     }),
     deleteCompanies: builder.mutation<DeleteCompaniesResponse, DeleteCompaniesRequest>({
       query: ({ id }) => ({
