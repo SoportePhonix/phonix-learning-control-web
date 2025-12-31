@@ -2,6 +2,8 @@ import { api } from '../api';
 import {
   AddCompaniesDataResponse,
   AddCompaniesRequest,
+  DeleteCompaniesRequest,
+  DeleteCompaniesResponse,
   GetCompaniesByIdRequest,
   GetCompaniesByIdResponse,
   GetCompaniesResponse,
@@ -25,6 +27,13 @@ export const companiesApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Users'],
     }),
+    deleteCompanies: builder.mutation<DeleteCompaniesResponse, DeleteCompaniesRequest>({
+      query: ({ id }) => ({
+        url: `/companies/delete/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Companies' }, { type: 'Companies', id }],
+    }),
   }),
   overrideExisting: true,
 });
@@ -43,4 +52,5 @@ export const {
    * Mutations
    */
   useAddCompaniesMutation,
+  useDeleteCompaniesMutation,
 } = companiesApi;

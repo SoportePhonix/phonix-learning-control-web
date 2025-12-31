@@ -34,3 +34,11 @@ export interface GetCompaniesByIdResponse {
 export interface GetCompaniesByIdRequest {
   companiesId: string;
 }
+
+export interface DeleteCompaniesRequest {
+  id: number;
+}
+
+export interface DeleteCompaniesResponse {
+  isSuccess: boolean;
+}
