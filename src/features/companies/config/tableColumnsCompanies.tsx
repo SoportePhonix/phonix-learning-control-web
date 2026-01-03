@@ -1,3 +1,4 @@
+import { EditButton } from '@/components/EditButton';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { useDeleteCompany } from '@/features/companies/hooks/useDeleteCompany';
 import { TranslationKey } from '@/i18n';
@@ -33,6 +34,7 @@ export const tableColumnsCompanies = (
 
       return (
         <div className="flex items-center gap-2">
+          <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
           <DeleteCompany companyId={companyId} />
         </div>
       );

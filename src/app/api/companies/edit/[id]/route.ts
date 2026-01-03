@@ -3,34 +3,33 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function DELETE(req: Request, { params }: any) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id: companiesId } = await params;
 
   try {
+    const body = await req.json();
     const session: CustomSession | null = await getServerSession(authOptions);
 
     if (!session?.user?.accessToken) {
-      return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
+      return ApiRes.customError(401, 'Unauthorized');
     }
+
     const response = await fetch(`${process.env.API_URL}/companies/${companiesId}`, {
-      method: 'DELETE',
+      method: 'PATCH',
+      body: JSON.stringify(body),
       headers: {
         authorization: `Bearer ${session.user.accessToken}`,
         accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     });
 
-    if (!response.ok) {
-      const errorResponse = ApiRes.fromExternalResponse({
-        message: 'Error deleting user',
-        statusCode: response.status,
-      });
+    const data = await response.json();
 
-      // Si fromExternalResponse devuelve null, devolvemos un error genérico
-      return errorResponse ?? ApiRes.customError(500, 'Error deleting user');
-    }
+    const errorResponse = ApiRes.fromExternalResponse(data);
+    if (errorResponse) return errorResponse;
 
-    return ApiRes.success({ isSuccess: true });
+    return ApiRes.success(data.data);
   } catch (error: unknown) {
     return ApiRes.fromException(error);
   }

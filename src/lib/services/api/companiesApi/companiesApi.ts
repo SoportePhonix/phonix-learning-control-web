@@ -7,6 +7,8 @@ import {
   GetCompaniesByIdRequest,
   GetCompaniesByIdResponse,
   GetCompaniesResponse,
+  UpdateCompaniesRequest,
+  UpdateCompaniesResponse,
 } from './interface';
 
 export const companiesApi = api.injectEndpoints({
@@ -27,6 +29,14 @@ export const companiesApi = api.injectEndpoints({
       }),
       invalidatesTags: ['Companies'],
     }),
+    updateCompanies: builder.mutation<UpdateCompaniesResponse, UpdateCompaniesRequest>({
+      query: ({ id, ...params }) => ({
+        url: `/companies/edit/${id}`,
+        method: 'PUT',
+        body: params,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Companies' }, { type: 'Companies', id }],
+    }),
     deleteCompanies: builder.mutation<DeleteCompaniesResponse, DeleteCompaniesRequest>({
       query: ({ id }) => ({
         url: `/companies/delete/${id}`,
@@ -43,6 +53,7 @@ export const {
    * Get
    */
   useGetCompaniesQuery,
+  useGetCompaniesByIdQuery,
 
   /**
    * Lazy Get
@@ -52,5 +63,6 @@ export const {
    * Mutations
    */
   useAddCompaniesMutation,
+  useUpdateCompaniesMutation,
   useDeleteCompaniesMutation,
 } = companiesApi;

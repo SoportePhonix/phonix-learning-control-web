@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, { params }: any) {
     const session: CustomSession | null = await getServerSession(authOptions);
 
     const response = await (
-      await fetch(`${process.env.API_URL}/company`, {
+      await fetch(`${process.env.API_URL}/companies`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {

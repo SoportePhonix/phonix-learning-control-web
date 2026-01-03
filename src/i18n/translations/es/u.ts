@@ -21,4 +21,5 @@ export const u = {
   updateUser: 'Actualizar usuario',
   updatedSuccessfully: 'Actualizad@ con éxito',
   userUpdateFailed: 'No se pudo actualizar el usuario',
+  userSuccessfullyDeleted: 'Usuario eliminado correctamente',
 };

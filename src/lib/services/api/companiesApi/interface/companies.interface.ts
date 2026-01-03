@@ -35,6 +35,24 @@ export interface GetCompaniesByIdRequest {
   companiesId: string;
 }
 
+export interface UpdateCompaniesRequest {
+  id: number;
+  name: string;
+  nit: string;
+  email: string;
+  status: string;
+}
+
+export interface UpdateCompaniesResponse {
+  data: {
+    name: string;
+    nit: string;
+    email: string;
+    status: string;
+  };
+  isSuccess: boolean;
+}
+
 export interface DeleteCompaniesRequest {
   id: number;
 }

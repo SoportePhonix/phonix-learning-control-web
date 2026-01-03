@@ -15,4 +15,6 @@ export const e = {
   enterAValue: 'Ingrese un valor',
   emailAddressRequired: 'Correo electrónico requerido',
   existingIdentificationDocument: 'Documento de identificación existente',
+  editCompany: 'Editar empresa',
+  existingNit: 'Nit existente',
 };

@@ -23,4 +23,7 @@ export const t = {
   toUpdateAUserCompleteTheFields: 'Para actualizar un usuario, complete los campos',
   toCreateACompanyPleaseFillInTheFields: 'Para crear una empresa, complete los campos',
   theNITalreadyExists: 'El NIT ya existe',
+  toUpdateACompanyCompleteTheFields: 'Para actualizar una empresa, completar los campos',
+  theUserCouldNotBeDeleted: 'No se pudo eliminar el usuario',
+  theCompanyCouldNotBeDeleted: 'No se pudo eliminar la empresa',
 };
