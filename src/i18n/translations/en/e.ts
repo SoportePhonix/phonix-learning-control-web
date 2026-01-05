@@ -16,4 +16,6 @@ export const e = {
   emailAddressRequired: 'Email address required',
   existingIdentificationDocument: 'Existing identification document',
   identificationDocumentExists: 'Identification document exists',
+  editCompany: 'Edit company',
+  existingNit: 'Existing nit',
 };

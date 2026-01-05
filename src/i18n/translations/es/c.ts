@@ -27,4 +27,8 @@ export const c = {
   current: 'Actual',
   creating: 'Creando',
   companyCreationFailed: 'Creación de empresa fallida',
+  companyUpdatedSuccessfully: 'Empresa actualizada exitosamente',
+  companyUpdateFailed: 'Actualización de la empresa fallida',
+  updateCompany: 'Actualizar empresa',
+  companySuccessfullyRemoved: 'Empresa eliminada correctamente',
 };

@@ -27,4 +27,8 @@ export const c = {
   citizenshipCard: 'Citizenship card',
   civilRegistration: 'Civil registration',
   companyCreationFailed: 'Company creation failed',
+  companyUpdatedSuccessfully: 'Company updated successfully',
+  companyUpdateFailed: 'Company update failed',
+  updateCompany: 'Update company',
+  companySuccessfullyRemoved: 'Company successfully removed',
 };

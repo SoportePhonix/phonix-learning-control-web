@@ -21,4 +21,5 @@ export const u = {
   updateUser: 'Update user',
   updatedSuccessfully: 'Updated successfully',
   userUpdateFailed: 'User could not be updated',
+  userSuccessfullyDeleted: 'User successfully deleted',
 };
