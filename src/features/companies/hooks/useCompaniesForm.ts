@@ -4,7 +4,7 @@ import { CompaniesFormValues } from '@/components/companies/types';
 import { FormConfig, SelectOption } from '@/components/forms/DynamicForm/types';
 import { UseFormReturn } from 'react-hook-form';
 
-import { companiesFormConfig } from '../config/CompaniesFormConfig';
+import { companiesFormConfig } from '../config/companiesFormConfig';
 
 type UseCompaniesFormProps = {
   form: UseFormReturn<CompaniesFormValues>;

@@ -30,7 +30,7 @@ export function DynamicForm<T extends FieldValues>({
 
   const errorMessages: Record<number, TranslationKey> = {
     400: 'r.required',
-    409: 'e.existingIdentificationDocument',
+    409: 'e.existingNit',
     500: 'i.internalServerErrorPleaseTryAgainLater',
   };
 

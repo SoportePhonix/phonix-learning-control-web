@@ -1,7 +1,10 @@
+import { EditButton } from '@/components/EditButton';
 import { CustomColumnDef } from '@/components/ui/data-table';
+import { useDeleteCompany } from '@/features/companies/hooks/useDeleteCompany';
 import { TranslationKey } from '@/i18n';
 import { Companies } from '@/lib/services/api/companiesApi/interface';
-import { User } from '@/lib/services/api/usersApi/interface/users.interface';
+
+import { DeleteCompany } from '../components/DeleteCompany';
 
 export const tableColumnsCompanies = (
   t: (key: TranslationKey) => string,
@@ -22,5 +25,19 @@ export const tableColumnsCompanies = (
   {
     accessorKey: 'status',
     header: t('s.status'),
+  },
+  {
+    accessorKey: 'id',
+    header: t('a.actions'),
+    cell: ({ row }) => {
+      const companyId = Number(row.original.id);
+
+      return (
+        <div className="flex items-center gap-2">
+          <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
+          <DeleteCompany companyId={companyId} />
+        </div>
+      );
+    },
   },
 ];
