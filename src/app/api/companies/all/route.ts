@@ -10,7 +10,7 @@ export async function GET() {
     console.log('SESSION:', session);
     console.log('TOKEN:', session?.user?.accessToken);
 
-    const response = await fetch(`${process.env.API_URL}/company`, {
+    const response = await fetch(`${process.env.API_URL}/companies`, {
       headers: {
         Authorization: `Bearer ${session?.user?.accessToken}`,
         Accept: 'application/json',
