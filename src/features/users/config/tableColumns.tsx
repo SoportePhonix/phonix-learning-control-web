@@ -29,36 +29,29 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
   {
     header: t('r.role'),
     cell: ({ row }) => {
-      //Te da el control total del contenido de la celda
-      const roles = row.original.role; //COntiene el objeto del usuario
+      const roles = row.original.role;
 
-      const varios = roles.length > 1; //Verificamos si hay varios roles
+      const varios = roles.length > 1;
 
       return (
         <div className="flex flex-col">
-          {roles.map(
-            (
-              r //Recorremos los roles con .map()
-            ) => (
-              <span key={r.id}>
-                {varios ? `- ${r.name}` : r.name} {/* Decidimos si se lista o no */}
-              </span>
-            )
-          )}
+          {roles.map((r) => (
+            <span key={r.id}>{varios ? `- ${r.name}` : r.name}</span>
+          ))}
         </div>
       );
     },
   },
   {
     accessorKey: 'id',
-    header: 'Acciones',
+    header: t('a.actions'),
     cell: ({ row }) => {
       const userId = row.original.id;
       const isCurrentUser = Number(currentUserId) === Number(userId);
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/users/${userId}/update`} tooltipText="Editar usuario" />
+          <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
           {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
         </div>
       );

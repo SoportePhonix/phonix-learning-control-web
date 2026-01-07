@@ -34,12 +34,11 @@ export function useCreateUser() {
 
     try {
       await addUser(payload).unwrap();
-      toast.success(`${values.name} ${values.lastName} ${t('u.addedSuccessfully')}`, {
+      toast.success(`${values.name} ${values.lastName} ${t('a.addedSuccessfully')}`, {
         id: 'user-created-success',
       });
       router.push('/users');
     } catch (err) {
-      // El error ya está manejado por RTK Query en el estado 'error'
       toast.error(t('u.userCreationFailed'));
     }
   };

@@ -1,5 +1,6 @@
 'use client';
 
+import { CreateButton } from '@/components/CreateButton';
 import { SectionTitle } from '@/components/section-title';
 import { Button } from '@/components/ui';
 import { DataTable } from '@/components/ui/data-table';
@@ -21,14 +22,8 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('u.users')} />
-      <div className="flex justify-end mb-4">
-        <Link href={'/users/add'}>
-          <Button variant="secondary">
-            <UserPlus />
-            {t('a.addUsers')}
-          </Button>
-        </Link>
-      </div>
+
+      <CreateButton href="/users/add" label={t('a.addUsers')} icon={<UserPlus />} align="right" />
 
       <DataTable data={usersData?.data ?? []} columns={tableColumns(t, currentUserId)} />
     </div>
