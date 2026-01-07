@@ -26,22 +26,18 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   const fieldName = field.name as Path<T>;
   const error = errors[fieldName];
 
-  // Determinar si el campo es requerido según el modo
   const isRequired = typeof field.required === 'boolean' ? field.required : (field.required?.[mode] ?? false);
 
-  // Validaciones
   const validationRules: any = {
     required: isRequired ? t(field.label) + ' ' + t('i.isRequired') : false,
   };
 
   if (field.validation) {
     if (field.validation.pattern) {
-      // Para el patrón, solo validar si hay un valor ingresado (útil para campos opcionales en modo edit)
       validationRules.validate = {
         pattern: (value: string) => {
-          // Si no hay valor y no es requerido, no validar
           if (!value && !isRequired) return true;
-          // Si hay valor, validar el patrón
+
           if (value && field.validation?.pattern && !field.validation.pattern.test(value)) {
             return field.validation.patternMessage ? t(field.validation.patternMessage) : t('i.invalidFormat');
           }

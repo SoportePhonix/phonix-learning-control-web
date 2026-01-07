@@ -1,8 +1,9 @@
 export const n = {
   name: 'Name',
+  nameIsRequerid: 'Name is requerid',
   new: 'New',
-  nit: 'Nit',
   next: 'Next',
+  nit: 'Nit',
   no: 'No',
   noData: 'No data',
   noResults: 'No results',
@@ -10,8 +11,7 @@ export const n = {
   normal: 'Normal',
   note: 'Note',
   notes: 'Notes',
+  notFound: 'Not found',
   notification: 'Notification',
   notifications: 'Notifications',
-  notFound: 'Not found',
-  nameIsRequerid: 'Name is requerid',
 };

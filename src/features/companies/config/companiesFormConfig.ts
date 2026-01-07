@@ -7,28 +7,28 @@ export const companiesFormConfig: FormConfig = {
       label: 'n.name',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: true, // Obligatorio en ambos modos
+      required: true,
     },
     {
       name: 'nit',
       label: 'n.nit',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: true, // Obligatorio en ambos modos
+      required: true,
     },
     {
       name: 'email',
       label: 'e.email',
       type: 'email',
       placeholder: 'e.enterAValue',
-      required: true, // Obligatorio en ambos modos
+      required: true,
     },
     {
       name: 'status',
       label: 's.status',
-      type: 'text',
+      type: 'select',
       placeholder: 'e.enterAValue',
-      required: true, // Obligatorio en ambos modos
+      required: true,
     },
   ],
   columns: 2,

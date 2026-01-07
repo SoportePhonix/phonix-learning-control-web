@@ -12,7 +12,7 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { CompanyIcon } from '@/features/companies/components/icons/CompanyIcon';
+import { CompanyIcon } from '@/features/companies/componentes/icons/CompanyIcon';
 import { HomeIcon } from '@/features/home/components/icons/HomeIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';

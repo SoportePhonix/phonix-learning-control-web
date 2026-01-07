@@ -5,9 +5,11 @@ export const s = {
   searchResults: 'Search results',
   select: 'Select',
   selectAll: 'Select all',
+  selectAnOption: 'Select an option',
   selected: 'Selected',
   send: 'Send',
   sent: 'Sent',
+  serviceNotFound: 'Service not found',
   settings: 'Settings',
   share: 'Share',
   show: 'Show',
@@ -22,6 +24,4 @@ export const s = {
   submit: 'Submit',
   success: 'Success',
   successMessage: 'Success message',
-  selectAnOption: 'Select an option',
-  serviceNotFound: 'Service not found',
 };

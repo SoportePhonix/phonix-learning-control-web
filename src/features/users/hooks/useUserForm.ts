@@ -26,7 +26,6 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
     }
   );
 
-  // Transformar datos de API a opciones de select
   const rolesOptions: SelectOption[] = useMemo(() => {
     return (
       rolesData?.data?.map((role: any) => ({
@@ -45,7 +44,6 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
     );
   }, [typesIdData]);
 
-  // Configuración del formulario con opciones dinámicas
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...userFormConfig };
     config.fields = config.fields.map((field) => {
@@ -60,7 +58,6 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
     return config;
   }, [rolesOptions, typesIdOptions]);
 
-  // Cargar datos del usuario en modo edición
   useEffect(() => {
     if (mode === 'edit' && userById.data?.data && typesIdOptions.length > 0 && rolesOptions.length > 0) {
       const userData = userById.data.data;
@@ -77,7 +74,6 @@ export function useUserForm({ mode, userId, form }: UseUserFormProps) {
         roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : '',
       };
 
-      // Usar reset con keepDefaultValues: false para asegurar que los valores se actualicen
       form.reset(formData, { keepDefaultValues: false });
     }
   }, [mode, userById.data, typesIdOptions, rolesOptions, form, userId]);

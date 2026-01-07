@@ -9,7 +9,7 @@ export async function GET(req: Request, { params }: any) {
     const session: CustomSession | null = await getServerSession(authOptions);
 
     const response = await (
-      await fetch(`${process.env.API_URL}/companies/${userId}`, {
+      await fetch(`${process.env.API_URL}/users/${userId}`, {
         headers: {
           authorization: `Bearer ${session?.user?.accessToken}`,
           accept: 'application/json',

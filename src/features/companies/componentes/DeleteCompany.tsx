@@ -7,7 +7,7 @@ export const DeleteCompany = ({ companyId }: { companyId: number }) => {
 
   return (
     <AlertConfirmDialogDestructive
-      tooltipText="Eliminar empresas"
+      tooltipText="Eliminar empresa"
       title="Eliminar empresas"
       description="¿Estás seguro de eliminar este empresas?"
       onConfirm={async () => await deleteCompany(companyId)}

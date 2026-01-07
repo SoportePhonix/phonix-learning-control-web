@@ -4,7 +4,7 @@ import { useDeleteCompany } from '@/features/companies/hooks/useDeleteCompany';
 import { TranslationKey } from '@/i18n';
 import { Companies } from '@/lib/services/api/companiesApi/interface';
 
-import { DeleteCompany } from '../components/DeleteCompany';
+import { DeleteCompany } from '../componentes/DeleteCompany';
 
 export const tableColumnsCompanies = (
   t: (key: TranslationKey) => string,
@@ -25,6 +25,16 @@ export const tableColumnsCompanies = (
   {
     accessorKey: 'status',
     header: t('s.status'),
+    cell: ({ row }) => {
+      const status = row.original.status;
+
+      const statusLabelMap: Record<string, string> = {
+        active: t('a.active'),
+        inactive: t('i.inactive'),
+      };
+
+      return statusLabelMap[status] ?? status;
+    },
   },
   {
     accessorKey: 'id',

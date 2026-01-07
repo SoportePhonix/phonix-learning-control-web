@@ -4,7 +4,7 @@ import { CompaniesFormValues } from '@/components/companies/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { SectionTitle } from '@/components/section-title';
-import { useCompaniesForm } from '@/features/companies/hooks/useCompaniesForm';
+import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
 import { useCreateCompanies } from '@/features/companies/hooks/useCreateCompanies';
 import { useTranslation } from '@/i18n';
 import { useForm } from 'react-hook-form';
@@ -22,7 +22,10 @@ export default function Page() {
     },
   });
 
-  const { formConfig } = useCompaniesForm({ form });
+  const { formConfig } = useCompaniesForm({
+    mode: 'create',
+    form,
+  });
 
   return (
     <div className="p-8">

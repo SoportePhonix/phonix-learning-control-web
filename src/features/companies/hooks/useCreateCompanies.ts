@@ -35,7 +35,6 @@ export function useCreateCompanies() {
 
       router.push('/companies');
     } catch {
-      // ⚠️ El backend devuelve 500 incluso para errores de validación
       toast.error(t('c.companyCreationFailed'));
     }
   };
@@ -49,10 +48,8 @@ export function useCreateCompanies() {
     createCompany,
     isLoading,
 
-    // status real que llega del backend (aunque esté mal)
     apiError: statusCode,
 
-    // mensaje listo para UI (NO técnico)
-    apiErrorMessage: isDuplicateNit ? 'El NIT ya existe' : rawMessage,
+    apiErrorMessage: isDuplicateNit ? t('e.existingNit') : rawMessage,
   };
 }

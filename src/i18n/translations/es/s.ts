@@ -5,9 +5,11 @@ export const s = {
   searchResults: 'Resultados de búsqueda',
   select: 'Seleccionar',
   selectAll: 'Seleccionar todo',
+  selectAnOption: 'Seleccione una opción',
   selected: 'Seleccionado',
   send: 'Enviar',
   sent: 'Enviado',
+  serviceNotFound: 'Servicio no encontrado',
   settings: 'Configuración',
   share: 'Compartir',
   show: 'Mostrar',
@@ -22,6 +24,4 @@ export const s = {
   submit: 'Enviar',
   success: 'Éxito',
   successMessage: 'Mensaje de éxito',
-  selectAnOption: 'Seleccione una opción',
-  serviceNotFound: 'Servicio no encontrado',
 };

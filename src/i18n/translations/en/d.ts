@@ -12,9 +12,9 @@ export const d = {
   details: 'Details',
   disabled: 'Disabled',
   disconnect: 'Disconnect',
+  diplomatic: 'Diplomatic',
   document: 'Document',
   documents: 'Documents',
   download: 'Download',
   draft: 'Draft',
-  diplomatic: 'Diplomatic',
 };

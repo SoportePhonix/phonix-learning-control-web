@@ -26,7 +26,6 @@ export async function DELETE(req: Request, { params }: any) {
         statusCode: response.status,
       });
 
-      // Si fromExternalResponse devuelve null, devolvemos un error genérico
       return errorResponse ?? ApiRes.customError(500, 'Error deleting user');
     }
 

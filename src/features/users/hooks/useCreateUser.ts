@@ -39,7 +39,6 @@ export function useCreateUser() {
       });
       router.push('/users');
     } catch (err) {
-      // El error ya está manejado por RTK Query en el estado 'error'
       toast.error(t('u.userCreationFailed'));
     }
   };

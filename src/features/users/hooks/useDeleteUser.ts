@@ -12,7 +12,7 @@ export function useDeleteUser() {
     try {
       await deleteUserMutation({ id: userId }).unwrap();
       toast.success(`${t('u.userSuccessfullyDeleted')}`);
-      router.refresh(); // 👈 FORZAMOS REFRESH
+      router.refresh();
     } catch (err) {
       toast.error(`${t('t.theUserCouldNotBeDeleted')}`);
     }

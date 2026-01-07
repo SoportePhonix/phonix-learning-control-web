@@ -43,7 +43,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full grid grid-cols-2 gap-x-12 gap-y-6 px-12 py-10">
-        {/* Nombre */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('n.name')}
@@ -56,7 +55,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
         </div>
 
-        {/* Apellidos */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('l.lastName')}
@@ -69,7 +67,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
         </div>
 
-        {/* Tipo identificación */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('t.typeOfIdentificationDocument')}
@@ -101,7 +98,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           )}
         </div>
 
-        {/* Documento */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('i.identificationDocument')}
@@ -120,7 +116,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           )}
         </div>
 
-        {/* Email */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('e.email')}
@@ -133,7 +128,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
         </div>
 
-        {/* Password */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('p.password')}
@@ -148,7 +142,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           />
         </div>
 
-        {/* Rol */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('r.role')}
@@ -178,7 +171,6 @@ export function UserForm({ mode = 'create', form, onSubmit, roles, typesId, isLo
           {errors.roleId && <p className="text-sm text-red-error">{errors.roleId.message}</p>}
         </div>
 
-        {/* Botones */}
         <div className="col-span-2 flex justify-end gap-4 pt-8">
           <Link href="/users">
             <Button type="button" variant="outline">
