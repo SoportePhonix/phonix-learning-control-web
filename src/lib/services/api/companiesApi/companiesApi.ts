@@ -17,9 +17,9 @@ export const companiesApi = api.injectEndpoints({
       query: () => '/companies/all',
       providesTags: ['Companies'],
     }),
-    getCompaniesById: builder.query<GetCompaniesByIdResponse, GetCompaniesByIdRequest>({
-      query: ({ companiesId }) => `/companies/${companiesId}`,
-      providesTags: (result, error, { companiesId }) => [{ type: 'Companies', id: companiesId }],
+    getCompanyById: builder.query<GetCompaniesByIdResponse, GetCompaniesByIdRequest>({
+      query: ({ companyId }) => `/companies/${companyId}`,
+      providesTags: (result, error, { companyId }) => [{ type: 'Companies', id: companyId }],
     }),
     addCompanies: builder.mutation<AddCompaniesDataResponse, AddCompaniesRequest>({
       query: (params) => ({
@@ -53,7 +53,7 @@ export const {
    * Get
    */
   useGetCompaniesQuery,
-  useGetCompaniesByIdQuery,
+  useGetCompanyByIdQuery,
 
   /**
    * Lazy Get

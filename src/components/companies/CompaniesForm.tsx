@@ -53,7 +53,6 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full grid grid-cols-2 gap-x-12 gap-y-6 px-12 py-10">
-        {/* Nombre */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('n.name')} <span className="text-red-500">*</span>
@@ -65,10 +64,9 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
           />
         </div>
 
-        {/* NIT */}
-        <div className="col-span-1">
+        <div className="grid gap-2">
           <label className="text-sm font-medium">
-            NIT <span className="text-red-500">*</span>
+            {t('n.nit')} <span className="text-red-500">*</span>
           </label>
 
           <Input
@@ -78,7 +76,6 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
           />
         </div>
 
-        {/* Email */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('e.email')} <span className="text-red-500">*</span>
@@ -90,7 +87,6 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
           />
         </div>
 
-        {/* Status */}
         <div className="grid gap-2">
           <label className="text-sm font-medium">
             {t('s.status')} <span className="text-red-500">*</span>
@@ -114,7 +110,6 @@ export function CompaniesForm({ mode = 'create', form, onSubmit, isLoading, apiE
           />
         </div>
 
-        {/* Botones */}
         <div className="col-span-2 flex justify-end gap-4 pt-8">
           <Link href="/companies">
             <Button type="button" variant="outline">

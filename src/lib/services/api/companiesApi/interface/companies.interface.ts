@@ -32,7 +32,7 @@ export interface GetCompaniesByIdResponse {
 }
 
 export interface GetCompaniesByIdRequest {
-  companiesId: string;
+  companyId: string;
 }
 
 export interface UpdateCompaniesRequest {

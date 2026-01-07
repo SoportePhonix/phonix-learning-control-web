@@ -263,59 +263,13 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
       setMounted(true);
     }, []);
 
-    // En mobile, usar openMobile para determinar el estado del icono
-    // En desktop, usar el state normal
-    const isOpen = isMobile ? openMobile : state === 'expanded';
-
-    // Si no está montado, renderizar el estado por defecto sin icono para evitar hydration
-    if (!mounted) {
-      return (
-        <button
-          ref={ref}
-          data-sidebar="trigger"
-          variant="default"
-          className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
-          onClick={(event) => {
-            onClick?.(event);
-            toggleSidebar();
-          }}
-          {...props}
-        >
-          {isOpen ? (
-            <PanelRightOpen
-              className={
-                isOpen && isMobile
-                  ? 'text-sidebar-trigger-text'
-                  : isMobile
-                    ? 'text-sidebar-trigger-text-mobile'
-                    : 'text-sidebar-trigger-text'
-              }
-              size={20}
-              strokeWidth={1.5}
-            />
-          ) : (
-            <PanelRightClose
-              className={
-                isOpen && isMobile
-                  ? 'text-sidebar-trigger-text'
-                  : isMobile
-                    ? 'text-sidebar-trigger-text-mobile'
-                    : 'text-sidebar-trigger-text'
-              }
-              size={20}
-              strokeWidth={1.5}
-            />
-          )}
-          <span className="sr-only">Toggle Sidebar</span>
-        </button>
-      );
-    }
+    // Solo se usa cuando ya estamos montados
+    const isOpen = mounted ? (isMobile ? openMobile : state === 'expanded') : false;
 
     return (
       <button
         ref={ref}
         data-sidebar="trigger"
-        variant="default"
         className={cn('p-1 flex items-center justify-center cursor-pointer', className)}
         onClick={(event) => {
           onClick?.(event);
@@ -325,34 +279,24 @@ const SidebarTrigger = React.forwardRef<React.ElementRef<typeof Button>, React.C
       >
         {isOpen ? (
           <PanelRightOpen
-            className={
-              isOpen && isMobile
-                ? 'text-sidebar-trigger-text'
-                : isMobile
-                  ? 'text-sidebar-trigger-text-mobile'
-                  : 'text-sidebar-trigger-text'
-            }
+            className={isMobile ? 'text-sidebar-trigger-text-mobile' : 'text-sidebar-trigger-text'}
             size={20}
             strokeWidth={1.5}
           />
         ) : (
           <PanelRightClose
-            className={
-              isOpen && isMobile
-                ? 'text-sidebar-trigger-text'
-                : isMobile
-                  ? 'text-sidebar-trigger-text-mobile'
-                  : 'text-sidebar-trigger-text'
-            }
+            className={isMobile ? 'text-sidebar-trigger-text-mobile' : 'text-sidebar-trigger-text'}
             size={20}
             strokeWidth={1.5}
           />
         )}
+
         <span className="sr-only">Toggle Sidebar</span>
       </button>
     );
   }
 );
+
 SidebarTrigger.displayName = 'SidebarTrigger';
 
 const SidebarRail = React.forwardRef<HTMLButtonElement, React.ComponentProps<'button'>>(

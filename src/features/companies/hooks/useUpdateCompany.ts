@@ -16,8 +16,6 @@ export function useUpdateCompany(companyId: string) {
       nit: values.nit,
       email: values.email,
       status: values.status ?? 'active',
-
-      // agrega aquí solo lo que el backend espera
     };
 
     try {
