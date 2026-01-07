@@ -34,7 +34,7 @@ export function useCreateUser() {
 
     try {
       await addUser(payload).unwrap();
-      toast.success(`${values.name} ${values.lastName} ${t('u.addedSuccessfully')}`, {
+      toast.success(`${values.name} ${values.lastName} ${t('a.addedSuccessfully')}`, {
         id: 'user-created-success',
       });
       router.push('/users');

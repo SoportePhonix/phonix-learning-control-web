@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateResourceButton } from '@/components/CreateResourceButton';
+import { CreateButton } from '@/components/CreateButton';
 import { SectionTitle } from '@/components/section-title';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsCompanies } from '@/features/companies/config/tableColumnsCompanies';
@@ -20,9 +20,8 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('c.companies')} />
-      <div className="flex justify-end mb-4">
-        <CreateResourceButton href="/companies/add" label={t('a.addCompanies')} icon={<Building2 />} />
-      </div>
+
+      <CreateButton href="/companies/add" label={t('a.addCompanies')} icon={<Building2 />} align="right" />
 
       <DataTable data={companiesData?.data ?? []} columns={tableColumnsCompanies(t, currentUserId)} />
     </div>
