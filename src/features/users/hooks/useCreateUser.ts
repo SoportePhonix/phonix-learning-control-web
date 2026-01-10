@@ -14,6 +14,7 @@ type FormValues = {
   email: string;
   password: string;
   roleId: string;
+  companyId: string;
 };
 
 export function useCreateUser() {
@@ -30,6 +31,7 @@ export function useCreateUser() {
       email: values.email,
       password: values.password,
       role: [{ id: Number(values.roleId) }],
+      ...(values.companyId !== '' && { companyId: Number(values.companyId) }),
     };
 
     try {

@@ -14,4 +14,5 @@ export const n = {
   notFound: 'Not found',
   notification: 'Notification',
   notifications: 'Notifications',
+  notApplicable: 'Not applicable',
 };

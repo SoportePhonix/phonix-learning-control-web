@@ -62,6 +62,12 @@ export const userFormConfig: FormConfig = {
       required: true,
       options: [],
     },
+    {
+      name: 'companyId',
+      type: 'select',
+      label: 'c.company',
+      required: false,
+    },
   ],
   columns: 2,
 };

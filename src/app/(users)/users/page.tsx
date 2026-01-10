@@ -2,14 +2,12 @@
 
 import { CreateButton } from '@/components/CreateButton';
 import { SectionTitle } from '@/components/section-title';
-import { Button } from '@/components/ui';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumns } from '@/features/users/config/tableColumns';
 import { useTranslation } from '@/i18n';
 import { useGetAllUsersQuery } from '@/lib/services/api/usersApi/usersApi';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { UserPlus } from 'lucide-react';
-import Link from 'next/link';
 
 export default function Page() {
   const { t } = useTranslation();
