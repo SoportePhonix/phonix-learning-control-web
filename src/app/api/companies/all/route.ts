@@ -17,7 +17,6 @@ export async function GET() {
     const errorResponse = ApiRes.fromExternalResponse(response);
     if (errorResponse) return errorResponse;
 
-    console.log('EMPRESAS', response.data);
     return ApiRes.success(response.data);
   } catch (error: unknown) {
     return ApiRes.fromException(error);

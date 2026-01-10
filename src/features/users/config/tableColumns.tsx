@@ -43,6 +43,31 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     },
   },
   {
+    header: 'Empresa',
+    cell: ({ row }) => {
+      const { companies = [], role = [] } = row.original;
+      const isAdmin = role.some((r) => r.name === 'Administrator');
+
+      if (isAdmin) {
+        return <span className="text-muted-foreground ">{t('n.notApplicable' as TranslationKey)}</span>;
+      }
+
+      if (companies.length === 0) {
+        return <span className="text-muted-foreground">—</span>;
+      }
+
+      const varios = companies.length > 1;
+
+      return (
+        <div className="flex flex-col">
+          {companies.map((company) => (
+            <span key={company.id}>{varios ? `- ${company.name}` : company.name}</span>
+          ))}
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: 'id',
     header: t('a.actions'),
     cell: ({ row }) => {

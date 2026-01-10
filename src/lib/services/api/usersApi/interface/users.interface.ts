@@ -21,6 +21,11 @@ export interface User {
     id: number /* Esta es la posición 0 del array, tanto id como name */;
     name: string;
   }>;
+  companies: Array<{
+    //Array
+    id: number /* Esta es la posición 0 del array, tanto id como name */;
+    name: string;
+  }>;
 }
 
 export interface AddUserRequest {
@@ -35,6 +40,7 @@ export interface AddUserRequest {
       id: number;
     },
   ];
+  companyId?: number;
 }
 
 export interface AddUserDataResponse {
@@ -45,7 +51,7 @@ export interface AddUserDataResponse {
     identificationDocument: string;
     password: string;
     email: string;
-    role: RolesResponse[];
+    role: [];
   };
   isSuccess: boolean;
 }
@@ -70,6 +76,7 @@ export interface UpdateUserRequest {
       id: number;
     },
   ];
+  companyId?: number;
 }
 
 export interface UpdateUserResponse {

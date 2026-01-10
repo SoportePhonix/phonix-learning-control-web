@@ -21,6 +21,7 @@ export function useUpdateUser(userId: string) {
       email: values.email,
       role: [{ id: Number(values.roleId) }] as [{ id: number }],
       password: values.password,
+      ...(values.companyId !== '' && { companyId: Number(values.companyId) }),
     };
 
     try {

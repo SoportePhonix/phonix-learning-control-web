@@ -9,12 +9,13 @@ import { UserFormValues } from '@/components/users/types';
 import { useUpdateUser } from '@/features/users/hooks/useUpdateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
 import { useTranslation } from '@/i18n';
+import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ userId: string }> }) {
   const { userId } = use(params);
   const { t } = useTranslation();
-
+  const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
   const { updateUser, isLoading, apiError } = useUpdateUser(userId);
 
   const form = useForm<UserFormValues>({
@@ -26,6 +27,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
       email: '',
       password: '',
       roleId: '',
+      companyId: '',
     },
   });
 
@@ -33,6 +35,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
     mode: 'edit',
     userId,
     form,
+    companies: companiesData?.data ?? [],
   });
 
   // Función wrapper para manejar la contraseña de forma transparente

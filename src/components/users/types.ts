@@ -6,4 +6,5 @@ export type UserFormValues = {
   email: string;
   password: string;
   roleId: string;
+  companyId: string;
 };
