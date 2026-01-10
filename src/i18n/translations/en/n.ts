@@ -1,8 +1,10 @@
 export const n = {
   name: 'Name',
   nameIsRequerid: 'Name is requerid',
+  nameIsRequerid: 'Name is requerid',
   new: 'New',
   next: 'Next',
+  nit: 'Nit',
   nit: 'Nit',
   no: 'No',
   noData: 'No data',
@@ -11,6 +13,7 @@ export const n = {
   normal: 'Normal',
   note: 'Note',
   notes: 'Notes',
+  notFound: 'Not found',
   notFound: 'Not found',
   notification: 'Notification',
   notifications: 'Notifications',
