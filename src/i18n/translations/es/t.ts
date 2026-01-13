@@ -23,6 +23,7 @@ export const t = {
   total: 'Total',
   toUpdateACompanyCompleteTheFields: 'Para actualizar una empresa, completar los campos',
   toUpdateAUserCompleteTheFields: 'Para actualizar un usuario, complete los campos',
+  trainingPathways: 'Rutas de formación',
   type: 'Tipo',
   typeOfIdentificationDocument: 'Tipo de documento de identificación',
   typeOfIdentificationDocumentRequired: 'Tipo de documento de identificación requerido',

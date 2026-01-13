@@ -20,6 +20,7 @@ export const s = {
   sort: 'Sort',
   start: 'Start',
   startDate: 'Start date',
+  students: 'Students',
   status: 'Status',
   submit: 'Submit',
   success: 'Success',

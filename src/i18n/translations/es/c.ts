@@ -9,6 +9,7 @@ export const c = {
   clear: 'Limpiar',
   close: 'Cerrar',
   code: 'Código',
+  courses: 'Cursos',
   comment: 'Comentario',
   comments: 'Comentarios',
   companies: 'Empresas',

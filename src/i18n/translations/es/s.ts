@@ -21,6 +21,7 @@ export const s = {
   start: 'Inicio',
   startDate: 'Fecha de inicio',
   status: 'Estado',
+  students: 'Estudiantes',
   submit: 'Enviar',
   success: 'Éxito',
   successMessage: 'Mensaje de éxito',

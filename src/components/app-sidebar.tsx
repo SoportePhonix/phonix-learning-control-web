@@ -13,7 +13,10 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { CompanyIcon } from '@/features/companies/componentes/icons/CompanyIcon';
+import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { HomeIcon } from '@/features/home/components/icons/HomeIcon';
+import { StudentsIcon } from '@/features/students/componentes/icons/StudentsIcon';
+import { TrainingPathwaysIcon } from '@/features/trainingPathways/componentes/icons/TrainingPathwaysIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
 import { useSessionContext } from '@/utils/context/sessionContext';
@@ -57,9 +60,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserIcon {...props} />,
       },
       {
+        name: t('s.students'),
+        url: '/students',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+          <StudentsIcon {...props} />
+        ),
+      },
+      {
         name: t('c.companies'),
         url: '/companies',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
+      },
+      {
+        name: t('c.courses'),
+        url: '/courses',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CourseIcon {...props} />,
+      },
+      {
+        name: t('t.trainingPathways'),
+        url: '/trainingPathways',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+          <TrainingPathwaysIcon {...props} />
+        ),
       },
     ],
   };
