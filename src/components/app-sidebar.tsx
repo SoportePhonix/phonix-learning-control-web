@@ -49,15 +49,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     sections: [
-      {
-        name: t('h.home'),
-        url: '/home',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HomeIcon {...props} />,
-      },
+      // {
+      //   name: t('h.home'),
+      //   url: '/home',
+      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HomeIcon {...props} />,
+      // },
       {
         name: t('u.users'),
         url: '/users',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserIcon {...props} />,
+      },
+      {
+        name: t('c.companies'),
+        url: '/companies',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
       },
       {
         name: t('s.students'),
@@ -65,11 +70,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
           <StudentsIcon {...props} />
         ),
-      },
-      {
-        name: t('c.companies'),
-        url: '/companies',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
       },
       {
         name: t('c.courses'),
