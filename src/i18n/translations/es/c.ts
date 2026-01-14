@@ -1,6 +1,7 @@
 export const c = {
   cancel: 'Cancelar',
   categories: 'Categorías',
+  categoryId: 'Id. de categoría',
   category: 'Categoría',
   change: 'Cambiar',
   changePassword: 'Cambiar contraseña',

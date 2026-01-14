@@ -15,4 +15,5 @@ export const f = {
   forgotPassword: '¿Olvidaste tu contraseña?',
   form: 'Formulario',
   from: 'Desde',
+  fullName: 'Nombre completo',
 };
