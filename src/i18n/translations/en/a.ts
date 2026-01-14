@@ -10,6 +10,7 @@ export const a = {
   add: 'Add',
   addCompanies: 'Add companies',
   addCompany: 'Add company',
+  addCourse: 'Add course',
   addedSuccessfully: 'Added successfully',
   address: 'Address',
   addUser: 'Add User',

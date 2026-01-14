@@ -15,4 +15,5 @@ export const f = {
   forgotPassword: 'Forgot your password?',
   form: 'Form',
   from: 'From',
+  fullName: 'Full name',
 };

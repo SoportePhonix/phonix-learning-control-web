@@ -64,25 +64,25 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '/companies',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
       },
-      {
+      /*       {
         name: t('s.students'),
         url: '/students',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
           <StudentsIcon {...props} />
         ),
-      },
+      }, */
       {
         name: t('c.courses'),
         url: '/courses',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CourseIcon {...props} />,
       },
-      {
+      /*       {
         name: t('t.trainingPathways'),
         url: '/trainingPathways',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
           <TrainingPathwaysIcon {...props} />
         ),
-      },
+      }, */
     ],
   };
 
