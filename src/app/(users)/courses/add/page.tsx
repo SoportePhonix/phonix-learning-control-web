@@ -1,45 +1,41 @@
 'use client';
 
-import { CompaniesFormValues } from '@/components/companies/types';
-import { DynamicForm } from '@/components/forms/DynamicForm';
+import { CoursesForm } from '@/components/courses/CoursesForm';
+import { CoursesFormValues } from '@/components/courses/types';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { SectionTitle } from '@/components/section-title';
-import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
-import { useCreateCompanies } from '@/features/companies/hooks/useCreateCompanies';
+import { useCreateCourses } from '@/features/courses/hooks/useCreateCourses';
 import { useTranslation } from '@/i18n';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
-  const { createCompany, isLoading, apiError, apiErrorMessage } = useCreateCompanies();
+  const { createCourses, isLoading, apiError, apiErrorMessage } = useCreateCourses();
 
-  const form = useForm<CompaniesFormValues>({
+  const form = useForm<CoursesFormValues>({
     defaultValues: {
-      name: '',
-      nit: '',
-      email: '',
-      status: '',
+      fullName: '',
+      shortName: '',
+      categoryId: undefined,
+      summary: '',
+      visible: 1,
+      startDate: undefined,
+      endDate: undefined,
     },
-  });
-
-  const { formConfig } = useCompaniesForm({
-    mode: 'create',
-    form,
   });
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addCompany')} />
-      <FormPageLayout description={t('t.toCreateACompanyPleaseFillInTheFields')}>
-        <DynamicForm
-          config={formConfig}
+      <SectionTitle title={t('a.addCourse')} />
+
+      <FormPageLayout description={t('t.toCreateACoursePleaseFillInTheFields')}>
+        <CoursesForm
           mode="create"
           form={form}
-          onSubmit={createCompany}
+          onSubmit={createCourses}
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/companies"
           t={t}
         />
       </FormPageLayout>

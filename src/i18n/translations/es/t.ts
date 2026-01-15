@@ -22,6 +22,7 @@ export const t = {
   token: 'Token',
   total: 'Total',
   toUpdateACompanyCompleteTheFields: 'Para actualizar una empresa, completar los campos',
+  toCreateACoursePleaseFillInTheFields: 'Para crear un curso, complete los campos',
   toUpdateAUserCompleteTheFields: 'Para actualizar un usuario, complete los campos',
   trainingPathways: 'Rutas de formación',
   type: 'Tipo',

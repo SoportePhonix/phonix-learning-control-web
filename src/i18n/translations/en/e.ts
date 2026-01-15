@@ -18,4 +18,5 @@ export const e = {
   export: 'Export',
   existingIdentificationDocument: 'Existing identification document',
   existingNit: 'Existing nit',
+  existingShortName: 'Existing short name',
 };

@@ -17,6 +17,7 @@ export const t = {
   title: 'Title',
   to: 'To',
   toCreateACompanyPleaseFillInTheFields: 'To create a company please fill in the fields',
+  toCreateACoursePleaseFillInTheFields: 'To create a course, complete the fields',
   toCreateAUserPleaseFillInTheFields: 'To create a user, please fill in the fields',
   today: 'Today',
   token: 'Token',

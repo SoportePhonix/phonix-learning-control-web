@@ -18,4 +18,5 @@ export const e = {
   export: 'Exportar',
   existingIdentificationDocument: 'Documento de identificación existente',
   existingNit: 'Nit existente',
+  existingShortName: 'Nombre corto existente',
 };

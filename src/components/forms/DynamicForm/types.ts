@@ -1,7 +1,7 @@
 import { TranslationKey } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 
-export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea';
+export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea' | 'date';
 
 export type FieldRequirement = boolean | { create: boolean; edit: boolean };
 
