@@ -1,5 +1,7 @@
 export const u = {
   unavailable: 'Unavailable',
+  unexpectedErrorIfTheErrorPersistsContactTheAdministrator:
+    'Unexpected error; if the error persists, contact the administrator',
   undo: 'Undo',
   unknown: 'Unknown',
   unlimited: 'Unlimited',

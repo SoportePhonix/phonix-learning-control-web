@@ -4,15 +4,15 @@ export const coursesFormConfig: FormConfig = {
   columns: 2,
   fields: [
     {
-      name: 'fullName',
-      label: 'f.fullName',
+      name: 'shortName',
+      label: 's.shortName',
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,
     },
     {
-      name: 'shortName',
-      label: 's.shortName',
+      name: 'fullName',
+      label: 'f.fullName',
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,

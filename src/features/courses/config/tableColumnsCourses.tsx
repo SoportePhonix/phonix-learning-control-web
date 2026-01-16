@@ -7,12 +7,12 @@ export const tableColumnsCourses = (
   currentCoursesId?: number
 ): CustomColumnDef<Courses>[] => [
   {
-    accessorKey: 'fullName',
-    header: t('f.fullName'),
-  },
-  {
     accessorKey: 'shortName',
     header: t('s.shortName'),
+  },
+  {
+    accessorKey: 'fullName',
+    header: t('f.fullName'),
   },
   {
     accessorKey: 'categoryId',
@@ -57,17 +57,17 @@ export const tableColumnsCourses = (
     },
   },
   /*   {
-        accessorKey: 'id',
-        header: t('a.actions'),
-        cell: ({ row }) => {
-          const companyId = Number(row.original.id);
-    
-          return (
-            <div className="flex items-center gap-2">
-              <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
-              <DeleteCompany companyId={companyId} />
-            </div>
-          );
-        },
-      }, */
+          accessorKey: 'id',
+          header: t('a.actions'),
+          cell: ({ row }) => {
+            const companyId = Number(row.original.id);
+      
+            return (
+              <div className="flex items-center gap-2">
+                <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
+                <DeleteCompany companyId={companyId} />
+              </div>
+            );
+          },
+        }, */
 ];

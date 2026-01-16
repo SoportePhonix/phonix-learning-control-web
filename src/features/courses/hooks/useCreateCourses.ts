@@ -45,17 +45,38 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
       toast.success(t('c.courseCreatedSuccessfully'));
       router.push('/courses');
     } catch (err: any) {
-      console.error('CREATE COURSE ERROR ===>', err);
       const status = err?.status ?? 500;
+      const errorMessage = err?.data?.message || '';
 
+      // 409 → errores de campo
       if (status === 409) {
-        form.setError('shortName', {
-          type: 'manual',
-          message: 'e.existingShortName',
-        });
+        if (errorMessage.toLowerCase().includes('shortName')) {
+          form.setError('shortName', {
+            type: 'manual',
+            message: t('e.existingShortName'),
+          });
+          return;
+        }
+
+        if (
+          errorMessage.toLowerCase().includes('course with this shortname already exists') ||
+          errorMessage.toLowerCase().includes('shortName')
+        ) {
+          form.setError('shortName', {
+            type: 'manual',
+            message: t('e.existingShortName'),
+          });
+          return;
+        }
+      }
+
+      // 500 → toast de error inesperado
+      if (status === 500) {
+        toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
       }
 
+      // Otros errores → mensaje global
       setApiError(status);
       setApiErrorMessage('c.courseCreationFailed');
     }

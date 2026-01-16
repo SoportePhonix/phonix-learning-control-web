@@ -44,14 +44,17 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      // Detectar el tipo de error según el mensaje del backend
+      // 409 → errores de campo
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('email')) {
           form.setError('email', {
             type: 'manual',
             message: t('e.existingEmail'),
           });
-        } else if (
+          return;
+        }
+
+        if (
           errorMessage.toLowerCase().includes('user already exists') ||
           errorMessage.toLowerCase().includes('identification') ||
           errorMessage.toLowerCase().includes('document')
@@ -60,9 +63,17 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
             type: 'manual',
             message: t('e.existingIdentificationDocument'),
           });
+          return;
         }
       }
 
+      // 500 → toast de error inesperado
+      if (status === 500) {
+        toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
+        return;
+      }
+
+      // Otros errores → mensaje global
       setApiError(status);
       setApiErrorMessage('u.userCreationFailed');
     }
