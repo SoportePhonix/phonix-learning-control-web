@@ -1,69 +1,77 @@
+'use client';
+
 import { useEffect, useMemo } from 'react';
 
-import { CompaniesFormValues } from '@/components/companies/types';
+import { CoursesFormValues } from '@/components/courses/types';
 import { FormConfig, SelectOption } from '@/components/forms/DynamicForm/types';
 import { useTranslation } from '@/i18n';
-import { useGetCompanyByIdQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { useGetCourseByIdQuery } from '@/lib/services/api/coursesApi/coursesApi';
 import { UseFormReturn } from 'react-hook-form';
 
-import { companiesFormConfig } from '../config/companiesFormConfig';
+import { coursesFormConfig } from '../config/coursesFormConfig';
 
-type UseCompaniesFormProps = {
+type UseCoursesFormProps = {
   mode: 'create' | 'edit';
-  companyId?: string;
-  form: UseFormReturn<CompaniesFormValues>;
+  courseId?: string;
+  form: UseFormReturn<CoursesFormValues>;
 };
 
-export function useCompaniesForm({ mode, companyId, form }: UseCompaniesFormProps) {
+export function useCoursesForm({ mode, courseId, form }: UseCoursesFormProps) {
   const { t } = useTranslation();
 
-  const companyById = useGetCompanyByIdQuery(
-    { companyId: companyId! },
+  const courseById = useGetCourseByIdQuery(
+    { courseId: courseId! },
     {
-      skip: mode === 'create' || !companyId,
+      skip: mode === 'create' || !courseId,
     }
   );
 
-  const statusOptions: SelectOption[] = useMemo(
+  /** OPTIONS */
+  const visibleOptions: SelectOption[] = useMemo(
     () => [
-      { value: 'active', label: t('a.active') },
-      { value: 'inactive', label: t('i.inactive') },
+      { value: '1', label: t('a.active') },
+      { value: '0', label: t('i.inactive') },
     ],
-    []
+    [t]
   );
 
+  /** FORM CONFIG */
   const formConfig: FormConfig = useMemo(() => {
-    const config = { ...companiesFormConfig };
+    const config = { ...coursesFormConfig };
 
     config.fields = config.fields.map((field) => {
-      if (field.name === 'status') {
-        return { ...field, options: statusOptions };
+      if (field.name === 'visible') {
+        return { ...field, options: visibleOptions };
       }
       return field;
     });
 
     return config;
-  }, [statusOptions]);
+  }, [visibleOptions]);
 
+  /** EDIT MODE → RESET FORM */
   useEffect(() => {
-    if (mode === 'edit' && companyById.data?.data) {
-      const company = companyById.data.data;
+    if (mode === 'edit' && courseById.data?.data) {
+      const course = courseById.data.data;
 
-      const formData: CompaniesFormValues = {
-        name: company.name || '',
-        nit: company.nit || '',
-        email: company.email || '',
-        status: company.status || '',
+      const formData: CoursesFormValues = {
+        fullName: course.fullName || '',
+        shortName: course.shortName || '',
+        categoryId: String(course.categoryId ?? ''),
+        summary: course.summary || '',
+        visible: String(course.visible ?? '1'),
+        startDate: course.startDate ? new Date(course.startDate).toISOString().substring(0, 10) : '',
+        endDate: course.endDate ? new Date(course.endDate).toISOString().substring(0, 10) : '',
       };
 
       form.reset(formData, { keepDefaultValues: false });
     }
-  }, [mode, companyById.data, form, companyId]);
+  }, [mode, courseById.data, form, courseId]);
 
   return {
     formConfig,
-    isLoadingData: mode === 'edit' ? companyById.isLoading : false,
-    companyData: companyById.data?.data,
-    currentStatus: companyById.data?.data?.status,
+    isLoadingData: mode === 'edit' ? courseById.isLoading : false,
+    courseData: courseById.data?.data,
+    currentVisible: courseById.data?.data?.visible,
   };
 }

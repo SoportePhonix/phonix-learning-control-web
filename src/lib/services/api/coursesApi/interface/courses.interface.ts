@@ -9,23 +9,29 @@ export interface Courses {
   categoryId: number;
   summary: string;
   visible: number;
-  starDate: number;
+  startDate: number;
   endDate: number;
 }
 
 export interface AddCoursesRequest {
-  name: string;
-  nit: string;
-  email: string;
-  status: string;
+  fullName: string;
+  shortName: string;
+  categoryId: number;
+  summary: string;
+  visible: number;
+  startDate: string;
+  endDate: string;
 }
 
 export interface AddCoursesDataResponse {
   data: {
-    name: string;
-    nit: string;
-    email: string;
-    status: string;
+    fullName: string;
+    shortName: string;
+    categoryId: number;
+    summary: string;
+    visible: number;
+    startDate: number;
+    endDate: number;
   };
   isSuccess: boolean;
 }
@@ -35,7 +41,7 @@ export interface GetCoursesByIdResponse {
 }
 
 export interface GetCoursesByIdRequest {
-  companyId: string;
+  courseId: string;
 }
 
 export interface UpdateCoursesRequest {

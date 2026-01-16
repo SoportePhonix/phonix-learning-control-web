@@ -17,6 +17,18 @@ export const coursesApi = api.injectEndpoints({
       query: () => '/courses/all',
       providesTags: ['Courses'],
     }),
+    getCourseById: builder.query<GetCoursesByIdResponse, GetCoursesByIdRequest>({
+      query: ({ courseId }) => `/courses/${courseId}`,
+      providesTags: (result, error, { courseId }) => [{ type: 'Companies', id: courseId }],
+    }),
+    addCourses: builder.mutation<AddCoursesDataResponse, AddCoursesRequest>({
+      query: (params) => ({
+        url: '/courses/add',
+        method: 'POST',
+        body: params,
+      }),
+      invalidatesTags: ['Courses'],
+    }),
   }),
   overrideExisting: true,
 });
@@ -26,6 +38,7 @@ export const {
    * Get
    */
   useGetCoursesQuery,
+  useGetCourseByIdQuery,
 
   /**
    * Lazy Get
@@ -34,4 +47,5 @@ export const {
   /**
    * Mutations
    */
+  useAddCoursesMutation,
 } = coursesApi;

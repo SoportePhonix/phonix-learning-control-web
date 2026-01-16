@@ -34,14 +34,13 @@ export const tableColumnsCourses = (
       };
 
       return visibleLabelMap[visible] ?? '-';
-      78;
     },
   },
   {
     accessorKey: 'starDate',
     header: t('s.startDate'),
     cell: ({ row }) => {
-      const value = row.original.starDate;
+      const value = row.original.startDate;
       if (!value) return '-';
 
       return new Date(value).toISOString();

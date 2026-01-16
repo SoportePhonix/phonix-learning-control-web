@@ -1,35 +1,54 @@
 import { FormConfig } from '@/components/forms/DynamicForm/types';
 
-export const companiesFormConfig: FormConfig = {
+export const coursesFormConfig: FormConfig = {
+  columns: 2,
   fields: [
     {
-      name: 'name',
-      label: 'n.name',
+      name: 'fullName',
+      label: 'f.fullName',
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,
     },
     {
-      name: 'nit',
-      label: 'n.nit',
+      name: 'shortName',
+      label: 's.shortName',
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,
     },
     {
-      name: 'email',
-      label: 'e.email',
-      type: 'email',
+      name: 'categoryId',
+      label: 'c.categoryId',
+      type: 'number',
       placeholder: 'e.enterAValue',
       required: true,
     },
     {
-      name: 'status',
-      label: 's.status',
+      name: 'visible',
+      label: 'v.visible',
       type: 'select',
+      required: true,
+    },
+    {
+      name: 'summary',
+      label: 's.summary',
+      type: 'textarea',
       placeholder: 'e.enterAValue',
+      required: true,
+      colSpan: 2,
+    },
+    {
+      name: 'startDate',
+      label: 's.startDate',
+      type: 'date',
+      required: true,
+    },
+    {
+      name: 'endDate',
+      label: 'e.endDate',
+      type: 'date',
       required: true,
     },
   ],
-  columns: 2,
 };
