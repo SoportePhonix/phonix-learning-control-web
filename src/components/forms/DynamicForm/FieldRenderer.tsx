@@ -26,6 +26,18 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   const fieldName = field.name as Path<T>;
   const error = errors[fieldName];
 
+  const resolveErrorMessage = (message?: string) => {
+    if (!message) return undefined;
+
+    // Si parece una TranslationKey (ej: "e.existingEmail")
+    if (message.includes('.')) {
+      return t(message as TranslationKey);
+    }
+
+    // Ya es texto plano
+    return message;
+  };
+
   const isRequired = typeof field.required === 'boolean' ? field.required : (field.required?.[mode] ?? false);
 
   const validationRules: any = {
@@ -146,7 +158,21 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   ? t(field.placeholder)
                   : t('e.enterAValue')
             }
-            error={error?.message as string}
+            error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
+            disabled={field.disabled}
+            className={field.className}
+            errorTooltip={field.errorTooltip}
+            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
+          />
+        );
+
+      case 'date':
+        return (
+          <Input
+            type="date"
+            {...register(fieldName, validationRules)}
+            placeholder={field.placeholder ? t(field.placeholder) : undefined}
+            error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
             disabled={field.disabled}
             className={field.className}
             errorTooltip={field.errorTooltip}
@@ -163,7 +189,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             type={field.type}
             {...register(fieldName, validationRules)}
             placeholder={field.placeholder ? t(field.placeholder) : t('e.enterAValue')}
-            error={error?.message as string}
+            error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
             disabled={field.disabled}
             className={field.className}
             errorTooltip={field.errorTooltip}
@@ -185,11 +211,11 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
       {renderField()}
 
-      {error &&
+      {typeof error?.message === 'string' &&
         field.type !== 'text' &&
         field.type !== 'email' &&
         field.type !== 'number' &&
-        field.type !== 'password' && <p className="text-sm text-error">{error.message as string}</p>}
+        field.type !== 'password' && <p className="text-sm text-error">{resolveErrorMessage(error.message)}</p>}
     </div>
   );
 }
