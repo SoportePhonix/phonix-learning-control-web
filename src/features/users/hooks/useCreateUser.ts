@@ -42,11 +42,26 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
       router.push('/users');
     } catch (err: any) {
       const status = err?.status ?? 500;
+      const errorMessage = err?.data?.message || '';
 
-      form.setError('email', {
-        type: 'manual',
-        message: t('e.existingEmail'),
-      });
+      // Detectar el tipo de error según el mensaje del backend
+      if (status === 409) {
+        if (errorMessage.toLowerCase().includes('email')) {
+          form.setError('email', {
+            type: 'manual',
+            message: t('e.existingEmail'),
+          });
+        } else if (
+          errorMessage.toLowerCase().includes('user already exists') ||
+          errorMessage.toLowerCase().includes('identification') ||
+          errorMessage.toLowerCase().includes('document')
+        ) {
+          form.setError('identificationDocument', {
+            type: 'manual',
+            message: t('e.existingIdentificationDocument'),
+          });
+        }
+      }
 
       setApiError(status);
       setApiErrorMessage('u.userCreationFailed');

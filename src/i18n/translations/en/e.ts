@@ -19,5 +19,5 @@ export const e = {
   existingIdentificationDocument: 'Existing identification document',
   existingNit: 'Existing nit',
   existingShortName: 'Existing short name',
-  existingEmail: 'existingEmail',
+  existingEmail: 'Existing email',
 };
