@@ -14,64 +14,78 @@ type UseCoursesFormProps = {
   mode: 'create' | 'edit';
   courseId?: string;
   form: UseFormReturn<CoursesFormValues>;
+  companies: any[];
 };
 
-export function useCoursesForm({ mode, courseId, form }: UseCoursesFormProps) {
+export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFormProps) {
   const { t } = useTranslation();
+  const courseById = useGetCourseByIdQuery({ courseId: courseId! }, { skip: mode === 'create' || !courseId });
 
-  const courseById = useGetCourseByIdQuery(
-    { courseId: courseId! },
-    {
-      skip: mode === 'create' || !courseId,
-    }
+  const companiesOptions: SelectOption[] = useMemo(
+    () =>
+      companies
+        ?.filter((company) => company.status === 'active')
+        .map((company) => ({
+          value: String(company.id),
+          label: company.name,
+        })) ?? [],
+    [companies]
   );
 
-  /** OPTIONS */
-  const visibleOptions: SelectOption[] = useMemo(
+  const statusOptions: SelectOption[] = useMemo(
     () => [
-      { value: '1', label: t('a.active') },
-      { value: '0', label: t('i.inactive') },
+      { value: 'active', label: t('a.active') },
+      { value: 'inactive', label: t('i.inactive') },
     ],
-    [t]
+    []
   );
 
-  /** FORM CONFIG */
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...coursesFormConfig };
 
     config.fields = config.fields.map((field) => {
-      if (field.name === 'visible') {
-        return { ...field, options: visibleOptions };
+      if (field.name === 'status') {
+        return { ...field, options: statusOptions };
       }
+
+      if (field.name === 'companyId') {
+        return {
+          ...field,
+          options: companiesOptions,
+          required: true,
+        };
+      }
+
       return field;
     });
 
     return config;
-  }, [visibleOptions]);
+  }, [statusOptions, companiesOptions]);
 
-  /** EDIT MODE → RESET FORM */
   useEffect(() => {
-    if (mode === 'edit' && courseById.data?.data) {
-      const course = courseById.data.data;
+    if (mode !== 'edit' || !courseById.data?.data) return;
 
-      const formData: CoursesFormValues = {
-        fullName: course.fullName || '',
-        shortName: course.shortName || '',
+    const course = courseById.data.data;
+
+    form.reset(
+      {
+        fullName: course.fullName ?? '',
+        shortName: course.shortName ?? '',
         categoryId: String(course.categoryId ?? ''),
-        summary: course.summary || '',
-        visible: String(course.visible ?? '1'),
-        startDate: course.startDate ? new Date(course.startDate).toISOString().substring(0, 10) : '',
-        endDate: course.endDate ? new Date(course.endDate).toISOString().substring(0, 10) : '',
-      };
-
-      form.reset(formData, { keepDefaultValues: false });
-    }
-  }, [mode, courseById.data, form, courseId]);
+        summary: course.summary ?? '',
+        status: course.status || '',
+        startDate: course.startDate ? course.startDate.split('T')[0] : '',
+        endDate: course.endDate ? course.endDate.split('T')[0] : '',
+        companyId: course.companies?.[0]?.id ? String(course.companies[0].id) : '',
+      },
+      { keepDefaultValues: false }
+    );
+  }, [mode, courseById.data, form]);
 
   return {
     formConfig,
     isLoadingData: mode === 'edit' ? courseById.isLoading : false,
     courseData: courseById.data?.data,
-    currentVisible: courseById.data?.data?.visible,
+    currentStatus: courseById.data?.data?.status,
   };
 }

@@ -6,6 +6,7 @@ export const t = {
   tasks: 'Tasks',
   text: 'Text',
   theCompanyCouldNotBeDeleted: 'The company could not be deleted',
+  theCourseCouldNotBeDeleted: 'The course could not be deleted',
   theIdentityDocumentIsRequired: 'The identity document is required',
   theNITAlreadyExists: 'The NIT already exists',
   thePasswordMustBeAtLeast8CharactersLongWith1UppercaseLetter1LowercaseLetter1NumberAnd1SpecialCharacter:
@@ -23,6 +24,7 @@ export const t = {
   token: 'Token',
   total: 'Total',
   toUpdateACompanyCompleteTheFields: 'To update a company complete the fields',
+  toUpdateACourseCompleteTheFields: 'To update a course complete the fields',
   toUpdateAUserCompleteTheFields: 'To update a user, complete the fields',
   trainingPathways: 'Training pathways',
   type: 'Type',

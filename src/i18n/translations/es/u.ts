@@ -9,6 +9,7 @@ export const u = {
   unpublish: 'Despublicar',
   update: 'Actualizar',
   updateCompany: 'Actualizar empresa',
+  updateCourse: 'Actualizar curso',
   updated: 'Actualizado',
   updatedAt: 'Actualizado el',
   updatedSuccessfully: 'Actualizad@ con éxito',

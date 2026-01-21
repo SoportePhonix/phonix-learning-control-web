@@ -35,9 +35,10 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
         shortName: values.shortName,
         categoryId: Number(values.categoryId),
         summary: values.summary,
-        visible: Number(values.visible),
+        status: values.status,
         startDate: values.startDate,
         endDate: values.endDate,
+        ...(values.companyId && { companyId: Number(values.companyId) }),
       };
 
       await addCourses(payload).unwrap();

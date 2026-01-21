@@ -33,6 +33,7 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
         password: values.password,
         role: [{ id: Number(values.roleId) }],
         ...(values.companyId && { companyId: Number(values.companyId) }),
+        status: values.status,
       };
 
       await addUser(payload).unwrap();

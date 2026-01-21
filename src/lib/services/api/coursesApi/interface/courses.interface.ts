@@ -7,20 +7,28 @@ export interface Courses {
   fullName: string;
   shortName: string;
   categoryId: number;
-  summary: string;
-  visible: number;
-  startDate: number;
-  endDate: number;
+  status: string;
+  summary?: string;
+  startDate?: string;
+  endDate?: string;
+  companyId?: number;
+  companyName?: string;
+  companies?: Array<{
+    //Array
+    id: number /* Esta es la posición 0 del array, tanto id como name */;
+    name: string;
+  }>;
 }
 
 export interface AddCoursesRequest {
   fullName: string;
   shortName: string;
   categoryId: number;
+  status: string;
   summary: string;
-  visible: number;
   startDate: string;
   endDate: string;
+  companyId?: number;
 }
 
 export interface AddCoursesDataResponse {
@@ -28,10 +36,10 @@ export interface AddCoursesDataResponse {
     fullName: string;
     shortName: string;
     categoryId: number;
+    status: string;
     summary: string;
-    visible: number;
-    startDate: number;
-    endDate: number;
+    startDate: string;
+    endDate: string;
   };
   isSuccess: boolean;
 }
@@ -46,18 +54,25 @@ export interface GetCoursesByIdRequest {
 
 export interface UpdateCoursesRequest {
   id: number;
-  name: string;
-  nit: string;
-  email: string;
+  fullName: string;
+  shortName: string;
+  categoryId: number;
   status: string;
+  summary: string;
+  startDate?: string;
+  endDate?: string;
+  companyId?: number;
 }
 
 export interface UpdateCoursesResponse {
   data: {
-    name: string;
-    nit: string;
-    email: string;
+    fullName: string;
+    shortName: string;
+    categoryId: number;
     status: string;
+    summary: string;
+    startDate: string;
+    endDate: string;
   };
   isSuccess: boolean;
 }

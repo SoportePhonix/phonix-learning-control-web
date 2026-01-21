@@ -2,6 +2,7 @@ import { useEffect, useMemo } from 'react';
 
 import { FormConfig, SelectOption } from '@/components/forms/DynamicForm/types';
 import { UserFormValues } from '@/components/users/types';
+import { useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { useGetUserByIdQuery } from '@/lib/services/api/usersApi/usersApi';
@@ -17,6 +18,7 @@ type UseUserFormProps = {
 };
 
 export function useUserForm({ mode, userId, form, companies }: UseUserFormProps) {
+  const { t } = useTranslation();
   const { data: rolesData } = useGetAllRolesQuery();
   const { data: typesIdData } = useGetAllTypeOfIdentificationDocumentQuery();
   const userById = useGetUserByIdQuery({ userId: userId! }, { skip: mode === 'create' || !userId });
@@ -55,6 +57,14 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
     [companies]
   );
 
+  const statusOptions: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: t('a.active') },
+      { value: 'inactive', label: t('i.inactive') },
+    ],
+    []
+  );
+
   const formConfig: FormConfig = useMemo(() => {
     const isAdmin = !!adminRoleId && String(adminRoleId) === selectedRoleId;
     const isManager = !!managerRoleId && String(managerRoleId) === selectedRoleId;
@@ -62,6 +72,13 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
     const shouldShowCompany = !!selectedRoleId && !isAdmin;
 
     const config = { ...userFormConfig };
+
+    config.fields = config.fields.map((field) => {
+      if (field.name === 'status') {
+        return { ...field, options: statusOptions };
+      }
+      return field;
+    });
 
     config.fields = config.fields
       .map((field) => {
@@ -88,7 +105,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
       .filter((field): field is NonNullable<typeof field> => Boolean(field));
 
     return config;
-  }, [rolesOptions, typesIdOptions, companiesOptions, selectedRoleId, adminRoleId, managerRoleId]);
+  }, [rolesOptions, typesIdOptions, companiesOptions, selectedRoleId, adminRoleId, managerRoleId, statusOptions]);
 
   useEffect(() => {
     const isAdmin = !!adminRoleId && String(adminRoleId) === selectedRoleId;
@@ -114,6 +131,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
           password: '',
           roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : '',
           companyId: userData.companies?.[0]?.id ? String(userData.companies[0]?.id) : '',
+          status: userData.status || '',
         },
         { keepDefaultValues: false }
       );
@@ -125,5 +143,6 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
     isLoadingData: mode === 'edit' ? userById.isLoading : false,
     userData: userById.data?.data,
     currentPassword: userById.data?.data?.password,
+    currentStatus: userById.data?.data?.status,
   };
 }
