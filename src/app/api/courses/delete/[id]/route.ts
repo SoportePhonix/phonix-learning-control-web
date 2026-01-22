@@ -4,7 +4,7 @@ import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
 export async function DELETE(req: Request, { params }: any) {
-  const { id: companiesId } = await params;
+  const { id: coursesId } = await params;
 
   try {
     const session: CustomSession | null = await getServerSession(authOptions);
@@ -12,7 +12,7 @@ export async function DELETE(req: Request, { params }: any) {
     if (!session?.user?.accessToken) {
       return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
     }
-    const response = await fetch(`${process.env.API_URL}/companies/${companiesId}`, {
+    const response = await fetch(`${process.env.API_URL}/courses/${coursesId}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${session.user.accessToken}`,

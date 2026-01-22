@@ -19,7 +19,7 @@ export const coursesApi = api.injectEndpoints({
     }),
     getCourseById: builder.query<GetCoursesByIdResponse, GetCoursesByIdRequest>({
       query: ({ courseId }) => `/courses/${courseId}`,
-      providesTags: (result, error, { courseId }) => [{ type: 'Companies', id: courseId }],
+      providesTags: (result, error, { courseId }) => [{ type: 'Courses', id: courseId }],
     }),
     addCourses: builder.mutation<AddCoursesDataResponse, AddCoursesRequest>({
       query: (params) => ({
@@ -28,6 +28,21 @@ export const coursesApi = api.injectEndpoints({
         body: params,
       }),
       invalidatesTags: ['Courses'],
+    }),
+    updateCourses: builder.mutation<UpdateCoursesResponse, UpdateCoursesRequest>({
+      query: ({ id, ...params }) => ({
+        url: `/courses/edit/${id}`,
+        method: 'PUT',
+        body: params,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Courses' }, { type: 'Courses', id }],
+    }),
+    deleteCourses: builder.mutation<DeleteCoursesResponse, DeleteCoursesRequest>({
+      query: ({ id }) => ({
+        url: `/courses/delete/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Courses' }, { type: 'Courses', id }],
     }),
   }),
   overrideExisting: true,
@@ -48,4 +63,6 @@ export const {
    * Mutations
    */
   useAddCoursesMutation,
+  useUpdateCoursesMutation,
+  useDeleteCoursesMutation,
 } = coursesApi;

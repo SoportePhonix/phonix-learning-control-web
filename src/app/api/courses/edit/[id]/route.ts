@@ -4,7 +4,7 @@ import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: companiesId } = await params;
+  const { id: coursesId } = await params;
 
   try {
     const body = await req.json();
@@ -14,7 +14,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       return ApiRes.customError(401, 'Unauthorized');
     }
 
-    const response = await fetch(`${process.env.API_URL}/companies/${companiesId}`, {
+    const response = await fetch(`${process.env.API_URL}/courses/${coursesId}`, {
       method: 'PATCH',
       body: JSON.stringify(body),
       headers: {

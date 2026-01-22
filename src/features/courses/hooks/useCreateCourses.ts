@@ -24,7 +24,6 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      // 👇 protección de tipos (clave)
       if (!values.startDate || !values.endDate) {
         setApiErrorMessage('c.courseCreationFailed');
         return;
@@ -35,9 +34,10 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
         shortName: values.shortName,
         categoryId: Number(values.categoryId),
         summary: values.summary,
-        visible: Number(values.visible),
+        status: values.status,
         startDate: values.startDate,
         endDate: values.endDate,
+        ...(values.companyId && { companyId: Number(values.companyId) }),
       };
 
       await addCourses(payload).unwrap();
@@ -48,7 +48,6 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      // 409 → errores de campo
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('shortName')) {
           form.setError('shortName', {
@@ -70,13 +69,11 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
         }
       }
 
-      // 500 → toast de error inesperado
       if (status === 500) {
         toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
       }
 
-      // Otros errores → mensaje global
       setApiError(status);
       setApiErrorMessage('c.courseCreationFailed');
     }
