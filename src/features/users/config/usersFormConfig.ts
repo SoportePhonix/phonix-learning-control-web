@@ -68,6 +68,13 @@ export const userFormConfig: FormConfig = {
       label: 'c.company',
       required: false,
     },
+    {
+      name: 'status',
+      label: 's.status',
+      type: 'select',
+      placeholder: 'e.enterAValue',
+      required: false,
+    },
   ],
   columns: 2,
 };

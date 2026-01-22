@@ -28,6 +28,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
       password: '',
       roleId: '',
       companyId: '',
+      status: '',
     },
   });
 

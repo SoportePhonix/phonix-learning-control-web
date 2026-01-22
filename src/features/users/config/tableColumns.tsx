@@ -1,4 +1,5 @@
 import { EditButton } from '@/components/EditButton';
+import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
@@ -43,7 +44,7 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     },
   },
   {
-    header: 'Empresa',
+    header: t('c.company'),
     cell: ({ row }) => {
       const { companies = [], role = [] } = row.original;
       const isAdmin = role.some((r) => r.name === 'Administrator');
@@ -65,6 +66,24 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
           ))}
         </div>
       );
+    },
+  },
+  {
+    accessorKey: 'status',
+    header: t('s.status'),
+    cell: ({ row }) => {
+      const status = row.original.status;
+
+      const statusLabelMap: Record<string, string> = {
+        active: t('a.active'),
+        inactive: t('i.inactive'),
+        1: t('a.active'),
+        0: t('i.inactive'),
+        true: t('a.active'),
+        false: t('i.inactive'),
+      };
+
+      return <StatusBadge status={status} label={statusLabelMap[String(status)] ?? String(status)} />;
     },
   },
   {

@@ -43,7 +43,6 @@ export function useCreateCompanies(form: UseFormReturn<FormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      // 409 → errores de campo
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('nit')) {
           form.setError('nit', {
@@ -65,13 +64,11 @@ export function useCreateCompanies(form: UseFormReturn<FormValues>) {
         }
       }
 
-      // 500 → toast de error inesperado
       if (status === 500) {
         toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
       }
 
-      // Otros errores → mensaje global
       setApiError(status);
       setApiErrorMessage('c.companyCreationFailed');
     }

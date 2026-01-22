@@ -33,6 +33,7 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
         password: values.password,
         role: [{ id: Number(values.roleId) }],
         ...(values.companyId && { companyId: Number(values.companyId) }),
+        status: 'active',
       };
 
       await addUser(payload).unwrap();
@@ -67,13 +68,11 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
         }
       }
 
-      // 500 → toast de error inesperado
       if (status === 500) {
         toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
       }
 
-      // Otros errores → mensaje global
       setApiError(status);
       setApiErrorMessage('u.userCreationFailed');
     }

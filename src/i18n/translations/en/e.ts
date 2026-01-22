@@ -1,6 +1,7 @@
 export const e = {
   edit: 'Edit',
   editCompany: 'Edit company',
+  editCourse: 'Edit course',
   editUser: 'Edit user',
   email: 'Email',
   emailAddress: 'Email address',
