@@ -72,18 +72,21 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     accessorKey: 'status',
     header: t('s.status'),
     cell: ({ row }) => {
-      const status = row.original.status;
+      const status = String(row.original.status).toLowerCase();
 
-      const statusLabelMap: Record<string, string> = {
-        active: t('a.active'),
-        inactive: t('i.inactive'),
-        1: t('a.active'),
-        0: t('i.inactive'),
-        true: t('a.active'),
-        false: t('i.inactive'),
+      const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
+        active: { type: 'success', label: 'a.active' },
+        '1': { type: 'success', label: 'a.active' },
+        true: { type: 'success', label: 'a.active' },
+
+        inactive: { type: 'error', label: 'i.inactive' },
+        '0': { type: 'error', label: 'i.inactive' },
+        false: { type: 'error', label: 'i.inactive' },
       };
 
-      return <StatusBadge status={status} label={statusLabelMap[String(status)] ?? String(status)} />;
+      const config = statusMap[status] ?? ({ type: 'progress' } as const);
+
+      return <StatusBadge type={config.type} label={config.label} />;
     },
   },
   {

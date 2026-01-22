@@ -18,5 +18,6 @@ export const i = {
   invalid: 'Inválido',
   invalidCredentials: 'Credenciales inválidas',
   invalidFormat: 'Formato inválido',
+  initiated: 'Iniciado',
   isRequired: 'es requerido',
 };

@@ -1,26 +1,39 @@
+import { TranslationKey, useTranslation } from '@/i18n';
 import { cn } from '@/lib/utils';
 
+type StatusType = 'success' | 'progress' | 'error';
+
 type StatusBadgeProps = {
-  status: unknown;
-  label: string;
+  type: StatusType;
+  label?: TranslationKey;
 };
 
-export function StatusBadge({ status, label }: StatusBadgeProps) {
-  const normalized = String(status).toLowerCase().trim();
+const STATUS_CONFIG: Record<StatusType, { color: string; defaultLabel: TranslationKey }> = {
+  success: {
+    color: '#3BB273',
+    defaultLabel: 'c.completed',
+  },
+  progress: {
+    color: '#00BCD4',
+    defaultLabel: 'i.initiated',
+  },
+  error: {
+    color: '#D4514E',
+    defaultLabel: 'w.withoutStarting',
+  },
+};
 
-  const isActive = normalized === 'active' || normalized === '1' || normalized === 'true';
+export function StatusBadge({ type, label }: StatusBadgeProps) {
+  const { t } = useTranslation();
+
+  const { color, defaultLabel } = STATUS_CONFIG[type] ?? STATUS_CONFIG.error;
 
   return (
     <span
-      className={cn(
-        'inline-flex items-center justify-center text-xs font-medium text-white rounded-[10px]',
-        isActive ? 'h-[24px] w-[107px] px-[6px]' : 'h-[30px] w-[91px] px-[8px] py-[3px]'
-      )}
-      style={{
-        backgroundColor: isActive ? '#3BB273' : '#D4514E',
-      }}
+      className={cn('inline-flex items-center justify-center text-xs font-medium text-white rounded-[8px] px-1 py-0.5')}
+      style={{ backgroundColor: color }}
     >
-      {label}
+      {t(label ?? defaultLabel)}
     </span>
   );
 }
