@@ -1,6 +1,7 @@
 export const e = {
   edit: 'Edit',
   editCompany: 'Edit company',
+  editCourse: 'Edit course',
   editUser: 'Edit user',
   email: 'Email',
   emailAddress: 'Email address',
@@ -18,4 +19,6 @@ export const e = {
   export: 'Export',
   existingIdentificationDocument: 'Existing identification document',
   existingNit: 'Existing nit',
+  existingShortName: 'Existing short name',
+  existingEmail: 'Existing email',
 };

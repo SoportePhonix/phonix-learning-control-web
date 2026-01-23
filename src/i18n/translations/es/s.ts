@@ -12,6 +12,7 @@ export const s = {
   serviceNotFound: 'Servicio no encontrado',
   settings: 'Configuración',
   share: 'Compartir',
+  shortName: 'Nombre corto',
   show: 'Mostrar',
   showMore: 'Mostrar más',
   signIn: 'Iniciar sesión',
@@ -25,4 +26,5 @@ export const s = {
   submit: 'Enviar',
   success: 'Éxito',
   successMessage: 'Mensaje de éxito',
+  summary: 'Resumen',
 };

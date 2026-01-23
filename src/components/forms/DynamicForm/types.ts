@@ -1,7 +1,7 @@
 import { TranslationKey } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 
-export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea';
+export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea' | 'date';
 
 export type FieldRequirement = boolean | { create: boolean; edit: boolean };
 
@@ -25,6 +25,7 @@ export type FieldValidation = {
 };
 
 export type FieldConfig = {
+  colSpan?: 1 | 2;
   name: string;
   label: TranslationKey;
   type: FieldType;
@@ -51,7 +52,7 @@ export type DynamicFormProps<T extends Record<string, any>> = {
   onSubmit: (values: T) => void;
   isLoading?: boolean;
   apiError?: number | null;
-  apiErrorMessage?: string; // Mensaje de error personalizado
+  apiErrorMessage?: TranslationKey; // Mensaje de error personalizado
   cancelUrl?: string; // Ahora es opcional
   t: (key: TranslationKey) => string;
   submitLabel?: TranslationKey;

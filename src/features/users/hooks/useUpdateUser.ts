@@ -22,6 +22,7 @@ export function useUpdateUser(userId: string) {
       role: [{ id: Number(values.roleId) }] as [{ id: number }],
       password: values.password,
       ...(values.companyId !== '' && { companyId: Number(values.companyId) }),
+      status: values.status ?? 'active',
     };
 
     try {

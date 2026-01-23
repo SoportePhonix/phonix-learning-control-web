@@ -6,6 +6,7 @@ export const n = {
   nit: 'Nit',
   no: 'No',
   noData: 'No data',
+  notProvided: 'Not provided',
   noResults: 'No results',
   none: 'None',
   normal: 'Normal',

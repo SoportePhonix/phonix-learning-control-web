@@ -1,6 +1,6 @@
 import { EditButton } from '@/components/EditButton';
+import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
-import { useDeleteCompany } from '@/features/companies/hooks/useDeleteCompany';
 import { TranslationKey } from '@/i18n';
 import { Companies } from '@/lib/services/api/companiesApi/interface';
 
@@ -26,14 +26,21 @@ export const tableColumnsCompanies = (
     accessorKey: 'status',
     header: t('s.status'),
     cell: ({ row }) => {
-      const status = row.original.status;
+      const status = String(row.original.status).toLowerCase();
 
-      const statusLabelMap: Record<string, string> = {
-        active: t('a.active'),
-        inactive: t('i.inactive'),
+      const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
+        active: { type: 'success', label: 'a.active' },
+        '1': { type: 'success', label: 'a.active' },
+        true: { type: 'success', label: 'a.active' },
+
+        inactive: { type: 'error', label: 'i.inactive' },
+        '0': { type: 'error', label: 'i.inactive' },
+        false: { type: 'error', label: 'i.inactive' },
       };
 
-      return statusLabelMap[status] ?? status;
+      const config = statusMap[status] ?? ({ type: 'progress' } as const);
+
+      return <StatusBadge type={config.type} label={config.label} />;
     },
   },
   {

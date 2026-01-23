@@ -11,7 +11,6 @@ import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
-  const { createCompany, isLoading, apiError, apiErrorMessage } = useCreateCompanies();
 
   const form = useForm<CompaniesFormValues>({
     defaultValues: {
@@ -21,6 +20,8 @@ export default function Page() {
       status: '',
     },
   });
+
+  const { createCompany, isLoading, apiError, apiErrorMessage } = useCreateCompanies(form);
 
   const { formConfig } = useCompaniesForm({
     mode: 'create',

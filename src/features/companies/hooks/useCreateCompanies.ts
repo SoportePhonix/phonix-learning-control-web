@@ -1,9 +1,12 @@
 'use client';
 
-import { useTranslation } from '@/i18n';
+import { useState } from 'react';
+
+import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddCompaniesMutation } from '@/lib/services/api/companiesApi/companiesApi';
 import { AddCompaniesRequest } from '@/lib/services/api/companiesApi/interface';
 import { useRouter } from 'next/navigation';
+import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
 type FormValues = {
@@ -13,10 +16,13 @@ type FormValues = {
   status: string;
 };
 
-export function useCreateCompanies() {
+export function useCreateCompanies(form: UseFormReturn<FormValues>) {
   const { t } = useTranslation();
   const router = useRouter();
-  const [addCompany, { isLoading, error }] = useAddCompaniesMutation();
+  const [addCompany, { isLoading }] = useAddCompaniesMutation();
+
+  const [apiError, setApiError] = useState<number | null>(null);
+  const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
   const createCompany = async (values: FormValues) => {
     const payload: AddCompaniesRequest = {
@@ -27,29 +33,63 @@ export function useCreateCompanies() {
     };
 
     try {
+      setApiError(null);
+      setApiErrorMessage(undefined);
+
       await addCompany(payload).unwrap();
 
-      toast.success(`${values.name} ${t('a.addedSuccessfully')}`, {
-        id: 'company-created-success',
-      });
+      (toast.success(t('c.companyCreatedSuccessfully')), router.push('/companies'));
+    } catch (err: any) {
+      const status = err?.status ?? 500;
+      const errorMessage = err?.data?.message || '';
 
-      router.push('/companies');
-    } catch {
-      toast.error(t('c.companyCreationFailed'));
+      if (status === 409) {
+        if (errorMessage.toLowerCase().includes('nit')) {
+          form.setError('nit', {
+            type: 'manual',
+            message: t('e.existingNit'),
+          });
+          return;
+        }
+
+        if (
+          errorMessage.toLowerCase().includes('company NIT already exists') ||
+          errorMessage.toLowerCase().includes('nit')
+        ) {
+          form.setError('nit', {
+            type: 'manual',
+            message: t('e.existingNit'),
+          });
+          return;
+        }
+      }
+
+      if (status === 500) {
+        toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
+        return;
+      }
+
+      setApiError(status);
+      setApiErrorMessage('c.companyCreationFailed');
     }
   };
-
-  const rawMessage = (error as any)?.data?.message ?? null;
-  const statusCode = (error as any)?.status ?? null;
-
-  const isDuplicateNit = typeof rawMessage === 'string' && rawMessage.toLowerCase().includes('duplicate key');
 
   return {
     createCompany,
     isLoading,
-
-    apiError: statusCode,
-
-    apiErrorMessage: isDuplicateNit ? t('e.existingNit') : rawMessage,
+    apiError,
+    apiErrorMessage,
   };
 }
+
+/*   if (status === 409) {
+    // 👇 ERROR DIRECTO EN EL CAMPO NIT
+    form.setError('nit', {
+      type: 'manual',
+      message: 'e.existingNit',
+    });
+    return;
+  }
+
+  setApiError(status);
+  setApiErrorMessage('c.companyCreationFailed'); */

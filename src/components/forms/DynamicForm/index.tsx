@@ -28,11 +28,13 @@ export function DynamicForm<T extends FieldValues>({
   // Determinar si mostrar el botón de cancelar
   const displayCancelButton = showCancelButton && cancelUrl;
 
-  const errorMessages: Record<number, TranslationKey> = {
-    400: 'r.required',
-    409: 'e.existingNit',
-    500: 'i.internalServerErrorPleaseTryAgainLater',
-  };
+  {
+    apiError && (
+      <div className="col-span-full absolute bottom-24">
+        <p className="text-sm text-red-error">{apiErrorMessage ? t(apiErrorMessage) : t('a.anUnknownErrorOccurred')}</p>
+      </div>
+    );
+  }
 
   const gridCols = config.columns === 1 ? 'grid-cols-1' : 'grid-cols-2';
 
@@ -42,15 +44,20 @@ export function DynamicForm<T extends FieldValues>({
         onSubmit={handleSubmit(onSubmit)}
         className={`w-full grid ${gridCols} gap-x-12 gap-y-6 px-12 py-10 relative`}
       >
-        {config.fields.map((field) => (
-          <FieldRenderer key={field.name} field={field} form={form} mode={mode} t={t} />
-        ))}
-        {/* Mostrar error de API si existe */}
+        {config.fields.map((field) => {
+          const spanClass = field.colSpan === 2 && gridCols === 'grid-cols-2' ? 'col-span-2' : '';
+
+          return (
+            <div key={field.name} className={spanClass}>
+              <FieldRenderer field={field} form={form} mode={mode} t={t} />
+            </div>
+          );
+        })}
+
         {apiError && (
           <div className="col-span-full absolute bottom-24">
             <p className="text-sm text-red-error">
-              {apiErrorMessage ||
-                (errorMessages[apiError] ? t(errorMessages[apiError]) : t('a.anUnknownErrorOccurred'))}
+              {apiErrorMessage ? t(apiErrorMessage) : t('a.anUnknownErrorOccurred')}
             </p>
           </div>
         )}

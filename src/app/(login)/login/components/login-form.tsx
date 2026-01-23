@@ -7,7 +7,7 @@ import { DynamicForm } from '@/components/forms/DynamicForm';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Loader } from '@/components/ui/loader';
 import { Typography } from '@/components/ui/typography';
-import { useTranslation } from '@/i18n';
+import { TranslationKey, useTranslation } from '@/i18n';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -20,6 +20,7 @@ export function LoginForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState<number | null>(null);
+  const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
   const form = useForm<Inputs>({
     defaultValues: {
@@ -32,6 +33,8 @@ export function LoginForm() {
     try {
       setIsLoading(true);
       setLoginError(null);
+      setApiErrorMessage(undefined);
+
       const res = await signIn('credentials', {
         ...data,
         redirect: false,
@@ -40,6 +43,7 @@ export function LoginForm() {
 
       if (res && res.error) {
         setLoginError(res.status || 401);
+        setApiErrorMessage('c.correctEmailAndOrPassword');
         return;
       }
 
@@ -47,6 +51,7 @@ export function LoginForm() {
     } catch (err) {
       console.error(err);
       setLoginError(500);
+      setApiErrorMessage('c.correctEmailAndOrPassword');
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +77,10 @@ export function LoginForm() {
             onSubmit={onSubmit}
             isLoading={isLoading}
             apiError={loginError}
+            apiErrorMessage={apiErrorMessage}
             t={t}
             submitLabel="e.enter"
             showCancelButton={false}
-            apiErrorMessage={t('c.correctEmailAndOrPassword')}
           />
         </div>
       </div>

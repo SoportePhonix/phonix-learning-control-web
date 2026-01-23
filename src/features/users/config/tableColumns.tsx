@@ -1,4 +1,5 @@
 import { EditButton } from '@/components/EditButton';
+import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
@@ -43,7 +44,7 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     },
   },
   {
-    header: 'Empresa',
+    header: t('c.company'),
     cell: ({ row }) => {
       const { companies = [], role = [] } = row.original;
       const isAdmin = role.some((r) => r.name === 'Administrator');
@@ -65,6 +66,27 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
           ))}
         </div>
       );
+    },
+  },
+  {
+    accessorKey: 'status',
+    header: t('s.status'),
+    cell: ({ row }) => {
+      const status = String(row.original.status).toLowerCase();
+
+      const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
+        active: { type: 'success', label: 'a.active' },
+        '1': { type: 'success', label: 'a.active' },
+        true: { type: 'success', label: 'a.active' },
+
+        inactive: { type: 'error', label: 'i.inactive' },
+        '0': { type: 'error', label: 'i.inactive' },
+        false: { type: 'error', label: 'i.inactive' },
+      };
+
+      const config = statusMap[status] ?? ({ type: 'progress' } as const);
+
+      return <StatusBadge type={config.type} label={config.label} />;
     },
   },
   {

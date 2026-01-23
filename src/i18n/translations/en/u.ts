@@ -1,5 +1,7 @@
 export const u = {
   unavailable: 'Unavailable',
+  unexpectedErrorIfTheErrorPersistsContactTheAdministrator:
+    'Unexpected error; if the error persists, contact the administrator',
   undo: 'Undo',
   unknown: 'Unknown',
   unlimited: 'Unlimited',
@@ -7,6 +9,7 @@ export const u = {
   unpublish: 'Unpublish',
   update: 'Update',
   updateCompany: 'Update company',
+  updateCourse: 'Update course',
   updated: 'Updated',
   updatedAt: 'Updated at',
   updatedSuccessfully: 'Updated successfully',

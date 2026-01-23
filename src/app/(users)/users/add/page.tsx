@@ -15,7 +15,6 @@ import { useForm } from 'react-hook-form';
 export default function Page() {
   const { t } = useTranslation();
   const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
-  const { createUser, isLoading: isCreatingUser, apiError } = useCreateUser();
 
   const form = useForm<UserFormValues>({
     defaultValues: {
@@ -29,6 +28,8 @@ export default function Page() {
       companyId: '',
     },
   });
+
+  const { createUser, isLoading: isCreatingUser, apiError, apiErrorMessage } = useCreateUser(form);
 
   const { formConfig } = useUserForm({
     mode: 'create',
@@ -47,6 +48,7 @@ export default function Page() {
           onSubmit={createUser}
           isLoading={isCreatingUser}
           apiError={apiError}
+          apiErrorMessage={apiErrorMessage}
           cancelUrl="/users"
           t={t}
         />
