@@ -45,7 +45,6 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      // 409 → errores de campo
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('email')) {
           form.setError('email', {

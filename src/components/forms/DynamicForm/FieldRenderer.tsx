@@ -29,12 +29,10 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   const resolveErrorMessage = (message?: string) => {
     if (!message) return undefined;
 
-    // Si parece una TranslationKey (ej: "e.existingEmail")
     if (message.includes('.')) {
       return t(message as TranslationKey);
     }
 
-    // Ya es texto plano
     return message;
   };
 
@@ -94,7 +92,6 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
   const selectStyle =
     'h-10 w-full rounded-none border-0 border-b border-b-gray-400 bg-base-white px-3 text-sm text-[#3A484C]';
 
-  // Renderizar según tipo de campo
   const renderField = () => {
     switch (field.type) {
       case 'select':

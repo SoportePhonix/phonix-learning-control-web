@@ -19,5 +19,5 @@ export const i = {
   invalidCredentials: 'Credenciales inválidas',
   invalidFormat: 'Formato inválido',
   initiated: 'Iniciado',
-  isRequired: 'es requerido',
+  isRequired: 'Es requerido',
 };

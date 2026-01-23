@@ -14,8 +14,7 @@ export interface Courses {
   companyId?: number;
   companyName?: string;
   companies?: Array<{
-    //Array
-    id: number /* Esta es la posición 0 del array, tanto id como name */;
+    id: number;
     name: string;
   }>;
 }

@@ -18,7 +18,7 @@ export const a = {
   admin: 'Administrador',
   all: 'Todos',
   areYouSureYouWantToDeleteThisCompany: '¿Estás seguro de eliminar esta empresa?',
-  areYouSureYouWantToDeleteThisCourse: '"¿Estás seguro de eliminar este curso?',
+  areYouSureYouWantToDeleteThisCourse: '¿Estás seguro de eliminar este curso?',
   areYouSureYouWantToDeleteThisUser: '¿Estás seguro de eliminar este usuario?',
   anErrorOccurredWhileCreatingTheUser: 'Ocurrió un error al crear el usuario',
   anUnknownErrorOccurred: 'Ocurrió un error desconocido',
