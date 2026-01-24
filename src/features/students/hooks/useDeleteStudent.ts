@@ -1,16 +1,16 @@
 import { useTranslation } from '@/i18n';
-import { useDeleteUserMutation } from '@/lib/services/api/usersApi/usersApi';
+import { useDeleteStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 export function useDeleteUser() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [deleteUserMutation, { isLoading, error }] = useDeleteUserMutation();
+  const [deleteStudentMutation, { isLoading, error }] = useDeleteStudentMutation();
 
   const deleteUser = async (userId: number) => {
     try {
-      await deleteUserMutation({ id: userId }).unwrap();
+      await deleteStudentMutation({ id: userId }).unwrap();
       toast.success(`${t('u.userSuccessfullyDeleted')}`);
       router.refresh();
     } catch (err) {

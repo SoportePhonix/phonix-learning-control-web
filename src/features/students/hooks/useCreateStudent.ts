@@ -2,48 +2,59 @@
 
 import { useState } from 'react';
 
-import { UserFormValues } from '@/components/users/types';
 import { TranslationKey, useTranslation } from '@/i18n';
-import { AddUserRequest } from '@/lib/services/api/usersApi/interface';
-import { useAddUsersMutation } from '@/lib/services/api/usersApi/usersApi';
+import { useAddStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
-export function useCreateUser(form: UseFormReturn<UserFormValues>) {
+export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
   const { t } = useTranslation();
   const router = useRouter();
-  const [addUser, { isLoading }] = useAddUsersMutation();
+  const [addStudent, { isLoading }] = useAddStudentMutation();
 
   const [apiError, setApiError] = useState<number | null>(null);
   const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
-  const createUser = async (values: UserFormValues) => {
+  const createStudent = async (values: Record<string, any>) => {
     try {
       setApiError(null);
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      const payload: AddUserRequest = {
-        name: values.name,
-        lastName: values.lastName,
-        typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
-        identificationDocument: values.identificationDocument,
+      const payload = {
+        firstname: values.firstname,
+        lastname: values.lastname,
         email: values.email,
+        username: values.username,
         password: values.password,
-        role: [{ id: Number(values.roleId) }],
-        ...(values.companyId && { companyId: Number(values.companyId) }),
-        status: 'active',
+        documentTypeId: Number(values.documentTypeId),
+        documentNumber: values.documentNumber,
+        description: values.description,
+        city: values.city,
+        country: values.country,
+        institution: values.institution,
+        department: values.department,
+        phone: values.phone,
+        address: values.address,
+        status: values.status || 'active',
+        ...(values.companies && { companyId: Number(values.companies) }),
+        ...(values.areaId ? { areaId: Number(values.areaId) } : {}),
+        ...(values.positionId ? { positionId: Number(values.positionId) } : {}),
       };
 
-      await addUser(payload).unwrap();
+      await addStudent(payload).unwrap();
 
-      toast.success(`${values.name} ${values.lastName} ${t('a.addedSuccessfully')}`);
+      toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
 
-      router.push('/users');
+      router.push('/students');
     } catch (err: any) {
+      console.log('createStudent error:', err);
+      console.log('status:', err?.status);
+      console.log('error.data:', err?.data);
+      console.log('error.data.message:', err?.data?.message);
       const status = err?.status ?? 500;
-      const errorMessage = err?.data?.message || '';
+      const errorMessage = (err?.data?.message || '').toString();
 
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('email')) {
@@ -55,11 +66,12 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
         }
 
         if (
-          errorMessage.toLowerCase().includes('user already exists') ||
+          errorMessage.toLowerCase().includes('Ya existe un estudiante con este correo en la empresa') ||
           errorMessage.toLowerCase().includes('identification') ||
-          errorMessage.toLowerCase().includes('document')
+          errorMessage.toLowerCase().includes('area') ||
+          errorMessage.toLowerCase().includes('documentnumber')
         ) {
-          form.setError('identificationDocument', {
+          form.setError('documentNumber', {
             type: 'manual',
             message: t('e.existingIdentificationDocument'),
           });
@@ -78,7 +90,7 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
   };
 
   return {
-    createUser,
+    createStudent,
     isLoading,
     apiError,
     apiErrorMessage,

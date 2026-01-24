@@ -1,64 +1,68 @@
-import { UserFormValues } from '@/components/users/types';
 import { useTranslation } from '@/i18n';
-import { useUpdateUserMutation } from '@/lib/services/api/usersApi/usersApi';
-import { useSessionContext } from '@/utils/context/sessionContext';
-import { signOut } from 'next-auth/react';
+import { useUpdateStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-export function useUpdateUser(userId: string) {
+export function useUpdateStudent(userId: string) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { session } = useSessionContext();
-  const [updateUserMutation, { isLoading, error }] = useUpdateUserMutation();
+  const [updateStudentMutation, { isLoading, error }] = useUpdateStudentMutation();
 
-  const updateUser = async (values: UserFormValues) => {
+  const updateStudent = async (values: Record<string, any>) => {
     const payload = {
-      name: values.name,
-      lastName: values.lastName,
-      typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
-      identificationDocument: values.identificationDocument,
+      firstname: values.firstname,
+      lastname: values.lastname,
       email: values.email,
-      role: [{ id: Number(values.roleId) }] as [{ id: number }],
+      username: values.username,
       password: values.password,
-      ...(values.companyId !== '' && { companyId: Number(values.companyId) }),
+      typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
+      documentNumber: values.documentNumber,
+      description: values.description,
+      city: values.city,
+      country: values.country,
+      institution: values.institution,
+      department: values.department,
+      phone: values.phone,
+      address: values.address,
       status: values.status ?? 'active',
+      ...(values.companyId && { companyId: Number(values.companyId) }),
+      ...(values.areaId ? { areaId: Number(values.areaId) } : {}),
+      ...(values.positionId ? { positionId: Number(values.positionId) } : {}),
     };
 
     try {
-      await updateUserMutation({
+      await updateStudentMutation({
         id: Number(userId),
         ...payload,
       }).unwrap();
 
-      const currentUserId = session?.user?.id ? Number(session.user.id) : null;
-      const updatedUserId = Number(userId);
-      const isOwnProfile = currentUserId === updatedUserId;
-
-      toast.success(`${values.name} ${values.lastName} ${t('u.updatedSuccessfully')}`, {
-        id: 'user-updated-success',
+      toast.success(`${values.firstname ?? ''} ${values.lastname ?? ''} ${t('u.updatedSuccessfully')}`, {
+        id: 'student-updated-success',
       });
 
-      if (isOwnProfile) {
-        toast.info(t('f.forSecurityYouMustLogInAgain'), {
-          id: 'session-logout-info',
-          duration: 3000,
-        });
+      router.push('/students');
+    } catch (err: any) {
+      const status = err?.status ?? 500;
+      const message = (err?.data?.message || '').toString().toLowerCase();
 
-        setTimeout(async () => {
-          await signOut({ redirect: false });
-          router.push('/login');
-        }, 2000);
-      } else {
-        router.push('/users');
+      if (status === 409) {
+        if (message.includes('email')) {
+          toast.error(t('e.existingEmail'));
+          return;
+        }
+
+        if (message.includes('identification') || message.includes('document') || message.includes('documentnumber')) {
+          toast.error(t('e.existingIdentificationDocument'));
+          return;
+        }
       }
-    } catch (err) {
+
       toast.error(t('u.userUpdateFailed'));
     }
   };
 
   return {
-    updateUser,
+    updateStudent,
     isLoading,
     apiError: (error as any)?.status ?? null,
   };

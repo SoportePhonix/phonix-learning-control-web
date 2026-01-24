@@ -26,6 +26,7 @@ export const t = {
   toCreateACoursePleaseFillInTheFields: 'Para crear un curso, complete los campos',
   toUpdateAUserCompleteTheFields: 'Para actualizar un usuario, complete los campos',
   toUpdateACourseCompleteTheFields: 'Para actualizar un curso, complete los campos',
+  toCreateAStudentPleaseFillInTheFields: 'Para crear un estudiante, complete los campos',
   trainingPathways: 'Rutas de formación',
   type: 'Tipo',
   typeOfIdentificationDocument: 'Tipo de documento de identificación',

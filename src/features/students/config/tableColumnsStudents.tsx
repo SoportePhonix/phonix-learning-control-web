@@ -2,58 +2,66 @@ import { EditButton } from '@/components/EditButton';
 import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
-import { User } from '@/lib/services/api/usersApi/interface/users.interface';
+import { Students } from '@/lib/services/api/studentsApi/interface';
 
-import { DeleteUser } from '../componentes/DeleteUser';
+const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
+  <span className="text-muted-foreground">{t('n.notProvided')}</span>
+);
 
-export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?: number): CustomColumnDef<User>[] => [
+export const tableColumnsStudents = (
+  t: (key: TranslationKey) => string,
+  currentUserId?: number
+): CustomColumnDef<Students>[] => [
   {
-    accessorKey: 'name',
+    accessorKey: 'firstname',
     header: t('n.name'),
   },
   {
-    accessorKey: 'lastName',
+    accessorKey: 'lastname',
     header: t('l.lastName'),
   },
   {
-    accessorKey: 'typeOfIdentificationDocument.name',
+    accessorKey: 'documentTypeId',
     header: t('t.typeOfIdentificationDocument'),
+    cell: ({ row }) => {
+      const value = row.original.documentTypeId;
+      return value ? value : EMPTY_VALUE(t);
+    },
   },
   {
-    accessorKey: 'identificationDocument',
+    accessorKey: 'documentNumber',
     header: t('i.identificationDocument'),
+    cell: ({ row }) => {
+      const value = row.original.documentNumber;
+      return value ? value : EMPTY_VALUE(t);
+    },
   },
   {
     accessorKey: 'email',
     header: t('e.email'),
   },
   {
-    header: t('r.role'),
+    accessorKey: 'username',
+    header: t('u.username'),
     cell: ({ row }) => {
-      const roles = row.original.role;
-
-      const varios = roles.length > 1;
-
-      return (
-        <div className="flex flex-col">
-          {roles.map((r) => (
-            <span key={r.id}>{varios ? `- ${r.name}` : r.name}</span>
-          ))}
-        </div>
-      );
+      const value = row.original.username;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'description',
+    header: t('d.description'),
+    cell: ({ row }) => {
+      const value = row.original.description;
+      return value ? value : EMPTY_VALUE(t);
     },
   },
   {
     header: t('c.company'),
     cell: ({ row }) => {
-      const { companies = [], role = [] } = row.original;
-      const isAdmin = role.some((r) => r.name === 'Administrator');
+      const { companies = [] } = row.original;
 
-      if (isAdmin) {
-        return <span className="text-muted-foreground ">{t('n.notApplicable' as TranslationKey)}</span>;
-      }
-
-      if (companies.length === 0) {
+      if (!companies) {
         return <span className="text-muted-foreground">—</span>;
       }
 
@@ -69,16 +77,79 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     },
   },
   {
+    accessorKey: 'phone',
+    header: t('p.phone'),
+    cell: ({ row }) => {
+      const value = row.original.phone;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'city',
+    header: t('c.city'),
+    cell: ({ row }) => {
+      const value = row.original.city;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'country',
+    header: t('c.country'),
+    cell: ({ row }) => {
+      const value = row.original.country;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'institution',
+    header: t('i.institution'),
+    cell: ({ row }) => {
+      const value = row.original.institution;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'department',
+    header: t('d.department'),
+    cell: ({ row }) => {
+      const value = row.original.department;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'address',
+    header: t('a.address'),
+    cell: ({ row }) => {
+      const value = row.original.address;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'areaId',
+    header: t('a.area'),
+    cell: ({ row }) => {
+      const value = row.original.areaId;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
+    accessorKey: 'positionId',
+    header: t('p.position'),
+    cell: ({ row }) => {
+      const value = row.original.positionId;
+      return value ? value : EMPTY_VALUE(t);
+    },
+  },
+  {
     accessorKey: 'status',
     header: t('s.status'),
     cell: ({ row }) => {
-      const status = String(row.original.status).toLowerCase();
+      const status = String(row.original.status ?? '').toLowerCase();
 
       const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
         active: { type: 'success', label: 'a.active' },
         '1': { type: 'success', label: 'a.active' },
         true: { type: 'success', label: 'a.active' },
-
         inactive: { type: 'error', label: 'i.inactive' },
         '0': { type: 'error', label: 'i.inactive' },
         false: { type: 'error', label: 'i.inactive' },
@@ -89,19 +160,19 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
       return <StatusBadge type={config.type} label={config.label} />;
     },
   },
-  {
-    accessorKey: 'id',
-    header: t('a.actions'),
-    cell: ({ row }) => {
-      const userId = row.original.id;
-      const isCurrentUser = Number(currentUserId) === Number(userId);
-
-      return (
-        <div className="flex items-center gap-2">
-          <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
-          {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
-        </div>
-      );
-    },
-  },
+  /*   {
+      accessorKey: 'id',
+      header: t('a.actions'),
+      cell: ({ row }) => {
+        const userId = row.original.id;
+        const isCurrentUser = Number(currentUserId) === Number(userId);
+  
+        return (
+          <div className="flex items-center gap-2">
+            <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
+            {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
+          </div>
+        );
+      },
+    }, */
 ];
