@@ -4,6 +4,8 @@ import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { Students } from '@/lib/services/api/studentsApi/interface';
 
+import { DeleteStudent } from '../componentes/DeleteStudent';
+
 const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
   <span className="text-muted-foreground">{t('n.notProvided')}</span>
 );
@@ -160,19 +162,19 @@ export const tableColumnsStudents = (
       return <StatusBadge type={config.type} label={config.label} />;
     },
   },
-  /*   {
-      accessorKey: 'id',
-      header: t('a.actions'),
-      cell: ({ row }) => {
-        const userId = row.original.id;
-        const isCurrentUser = Number(currentUserId) === Number(userId);
-  
-        return (
-          <div className="flex items-center gap-2">
-            <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
-            {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
-          </div>
-        );
-      },
-    }, */
+  {
+    accessorKey: 'id',
+    header: t('a.actions'),
+    cell: ({ row }) => {
+      const studentId = row.original.id;
+      const isCurrentUser = Number(currentUserId) === Number(studentId);
+
+      return (
+        <div className="flex items-center gap-2">
+          <EditButton href={`/users/${studentId}/update`} tooltipText={t('e.editUser')} />
+          {!isCurrentUser && <DeleteStudent studentId={Number(studentId)} />}
+        </div>
+      );
+    },
+  },
 ];

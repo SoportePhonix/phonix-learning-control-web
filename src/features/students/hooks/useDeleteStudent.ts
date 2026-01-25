@@ -3,14 +3,14 @@ import { useDeleteStudentMutation } from '@/lib/services/api/studentsApi/student
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-export function useDeleteUser() {
+export function useDeleteStudent() {
   const { t } = useTranslation();
   const router = useRouter();
   const [deleteStudentMutation, { isLoading, error }] = useDeleteStudentMutation();
 
-  const deleteUser = async (userId: number) => {
+  const deleteStudent = async (studentId: number) => {
     try {
-      await deleteStudentMutation({ id: userId }).unwrap();
+      await deleteStudentMutation({ id: studentId }).unwrap();
       toast.success(`${t('u.userSuccessfullyDeleted')}`);
       router.refresh();
     } catch (err) {
@@ -19,7 +19,7 @@ export function useDeleteUser() {
   };
 
   return {
-    deleteUser,
+    deleteStudent,
     isLoading,
     apiError: (error as any)?.status ?? null,
   };
