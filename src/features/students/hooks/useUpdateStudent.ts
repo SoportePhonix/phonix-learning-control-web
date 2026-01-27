@@ -15,7 +15,7 @@ export function useUpdateStudent(userId: string) {
       email: values.email,
       username: values.username,
       password: values.password,
-      typeOfIdentificationDocument: Number(values.typeOfIdentificationDocument),
+      documentTypeId: Number(values.documentTypeId),
       documentNumber: values.documentNumber,
       description: values.description,
       city: values.city,
@@ -51,13 +51,17 @@ export function useUpdateStudent(userId: string) {
           return;
         }
 
-        if (message.includes('identification') || message.includes('document') || message.includes('documentnumber')) {
+        if (
+          message.includes('Ya existe un estudiante con este correo en la empresa') ||
+          message.includes('document') ||
+          message.includes('documentnumber')
+        ) {
           toast.error(t('e.existingIdentificationDocument'));
           return;
         }
       }
 
-      toast.error(t('u.userUpdateFailed'));
+      toast.error(t('e.errorUpdatingStudent'));
     }
   };
 

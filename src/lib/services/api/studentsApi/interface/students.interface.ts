@@ -1,3 +1,5 @@
+import { DocumentTypesResponse } from '../../typeOfIdentificationDocumentApi/interface/typeOfIdentificationDocument.interface';
+
 export interface GetStudentsResponse {
   data: Students[];
 }
@@ -33,7 +35,7 @@ export interface AddStudentsRequest {
   email: string;
   username?: string;
   password?: string;
-  documentTypeId?: { id: number; name: string };
+  documentTypeId?: number;
   documentNumber?: string;
   description?: string;
   city?: string;
@@ -43,10 +45,7 @@ export interface AddStudentsRequest {
   phone?: string;
   address?: string;
   status?: string;
-  companies: Array<{
-    id: number;
-    name: string;
-  }>;
+  companyId: number;
   areaId?: number;
   positionId?: number;
 }
@@ -58,7 +57,7 @@ export interface AddStudentsDataResponse {
     email: string;
     username?: string;
     password?: string;
-    documentTypeId?: { id: number; name: string };
+    documentTypeId?: DocumentTypesResponse;
     documentNumber?: string;
     description?: string;
     city?: string;
@@ -68,10 +67,6 @@ export interface AddStudentsDataResponse {
     phone?: string;
     address?: string;
     status?: string;
-    companies: Array<{
-      id: number;
-      name: string;
-    }>;
     areaId?: number;
     positionId?: number;
   };
@@ -93,7 +88,7 @@ export interface UpdateStudentsRequest {
   email: string;
   username?: string;
   password?: string;
-  documentTypeId?: { id: number; name: string };
+  documentTypeId?: number;
   documentNumber?: string;
   description?: string;
   city?: string;
@@ -103,10 +98,7 @@ export interface UpdateStudentsRequest {
   phone?: string;
   address?: string;
   status?: string;
-  companies: Array<{
-    id: number;
-    name: string;
-  }>;
+  companyId?: number;
   areaId?: number;
   positionId?: number;
 }
@@ -118,7 +110,7 @@ export interface UpdateStudentsResponse {
     email: string;
     username?: string;
     password?: string;
-    documentTypeId?: { id: number; name: string };
+    documentTypeId?: DocumentTypesResponse;
     documentNumber?: string;
     description?: string;
     city?: string;
@@ -128,10 +120,6 @@ export interface UpdateStudentsResponse {
     phone?: string;
     address?: string;
     status?: string;
-    companies: Array<{
-      id: number;
-      name: string;
-    }>;
     areaId?: number;
     positionId?: number;
   };

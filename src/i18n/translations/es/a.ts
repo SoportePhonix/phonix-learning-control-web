@@ -21,6 +21,7 @@ export const a = {
   areYouSureYouWantToDeleteThisCompany: '¿Estás seguro de eliminar esta empresa?',
   areYouSureYouWantToDeleteThisCourse: '¿Estás seguro de eliminar este curso?',
   areYouSureYouWantToDeleteThisUser: '¿Estás seguro de eliminar este usuario?',
+  areYouSureYouWantToDeleteThisStudent: '¿Estás seguro de eliminar este estudiante?',
   anErrorOccurredWhileCreatingTheUser: 'Ocurrió un error al crear el usuario',
   anUnknownErrorOccurred: 'Ocurrió un error desconocido',
   apply: 'Aplicar',

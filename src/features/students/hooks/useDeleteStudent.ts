@@ -11,10 +11,10 @@ export function useDeleteStudent() {
   const deleteStudent = async (studentId: number) => {
     try {
       await deleteStudentMutation({ id: studentId }).unwrap();
-      toast.success(`${t('u.userSuccessfullyDeleted')}`);
+      toast.success(`${t('s.studentSuccessfullyDeleted')}`);
       router.refresh();
     } catch (err) {
-      toast.error(`${t('t.theUserCouldNotBeDeleted')}`);
+      toast.error(`${t('c.couldNotDeleteStudent')}`);
     }
   };
 

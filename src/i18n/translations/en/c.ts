@@ -22,6 +22,7 @@ export const c = {
   companyUpdatedSuccessfully: 'Company updated successfully',
   companyUpdateFailed: 'Company update failed',
   country: 'Country',
+  couldNotDeleteStudent: 'Could not delete student',
   courseCreationFailed: 'Course creation failed',
   courseCreatedSuccessfully: 'Course successfully created',
   courseSuccessfullyRemoved: 'Course successfully removed',

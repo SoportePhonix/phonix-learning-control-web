@@ -171,7 +171,7 @@ export const tableColumnsStudents = (
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/users/${studentId}/update`} tooltipText={t('e.editUser')} />
+          <EditButton href={`/students/${studentId}/update`} tooltipText={t('e.editUser')} />
           {!isCurrentUser && <DeleteStudent studentId={Number(studentId)} />}
         </div>
       );

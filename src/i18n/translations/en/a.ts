@@ -20,6 +20,7 @@ export const a = {
   areYouSureYouWantToDeleteThisCompany: 'Are you sure you want to delete this company?',
   areYouSureYouWantToDeleteThisCourse: 'Are you sure you want to delete this course?',
   areYouSureYouWantToDeleteThisUser: 'Are you sure you want to delete this user?',
+  areYouSureYouWantToDeleteThisStudent: 'Are you sure you want to delete this student?',
   all: 'All',
   anErrorOccurredWhileCreatingTheUser: 'An error occurred while creating the user',
   anUnknownErrorOccurred: 'An unknown error occurred',

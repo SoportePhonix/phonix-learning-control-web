@@ -49,10 +49,6 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
 
       router.push('/students');
     } catch (err: any) {
-      console.log('createStudent error:', err);
-      console.log('status:', err?.status);
-      console.log('error.data:', err?.data);
-      console.log('error.data.message:', err?.data?.message);
       const status = err?.status ?? 500;
       const errorMessage = (err?.data?.message || '').toString();
 
@@ -67,13 +63,12 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
 
         if (
           errorMessage.toLowerCase().includes('Ya existe un estudiante con este correo en la empresa') ||
-          errorMessage.toLowerCase().includes('identification') ||
-          errorMessage.toLowerCase().includes('area') ||
+          errorMessage.toLowerCase().includes('email') ||
           errorMessage.toLowerCase().includes('documentnumber')
         ) {
-          form.setError('documentNumber', {
+          form.setError('email', {
             type: 'manual',
-            message: t('e.existingIdentificationDocument'),
+            message: t('e.existingEmail'),
           });
           return;
         }
@@ -85,7 +80,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
       }
 
       setApiError(status);
-      setApiErrorMessage('u.userCreationFailed');
+      setApiErrorMessage('e.errorCreatingStudent');
     }
   };
 

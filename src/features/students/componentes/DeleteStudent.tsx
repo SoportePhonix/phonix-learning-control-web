@@ -3,7 +3,6 @@ import { useTranslation } from '@/i18n';
 import { useDeleteStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 
 import { useDeleteStudent } from '../hooks/useDeleteStudent';
-import { useDeleteUser } from '../hooks/useDeleteUser';
 
 export const DeleteStudent = ({ studentId }: { studentId: number }) => {
   const { t } = useTranslation();
@@ -11,9 +10,9 @@ export const DeleteStudent = ({ studentId }: { studentId: number }) => {
 
   return (
     <AlertConfirmDialogDestructive
-      tooltipText={t('d.deleteUser')}
-      title={t('d.deleteUser')}
-      description={t('a.areYouSureYouWantToDeleteThisUser')}
+      tooltipText={t('d.deleteStudent')}
+      title={t('d.deleteStudent')}
+      description={t('a.areYouSureYouWantToDeleteThisStudent')}
       onConfirm={async () => await deleteStudent(studentId)}
       confirmText={t('d.delete')}
       cancelText={t('c.cancel')}

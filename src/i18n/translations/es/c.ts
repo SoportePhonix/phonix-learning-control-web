@@ -22,6 +22,7 @@ export const c = {
   companyUpdatedSuccessfully: 'Empresa actualizada exitosamente',
   companyUpdateFailed: 'Actualización de la empresa fallida',
   country: 'País',
+  couldNotDeleteStudent: 'No se pudo eliminar el estudiante',
   courseCreatedSuccessfully: 'Curso creado exitosamente',
   courseSuccessfullyRemoved: 'Curso eliminado exitosamente',
   courseUpdatedSuccessfully: 'Curso actualizado correctamente',

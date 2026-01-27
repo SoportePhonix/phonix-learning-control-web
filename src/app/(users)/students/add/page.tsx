@@ -20,7 +20,7 @@ export default function Page() {
       email: '',
       username: '',
       password: '',
-      typeOfIdentificationDocument: '',
+      documentTypeId: '',
       documentNumber: '',
       description: '',
       city: '',
@@ -47,7 +47,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('s.students')} />
+      <SectionTitle title={t('a.addStudent')} />
       <FormPageLayout description={t('t.toCreateAStudentPleaseFillInTheFields' as any)}>
         <DynamicForm
           config={formConfig}

@@ -24,7 +24,7 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
       email: '',
       username: '',
       password: '',
-      typeOfIdentificationDocument: '',
+      documentTypeId: '',
       documentNumber: '',
       description: '',
       city: '',
@@ -53,8 +53,8 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('s.students')} />
-      <FormPageLayout description={t('t.toUpdateACourseCompleteTheFields' as any)} isLoading={isLoadingData}>
+      <SectionTitle title={t('u.updateStudent')} />
+      <FormPageLayout description={t('t.toUpdateAStudentCompleteTheFields' as any)} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}
           mode="edit"

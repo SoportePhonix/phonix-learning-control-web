@@ -27,6 +27,7 @@ export const t = {
   toUpdateACompanyCompleteTheFields: 'To update a company complete the fields',
   toUpdateACourseCompleteTheFields: 'To update a course complete the fields',
   toUpdateAUserCompleteTheFields: 'To update a user, complete the fields',
+  toUpdateAStudentCompleteTheFields: 'To update a student, complete the fields',
   trainingPathways: 'Training pathways',
   type: 'Type',
   typeOfIdentificationDocument: 'Type of identification document',
