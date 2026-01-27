@@ -123,7 +123,7 @@ export const userFormConfig: FormConfig = {
       label: 'c.company',
       type: 'select',
       placeholder: 's.selectAnOption',
-      required: false,
+      required: true,
       options: [],
     },
     {

@@ -61,21 +61,13 @@ export const tableColumnsStudents = (
   {
     header: t('c.company'),
     cell: ({ row }) => {
-      const { companies = [] } = row.original;
+      const company = row.original.company;
 
-      if (!companies) {
-        return <span className="text-muted-foreground">—</span>;
+      if (!company) {
+        return EMPTY_VALUE(t);
       }
 
-      const varios = companies.length > 1;
-
-      return (
-        <div className="flex flex-col">
-          {companies.map((company) => (
-            <span key={company.id}>{varios ? `- ${company.name}` : company.name}</span>
-          ))}
-        </div>
-      );
+      return <span>{company.name}</span>;
     },
   },
   {

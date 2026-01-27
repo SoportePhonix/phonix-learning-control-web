@@ -69,7 +69,7 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
 
     config.fields = config.fields
       .map((field) => {
-        if (field.name === 'companies') {
+        if (field.name === 'company') {
           return {
             ...field,
             options: companiesOptions,
@@ -93,11 +93,12 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
         {
           firstname: studentData.firstname || '',
           lastname: studentData.lastname || '',
-          documentTypeId: studentData.documentTypeId?.id ? String(studentData.documentTypeId.id) : '',
+          documentTypeId: studentData.documentType?.id ? String(studentData.documentType?.id) : '',
           documentNumber: studentData.documentNumber || '',
           email: studentData.email || '',
+          username: studentData.username || '',
           password: '',
-          companies: studentData.companies?.map((c: any) => String(c.id)) ?? [],
+          company: studentData.company ? String(studentData.company.id) : '',
           status: studentData.status || '',
           city: studentData.city || '',
           country: studentData.country || '',

@@ -21,10 +21,13 @@ export interface Students {
   phone?: string;
   address?: string;
   status?: string;
-  companies: Array<{
+  company?: {
     id: number;
     name: string;
-  }>;
+    nit: string;
+    email: string;
+    status: string;
+  };
   areaId?: number;
   positionId?: number;
 }

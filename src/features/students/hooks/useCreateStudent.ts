@@ -17,6 +17,9 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
   const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
   const createStudent = async (values: Record<string, any>) => {
+    console.log('Form values:', values);
+    console.log('Company field:', values.company);
+
     try {
       setApiError(null);
       setApiErrorMessage(undefined);
@@ -38,7 +41,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         phone: values.phone,
         address: values.address,
         status: values.status || 'active',
-        ...(values.companies && { companyId: Number(values.companies) }),
+        ...(values.company && { companyId: Number(values.company) }),
         ...(values.areaId ? { areaId: Number(values.areaId) } : {}),
         ...(values.positionId ? { positionId: Number(values.positionId) } : {}),
       };
