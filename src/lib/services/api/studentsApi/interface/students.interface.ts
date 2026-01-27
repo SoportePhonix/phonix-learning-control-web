@@ -11,7 +11,7 @@ export interface Students {
   email: string;
   username?: string;
   password?: string;
-  documentTypeId?: { id: number; name: string };
+  documentType?: { id: number; name: string };
   documentNumber?: string;
   description?: string;
   city?: string;

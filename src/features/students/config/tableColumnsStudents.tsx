@@ -23,10 +23,10 @@ export const tableColumnsStudents = (
     header: t('l.lastName'),
   },
   {
-    accessorKey: 'documentTypeId',
+    accessorKey: 'documentType',
     header: t('t.typeOfIdentificationDocument'),
     cell: ({ row }) => {
-      const value = row.original.documentTypeId;
+      const value = row.original.documentType?.name;
       return value ? value : EMPTY_VALUE(t);
     },
   },
