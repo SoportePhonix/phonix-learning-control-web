@@ -58,7 +58,7 @@ const baseQueryWithErrorHandling: BaseQueryFn<string | FetchArgs, unknown, Fetch
 
 export const api = createApi({
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ['Users', 'Companies', 'Courses'],
+  tagTypes: ['Users', 'Companies', 'Courses', 'Areas', 'Positions'],
 
   // 🚀 Configuración personalizada de cache
   keepUnusedDataFor: 300, // 5 minutos (en segundos)
