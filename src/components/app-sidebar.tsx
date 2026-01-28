@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { StudentsIcon } from '@/app/(users)/students/components/icons/StudentsIcon';
 import { TrainingPathwaysIcon } from '@/app/(users)/trainingPathways/components/icons/TrainingPathwaysIcon';
 import { CollapsedLogo, ExpandedLogoDark, ExpandedLogoLight, LogoSwitcher, NavSections } from '@/components';
 import { NavUser } from '@/components/nav-user';
@@ -17,6 +16,7 @@ import {
 import { CompanyIcon } from '@/features/companies/componentes/icons/CompanyIcon';
 import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { HomeIcon } from '@/features/home/components/icons/HomeIcon';
+import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
 import { useSessionContext } from '@/utils/context/sessionContext';
@@ -64,13 +64,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '/companies',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
       },
-      // {
-      //   name: t('s.students'),
-      //   url: '/students',
-      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-      //     <StudentsIcon {...props} />
-      //   ),
-      // },
+      {
+        name: t('s.students'),
+        url: '/students',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+          <StudentsIcon {...props} />
+        ),
+      },
       {
         name: t('c.courses'),
         url: '/courses',

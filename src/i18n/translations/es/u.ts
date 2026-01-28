@@ -13,6 +13,7 @@ export const u = {
   updated: 'Actualizado',
   updatedAt: 'Actualizado el',
   updatedSuccessfully: 'Actualizad@ con éxito',
+  updateStudent: 'Actualizar estudiante',
   updateUser: 'Actualizar usuario',
   updating: 'Actualizando',
   upload: 'Cargar',

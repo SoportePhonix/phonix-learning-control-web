@@ -1,7 +1,7 @@
 export const i = {
   id: 'ID',
   idCard: 'Id card',
-  identificationDocument: 'Documento de identificación',
+  identificationDocument: 'Identification document',
   identificationDocumentExists: 'Identification document exists',
   identityCard: 'Identity Card',
   idRequired: 'Id required',
@@ -19,5 +19,6 @@ export const i = {
   invalidCredentials: 'Invalid credentials',
   invalidFormat: 'Invalid format',
   initiated: 'Initiated',
+  institution: 'Institution',
   isRequired: 'Is required',
 };

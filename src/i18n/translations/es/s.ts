@@ -23,6 +23,7 @@ export const s = {
   startDate: 'Fecha de inicio',
   status: 'Estado',
   students: 'Estudiantes',
+  studentSuccessfullyDeleted: 'Estudiante eliminado con éxito',
   submit: 'Enviar',
   success: 'Éxito',
   successMessage: 'Mensaje de éxito',

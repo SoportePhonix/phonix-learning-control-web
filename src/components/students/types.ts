@@ -1,0 +1,20 @@
+export type StudentsFormValues = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  username?: string;
+  password?: string;
+  documentTypeId?: string;
+  documentNumber?: string;
+  description?: string;
+  city?: string;
+  country?: string;
+  institution?: string;
+  department?: string;
+  phone?: string;
+  address?: string;
+  status?: string;
+  companies: string;
+  areaId?: string;
+  positionId?: string;
+};
