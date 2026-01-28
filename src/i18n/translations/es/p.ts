@@ -14,6 +14,7 @@ export const p = {
   privacy: 'Privacidad',
   profile: 'Perfil',
   progress: 'Progreso',
+  position: 'Posición',
   public: 'Público',
   publish: 'Publicar',
   published: 'Publicado',

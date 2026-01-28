@@ -14,6 +14,7 @@ export const p = {
   privacy: 'Privacy',
   profile: 'Profile',
   progress: 'Progress',
+  position: 'Position',
   public: 'Public',
   publish: 'Publish',
   published: 'Published',

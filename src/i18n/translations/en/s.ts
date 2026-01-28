@@ -22,6 +22,7 @@ export const s = {
   start: 'Start',
   startDate: 'Start date',
   students: 'Students',
+  studentSuccessfullyDeleted: 'Student successfully deleted',
   status: 'Status',
   submit: 'Submit',
   success: 'Success',

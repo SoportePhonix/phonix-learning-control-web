@@ -10,6 +10,7 @@ export const u = {
   update: 'Update',
   updateCompany: 'Update company',
   updateCourse: 'Update course',
+  updateStudent: 'Update student',
   updated: 'Updated',
   updatedAt: 'Updated at',
   updatedSuccessfully: 'Updated successfully',
