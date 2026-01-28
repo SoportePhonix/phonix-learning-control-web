@@ -78,7 +78,7 @@ export const tableColumnsCourses = (
       const { companyName } = row.original;
 
       if (!companyName) {
-        return <span className="text-muted-foreground">No ingresado</span>;
+        return EMPTY_VALUE(t);
       }
 
       return <span>{companyName}</span>;
