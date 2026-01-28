@@ -2,7 +2,6 @@
 
 import { use } from 'react';
 
-import { CompaniesFormValues } from '@/components/companies/types';
 import { CoursesFormValues } from '@/components/courses/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
