@@ -31,14 +31,6 @@ export const coursesFormConfig: FormConfig = {
       required: true,
     },
     {
-      name: 'summary',
-      label: 's.summary',
-      type: 'textarea',
-      placeholder: 'e.enterAValue',
-      required: false,
-      colSpan: 2,
-    },
-    {
       name: 'startDate',
       label: 's.startDate',
       type: 'date',
@@ -57,6 +49,14 @@ export const coursesFormConfig: FormConfig = {
       placeholder: 's.selectAnOption',
       required: true,
       options: [],
+    },
+    {
+      name: 'summary',
+      label: 's.summary',
+      type: 'textarea',
+      placeholder: 'e.enterAValue',
+      required: false,
+      colSpan: 1,
     },
   ],
 };
