@@ -62,13 +62,6 @@ export const userFormConfig: FormConfig = {
       required: false,
     },
     {
-      name: 'description',
-      label: 'd.description',
-      type: 'textarea',
-      placeholder: 'e.enterAValue',
-      required: false,
-    },
-    {
       name: 'city',
       label: 'c.city',
       type: 'text',
@@ -141,6 +134,13 @@ export const userFormConfig: FormConfig = {
       placeholder: 's.selectAnOption',
       required: false,
       options: [],
+    },
+    {
+      name: 'description',
+      label: 'd.description',
+      type: 'textarea',
+      placeholder: 'e.enterAValue',
+      required: false,
     },
   ],
   columns: 2,
