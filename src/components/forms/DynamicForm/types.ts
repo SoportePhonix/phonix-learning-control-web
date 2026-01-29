@@ -25,7 +25,7 @@ export type FieldValidation = {
 };
 
 export type FieldConfig = {
-  colSpan?: 1 | 2;
+  colSpan?: 1 | 2 | 3;
   name: string;
   label: TranslationKey;
   type: FieldType;
@@ -42,7 +42,7 @@ export type FieldConfig = {
 
 export type FormConfig = {
   fields: FieldConfig[];
-  columns?: 1 | 2; // Grid de columnas
+  columns?: 1 | 2 | 3; // Grid de columnas
 };
 
 export type DynamicFormProps<T extends Record<string, any>> = {

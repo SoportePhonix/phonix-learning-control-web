@@ -24,11 +24,12 @@ export const userFormConfig: FormConfig = {
       required: true,
     },
     {
-      name: 'username',
-      label: 'u.username',
-      type: 'text',
-      placeholder: 'e.enterAValue',
-      required: false,
+      name: 'company',
+      label: 'c.company',
+      type: 'select',
+      placeholder: 's.selectAnOption',
+      required: true,
+      options: [],
     },
     {
       name: 'password',
@@ -45,6 +46,13 @@ export const userFormConfig: FormConfig = {
       },
       errorTooltip: true,
       errorTooltipTrigger: 'r.reviewPassword',
+    },
+    {
+      name: 'username',
+      label: 'u.username',
+      type: 'text',
+      placeholder: 'e.enterAValue',
+      required: false,
     },
     {
       name: 'documentTypeId',
@@ -112,14 +120,6 @@ export const userFormConfig: FormConfig = {
       options: [],
     },
     {
-      name: 'company',
-      label: 'c.company',
-      type: 'select',
-      placeholder: 's.selectAnOption',
-      required: true,
-      options: [],
-    },
-    {
       name: 'areaId',
       label: 'a.area',
       type: 'select',
@@ -136,12 +136,13 @@ export const userFormConfig: FormConfig = {
       options: [],
     },
     {
-      name: 'description',
-      label: 'd.description',
+      name: 'summary',
+      label: 's.summary',
       type: 'textarea',
       placeholder: 'e.enterAValue',
       required: false,
+      colSpan: 2,
     },
   ],
-  columns: 2,
+  columns: 3,
 };

@@ -36,7 +36,12 @@ export function DynamicForm<T extends FieldValues>({
     );
   }
 
-  const gridCols = config.columns === 1 ? 'grid-cols-1' : 'grid-cols-2';
+  const gridCols =
+    config.columns === 1
+      ? 'grid-cols-1'
+      : config.columns === 3
+        ? 'grid-cols-1 laptop:grid-cols-2 desktop-1920:grid-cols-3'
+        : 'grid-cols-1 laptop:grid-cols-2';
 
   return (
     <Form {...form}>
@@ -45,7 +50,18 @@ export function DynamicForm<T extends FieldValues>({
         className={`w-full grid ${gridCols} gap-x-12 gap-y-6 px-12 py-10 relative`}
       >
         {config.fields.map((field) => {
-          const spanClass = field.colSpan === 2 && gridCols === 'grid-cols-2' ? 'col-span-2' : '';
+          let spanClass = '';
+
+          if (field.colSpan === 2) {
+            spanClass =
+              config.columns === 3
+                ? 'col-span-1 laptop:col-span-2 desktop-1920:col-span-2'
+                : config.columns === 2
+                  ? 'col-span-1 laptop:col-span-2'
+                  : 'col-span-1';
+          } else if (field.colSpan === 3) {
+            spanClass = 'col-span-1 laptop:col-span-2 desktop-1920:col-span-3';
+          }
 
           return (
             <div key={field.name} className={spanClass}>
@@ -63,7 +79,15 @@ export function DynamicForm<T extends FieldValues>({
         )}
 
         {/* Botones */}
-        <div className={`${gridCols === 'grid-cols-2' ? 'col-span-2' : 'col-span-1'} flex justify-end gap-4 mt-4`}>
+        <div
+          className={`${
+            config.columns === 3
+              ? 'col-span-1 laptop:col-span-2 desktop-1920:col-span-3'
+              : config.columns === 2
+                ? 'col-span-1 laptop:col-span-2'
+                : 'col-span-1'
+          } flex justify-end gap-4 mt-4`}
+        >
           {displayCancelButton && (
             <Link href={cancelUrl!}>
               <Button type="button" variant="primary">

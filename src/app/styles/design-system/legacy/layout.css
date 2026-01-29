@@ -45,3 +45,27 @@
   --breakpoint-desktop-1400: 87.5rem; /* 1400px */
   --breakpoint-desktop-1920: 120rem; /* 1920px */
 }
+
+/* Clases utilitarias para el responsive del form */
+@media (min-width: 64rem) {
+  /* laptop */
+  .laptop\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .laptop\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+@media (min-width: 120rem) {
+  /* desktop-1920 */
+  .desktop-1920\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .desktop-1920\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+  .desktop-1920\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+}
