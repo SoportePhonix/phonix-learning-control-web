@@ -1,8 +1,12 @@
+import { error } from 'node:console';
+
 export const e = {
   edit: 'Editar',
   editCompany: 'Editar empresa',
   editCourse: 'Editar curso',
   editUser: 'Editar usuario',
+  editArea: 'Editar área',
+  editPosition: 'Editar cargo',
   email: 'Correo electrónico',
   emailAddress: 'Dirección de correo',
   emailAddressRequired: 'Correo electrónico requerido',
@@ -23,4 +27,6 @@ export const e = {
   existingNit: 'Nit existente',
   existingShortName: 'Nombre corto existente',
   existingEmail: 'Email existente',
+  existingAreaName: 'Nombre de área existente',
+  existingPositionName: 'Nombre de cargo existente',
 };

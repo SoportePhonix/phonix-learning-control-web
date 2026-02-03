@@ -1,8 +1,12 @@
+import { exist } from 'joi';
+
 export const e = {
   edit: 'Edit',
   editCompany: 'Edit company',
   editCourse: 'Edit course',
   editUser: 'Edit user',
+  editArea: 'Edit area',
+  editPosition: 'Edit position',
   email: 'Email',
   emailAddress: 'Email address',
   emailAddressRequired: 'Email address required',
@@ -23,4 +27,6 @@ export const e = {
   existingNit: 'Existing nit',
   existingShortName: 'Existing short name',
   existingEmail: 'Existing email',
+  existingAreaName: 'Existing area name',
+  existingPositionName: 'Existing position name',
 };
