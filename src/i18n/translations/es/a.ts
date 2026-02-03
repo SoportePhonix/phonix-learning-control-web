@@ -17,7 +17,7 @@ export const a = {
   addUser: 'Agregar Usuario',
   addStudent: 'Agregar Estudiante',
   addUsers: 'Agregar usuarios',
-  addArea: 'Agregar cargo',
+  addArea: 'Agregar área',
   admin: 'Administrador',
   all: 'Todos',
   areYouSureYouWantToDeleteThisCompany: '¿Estás seguro de eliminar esta empresa?',
