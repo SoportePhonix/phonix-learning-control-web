@@ -97,9 +97,9 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
       const isCurrentUser = Number(currentUserId) === Number(userId);
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center">
           <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
-          {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
+          {/*   {!isCurrentUser && <DeleteUser userId={Number(userId)} />} */}
         </div>
       );
     },
