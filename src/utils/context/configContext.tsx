@@ -21,6 +21,9 @@ export interface AppConfig {
   informationIcon: boolean;
   informationIconEmail: string;
 
+  // Configuración de presentación
+  presentationMode: boolean;
+
   // Logging
   logLevel: string;
   useSilentLogger: boolean;
@@ -44,6 +47,7 @@ const DEFAULT_CONFIG: AppConfig = {
   apiForResources: '',
   informationIcon: false,
   informationIconEmail: '',
+  presentationMode: false, // Valor por defecto conservador
   logLevel: 'info',
   useSilentLogger: false,
   disableConsoleLogging: false,
@@ -52,7 +56,15 @@ const DEFAULT_CONFIG: AppConfig = {
   hostnameServer: '',
 };
 
-const ConfigContext = createContext<AppConfig>(DEFAULT_CONFIG);
+export interface AppConfigContext {
+  config: AppConfig;
+  isLoading: boolean;
+}
+
+const ConfigContext = createContext<AppConfigContext>({
+  config: DEFAULT_CONFIG,
+  isLoading: true,
+});
 
 interface ConfigProviderProps {
   children: ReactNode;
@@ -83,13 +95,21 @@ export function ConfigProvider({ children }: ConfigProviderProps) {
       });
   }, []);
 
-  return <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>;
+  return <ConfigContext.Provider value={{ config, isLoading }}>{children}</ConfigContext.Provider>;
 }
 
 export const useConfig = () => {
   const context = useContext(ConfigContext);
   if (!context) {
     throw new Error('useConfig must be used within ConfigProvider');
+  }
+  return context.config;
+};
+
+export const useConfigWithLoading = () => {
+  const context = useContext(ConfigContext);
+  if (!context) {
+    throw new Error('useConfigWithLoading must be used within ConfigProvider');
   }
   return context;
 };

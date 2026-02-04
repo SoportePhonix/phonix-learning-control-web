@@ -1,4 +1,4 @@
 export { SessionExpiredProvider } from './sessionExpired';
 export { SessionContextProvider } from './sessionContext';
-export { ConfigProvider, useConfig } from './configContext';
-export type { AppConfig } from './configContext';
+export { ConfigProvider, useConfig, useConfigWithLoading } from './configContext';
+export type { AppConfig, AppConfigContext } from './configContext';

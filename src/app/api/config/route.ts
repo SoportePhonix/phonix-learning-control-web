@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Debug temporal - ver qué valor tiene la variable de entorno
+  console.log('🔍 API Config - PRESENTATION env:', process.env.PRESENTATION);
+
   return NextResponse.json({
     // URLs Base
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL || '',
@@ -19,6 +22,9 @@ export async function GET() {
     // Configuración de información
     informationIcon: process.env.NEXT_PUBLIC_INFORMATION_ICON === 'true',
     informationIconEmail: process.env.NEXT_PUBLIC_INFORMATION_ICON_EMAIL || '',
+
+    // Configuración de presentación
+    presentationMode: process.env.PRESENTATION === 'true',
 
     // Logging
     logLevel: process.env.NEXT_PUBLIC_LOG_LEVEL || 'info',
