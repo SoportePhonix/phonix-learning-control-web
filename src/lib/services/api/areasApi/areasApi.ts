@@ -1,5 +1,15 @@
 import { api } from '../api';
-import { GetAreasByIdRequest, GetAreasByIdResponse, GetAreasResponse } from './interface';
+import {
+  AddAreasDataResponse,
+  AddAreasRequest,
+  DeleteAreasRequest,
+  DeleteAreasResponse,
+  GetAreasByIdRequest,
+  GetAreasByIdResponse,
+  GetAreasResponse,
+  UpdateAreasRequest,
+  UpdateAreasResponse,
+} from './interface';
 
 export const areasApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,6 +20,29 @@ export const areasApi = api.injectEndpoints({
     getAreaById: builder.query<GetAreasByIdResponse, GetAreasByIdRequest>({
       query: ({ areaId }) => `/areas/${areaId}`,
       providesTags: (result, error, { areaId }) => [{ type: 'Areas', id: areaId }],
+    }),
+    addAreas: builder.mutation<AddAreasDataResponse, AddAreasRequest>({
+      query: (params) => ({
+        url: '/areas/add',
+        method: 'POST',
+        body: params,
+      }),
+      invalidatesTags: ['Areas'],
+    }),
+    updateAreas: builder.mutation<UpdateAreasResponse, UpdateAreasRequest>({
+      query: ({ id, ...params }) => ({
+        url: `/areas/edit/${id}`,
+        method: 'PUT',
+        body: params,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Areas' }, { type: 'Areas', id }],
+    }),
+    deleteAreas: builder.mutation<DeleteAreasResponse, DeleteAreasRequest>({
+      query: ({ id }) => ({
+        url: `/areas/delete/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Areas' }, { type: 'Areas', id }],
     }),
   }),
   overrideExisting: true,
@@ -29,4 +62,7 @@ export const {
   /**
    * Mutations
    */
+  useAddAreasMutation,
+  useUpdateAreasMutation,
+  useDeleteAreasMutation,
 } = areasApi;

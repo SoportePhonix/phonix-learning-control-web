@@ -15,6 +15,8 @@ export const u = {
   updatedSuccessfully: 'Actualizad@ con éxito',
   updateStudent: 'Actualizar estudiante',
   updateUser: 'Actualizar usuario',
+  updateArea: 'Actualizar área',
+  updatePosition: 'Actualizar cargo',
   updating: 'Actualizando',
   upload: 'Cargar',
   url: 'URL',

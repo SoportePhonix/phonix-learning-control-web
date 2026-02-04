@@ -20,6 +20,7 @@ import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon'
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
 import { useSessionContext } from '@/utils/context/sessionContext';
+import { HardHat, NotebookText } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -72,12 +73,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ),
       },
       {
+        name: t('a.areas'),
+        url: '/areas',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+          <NotebookText {...props} />
+        ),
+      },
+      {
+        name: t('p.post'),
+        url: '/positions',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HardHat {...props} />,
+      },
+      {
         name: t('c.courses'),
         url: '/courses',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CourseIcon {...props} />,
       },
-      // {
-      //   name: t('t.trainingPathways'),
+      // {      //   name: t('t.trainingPathways'),
       //   url: '/trainingPathways',
       //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
       //     <TrainingPathwaysIcon {...props} />

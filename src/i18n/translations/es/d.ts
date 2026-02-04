@@ -11,6 +11,8 @@ export const d = {
   deleteCourse: 'Eliminar curso',
   deleteUser: 'Eliminar usuario',
   deleteStudent: 'Eliminar estudiante',
+  deleteArea: 'Eliminar área',
+  deletePosition: 'Eliminar cargo',
   department: 'Departamento',
   description: 'Descripción',
   detail: 'Detalle',
