@@ -1,8 +1,8 @@
 'use client';
 
-import { getTrainingRoutesColumns } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.columns';
-import { trainingRoutesMock } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.mock';
-import { TrainingRoute } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.types';
+import { getTrainingRoutesColumns } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.columns';
+import { trainingRoutesMock } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.mock';
+import { TrainingRoute } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.types';
 import { DataTable } from '@/components/ui/data-table';
 
 export function TrainingRoutesTable({
