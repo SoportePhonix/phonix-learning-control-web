@@ -18,7 +18,6 @@ type UseAreaFormProps = {
 export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
   const { t } = useTranslation();
 
-  // Obtener datos del área por ID (solo en modo edición)
   const areaById = useGetAreaByIdQuery(
     { areaId: areaId! },
     {
@@ -26,10 +25,8 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
     }
   );
 
-  // Obtener lista de empresas para el select
   const companiesQuery = useGetCompaniesQuery();
 
-  // Opciones de estado
   const statusOptions: SelectOption[] = useMemo(
     () => [
       { value: 'active', label: t('a.active') },
@@ -38,7 +35,6 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
     [t]
   );
 
-  // Opciones de empresas
   const companyOptions: SelectOption[] = useMemo(() => {
     if (!companiesQuery.data?.data) return [];
 
@@ -48,7 +44,6 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
     }));
   }, [companiesQuery.data]);
 
-  // Configuración del formulario con opciones dinámicas
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...areasFormConfig };
 
@@ -65,7 +60,6 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
     return config;
   }, [statusOptions, companyOptions]);
 
-  // Llenar formulario en modo edición
   useEffect(() => {
     if (mode === 'edit' && areaById.data?.data) {
       const area = areaById.data.data;

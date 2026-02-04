@@ -18,7 +18,6 @@ type UsePositionFormProps = {
 export function usePositionForm({ mode, positionId, form }: UsePositionFormProps) {
   const { t } = useTranslation();
 
-  // Obtener datos de la posición por ID (solo en modo edición)
   const positionById = useGetPositionByIdQuery(
     { positionId: positionId! },
     {
@@ -26,10 +25,8 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
     }
   );
 
-  // Obtener lista de empresas para el select
   const companiesQuery = useGetCompaniesQuery();
 
-  // Opciones de estado
   const statusOptions: SelectOption[] = useMemo(
     () => [
       { value: 'active', label: t('a.active') },
@@ -38,7 +35,6 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
     [t]
   );
 
-  // Opciones de empresas
   const companyOptions: SelectOption[] = useMemo(() => {
     if (!companiesQuery.data?.data) return [];
 
@@ -48,7 +44,6 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
     }));
   }, [companiesQuery.data]);
 
-  // Configuración del formulario con opciones dinámicas
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...positionsFormConfig };
 
@@ -65,7 +60,6 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
     return config;
   }, [statusOptions, companyOptions]);
 
-  // Llenar formulario en modo edición
   useEffect(() => {
     if (mode === 'edit' && positionById.data?.data) {
       const position = positionById.data.data;
