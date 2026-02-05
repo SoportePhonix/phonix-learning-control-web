@@ -31,12 +31,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { config, isLoading } = useConfigWithLoading();
 
   const isDarkMode = theme === 'dark';
-  // Durante la carga NO mostramos el icono para evitar parpadeo
-  // Solo lo mostramos cuando cargue Y sea true en la configuración
   const isPresentationMode = React.useMemo(() => {
     const result = !isLoading && config.presentationMode;
-    // Debug temporal - puedes quitar esto después
-    console.log('🔍 Debug sidebar:', { isLoading, presentationMode: config.presentationMode, result });
     return result;
   }, [isLoading, config.presentationMode]);
 
@@ -60,22 +56,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
     ],
     sections: [
+      // {
+      //   name: t('h.home'),
+      //   url: '/home',
+      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HomeIcon {...props} />,
+      // },
+      {
+        name: t('u.users'),
+        url: '/users',
+        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserIcon {...props} />,
+      },
       ...(isPresentationMode
         ? [
-            /*           {
-                      name: t('h.home'),
-                      url: '/home',
-                      icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-                        <HomeIcon {...props} />
-                      ),
-                    }, */
-            {
-              name: t('u.users'),
-              url: '/users-app',
-              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-                <UserIcon {...props} />
-              ),
-            },
             {
               name: t('s.students'),
               url: '/students-app',
@@ -99,13 +91,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ]
         : [
-            {
-              name: t('u.users'),
-              url: '/users',
-              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-                <UserIcon {...props} />
-              ),
-            },
             {
               name: t('c.companies'),
               url: '/companies',

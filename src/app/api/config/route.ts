@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  // Debug temporal - ver qué valor tiene la variable de entorno
-  console.log('🔍 API Config - PRESENTATION env:', process.env.PRESENTATION);
-
   return NextResponse.json({
     // URLs Base
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL || '',
