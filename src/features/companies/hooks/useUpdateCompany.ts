@@ -24,7 +24,7 @@ export function useUpdateCompany(companyId: string) {
         ...payload,
       }).unwrap();
 
-      toast.success(t('c.companyUpdatedSuccessfully'), {
+      toast.success(`${values.name} ${t('u.updatedSuccessfully')}`, {
         id: 'company-updated-success',
       });
 

@@ -38,7 +38,8 @@ export function useCreateCompanies(form: UseFormReturn<FormValues>) {
 
       await addCompany(payload).unwrap();
 
-      (toast.success(t('c.companyCreatedSuccessfully')), router.push('/companies'));
+      toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
+      router.push('/companies');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
