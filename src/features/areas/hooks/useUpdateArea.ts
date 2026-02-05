@@ -39,7 +39,7 @@ export function useUpdateArea(areaId: string, form: UseFormReturn<AreasFormValue
 
       await updateArea(payload).unwrap();
 
-      toast.success(t('a.areaUpdatedSuccessfully'));
+      toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
       router.push('/areas');
     } catch (err: any) {
       const status = err?.status ?? 500;

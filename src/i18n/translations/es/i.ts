@@ -20,5 +20,5 @@ export const i = {
   invalidFormat: 'Formato inválido',
   initiated: 'Iniciado',
   institution: 'Institución',
-  isRequired: 'Es requerido',
+  isRequired: 'es requerido',
 };

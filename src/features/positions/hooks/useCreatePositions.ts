@@ -38,7 +38,7 @@ export function useCreatePositions(form: UseFormReturn<PositionsFormValues>) {
 
       await addPosition(payload).unwrap();
 
-      toast.success(t('p.positionCreatedSuccessfully'));
+      toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
       router.push('/positions');
     } catch (err: any) {
       const status = err?.status ?? 500;

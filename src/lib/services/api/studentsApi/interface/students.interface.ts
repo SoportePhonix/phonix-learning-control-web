@@ -1,5 +1,3 @@
-import { DocumentTypesResponse } from '../../typeOfIdentificationDocumentApi/interface/typeOfIdentificationDocument.interface';
-
 export interface GetStudentsResponse {
   data: Students[];
 }
@@ -11,7 +9,7 @@ export interface Students {
   email: string;
   username?: string;
   password?: string;
-  documentType?: { id: number; name: string };
+  documentType?: { id: string; name: string };
   documentNumber?: string;
   description?: string;
   city?: string;
@@ -50,6 +48,7 @@ export interface AddStudentsRequest {
   firstname: string;
   lastname: string;
   email: string;
+  companyId: number;
   username?: string;
   password?: string;
   documentTypeId?: number;
@@ -62,19 +61,17 @@ export interface AddStudentsRequest {
   phone?: string;
   address?: string;
   status?: string;
-  companyId: number;
   areaId?: number;
   positionId?: number;
 }
 
 export interface AddStudentsDataResponse {
   data: {
+    id: number;
     firstname: string;
     lastname: string;
     email: string;
     username?: string;
-    password?: string;
-    documentTypeId?: DocumentTypesResponse;
     documentNumber?: string;
     description?: string;
     city?: string;
@@ -83,9 +80,32 @@ export interface AddStudentsDataResponse {
     department?: string;
     phone?: string;
     address?: string;
-    status?: string;
-    areaId?: number;
-    positionId?: number;
+    status: string;
+    area?: {
+      id: number;
+      name: string;
+      description: string;
+      status: string;
+      companyId: number;
+    };
+    position?: {
+      id: number;
+      name: string;
+      description: string;
+      status: string;
+      companyId: number;
+    };
+    company: {
+      id: number;
+      name: string;
+      nit: string;
+      email: string;
+      status: string;
+    };
+    documentType?: {
+      id: string;
+      name: string;
+    };
   };
   isSuccess: boolean;
 }
@@ -103,6 +123,7 @@ export interface UpdateStudentsRequest {
   firstname: string;
   lastname: string;
   email: string;
+  companyId: number;
   username?: string;
   password?: string;
   documentTypeId?: number;
@@ -115,19 +136,17 @@ export interface UpdateStudentsRequest {
   phone?: string;
   address?: string;
   status?: string;
-  companyId?: number;
   areaId?: number;
   positionId?: number;
 }
 
 export interface UpdateStudentsResponse {
   data: {
+    id: number;
     firstname: string;
     lastname: string;
     email: string;
     username?: string;
-    password?: string;
-    documentTypeId?: DocumentTypesResponse;
     documentNumber?: string;
     description?: string;
     city?: string;
@@ -136,9 +155,32 @@ export interface UpdateStudentsResponse {
     department?: string;
     phone?: string;
     address?: string;
-    status?: string;
-    areaId?: number;
-    positionId?: number;
+    status: string;
+    area?: {
+      id: number;
+      name: string;
+      description: string;
+      status: string;
+      companyId: number;
+    };
+    position?: {
+      id: number;
+      name: string;
+      description: string;
+      status: string;
+      companyId: number;
+    };
+    company: {
+      id: number;
+      name: string;
+      nit: string;
+      email: string;
+      status: string;
+    };
+    documentType?: {
+      id: string;
+      name: string;
+    };
   };
   isSuccess: boolean;
 }

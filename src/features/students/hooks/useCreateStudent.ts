@@ -26,8 +26,9 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         firstname: values.firstname,
         lastname: values.lastname,
         email: values.email,
+        companyId: Number(values.companyId),
         ...(values.username && { username: values.username }),
-        password: values.password,
+        ...(values.password && { password: values.password }),
         ...(values.documentTypeId && { documentTypeId: Number(values.documentTypeId) }),
         ...(values.documentNumber && { documentNumber: values.documentNumber }),
         ...(values.description && { description: values.description }),
@@ -37,8 +38,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         ...(values.department && { department: values.department }),
         ...(values.phone && { phone: values.phone }),
         ...(values.address && { address: values.address }),
-        status: values.status || 'active',
-        ...(values.company && { companyId: Number(values.company) }),
+        ...(values.status && { status: values.status }),
         ...(values.areaId && { areaId: Number(values.areaId) }),
         ...(values.positionId && { positionId: Number(values.positionId) }),
       };
@@ -51,6 +51,13 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = (err?.data?.message || '').toString();
+
+      if (status === 404) {
+        if (errorMessage.toLowerCase().includes('area') || errorMessage.toLowerCase().includes('position')) {
+          toast.error('El área o posición seleccionada no pertenece a la compañía elegida');
+          return;
+        }
+      }
 
       if (status === 409) {
         if (errorMessage.toLowerCase().includes('email')) {

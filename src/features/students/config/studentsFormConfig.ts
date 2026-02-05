@@ -24,7 +24,7 @@ export const userFormConfig: FormConfig = {
       required: true,
     },
     {
-      name: 'company',
+      name: 'companyId',
       label: 'c.company',
       type: 'select',
       placeholder: 's.selectAnOption',
@@ -36,7 +36,7 @@ export const userFormConfig: FormConfig = {
       label: 'p.password',
       type: 'password',
       placeholder: 'e.enterAValue',
-      required: { create: true, edit: false },
+      required: false,
       validation: {
         minLength: 8,
         minLengthMessage: 'p.passwordValidationMessage',
@@ -136,12 +136,12 @@ export const userFormConfig: FormConfig = {
       options: [],
     },
     {
-      name: 'summary',
-      label: 's.summary',
+      name: 'description',
+      label: 'd.description',
       type: 'textarea',
       placeholder: 'e.enterAValue',
       required: false,
-      colSpan: 2,
+      colSpan: 3,
     },
   ],
   columns: 3,

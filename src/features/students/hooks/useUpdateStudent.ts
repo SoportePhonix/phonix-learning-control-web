@@ -13,21 +13,21 @@ export function useUpdateStudent(userId: string) {
       firstname: values.firstname,
       lastname: values.lastname,
       email: values.email,
-      username: values.username,
-      password: values.password,
-      documentTypeId: Number(values.documentTypeId),
-      documentNumber: values.documentNumber,
-      description: values.description,
-      city: values.city,
-      country: values.country,
-      institution: values.institution,
-      department: values.department,
-      phone: values.phone,
-      address: values.address,
-      status: values.status ?? 'active',
-      ...(values.companyId && { companyId: Number(values.companyId) }),
-      ...(values.areaId ? { areaId: Number(values.areaId) } : {}),
-      ...(values.positionId ? { positionId: Number(values.positionId) } : {}),
+      companyId: Number(values.companyId),
+      ...(values.username && { username: values.username }),
+      ...(values.password && { password: values.password }),
+      ...(values.documentTypeId && { documentTypeId: Number(values.documentTypeId) }),
+      ...(values.documentNumber && { documentNumber: values.documentNumber }),
+      ...(values.description && { description: values.description }),
+      ...(values.city && { city: values.city }),
+      ...(values.country && { country: values.country }),
+      ...(values.institution && { institution: values.institution }),
+      ...(values.department && { department: values.department }),
+      ...(values.phone && { phone: values.phone }),
+      ...(values.address && { address: values.address }),
+      ...(values.status && { status: values.status }),
+      ...(values.areaId && { areaId: Number(values.areaId) }),
+      ...(values.positionId && { positionId: Number(values.positionId) }),
     };
 
     try {
@@ -44,6 +44,13 @@ export function useUpdateStudent(userId: string) {
     } catch (err: any) {
       const status = err?.status ?? 500;
       const message = (err?.data?.message || '').toString().toLowerCase();
+
+      if (status === 404) {
+        if (message.includes('area') || message.includes('position')) {
+          toast.error('El área o posición seleccionada no pertenece a la compañía elegida');
+          return;
+        }
+      }
 
       if (status === 409) {
         if (message.includes('email')) {

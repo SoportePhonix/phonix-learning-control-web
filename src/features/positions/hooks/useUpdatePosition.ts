@@ -39,7 +39,7 @@ export function useUpdatePosition(positionId: string, form: UseFormReturn<Positi
 
       await updatePosition(payload).unwrap();
 
-      toast.success(t('p.positionUpdatedSuccessfully'));
+      toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
       router.push('/positions');
     } catch (err: any) {
       const status = err?.status ?? 500;

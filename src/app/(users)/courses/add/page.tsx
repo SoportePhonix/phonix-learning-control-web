@@ -18,7 +18,6 @@ export default function Page() {
     defaultValues: {
       fullName: '',
       shortName: '',
-      categoryId: '',
       summary: '',
       status: '',
       startDate: '',

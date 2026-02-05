@@ -18,17 +18,18 @@ export const coursesFormConfig: FormConfig = {
       required: true,
     },
     {
-      name: 'categoryId',
-      label: 'c.categoryId',
-      type: 'number',
-      placeholder: 'e.enterAValue',
-      required: true,
-    },
-    {
       name: 'status',
       label: 's.status',
       type: 'select',
       required: true,
+    },
+    {
+      name: 'companyId',
+      label: 'c.company',
+      type: 'select',
+      placeholder: 's.selectAnOption',
+      required: true,
+      options: [],
     },
     {
       name: 'startDate',
@@ -43,20 +44,12 @@ export const coursesFormConfig: FormConfig = {
       required: false,
     },
     {
-      name: 'companyId',
-      label: 'c.company',
-      type: 'select',
-      placeholder: 's.selectAnOption',
-      required: true,
-      options: [],
-    },
-    {
       name: 'summary',
       label: 's.summary',
       type: 'textarea',
       placeholder: 'e.enterAValue',
       required: false,
-      colSpan: 1,
+      colSpan: 2,
     },
   ],
 };
