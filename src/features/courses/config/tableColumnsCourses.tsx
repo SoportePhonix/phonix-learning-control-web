@@ -30,10 +30,6 @@ export const tableColumnsCourses = (
     header: t('f.fullName'),
   },
   {
-    accessorKey: 'categoryId',
-    header: t('c.categoryId'),
-  },
-  {
     accessorKey: 'summary',
     header: t('s.summary'),
     cell: ({ row }) => {

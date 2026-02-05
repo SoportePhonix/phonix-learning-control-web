@@ -6,12 +6,11 @@ export interface Courses {
   id: number;
   fullName: string;
   shortName: string;
-  categoryId: number;
   status: string;
   summary?: string;
   startDate?: string;
   endDate?: string;
-  companyId?: number;
+  companyId: number;
   companyName?: string;
   companies?: Array<{
     id: number;
@@ -22,23 +21,24 @@ export interface Courses {
 export interface AddCoursesRequest {
   fullName: string;
   shortName: string;
-  categoryId: number;
   status: string;
-  summary: string;
-  startDate: string;
-  endDate: string;
-  companyId?: number;
+  companyId: number;
+  summary?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface AddCoursesDataResponse {
   data: {
+    id: number;
     fullName: string;
     shortName: string;
-    categoryId: number;
+    summary?: string;
     status: string;
-    summary: string;
-    startDate: string;
-    endDate: string;
+    startDate?: string;
+    endDate?: string;
+    companyId: number;
+    companyName?: string;
   };
   isSuccess: boolean;
 }
@@ -55,23 +55,24 @@ export interface UpdateCoursesRequest {
   id: number;
   fullName: string;
   shortName: string;
-  categoryId: number;
   status: string;
-  summary: string;
+  companyId: number;
+  summary?: string;
   startDate?: string;
   endDate?: string;
-  companyId?: number;
 }
 
 export interface UpdateCoursesResponse {
   data: {
+    id: number;
     fullName: string;
     shortName: string;
-    categoryId: number;
+    summary?: string;
     status: string;
-    summary: string;
-    startDate: string;
-    endDate: string;
+    startDate?: string;
+    endDate?: string;
+    companyId: number;
+    companyName?: string;
   };
   isSuccess: boolean;
 }

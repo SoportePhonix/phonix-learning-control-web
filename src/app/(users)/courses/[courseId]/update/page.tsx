@@ -22,7 +22,6 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
     defaultValues: {
       fullName: '',
       shortName: '',
-      categoryId: '',
       status: '',
       summary: '',
       startDate: '',

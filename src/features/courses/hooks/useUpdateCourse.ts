@@ -16,18 +16,17 @@ export function useUpdateCourse(courseId: string) {
       id: Number(courseId),
       fullName: values.fullName,
       shortName: values.shortName,
-      categoryId: Number(values.categoryId),
-      summary: values.summary,
       status: values.status ?? 'active',
-      startDate: values.startDate || '',
-      endDate: values.endDate || '',
-      ...(values.companyId !== '' && { companyId: Number(values.companyId) }),
+      companyId: Number(values.companyId),
+      ...(values.summary && { summary: values.summary }),
+      ...(values.startDate && { startDate: values.startDate }),
+      ...(values.endDate && { endDate: values.endDate }),
     };
 
     try {
       await updateCoursesMutation(payload).unwrap();
 
-      toast.success(t('c.courseUpdatedSuccessfully'), {
+      toast.success(`${values.fullName} ${t('u.updatedSuccessfully')}`, {
         id: 'course-updated-success',
       });
 

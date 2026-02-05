@@ -24,43 +24,26 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      if (!values.startDate || !values.endDate) {
-        setApiErrorMessage('c.courseCreationFailed');
-        return;
-      }
-
       const payload: AddCoursesRequest = {
         fullName: values.fullName,
         shortName: values.shortName,
-        categoryId: Number(values.categoryId),
-        summary: values.summary,
         status: values.status,
-        startDate: values.startDate,
-        endDate: values.endDate,
-        ...(values.companyId && { companyId: Number(values.companyId) }),
+        companyId: Number(values.companyId),
+        ...(values.summary && { summary: values.summary }),
+        ...(values.startDate && { startDate: values.startDate }),
+        ...(values.endDate && { endDate: values.endDate }),
       };
 
       await addCourses(payload).unwrap();
 
-      toast.success(t('c.courseCreatedSuccessfully'));
+      toast.success(`${values.fullName} ${t('a.addedSuccessfully')}`);
       router.push('/courses');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
       if (status === 409) {
-        if (errorMessage.toLowerCase().includes('shortName')) {
-          form.setError('shortName', {
-            type: 'manual',
-            message: t('e.existingShortName'),
-          });
-          return;
-        }
-
-        if (
-          errorMessage.toLowerCase().includes('course with this shortname already exists') ||
-          errorMessage.toLowerCase().includes('shortName')
-        ) {
+        if (errorMessage.toLowerCase().includes('shortname')) {
           form.setError('shortName', {
             type: 'manual',
             message: t('e.existingShortName'),

@@ -37,7 +37,7 @@ export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFo
       { value: 'active', label: t('a.active') },
       { value: 'inactive', label: t('i.inactive') },
     ],
-    []
+    [t]
   );
 
   const formConfig: FormConfig = useMemo(() => {
@@ -71,12 +71,15 @@ export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFo
       {
         fullName: course.fullName ?? '',
         shortName: course.shortName ?? '',
-        categoryId: String(course.categoryId ?? ''),
         summary: course.summary ?? '',
         status: course.status || '',
         startDate: course.startDate ? course.startDate.split('T')[0] : '',
         endDate: course.endDate ? course.endDate.split('T')[0] : '',
-        companyId: course.companies?.[0]?.id ? String(course.companies[0].id) : '',
+        companyId: course.companyId
+          ? String(course.companyId)
+          : course.companies?.[0]?.id
+            ? String(course.companies[0].id)
+            : '',
       },
       { keepDefaultValues: false }
     );
