@@ -29,7 +29,6 @@ export default function Page() {
       department: '',
       phone: '',
       address: '',
-      status: '',
       companyId: '',
       areaId: '',
       positionId: '',

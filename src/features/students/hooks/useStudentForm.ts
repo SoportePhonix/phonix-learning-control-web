@@ -24,6 +24,8 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
   const { data: positionsData } = useGetPositionsQuery();
   const studentById = useGetStudentByIdQuery({ studentId: studentId! }, { skip: mode === 'create' || !studentId });
 
+  const selectedCompanyId = form.watch('companyId');
+
   const typesIdOptions: SelectOption[] = useMemo(
     () =>
       typesIdData?.data?.map((type: any) => ({
@@ -55,23 +57,28 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
   const areasOptions: SelectOption[] = useMemo(
     () =>
       areasData?.data
-        ?.filter((area) => area.status === 'active')
+        ?.filter(
+          (area) => area.status === 'active' && (!selectedCompanyId || String(area.companyId) === selectedCompanyId)
+        )
         .map((area) => ({
           value: String(area.id),
           label: area.name,
         })) ?? [],
-    [areasData]
+    [areasData, selectedCompanyId]
   );
 
   const positionsOptions: SelectOption[] = useMemo(
     () =>
       positionsData?.data
-        ?.filter((position) => position.status === 'active')
+        ?.filter(
+          (position) =>
+            position.status === 'active' && (!selectedCompanyId || String(position.companyId) === selectedCompanyId)
+        )
         .map((position) => ({
           value: String(position.id),
           label: position.name,
         })) ?? [],
-    [positionsData]
+    [positionsData, selectedCompanyId]
   );
 
   const formConfig: FormConfig = useMemo(() => {
@@ -103,7 +110,7 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
 
     config.fields = config.fields
       .map((field) => {
-        if (field.name === 'company') {
+        if (field.name === 'companyId') {
           return {
             ...field,
             options: companiesOptions,
@@ -116,6 +123,13 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
 
     return config;
   }, [mode, typesIdOptions, companiesOptions, statusOptions, areasOptions, positionsOptions]);
+
+  useEffect(() => {
+    if (mode === 'create' && selectedCompanyId) {
+      form.setValue('areaId', '');
+      form.setValue('positionId', '');
+    }
+  }, [selectedCompanyId, form, mode]);
 
   useEffect(() => {}, [form]);
 
@@ -132,7 +146,7 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
           email: studentData.email || '',
           username: studentData.username || '',
           password: '',
-          company: studentData.company ? String(studentData.company.id) : '',
+          companyId: studentData.company ? String(studentData.company.id) : '',
           status: studentData.status || '',
           city: studentData.city || '',
           country: studentData.country || '',
