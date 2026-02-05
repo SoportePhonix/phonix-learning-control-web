@@ -38,7 +38,7 @@ export function useCreateAreas(form: UseFormReturn<AreasFormValues>) {
 
       await addArea(payload).unwrap();
 
-      toast.success(t('a.areaCreatedSuccessfully'));
+      toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
       router.push('/areas');
     } catch (err: any) {
       const status = err?.status ?? 500;
