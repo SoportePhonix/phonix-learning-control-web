@@ -19,6 +19,7 @@ import { HomeIcon } from '@/features/home/components/icons/HomeIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
+import { useConfig, useConfigWithLoading } from '@/utils/context';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { HardHat, NotebookText } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -27,8 +28,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionContext();
   const { theme } = useTheme();
   const { t } = useTranslation();
+  const { config, isLoading } = useConfigWithLoading();
 
   const isDarkMode = theme === 'dark';
+  const isPresentationMode = React.useMemo(() => {
+    const result = !isLoading && config.presentationMode;
+    return result;
+  }, [isLoading, config.presentationMode]);
 
   const userSession = {
     name: `${session?.user?.name} ${session?.user?.lastName}`,
@@ -60,41 +66,67 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         url: '/users',
         icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <UserIcon {...props} />,
       },
-      {
-        name: t('c.companies'),
-        url: '/companies',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CompanyIcon {...props} />,
-      },
-      {
-        name: t('s.students'),
-        url: '/students',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-          <StudentsIcon {...props} />
-        ),
-      },
-      {
-        name: t('a.areas'),
-        url: '/areas',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-          <NotebookText {...props} />
-        ),
-      },
-      {
-        name: t('p.post'),
-        url: '/positions',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <HardHat {...props} />,
-      },
-      {
-        name: t('c.courses'),
-        url: '/courses',
-        icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <CourseIcon {...props} />,
-      },
-      // {      //   name: t('t.trainingPathways'),
-      //   url: '/trainingPathways',
-      //   icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
-      //     <TrainingPathwaysIcon {...props} />
-      //   ),
-      // },
+      ...(isPresentationMode
+        ? [
+            {
+              name: t('s.students'),
+              url: '/students-app',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <StudentsIcon {...props} />
+              ),
+            },
+            {
+              name: t('t.trainingPathways'),
+              url: '/trainingPathways',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <TrainingPathwaysIcon {...props} />
+              ),
+            },
+            {
+              name: t('c.courses'),
+              url: '/courses-app',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <CourseIcon {...props} />
+              ),
+            },
+          ]
+        : [
+            {
+              name: t('c.companies'),
+              url: '/companies',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <CompanyIcon {...props} />
+              ),
+            },
+            {
+              name: t('s.students'),
+              url: '/students',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <StudentsIcon {...props} />
+              ),
+            },
+            {
+              name: t('a.areas'),
+              url: '/areas',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <NotebookText {...props} />
+              ),
+            },
+            {
+              name: t('p.post'),
+              url: '/positions',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <HardHat {...props} />
+              ),
+            },
+            {
+              name: t('c.courses'),
+              url: '/courses',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
+                <CourseIcon {...props} />
+              ),
+            },
+          ]),
     ],
   };
 

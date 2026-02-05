@@ -20,6 +20,9 @@ export async function GET() {
     informationIcon: process.env.NEXT_PUBLIC_INFORMATION_ICON === 'true',
     informationIconEmail: process.env.NEXT_PUBLIC_INFORMATION_ICON_EMAIL || '',
 
+    // Configuración de presentación
+    presentationMode: process.env.PRESENTATION === 'true',
+
     // Logging
     logLevel: process.env.NEXT_PUBLIC_LOG_LEVEL || 'info',
     useSilentLogger: process.env.NEXT_PUBLIC_USE_SILENT_LOGGER === 'true',

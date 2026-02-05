@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 
-import { StudentDetailCard } from '@/app/(users)/students/components/student-detail-card/StudentDetailCard';
-import { RecruitmentAndSelectionTable } from '@/app/(users)/students/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
-import { TrainingRoutesTable } from '@/app/(users)/students/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
-import { recruitmentAndSelectionByRoute } from '@/app/(users)/students/hooks/info/recruitmentAndSelection/recruitmentAndSelection.mock';
-import { trainingRoutesMock } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.mock';
-import { TrainingRoute } from '@/app/(users)/students/hooks/info/trainingRoute/trainingRoutes.types';
-import { studentStatsMock } from '@/app/(users)/students/hooks/studentStats.mock';
-import { studentsMock } from '@/app/(users)/students/hooks/students.mock';
+import { StudentDetailCard } from '@/app/(users)/students-app/components/student-detail-card/StudentDetailCard';
+import { RecruitmentAndSelectionTable } from '@/app/(users)/students-app/components/student-detail-card/info/recruitmentAndSelection/recruitmentAndSelectionTable';
+import { TrainingRoutesTable } from '@/app/(users)/students-app/components/student-detail-card/info/trainingRoute/trainingRoutesTable';
+import { recruitmentAndSelectionByRoute } from '@/app/(users)/students-app/hooks/info/recruitmentAndSelection/recruitmentAndSelection.mock';
+import { trainingRoutesMock } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.mock';
+import { TrainingRoute } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.types';
+import { studentStatsMock } from '@/app/(users)/students-app/hooks/studentStats.mock';
+import { studentsMock } from '@/app/(users)/students-app/hooks/students.mock';
 import { SectionTitle } from '@/components/section-title';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
