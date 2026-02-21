@@ -27,6 +27,28 @@
     --nav-separator-bg: var(--primitive_verde_medio);
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
+
+    --nav-menu-parent-open-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-open-text: var(--primitive_verde_base);
+    --nav-menu-parent-open-hover-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-closed-active-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-closed-active-text: var(--primitive_verde_base);
+    --nav-menu-parent-inactive-bg: transparent;
+    --nav-menu-parent-inactive-text: var(--primitive_azul_brillante);
+    --nav-menu-parent-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-menu-parent-collapsed-active-bg: var(--primitive_azul_principal);
+
+    --nav-submenu-item-active-bg: var(--primitive_fondo_base);
+    --nav-submenu-item-active-text: var(--primitive_verde_base);
+    --nav-submenu-item-default-bg: var(--primitive_azul_principal) / 0.15;
+    --nav-submenu-item-inactive-bg: transparent;
+    --nav-submenu-item-inactive-text: var(--primitive_azul_brillante);
+    --nav-submenu-item-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-submenu-bullet-active: var(--primitive_verde_base);
+    --nav-submenu-bullet-inactive: var(--primitive_azul_brillante);
+
+    --nav-chevron-color: var(--primitive_azul_brillante);
+    --nav-chevron-active-color: var(--primitive_verde_base);
   }
 
   .dark {
@@ -57,6 +79,28 @@
     --nav-separator-bg: var(--primitive_verde_medio);
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
+
+    --nav-menu-parent-open-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-open-text: var(--primitive_verde_base);
+    --nav-menu-parent-open-hover-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-closed-active-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-closed-active-text: var(--primitive_verde_base);
+    --nav-menu-parent-inactive-bg: transparent;
+    --nav-menu-parent-inactive-text: var(--primitive_azul_brillante);
+    --nav-menu-parent-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-menu-parent-collapsed-active-bg: var(--primitive_azul_principal);
+
+    --nav-submenu-item-active-bg: var(--primitive_fondo_base);
+    --nav-submenu-item-active-text: var(--primitive_verde_base);
+    --nav-submenu-item-default-bg: var(--primitive_azul_principal) / 0.15;
+    --nav-submenu-item-inactive-bg: transparent;
+    --nav-submenu-item-inactive-text: var(--primitive_azul_brillante);
+    --nav-submenu-item-hover-bg: var(--primitive_fondo_base) / 0.3;
+    --nav-submenu-bullet-active: var(--primitive_verde_base);
+    --nav-submenu-bullet-inactive: var(--primitive_azul_brillante);
+
+    --nav-chevron-color: var(--primitive_azul_brillante);
+    --nav-chevron-active-color: var(--primitive_verde_base);
   }
 }
 
@@ -89,4 +133,26 @@
   --color-nav-separator-bg: hsl(var(--nav-separator-bg));
   --color-nav-badge-bg: hsl(var(--nav-badge-bg));
   --color-nav-badge-text: hsl(var(--nav-badge-text));
+
+  --color-nav-menu-parent-open-bg: hsl(var(--nav-menu-parent-open-bg));
+  --color-nav-menu-parent-open-text: hsl(var(--nav-menu-parent-open-text));
+  --color-nav-menu-parent-open-hover-bg: hsl(var(--nav-menu-parent-open-hover-bg));
+  --color-nav-menu-parent-closed-active-bg: hsl(var(--nav-menu-parent-closed-active-bg));
+  --color-nav-menu-parent-closed-active-text: hsl(var(--nav-menu-parent-closed-active-text));
+  --color-nav-menu-parent-inactive-bg: hsl(var(--nav-menu-parent-inactive-bg));
+  --color-nav-menu-parent-inactive-text: hsl(var(--nav-menu-parent-inactive-text));
+  --color-nav-menu-parent-inactive-hover-bg: hsl(var(--nav-menu-parent-inactive-hover-bg));
+  --color-nav-menu-parent-collapsed-active-bg: hsl(var(--nav-menu-parent-collapsed-active-bg));
+
+  --color-nav-submenu-item-active-bg: hsl(var(--nav-submenu-item-active-bg));
+  --color-nav-submenu-item-active-text: hsl(var(--nav-submenu-item-active-text));
+  --color-nav-submenu-item-default-bg: hsl(var(--nav-submenu-item-default-bg));
+  --color-nav-submenu-item-inactive-bg: hsl(var(--nav-submenu-item-inactive-bg));
+  --color-nav-submenu-item-inactive-text: hsl(var(--nav-submenu-item-inactive-text));
+  --color-nav-submenu-item-hover-bg: hsl(var(--nav-submenu-item-hover-bg));
+  --color-nav-submenu-bullet-active: hsl(var(--nav-submenu-bullet-active));
+  --color-nav-submenu-bullet-inactive: hsl(var(--nav-submenu-bullet-inactive));
+
+  --color-nav-chevron-color: hsl(var(--nav-chevron-color));
+  --color-nav-chevron-active-color: hsl(var(--nav-chevron-active-color));
 }

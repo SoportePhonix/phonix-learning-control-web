@@ -5,15 +5,7 @@ interface StudentsIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export const StudentsIcon = ({ className, ...props }: StudentsIconProps) => (
-  <svg
-    width="22"
-    height="23"
-    viewBox="1 0 23 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    {...props}
-  >
+  <svg viewBox="1 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
     <path
       d="M11.3444 11.8929C14.4214 11.8929 16.9158 9.39844 16.9158 6.32143C16.9158 3.24441 14.4214 0.75 11.3444 0.75C8.26736 0.75 5.77295 3.24441 5.77295 6.32143C5.77295 9.39844 8.26736 11.8929 11.3444 11.8929Z"
       stroke="currentColor"
