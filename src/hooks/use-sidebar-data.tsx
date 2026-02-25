@@ -21,12 +21,12 @@ interface UseSidebarDataProps {
 
 interface NavMainItem {
   title: string;
-  url: string;
+  url?: string;
   icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
   items: {
     title: string;
     url: string;
-    icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+    icon?: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
   }[];
 }
 
@@ -39,6 +39,11 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
         name: t('u.users'),
         url: '/users',
         icon: (props) => <UserIcon {...props} />,
+      },
+      {
+        name: t('c.companies'),
+        url: '/companies',
+        icon: (props) => <CompanyIcon {...props} />,
       },
     ];
 
@@ -66,34 +71,24 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
   const navMainItems = React.useMemo<NavMainItem[]>(() => {
     return [
       {
-        title: t('m.managingBusinesses'),
-        url: '/companies',
+        title: t('m.manageCompanies'),
         icon: (props) => <CompanyIcon {...props} />,
         items: [
           {
-            title: t('c.companies'),
-            url: '/companies',
-            icon: (props) => <CompanyIcon {...props} />,
-          },
-          {
             title: t('s.students'),
-            url: '/students',
-            icon: (props) => <StudentsIcon {...props} />,
+            url: '/manage-companies/students',
           },
           {
             title: t('c.courses'),
-            url: '/courses',
-            icon: (props) => <CourseIcon {...props} />,
+            url: '/manage-companies/courses',
           },
           {
             title: t('a.areas'),
-            url: '/areas',
-            icon: (props) => <NotebookText {...props} />,
+            url: '/manage-companies/areas',
           },
           {
             title: t('p.post'),
-            url: '/positions',
-            icon: (props) => <HardHat {...props} />,
+            url: '/manage-companies/positions',
           },
         ],
       },

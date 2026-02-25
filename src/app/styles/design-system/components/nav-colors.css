@@ -28,7 +28,7 @@
     --nav-badge-bg: var(--red-error);
     --nav-badge-text: var(--white);
 
-    --nav-menu-parent-open-bg: var(--primitive_fondo_base);
+    --nav-menu-parent-open-bg: var(--primitive_verde_medio);
     --nav-menu-parent-open-text: var(--primitive_verde_base);
     --nav-menu-parent-open-hover-bg: var(--primitive_fondo_base);
     --nav-menu-parent-closed-active-bg: var(--primitive_fondo_base);

@@ -1,5 +1,5 @@
 export const m = {
-  managingBusinesses: 'Managing businesses',
+  manageCompanies: 'Manage companies',
   menu: 'Menu',
   message: 'Message',
   messages: 'Messages',

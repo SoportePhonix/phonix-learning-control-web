@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   SidebarGroup,
   SidebarMenu,
@@ -14,10 +15,9 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { Separator } from './ui';
 import { Typography } from './ui/typography';
 
 // --- Style constants ---
@@ -30,19 +30,23 @@ const NAV_ACTIVE_CLASSES =
   'bg-nav-item-active-bg text-nav-item-active-text hover:bg-nav-item-active-hover-bg hover:text-nav-item-active-hover-text active:bg-nav-item-active-bg active:text-nav-item-active-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg';
 
 const NAV_ACTIVE_MUTED_CLASSES =
-  'bg-nav-item-inactive-hover-bg text-nav-item-inactive-hover-text hover:bg-nav-item-inactive-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-hover-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg';
+  'bg-nav-menu-parent-open-bg text-nav-item-inactive-hover-text hover:bg-nav-item-inactive-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-hover-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg';
 
 const NAV_INACTIVE_CLASSES =
   'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-text';
 
 const BASE_BUTTON_CLASSES =
-  'p-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:w-23!';
+  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:w-23!';
 
 // --- Helpers ---
 
-function getParentClassName(isActive: boolean, isCompaniesItem: boolean, isCollapsed: boolean): string {
+function isRouteMatch(pathname: string, url: string): boolean {
+  return pathname === url || pathname.startsWith(url + '/');
+}
+
+function getParentClassName(isActive: boolean, isChildActive: boolean, isCollapsed: boolean): string {
   if (!isActive) return `${BASE_BUTTON_CLASSES} ${NAV_INACTIVE_CLASSES}`;
-  if (!isCollapsed && isCompaniesItem) return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_MUTED_CLASSES}`;
+  if (!isCollapsed && isChildActive) return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_MUTED_CLASSES}`;
   return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_CLASSES}`;
 }
 
@@ -58,15 +62,11 @@ function NavMainButtonContent({
   isActive: boolean;
 }) {
   return (
-    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center">
+    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:ml-0 ml-6">
       <div className="shrink-0 group-data-[state=collapsed]:mx-auto">
         {Icon && (
           <Icon
-            className={`${
-              isActive
-                ? 'stroke-nav-icon-active group-data-[state=collapsed]:stroke-nav-icon-active-collapsed'
-                : 'stroke-nav-icon-inactive'
-            } w-4 h-4 transition-colors`}
+            className={`${isActive ? 'stroke-nav-icon-active group-data-[state=collapsed]:stroke-nav-icon-active-collapsed' : 'stroke-nav-icon-inactive'} w-4 h-4 transition-colors`}
           />
         )}
       </div>
@@ -88,25 +88,26 @@ export function NavMain({
 }: {
   items: {
     title: string;
-    url: string;
+    url?: string;
     icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
     items: {
       title: string;
       url: string;
-      icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+      icon?: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
     }[];
   }[];
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { state } = useSidebar();
+  const { state, isMobile } = useSidebar();
   const [openGroups, setOpenGroups] = React.useState<Record<string, boolean>>({});
+  const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const newState: Record<string, boolean> = {};
 
     items.forEach((item) => {
-      const isActiveParent = item.items?.some((subItem) => pathname === subItem.url);
+      const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
       if (isActiveParent) {
         newState[item.title] = true;
       }
@@ -124,22 +125,19 @@ export function NavMain({
 
   return (
     <TooltipProvider delayDuration={300}>
-      <SidebarGroup className="mt-2 overflow-x-hidden">
+      <SidebarGroup className="mt-0 overflow-x-hidden">
         <SidebarMenu>
           {items.map((item) => {
-            const isActiveParent = item.items?.some((subItem) => pathname === subItem.url);
-            const activeSubItem = item.items?.find((subItem) => pathname === subItem.url);
-            const isCollapsed = state === 'collapsed';
-            const isCompaniesItem = item.url === '/companies';
-            const isDirectNavigation = isCollapsed && isCompaniesItem;
+            const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
+            const isCollapsed = state === 'collapsed' && !isMobile;
+            const isChildActive = !!isActiveParent && pathname !== item.url;
 
             const parentButton = (
               <SidebarMenuButton
                 variant="unstyled"
                 isActive={false}
-                onClick={isDirectNavigation ? (e) => handleNavigation(item.url, e) : undefined}
                 style={CLIP_PATH_STYLE}
-                className={getParentClassName(!!isActiveParent, isCompaniesItem, isCollapsed)}
+                className={getParentClassName(!!isActiveParent, isChildActive, isCollapsed)}
               >
                 <NavMainButtonContent icon={item.icon} title={item.title} isActive={!!isActiveParent} />
               </SidebarMenuButton>
@@ -159,29 +157,63 @@ export function NavMain({
               >
                 <SidebarMenuItem>
                   {isCollapsed ? (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        {isDirectNavigation ? (
-                          parentButton
-                        ) : (
-                          <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
-                        )}
-                      </TooltipTrigger>
-                      <TooltipContent variant="right">
-                        <p>
-                          {item.title}
-                          {activeSubItem && ` / ${activeSubItem.title}`}
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
+                    <Popover open={hoveredPopover === item.title}>
+                      <PopoverTrigger
+                        asChild
+                        onMouseEnter={() => setHoveredPopover(item.title)}
+                        onMouseLeave={() => setHoveredPopover(null)}
+                      >
+                        {parentButton}
+                      </PopoverTrigger>
+                      <PopoverContent
+                        side="right"
+                        align="start"
+                        className="w-auto py-2 bg-base-white"
+                        onMouseEnter={() => setHoveredPopover(item.title)}
+                        onMouseLeave={() => setHoveredPopover(null)}
+                      >
+                        <p className="py-1.5 font-semibold text-primary">{item.title}</p>
+                        {item.items?.map((subItem) => {
+                          const isSubActive = isRouteMatch(pathname, subItem.url);
+                          return (
+                            <button
+                              key={subItem.title}
+                              onClick={(e) => handleNavigation(subItem.url, e)}
+                              className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer text-primary ${
+                                isSubActive
+                                  ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
+                                  : ' hover:bg-nav-item-inactive-hover-bg'
+                              }`}
+                            >
+                              {subItem.icon ? (
+                                <subItem.icon
+                                  className={`w-4 h-4 shrink-0 ${
+                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
+                                  }`}
+                                />
+                              ) : (
+                                <Dot
+                                  className={`w-4 h-4 shrink-0 ${
+                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
+                                  }`}
+                                />
+                              )}
+                              <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
+                                {subItem.title}
+                              </Typography>
+                            </button>
+                          );
+                        })}
+                      </PopoverContent>
+                    </Popover>
                   ) : (
                     <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
                   )}
-                  <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12 group-data-[state=collapsed]:hidden" />
+                  {/* <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12 group-data-[state=collapsed]:hidden" /> */}
                   <CollapsibleContent className="transition-all duration-200">
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => {
-                        const isSubActive = pathname === subItem.url;
+                        const isSubActive = isRouteMatch(pathname, subItem.url);
                         return (
                           <SidebarMenuSubItem key={subItem.title} className="relative">
                             <SidebarMenuSubButton
@@ -192,15 +224,21 @@ export function NavMain({
                                 right: '-1rem',
                                 zIndex: isSubActive ? 10 : 1,
                               }}
-                              className={`rounded-none p-3 cursor-pointer transition-colors duration-200 ml-4 mr-0 pr-8 ${
+                              className={`rounded-none cursor-pointer transition-colors duration-200 ml-0 mr-0 py-4.5 pl-6 pr-8 ${
                                 isSubActive
                                   ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
                                   : 'bg-transparent text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg hover:text-nav-item-inactive-hover-text'
                               }`}
                             >
                               <div className="flex items-center gap-2 w-full">
-                                {subItem.icon && (
+                                {subItem.icon ? (
                                   <subItem.icon
+                                    className={`w-3 h-3 transition-colors ml-8 ${
+                                      isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-inactive'
+                                    }`}
+                                  />
+                                ) : (
+                                  <Dot
                                     className={`w-3 h-3 transition-colors ml-7 ${
                                       isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-inactive'
                                     }`}
@@ -211,14 +249,14 @@ export function NavMain({
                                 </Typography>
                               </div>
                             </SidebarMenuSubButton>
-                            <Separator
+                            {/* <Separator
                               style={{
                                 position: 'relative',
                                 right: '-1rem',
                                 zIndex: isSubActive ? 10 : 1,
                               }}
                               className="bg-nav-separator-bg h-[0.05rem] my-1 w-9/12 opacity-50 ml-4"
-                            />
+                            /> */}
                           </SidebarMenuSubItem>
                         );
                       })}
