@@ -21,7 +21,7 @@ export default function Page() {
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('a.areas')} />
 
-      <CreateButton href="/areas/add" label={t('a.addArea')} icon={<NotebookPen />} align="right" />
+      <CreateButton href="/manage-companies/areas/add" label={t('a.addArea')} icon={<NotebookPen />} align="right" />
 
       <DataTable data={areasData?.data ?? []} columns={tableColumnsAreas(t, currentUserId)} />
     </div>
