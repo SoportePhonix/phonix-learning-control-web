@@ -40,7 +40,7 @@ export function useUpdatePosition(positionId: string, form: UseFormReturn<Positi
       await updatePosition(payload).unwrap();
 
       toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
-      router.push('/positions');
+      router.push('/manage-companies/positions');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

@@ -21,7 +21,12 @@ export default function Page() {
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('p.positions')} />
 
-      <CreateButton href="/positions/add" label={t('a.addPosition')} icon={<ArchiveRestore />} align="right" />
+      <CreateButton
+        href="/manage-companies/positions/add"
+        label={t('a.addPosition')}
+        icon={<ArchiveRestore />}
+        align="right"
+      />
 
       <DataTable data={positionsData?.data ?? []} columns={tableColumnsPositions(t, currentUserId)} />
     </div>
