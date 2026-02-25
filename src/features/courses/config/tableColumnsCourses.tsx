@@ -89,7 +89,7 @@ export const tableColumnsCourses = (
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/courses/${courseId}/update`} tooltipText={t('e.editCourse')} />
+          <EditButton href={`/manage-companies/courses/${courseId}/update`} tooltipText={t('e.editCourse')} />
           <DeleteCourse courseId={courseId} />
         </div>
       );

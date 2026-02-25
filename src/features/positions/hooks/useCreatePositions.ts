@@ -39,7 +39,7 @@ export function useCreatePositions(form: UseFormReturn<PositionsFormValues>) {
       await addPosition(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
-      router.push('/positions');
+      router.push('/manage-companies/positions');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

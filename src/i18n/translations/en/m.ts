@@ -1,4 +1,5 @@
 export const m = {
+  manageCompanies: 'Manage companies',
   menu: 'Menu',
   message: 'Message',
   messages: 'Messages',

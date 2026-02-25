@@ -83,7 +83,7 @@ export const tableColumnsAreas = (
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/areas/${areaId}/update`} tooltipText={t('e.editArea')} />
+          <EditButton href={`/manage-companies/areas/${areaId}/update`} tooltipText={t('e.editArea')} />
           <DeleteArea areaId={areaId} />
         </div>
       );

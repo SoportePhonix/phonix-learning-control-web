@@ -3,104 +3,280 @@
 import React from 'react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { ChevronRight, Dot } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Typography } from './ui/typography';
 
+// --- Style constants ---
+
+const CLIP_PATH_STYLE = {
+  clipPath: 'polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem)',
+} as const;
+
+const NAV_ACTIVE_CLASSES =
+  'bg-nav-item-active-bg text-nav-item-active-text hover:bg-nav-item-active-hover-bg hover:text-nav-item-active-hover-text active:bg-nav-item-active-bg active:text-nav-item-active-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg';
+
+const NAV_ACTIVE_MUTED_CLASSES =
+  'bg-nav-menu-parent-open-bg text-nav-item-inactive-hover-text hover:bg-nav-item-inactive-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-hover-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg';
+
+const NAV_INACTIVE_CLASSES =
+  'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-text';
+
+const BASE_BUTTON_CLASSES =
+  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:w-23!';
+
+// --- Helpers ---
+
+function isRouteMatch(pathname: string, url: string): boolean {
+  return pathname === url || pathname.startsWith(url + '/');
+}
+
+function getParentClassName(isActive: boolean, isChildActive: boolean, isCollapsed: boolean): string {
+  if (!isActive) return `${BASE_BUTTON_CLASSES} ${NAV_INACTIVE_CLASSES}`;
+  if (!isCollapsed && isChildActive) return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_MUTED_CLASSES}`;
+  return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_CLASSES}`;
+}
+
+// --- Sub-components ---
+
+function NavMainButtonContent({
+  icon: Icon,
+  title,
+  isActive,
+}: {
+  icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+  title: string;
+  isActive: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:ml-0 ml-6">
+      <div className="shrink-0 group-data-[state=collapsed]:mx-auto">
+        {Icon && (
+          <Icon
+            className={`${isActive ? 'stroke-nav-icon-inactive group-data-[state=collapsed]:stroke-nav-icon-inactive' : 'stroke-nav-icon-inactive'} w-4 h-4 transition-colors`}
+          />
+        )}
+      </div>
+      <Typography
+        variant="parrafo-pequeno"
+        className="group-data-[state=collapsed]:hidden whitespace-nowrap overflow-hidden text-ellipsis"
+      >
+        {title}
+      </Typography>
+      <ChevronRight className="ml-auto transition-colors duration-200 group-data-[state=collapsed]:hidden group-data-[state=open]/collapsible:rotate-90 stroke-nav-icon-inactive" />
+    </div>
+  );
+}
+
+// --- Main component ---
+
 export function NavMain({
   items,
-  showLabel = false,
 }: {
   items: {
     title: string;
-    url: string;
+    url?: string;
     icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
-    isActive?: boolean;
-    items?: {
+    items: {
       title: string;
       url: string;
+      icon?: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
     }[];
   }[];
-  showLabel?: boolean;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { state, isMobile } = useSidebar();
+  const [openGroups, setOpenGroups] = React.useState<Record<string, boolean>>({});
+  const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openPopover = (title: string) => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setHoveredPopover(title);
+  };
+
+  const closePopover = () => {
+    closeTimeoutRef.current = setTimeout(() => setHoveredPopover(null), 80);
+  };
+
+  React.useEffect(() => {
+    const newState: Record<string, boolean> = {};
+
+    items.forEach((item) => {
+      const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
+      if (isActiveParent) {
+        newState[item.title] = true;
+      }
+    });
+
+    setOpenGroups(newState);
+  }, [pathname, items]);
+
+  const handleNavigation = (url: string, e?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    if (pathname !== url) {
+      router.push(url);
+    }
+    e?.currentTarget.blur();
+  };
 
   return (
-    <SidebarGroup>
-      {showLabel && <SidebarGroupLabel>Platform</SidebarGroupLabel>}
-      <SidebarMenu>
-        {items.map((item) => {
-          const isActive = pathname?.includes(item.title.toLowerCase());
-          return (
-            <Collapsible key={item.title} asChild defaultOpen={item.isActive || isActive} className="group/collapsible">
-              <SidebarMenuItem>
-                <CollapsibleTrigger
-                  asChild
-                  className="rounded-l-none rounded-r-3xl hover:bg-verde_base dark:hover:bg-verde_base w-full"
-                >
-                  <SidebarMenuButton
-                    tooltip={item.title}
-                    className={`p-[1.1rem] ${
-                      isActive
-                        ? 'bg-verde_base hover:bg-verde_base text-white'
-                        : 'text-white dark:text-white hover:text-white'
-                    } group-data-[state=collapsed]:!w-16`}
-                  >
-                    {item.icon && (
-                      <div className="ml-2 group-data-[state=collapsed]:ml-6 transition-transform duration-300 group-data-[state=collapsed]:scale-75">
-                        <item.icon />
-                      </div>
-                    )}
-                    <Typography variant="parrafo_base" className="group-data-[state=collapsed]:hidden">
-                      {item.title}
-                    </Typography>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 group-data-[state=collapsed]:hidden" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {item.items?.map((subItem) => {
-                      const isSubActive = pathname?.includes(subItem.url.toLowerCase());
-                      return (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            className={`rounded-l-none rounded-r-3xl p-[1.1rem] hover:bg-gris-base text-negro
-                              ${isSubActive ? 'bg-gris-bajo dark:bg-background hover:bg-gris-bajo' : 'dark:hover:bg-background'}
-                              `}
-                          >
-                            <Link href={subItem.url}>
-                              <div className="ml-6 h-2 w-2 border-[0.1rem]  rounded-full border-negro dark:border-blanco" />
-                              <Typography
-                                variant="parrafo-pequeno"
-                                className={`${isSubActive ? 'text-negro dark:text-blanco' : 'text-negro dark:text-blanco'}`}
-                              >
+    <TooltipProvider delayDuration={300}>
+      <SidebarGroup className="mt-0 overflow-x-hidden">
+        <SidebarMenu>
+          {items.map((item) => {
+            const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
+            const isCollapsed = state === 'collapsed' && !isMobile;
+            const isChildActive = !!isActiveParent && pathname !== item.url;
+
+            const parentButton = (
+              <SidebarMenuButton
+                variant="unstyled"
+                isActive={false}
+                style={CLIP_PATH_STYLE}
+                className={getParentClassName(!!isActiveParent, isChildActive, isCollapsed)}
+              >
+                <NavMainButtonContent icon={item.icon} title={item.title} isActive={!!isActiveParent} />
+              </SidebarMenuButton>
+            );
+
+            return (
+              <Collapsible
+                key={item.title}
+                open={openGroups[item.title] || false}
+                onOpenChange={(open) =>
+                  setOpenGroups((prev) => ({
+                    ...prev,
+                    [item.title]: open,
+                  }))
+                }
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  {isCollapsed ? (
+                    <Popover open={hoveredPopover === item.title}>
+                      <PopoverTrigger asChild onMouseEnter={() => openPopover(item.title)} onMouseLeave={closePopover}>
+                        {parentButton}
+                      </PopoverTrigger>
+                      <PopoverContent
+                        side="right"
+                        align="start"
+                        sideOffset={20}
+                        className="w-auto py-2 bg-sidebar-tooltip-bg text-sidebar-tooltip-text border-none shadow-md rounded-lg"
+                        onMouseEnter={() => openPopover(item.title)}
+                        onMouseLeave={closePopover}
+                      >
+                        <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
+                        <p className="px-2 py-1.5 font-semibold">{item.title}</p>
+                        {item.items?.map((subItem) => {
+                          const isSubActive = isRouteMatch(pathname, subItem.url);
+                          return (
+                            <button
+                              key={subItem.title}
+                              onClick={(e) => handleNavigation(subItem.url, e)}
+                              className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
+                                isSubActive
+                                  ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
+                                  : 'text-nav-icon-active-collapsed hover:bg-nav-item-inactive-hover-bg'
+                              }`}
+                            >
+                              {subItem.icon ? (
+                                <subItem.icon
+                                  className={`w-4 h-4 shrink-0 ${
+                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
+                                  }`}
+                                />
+                              ) : (
+                                <Dot
+                                  className={`w-4 h-4 shrink-0 ${
+                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
+                                  }`}
+                                />
+                              )}
+                              <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
                                 {subItem.title}
                               </Typography>
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      );
-                    })}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-          );
-        })}
-      </SidebarMenu>
-    </SidebarGroup>
+                            </button>
+                          );
+                        })}
+                      </PopoverContent>
+                    </Popover>
+                  ) : (
+                    <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
+                  )}
+                  {/* <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12 group-data-[state=collapsed]:hidden" /> */}
+                  <CollapsibleContent className="transition-all duration-200">
+                    <SidebarMenuSub>
+                      {item.items?.map((subItem) => {
+                        const isSubActive = isRouteMatch(pathname, subItem.url);
+                        return (
+                          <SidebarMenuSubItem key={subItem.title} className="relative">
+                            <SidebarMenuSubButton
+                              onClick={(e) => handleNavigation(subItem.url, e)}
+                              style={{
+                                ...CLIP_PATH_STYLE,
+                                position: 'relative',
+                                right: '-1rem',
+                                zIndex: isSubActive ? 10 : 1,
+                              }}
+                              className={`rounded-none cursor-pointer transition-colors duration-200 ml-0 mr-0 py-4.5 pl-6 pr-8 ${
+                                isSubActive
+                                  ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
+                                  : 'bg-transparent text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg hover:text-nav-item-inactive-hover-text'
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 w-full">
+                                {subItem.icon ? (
+                                  <subItem.icon
+                                    className={`w-3 h-3 transition-colors ml-8 ${
+                                      isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-inactive'
+                                    }`}
+                                  />
+                                ) : (
+                                  <Dot
+                                    className={`w-3 h-3 transition-colors ml-7 ${
+                                      isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-inactive'
+                                    }`}
+                                  />
+                                )}
+                                <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
+                                  {subItem.title}
+                                </Typography>
+                              </div>
+                            </SidebarMenuSubButton>
+                            {/* <Separator
+                              style={{
+                                position: 'relative',
+                                right: '-1rem',
+                                zIndex: isSubActive ? 10 : 1,
+                              }}
+                              className="bg-nav-separator-bg h-[0.05rem] my-1 w-9/12 opacity-50 ml-4"
+                            /> */}
+                          </SidebarMenuSubItem>
+                        );
+                      })}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
+            );
+          })}
+        </SidebarMenu>
+      </SidebarGroup>
+    </TooltipProvider>
   );
 }

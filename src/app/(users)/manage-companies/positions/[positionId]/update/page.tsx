@@ -52,7 +52,7 @@ export default function Page({ params }: { params: Promise<{ positionId: string 
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/positions"
+          cancelUrl="/manage-companies/positions"
           t={t}
         />
       </FormPageLayout>

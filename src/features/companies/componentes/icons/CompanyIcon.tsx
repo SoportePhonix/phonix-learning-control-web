@@ -5,7 +5,7 @@ interface CompanyIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export const CompanyIcon = ({ className, ...props }: CompanyIconProps) => (
-  <svg width="18" height="18" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
     <path d="M0.5 13.5H13.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
     <path
       d="M4.5 13.5V0.5H0.5V13.5"

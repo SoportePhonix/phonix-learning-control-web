@@ -3,26 +3,27 @@
 import { CreateButton } from '@/components/CreateButton';
 import { SectionTitle } from '@/components/section-title';
 import { DataTable } from '@/components/ui/data-table';
-import { tableColumnsStudents } from '@/features/students/config/tableColumnsStudents';
+import { tableColumnsAreas } from '@/features/areas/config/tableColumnsAreas';
 import { useTranslation } from '@/i18n';
-import { useGetStudentsQuery } from '@/lib/services/api/studentsApi/studentsApi';
+import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { BookPlus } from 'lucide-react';
+import { NotebookPen } from 'lucide-react';
 
 export default function Page() {
   const { t } = useTranslation();
   const { session } = useSessionContext();
 
-  const { data: studentsData, isLoading, isFetching, error, status, isSuccess, isError } = useGetStudentsQuery();
+  const { data: areasData, isLoading, isFetching, error, status, isSuccess, isError } = useGetAreasQuery();
 
   const currentUserId = session?.user?.id ? Number(session.user.id) : undefined;
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={t('s.students')} />
-      <CreateButton href="/students/add" label={t('a.addStudent')} icon={<BookPlus />} align="right" />
+      <SectionTitle title={t('a.areas')} />
 
-      <DataTable data={studentsData?.data ?? []} columns={tableColumnsStudents(t, currentUserId)} />
+      <CreateButton href="/manage-companies/areas/add" label={t('a.addArea')} icon={<NotebookPen />} align="right" />
+
+      <DataTable data={areasData?.data ?? []} columns={tableColumnsAreas(t, currentUserId)} />
     </div>
   );
 }

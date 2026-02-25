@@ -1,18 +1,15 @@
 'use client';
 
-import { use } from 'react';
-
 import { AreasFormValues } from '@/components/areas/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { SectionTitle } from '@/components/section-title';
 import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
-import { useUpdateArea } from '@/features/areas/hooks/useUpdateArea';
+import { useCreateAreas } from '@/features/areas/hooks/useCreateAreas';
 import { useTranslation } from '@/i18n';
 import { useForm } from 'react-hook-form';
 
-export default function Page({ params }: { params: Promise<{ areaId: string }> }) {
-  const { areaId } = use(params);
+export default function Page() {
   const { t } = useTranslation();
 
   const form = useForm<AreasFormValues>({
@@ -24,35 +21,26 @@ export default function Page({ params }: { params: Promise<{ areaId: string }> }
     },
   });
 
-  const { updateAreaData, isLoading, apiError, apiErrorMessage } = useUpdateArea(areaId, form);
+  const { createArea, isLoading, apiError, apiErrorMessage } = useCreateAreas(form);
 
-  const { formConfig, isLoadingData, currentStatus } = useAreaForm({
-    mode: 'edit',
-    areaId,
+  const { formConfig } = useAreaForm({
+    mode: 'create',
     form,
   });
 
-  const handleSubmit = (values: AreasFormValues) => {
-    updateAreaData({
-      ...values,
-      status: values.status || currentStatus || 'active',
-    });
-  };
-
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateArea')} />
-
-      <FormPageLayout description={t('t.toUpdateAnAreaCompleteTheFields')} isLoading={isLoadingData}>
+      <SectionTitle title={t('a.addArea')} />
+      <FormPageLayout description={t('t.toCreateAnAreaPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}
-          mode="edit"
+          mode="create"
           form={form}
-          onSubmit={handleSubmit}
+          onSubmit={createArea}
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/areas"
+          cancelUrl="/manage-companies/areas"
           t={t}
         />
       </FormPageLayout>

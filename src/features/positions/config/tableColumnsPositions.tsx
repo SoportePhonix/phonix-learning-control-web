@@ -83,7 +83,7 @@ export const tableColumnsPositions = (
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/positions/${positionId}/update`} tooltipText={t('e.editPosition')} />
+          <EditButton href={`/manage-companies/positions/${positionId}/update`} tooltipText={t('e.editPosition')} />
           <DeletePosition positionId={positionId} />
         </div>
       );
