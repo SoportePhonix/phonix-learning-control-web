@@ -33,6 +33,8 @@ export const t = {
   toCreateAPositionPleaseFillInTheFields: 'Para crear un cargo, complete los campos',
   toUpdateAPositionCompleteTheFields: 'Para actualizar un cargo, complete los campos',
   toUpdateAnAreaCompleteTheFields: 'Para actualizar un área, complete los campos',
+  toUpdateAnInstanceCompleteTheFields: 'Para actualizar la instancia, complete los campos',
+  toCreateAnInstancePleaseFillInTheFields: 'Para crear la instancia, complete los campos',
   trainingPathways: 'Rutas de formación',
   type: 'Tipo',
   typeOfIdentificationDocument: 'Tipo de documento de identificación',

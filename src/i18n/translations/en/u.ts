@@ -17,6 +17,7 @@ export const u = {
   updateUser: 'Update user',
   updateArea: 'Update area',
   updatePosition: 'Update position',
+  updateInstance: 'Update instance',
   updating: 'Updating',
   upload: 'Upload',
   url: 'URL',
