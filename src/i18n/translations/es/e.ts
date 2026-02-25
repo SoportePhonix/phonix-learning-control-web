@@ -1,3 +1,4 @@
+import { Edit } from 'lucide-react';
 import { error } from 'node:console';
 
 export const e = {
@@ -6,6 +7,7 @@ export const e = {
   editCourse: 'Editar curso',
   editUser: 'Editar usuario',
   editArea: 'Editar área',
+  editInstance: 'Editar instancia',
   editPosition: 'Editar cargo',
   email: 'Correo electrónico',
   emailAddress: 'Dirección de correo',
@@ -25,6 +27,7 @@ export const e = {
   errorCreatingStudent: 'Error al crear el estudiante',
   existingIdentificationDocument: 'Documento de identificación existente',
   existingNit: 'Nit existente',
+  existingInstanceNit: 'Nit de instancia existente',
   existingShortName: 'Nombre corto existente',
   existingEmail: 'Email existente',
   existingAreaName: 'Nombre de área existente',

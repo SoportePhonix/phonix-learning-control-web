@@ -17,6 +17,7 @@ export const u = {
   updateUser: 'Actualizar usuario',
   updateArea: 'Actualizar área',
   updatePosition: 'Actualizar cargo',
+  updateInstance: 'Actualizar instancia',
   updating: 'Actualizando',
   upload: 'Cargar',
   url: 'URL',

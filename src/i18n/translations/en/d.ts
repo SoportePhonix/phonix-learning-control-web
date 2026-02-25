@@ -13,6 +13,7 @@ export const d = {
   deleteStudent: 'Delete student',
   deletePosition: 'Delete position',
   deleteArea: 'Delete area',
+  deleteInstance: 'Delete instance',
   department: 'Department',
   description: 'Description',
   detail: 'Detail',

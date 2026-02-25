@@ -21,7 +21,7 @@ import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
 import { useConfig, useConfigWithLoading } from '@/utils/context';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { HardHat, NotebookText } from 'lucide-react';
+import { HardHat, House, NotebookText } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -125,6 +125,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => (
                 <CourseIcon {...props} />
               ),
+            },
+            {
+              name: t('i.instance'),
+              url: '/instance',
+              icon: (props: React.JSX.IntrinsicAttributes & React.RefAttributes<SVGSVGElement>) => <House {...props} />,
             },
           ]),
     ],

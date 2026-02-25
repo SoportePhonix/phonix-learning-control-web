@@ -26,6 +26,8 @@ export const t = {
   toCreateAPositionPleaseFillInTheFields: 'To create a position please fill in the fields',
   toUpdateAPositionCompleteTheFields: 'To update a position complete the fields',
   toUpdateAnAreaCompleteTheFields: 'To update an area complete the fields',
+  toUpdateAnInstanceCompleteTheFields: 'To update an instance complete the fields',
+  toCreateAnInstancePleaseFillInTheFields: 'To create an instance please fill in the fields',
   today: 'Today',
   token: 'Token',
   total: 'Total',
