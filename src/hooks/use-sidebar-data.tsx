@@ -6,6 +6,7 @@ import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
+import { LayoutDashboard } from 'lucide-react';
 
 interface SidebarSection {
   name: string;
@@ -71,7 +72,7 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
     return [
       {
         title: t('m.manageCompanies'),
-        icon: (props) => <CompanyIcon {...props} />,
+        icon: (props) => <LayoutDashboard {...props} />,
         items: [
           {
             title: t('s.students'),

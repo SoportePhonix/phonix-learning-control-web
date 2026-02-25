@@ -15,6 +15,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -66,7 +67,7 @@ function NavMainButtonContent({
       <div className="shrink-0 group-data-[state=collapsed]:mx-auto">
         {Icon && (
           <Icon
-            className={`${isActive ? 'stroke-nav-icon-active group-data-[state=collapsed]:stroke-nav-icon-active-collapsed' : 'stroke-nav-icon-inactive'} w-4 h-4 transition-colors`}
+            className={`${isActive ? 'stroke-nav-icon-inactive group-data-[state=collapsed]:stroke-nav-icon-inactive' : 'stroke-nav-icon-inactive'} w-4 h-4 transition-colors`}
           />
         )}
       </div>
@@ -102,6 +103,16 @@ export function NavMain({
   const { state, isMobile } = useSidebar();
   const [openGroups, setOpenGroups] = React.useState<Record<string, boolean>>({});
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openPopover = (title: string) => {
+    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    setHoveredPopover(title);
+  };
+
+  const closePopover = () => {
+    closeTimeoutRef.current = setTimeout(() => setHoveredPopover(null), 80);
+  };
 
   React.useEffect(() => {
     const newState: Record<string, boolean> = {};
@@ -158,31 +169,29 @@ export function NavMain({
                 <SidebarMenuItem>
                   {isCollapsed ? (
                     <Popover open={hoveredPopover === item.title}>
-                      <PopoverTrigger
-                        asChild
-                        onMouseEnter={() => setHoveredPopover(item.title)}
-                        onMouseLeave={() => setHoveredPopover(null)}
-                      >
+                      <PopoverTrigger asChild onMouseEnter={() => openPopover(item.title)} onMouseLeave={closePopover}>
                         {parentButton}
                       </PopoverTrigger>
                       <PopoverContent
                         side="right"
                         align="start"
-                        className="w-auto py-2 bg-base-white"
-                        onMouseEnter={() => setHoveredPopover(item.title)}
-                        onMouseLeave={() => setHoveredPopover(null)}
+                        sideOffset={20}
+                        className="w-auto py-2 bg-sidebar-tooltip-bg text-sidebar-tooltip-text border-none shadow-md rounded-lg"
+                        onMouseEnter={() => openPopover(item.title)}
+                        onMouseLeave={closePopover}
                       >
-                        <p className="py-1.5 font-semibold text-primary">{item.title}</p>
+                        <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
+                        <p className="px-2 py-1.5 font-semibold">{item.title}</p>
                         {item.items?.map((subItem) => {
                           const isSubActive = isRouteMatch(pathname, subItem.url);
                           return (
                             <button
                               key={subItem.title}
                               onClick={(e) => handleNavigation(subItem.url, e)}
-                              className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer text-primary ${
+                              className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
                                 isSubActive
                                   ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
-                                  : ' hover:bg-nav-item-inactive-hover-bg'
+                                  : 'text-nav-icon-active-collapsed hover:bg-nav-item-inactive-hover-bg'
                               }`}
                             >
                               {subItem.icon ? (
