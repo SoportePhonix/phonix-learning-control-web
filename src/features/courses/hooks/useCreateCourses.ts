@@ -37,7 +37,7 @@ export function useCreateCourses(form: UseFormReturn<CoursesFormValues>) {
       await addCourses(payload).unwrap();
 
       toast.success(`${values.fullName} ${t('a.addedSuccessfully')}`);
-      router.push('/courses');
+      router.push('/manage-companies/courses');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

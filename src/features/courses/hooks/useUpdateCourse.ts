@@ -30,7 +30,7 @@ export function useUpdateCourse(courseId: string) {
         id: 'course-updated-success',
       });
 
-      router.push('/courses');
+      router.push('/manage-companies/courses');
     } catch {
       toast.error(t('c.courseUpdateFailed'), {
         id: 'courses-updated-error',

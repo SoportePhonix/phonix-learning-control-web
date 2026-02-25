@@ -21,7 +21,7 @@ export default function Page() {
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('c.courses')} />
 
-      <CreateButton href="/courses/add" label={t('a.addCourse')} icon={<BookPlus />} align="right" />
+      <CreateButton href="/manage-companies/courses/add" label={t('a.addCourse')} icon={<BookPlus />} align="right" />
 
       <DataTable data={coursesData?.data ?? []} columns={tableColumnsCourses(t, currentUserId)} />
     </div>
