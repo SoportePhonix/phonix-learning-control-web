@@ -47,7 +47,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
 
       toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
 
-      router.push('/students');
+      router.push('/manage-companies/students');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = (err?.data?.message || '').toString();

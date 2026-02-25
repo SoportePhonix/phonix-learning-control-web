@@ -62,7 +62,7 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
           onSubmit={handleSubmit}
           isLoading={isLoading}
           apiError={apiError}
-          cancelUrl="/students"
+          cancelUrl="/manage-companies/students"
           t={t}
         />
       </FormPageLayout>

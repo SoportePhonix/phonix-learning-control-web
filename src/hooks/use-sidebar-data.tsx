@@ -6,7 +6,6 @@ import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
-import { HardHat, NotebookText } from 'lucide-react';
 
 interface SidebarSection {
   name: string;

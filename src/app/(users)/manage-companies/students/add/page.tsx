@@ -56,7 +56,7 @@ export default function Page() {
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/students"
+          cancelUrl="/manage-companies/students"
           t={t}
         />
       </FormPageLayout>

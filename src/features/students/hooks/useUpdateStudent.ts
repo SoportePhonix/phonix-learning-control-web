@@ -40,7 +40,7 @@ export function useUpdateStudent(userId: string) {
         id: 'student-updated-success',
       });
 
-      router.push('/students');
+      router.push('/manage-companies/students');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const message = (err?.data?.message || '').toString().toLowerCase();

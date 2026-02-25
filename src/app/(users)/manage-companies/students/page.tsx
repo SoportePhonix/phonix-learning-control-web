@@ -20,7 +20,7 @@ export default function Page() {
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('s.students')} />
-      <CreateButton href="/students/add" label={t('a.addStudent')} icon={<BookPlus />} align="right" />
+      <CreateButton href="/manage-companies/students/add" label={t('a.addStudent')} icon={<BookPlus />} align="right" />
 
       <DataTable data={studentsData?.data ?? []} columns={tableColumnsStudents(t, currentUserId)} />
     </div>
