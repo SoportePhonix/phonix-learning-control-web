@@ -21,6 +21,7 @@ export const i = {
   initiated: 'Iniciado',
   institution: 'Institución',
   instance: 'Instancia',
+  instances: 'Instancias',
   instanceCreationFailed: 'Error en la creación de la instancia',
   instanceUpdateFailed: 'Error en la actualización de la instancia',
   instanceSuccessfullyRemoved: 'Instancia eliminada exitosamente',

@@ -2,11 +2,13 @@ import * as React from 'react';
 
 import { TrainingPathwaysIcon } from '@/app/(users)/trainingPathways/components/icons/TrainingPathwaysIcon';
 import { CompanyIcon } from '@/features/companies/componentes/icons/CompanyIcon';
+import { ManageCompaniesIcon } from '@/features/companies/componentes/icons/ManageCompaniesIcon';
 import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
+import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
-import { LayoutDashboard } from 'lucide-react';
+import { Landmark, LayoutDashboard } from 'lucide-react';
 
 interface SidebarSection {
   name: string;
@@ -41,6 +43,11 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
         icon: (props) => <UserIcon {...props} />,
       },
       {
+        name: t('i.instances'),
+        url: '/instances',
+        icon: (props) => <InstanceIcon {...props} />,
+      },
+      {
         name: t('c.companies'),
         url: '/companies',
         icon: (props) => <CompanyIcon {...props} />,
@@ -72,7 +79,7 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
     return [
       {
         title: t('m.manageCompanies'),
-        icon: (props) => <LayoutDashboard {...props} />,
+        icon: (props) => <ManageCompaniesIcon {...props} />,
         items: [
           {
             title: t('s.students'),

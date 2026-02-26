@@ -79,7 +79,7 @@ export const tableColumnsInstance = (
 
       return (
         <div className="flex items-center gap-2">
-          <EditButton href={`/instance/${instanceNit}/update`} tooltipText={t('e.editInstance')} />
+          <EditButton href={`/instances/${instanceNit}/update`} tooltipText={t('e.editInstance')} />
           <DeleteInstance instanceNit={instanceNit} />
         </div>
       );

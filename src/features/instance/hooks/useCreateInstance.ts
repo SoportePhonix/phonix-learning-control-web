@@ -34,7 +34,7 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
       await addInstance(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
-      router.push('/instance');
+      router.push('/instances');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
