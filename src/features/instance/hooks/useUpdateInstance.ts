@@ -34,7 +34,7 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       await updateInstance(payload).unwrap();
 
       toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
-      router.push('/instance');
+      router.push('/instances');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

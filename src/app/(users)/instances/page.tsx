@@ -21,7 +21,7 @@ export default function Page() {
     <div className="pt-10 px-2 h-full w-full flex flex-col">
       <SectionTitle title={t('i.instance')} />
 
-      <CreateButton href="/instance/add" label={t('a.addInstance')} icon={<HousePlus />} align="right" />
+      <CreateButton href="/instances/add" label={t('a.addInstance')} icon={<HousePlus />} align="right" />
 
       <DataTable data={instancesData?.data ?? []} columns={tableColumnsInstance(t, currentUserId)} />
     </div>
