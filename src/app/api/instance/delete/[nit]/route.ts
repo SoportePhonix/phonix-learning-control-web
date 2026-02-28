@@ -22,11 +22,11 @@ export async function DELETE(req: Request, { params }: any) {
 
     if (!response.ok) {
       const errorResponse = ApiRes.fromExternalResponse({
-        message: 'Error deleting user',
+        message: 'Error deleting instance',
         statusCode: response.status,
       });
 
-      return errorResponse ?? ApiRes.customError(500, 'Error deleting user');
+      return errorResponse ?? ApiRes.customError(500, 'Error deleting instance');
     }
 
     return ApiRes.success({ isSuccess: true });

@@ -8,17 +8,28 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ nit: s
 
   try {
     const body = await req.json();
+
+    if (body.nit && typeof body.nit === 'string' && body.nit.includes(' ')) {
+      return ApiRes.customError(
+        400,
+        'El NIT no debe contener espacios. Si deseas separar palabras, puedes usar guiones (-).',
+        'INVALID_NIT_FORMAT'
+      );
+    }
+
     const session: CustomSession | null = await getServerSession(authOptions);
 
     if (!session?.user?.accessToken) {
       return ApiRes.customError(401, 'Unauthorized');
     }
 
+    const { nit, ...bodyWithoutNit } = body;
+
     const url = `${process.env.API_URL}/instance/${instanceNit}`;
 
     const response = await fetch(url, {
       method: 'PATCH',
-      body: JSON.stringify(body),
+      body: JSON.stringify(bodyWithoutNit),
       headers: {
         authorization: `Bearer ${session.user.accessToken}`,
         accept: 'application/json',

@@ -75,7 +75,7 @@ export const tableColumnsInstance = (
     enableSorting: false,
     cell: ({ row }) => {
       const instance = row.original;
-      const instanceNit = String(instance.nit ?? instance.nit ?? '');
+      const instanceNit = String(instance.nit ?? '').trim();
 
       return (
         <div className="flex items-center gap-2">

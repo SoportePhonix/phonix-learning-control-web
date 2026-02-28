@@ -18,6 +18,19 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
   const [apiError, setApiError] = useState<number | null>(null);
   const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
+  // Función para traducir mensajes comunes del servidor
+  const translateServerError = (message: string): string => {
+    const lowerMessage = message.toLowerCase();
+
+    // Detectar error de longitud mínima del NIT
+    if (lowerMessage.includes('nit') && lowerMessage.includes('longer than or equal to 3 characters')) {
+      return t('n.nitMustBeLongerThanOrEqualTo3Characters');
+    }
+
+    // Si no hay traducción específica, retornar el mensaje original
+    return message;
+  };
+
   const updateInstanceData = async (values: InstanceFormValues) => {
     try {
       setApiError(null);
@@ -40,7 +53,31 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       const errorMessage = err?.data?.message || '';
 
       if (err?.data?.message) {
-        toast.error(`Error del servidor: ${err.data.message}`);
+        const translatedMessage = translateServerError(err.data.message);
+        toast.error(`Error del servidor: ${translatedMessage}`);
+      }
+
+      // Manejar error de NIT con espacios (400)
+      if (status === 400) {
+        if (errorMessage.toLowerCase().includes('nit') && errorMessage.toLowerCase().includes('espacio')) {
+          form.setError('nit', {
+            type: 'manual',
+            message: errorMessage,
+          });
+          return;
+        }
+
+        // Manejar error de longitud mínima del NIT
+        if (
+          errorMessage.toLowerCase().includes('nit') &&
+          errorMessage.toLowerCase().includes('longer than or equal to 3 characters')
+        ) {
+          form.setError('nit', {
+            type: 'manual',
+            message: t('n.nitMustBeLongerThanOrEqualTo3Characters'),
+          });
+          return;
+        }
       }
 
       if (status === 409) {
