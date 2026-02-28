@@ -12,7 +12,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, errorTooltip, errorTooltipTrigger, ...props }, ref) => {
     return (
-      <div className="flex flex-col space-y-1 relative">
+      <div className="flex flex-col space-y-1">
         {label && <label className="text-sm font-light text-label">{label}</label>}
         <input
           type={type}
@@ -24,11 +24,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {error && !errorTooltip && (
-          <span className="absolute top-full left-0 text-sm text-error whitespace-pre-line ">{error}</span>
-        )}
+        {error && !errorTooltip && <span className="text-sm text-error whitespace-pre-line mt-1">{error}</span>}
         {error && errorTooltip && (
-          <div className="absolute top-full left-0 flex items-center gap-1 text-sm text-error group cursor-help">
+          <div className="flex items-center gap-1 text-sm text-error group cursor-help mt-1">
             <span>{errorTooltipTrigger || 'Review field'}</span>
             <div className="relative inline-block">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

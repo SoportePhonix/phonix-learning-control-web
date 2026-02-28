@@ -36,6 +36,10 @@ export function useInstanceForm({ mode, instanceId, form }: UseInstanceFormProps
     const config = { ...instanceFormConfig };
 
     config.fields = config.fields.map((field: FieldConfig) => {
+      if (field.name === 'nit' && mode === 'edit') {
+        return { ...field, disabled: true };
+      }
+
       if (field.name === 'status') {
         return { ...field, options: statusOptions };
       }
@@ -43,7 +47,7 @@ export function useInstanceForm({ mode, instanceId, form }: UseInstanceFormProps
     });
 
     return config;
-  }, [statusOptions]);
+  }, [statusOptions, mode]);
 
   useEffect(() => {
     if (mode === 'edit' && instanceById.data?.data) {

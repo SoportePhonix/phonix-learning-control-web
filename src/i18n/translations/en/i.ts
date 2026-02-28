@@ -26,5 +26,7 @@ export const i = {
   instanceUpdateFailed: 'Instance update failed',
   instanceSuccessfullyRemoved: 'Instance successfully removed',
   instanceCouldNotBeDeleted: 'Instance could not be deleted',
+  instanceDeleteForbidden:
+    'You do not have permission to delete this instance or it has related data that prevents deletion',
   isRequired: 'is required',
 };

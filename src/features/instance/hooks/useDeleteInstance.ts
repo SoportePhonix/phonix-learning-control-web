@@ -9,15 +9,25 @@ export function useDeleteInstance() {
   const [deleteInstanceMutation, { isLoading, error }] = useDeleteInstanceMutation();
 
   const deleteInstance = async (instanceNit: string) => {
+    const cleanNit = instanceNit.trim();
+
     try {
-      await deleteInstanceMutation({ nit: instanceNit }).unwrap();
+      const result = await deleteInstanceMutation({ nit: cleanNit }).unwrap();
       toast.success(`${t('i.instanceSuccessfullyRemoved')}`);
       router.refresh();
-    } catch (err) {
-      toast.error(`${t('i.instanceCouldNotBeDeleted')}`);
+    } catch (err: any) {
+      const status = err?.status || err?.data?.statusCode;
+      const errorMessage = err?.data?.message || err?.data?.error?.message || err?.message || err?.error;
+
+      if (status === 403) {
+        toast.error(errorMessage || `${t('i.instanceDeleteForbidden')}`);
+      } else if (status === 401) {
+        toast.error('No autorizado. Por favor, inicia sesión nuevamente.');
+      } else {
+        toast.error(errorMessage || `${t('i.instanceCouldNotBeDeleted')}`);
+      }
     }
   };
-
   return {
     deleteInstance,
     isLoading,

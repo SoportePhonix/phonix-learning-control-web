@@ -7,6 +7,15 @@ import { NextRequest } from 'next/server';
 export async function POST(req: NextRequest, { params }: any) {
   try {
     const body = await new Response(req.body).json();
+
+    if (body.nit && typeof body.nit === 'string' && body.nit.includes(' ')) {
+      return ApiRes.customError(
+        400,
+        'El NIT no debe contener espacios. Si deseas separar palabras, puedes usar guiones (-).',
+        'INVALID_NIT_FORMAT'
+      );
+    }
+
     const session: CustomSession | null = await getServerSession(authOptions);
 
     const response = await (

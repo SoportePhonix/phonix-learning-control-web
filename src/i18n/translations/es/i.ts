@@ -26,5 +26,7 @@ export const i = {
   instanceUpdateFailed: 'Error en la actualización de la instancia',
   instanceSuccessfullyRemoved: 'Instancia eliminada exitosamente',
   instanceCouldNotBeDeleted: 'No se pudo eliminar la instancia',
+  instanceDeleteForbidden:
+    'No tienes permisos para eliminar esta instancia o tiene datos relacionados que impiden su eliminación',
   isRequired: 'es requerido',
 };

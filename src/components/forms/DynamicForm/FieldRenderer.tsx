@@ -55,6 +55,20 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
         },
       };
     }
+
+    if (field.validation.custom) {
+      validationRules.validate = {
+        ...validationRules.validate,
+        custom: (value: any) => {
+          const result = field.validation!.custom!(value);
+          if (typeof result === 'string') {
+            return t(result as TranslationKey);
+          }
+          return result;
+        },
+      };
+    }
+
     if (field.validation.minLength) {
       validationRules.minLength = {
         value: field.validation.minLength,
@@ -108,7 +122,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   : undefined;
 
               return (
-                <div className="flex flex-col space-y-1 relative">
+                <div className="flex flex-col space-y-1">
                   <Select
                     key={`${fieldName}-${selectValue || 'empty'}`}
                     value={selectValue}
@@ -127,12 +141,12 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                     </SelectContent>
                   </Select>
                   {error && !field.errorTooltip && (
-                    <span className="absolute top-full left-0 text-sm text-error whitespace-pre-line ">
+                    <span className="text-sm text-error whitespace-pre-line mt-1">
                       {typeof error?.message === 'string' ? resolveErrorMessage(error.message) : ''}
                     </span>
                   )}
                   {error && field.errorTooltip && (
-                    <div className="absolute top-full left-0 flex items-center gap-1 text-sm text-error group cursor-help">
+                    <div className="flex items-center gap-1 text-sm text-error group cursor-help mt-1">
                       <span>{field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : 'Review field'}</span>
                       <div className="relative inline-block">
                         <svg
