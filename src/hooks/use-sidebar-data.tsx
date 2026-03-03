@@ -8,7 +8,7 @@ import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
-import { Landmark, LayoutDashboard } from 'lucide-react';
+import { SelectedCompany } from '@/utils/context/selectedCompanyContext';
 
 interface SidebarSection {
   name: string;
@@ -19,6 +19,7 @@ interface SidebarSection {
 
 interface UseSidebarDataProps {
   isPresentationMode: boolean;
+  selectedCompany?: SelectedCompany | null;
 }
 
 interface NavMainItem {
@@ -32,7 +33,7 @@ interface NavMainItem {
   }[];
 }
 
-export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
+export function useSidebarData({ isPresentationMode, selectedCompany }: UseSidebarDataProps) {
   const { t } = useTranslation();
 
   const sections = React.useMemo<SidebarSection[]>(() => {
@@ -76,31 +77,43 @@ export function useSidebarData({ isPresentationMode }: UseSidebarDataProps) {
   }, [isPresentationMode, t]);
 
   const navMainItems = React.useMemo<NavMainItem[]>(() => {
+    if (!selectedCompany) {
+      return [];
+    }
+
+    const companyId = selectedCompany.id;
+    const companyName = selectedCompany.name;
+
     return [
       {
-        title: t('m.manageCompanies'),
+        title: companyName ? `${t('m.manageCompanies')} - ${companyName}` : t('m.manageCompanies'),
+        url: `/manage-companies/dashboard?companyId=${companyId}`,
         icon: (props) => <ManageCompaniesIcon {...props} />,
         items: [
           {
+            title: t('d.dashboard'),
+            url: `/manage-companies/dashboard?companyId=${companyId}`,
+          },
+          {
             title: t('s.students'),
-            url: '/manage-companies/students',
+            url: `/manage-companies/students?companyId=${companyId}`,
           },
           {
             title: t('c.courses'),
-            url: '/manage-companies/courses',
+            url: `/manage-companies/courses?companyId=${companyId}`,
           },
           {
             title: t('a.areas'),
-            url: '/manage-companies/areas',
+            url: `/manage-companies/areas?companyId=${companyId}`,
           },
           {
             title: t('p.post'),
-            url: '/manage-companies/positions',
+            url: `/manage-companies/positions?companyId=${companyId}`,
           },
         ],
       },
     ];
-  }, [t]);
+  }, [t, selectedCompany]);
 
   return { sections, navMainItems };
 }

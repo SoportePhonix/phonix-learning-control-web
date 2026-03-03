@@ -14,7 +14,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -41,10 +41,6 @@ const BASE_BUTTON_CLASSES =
 
 // --- Helpers ---
 
-function isRouteMatch(pathname: string, url: string): boolean {
-  return pathname === url || pathname.startsWith(url + '/');
-}
-
 function getParentClassName(isActive: boolean, isChildActive: boolean, isCollapsed: boolean): string {
   if (!isActive) return `${BASE_BUTTON_CLASSES} ${NAV_INACTIVE_CLASSES}`;
   if (!isCollapsed && isChildActive) return `${BASE_BUTTON_CLASSES} ${NAV_ACTIVE_MUTED_CLASSES}`;
@@ -57,14 +53,23 @@ function NavMainButtonContent({
   icon: Icon,
   title,
   isActive,
+  url,
+  onIconClick,
 }: {
   icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
   title: string;
   isActive: boolean;
+  url?: string;
+  onIconClick?: (e: React.MouseEvent) => void;
 }) {
   return (
     <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:ml-0 ml-6">
-      <div className="shrink-0 group-data-[state=collapsed]:mx-auto">
+      <div
+        className={`shrink-0 group-data-[state=collapsed]:mx-auto ${url ? 'cursor-pointer hover:opacity-80' : ''}`}
+        onClick={url ? onIconClick : undefined}
+        role={url ? 'button' : undefined}
+        tabIndex={url ? 0 : undefined}
+      >
         {Icon && (
           <Icon
             className={`${isActive ? 'stroke-nav-icon-inactive group-data-[state=collapsed]:stroke-nav-icon-inactive' : 'stroke-nav-icon-inactive'} w-4 h-4 transition-colors`}
@@ -101,9 +106,16 @@ export function NavMain({
   const pathname = usePathname();
   const router = useRouter();
   const { state, isMobile } = useSidebar();
-  const [openGroups, setOpenGroups] = React.useState<Record<string, boolean>>({});
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Estado para menús cerrados manualmente (key: título del menú)
+  // Se usa useRef para evitar re-renders innecesarios
+  const userClosedMenusRef = React.useRef<Record<string, boolean>>({});
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+
+  // Track de la ruta anterior para resetear cierre manual solo cuando cambie de subitem
+  const prevPathnameRef = React.useRef(pathname);
 
   const openPopover = (title: string) => {
     if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
@@ -114,56 +126,104 @@ export function NavMain({
     closeTimeoutRef.current = setTimeout(() => setHoveredPopover(null), 80);
   };
 
+  // Verificar si un subitem está activo (comparando rutas sin query params)
+  const isSubItemActive = React.useCallback(
+    (subItemUrl: string) => {
+      const urlBase = subItemUrl.split('?')[0];
+      return pathname === urlBase || pathname.startsWith(urlBase + '/');
+    },
+    [pathname]
+  );
+
+  const isMenuActive = React.useCallback(
+    (item: (typeof items)[0]) => {
+      return item.items?.some((subItem) => isSubItemActive(subItem.url)) ?? false;
+    },
+    [isSubItemActive]
+  );
+
   React.useEffect(() => {
-    const newState: Record<string, boolean> = {};
-
-    items.forEach((item) => {
-      const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
-      if (isActiveParent) {
-        newState[item.title] = true;
-      }
-    });
-
-    setOpenGroups(newState);
-  }, [pathname, items]);
-
-  const handleNavigation = (url: string, e?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-    if (pathname !== url) {
-      router.push(url);
+    if (prevPathnameRef.current !== pathname) {
+      userClosedMenusRef.current = {};
+      prevPathnameRef.current = pathname;
     }
-    e?.currentTarget.blur();
-  };
+  }, [pathname]);
+
+  const shouldMenuBeOpen = React.useCallback(
+    (item: (typeof items)[0]) => {
+      const hasActiveRoute = isMenuActive(item);
+
+      if (hasActiveRoute) {
+        return userClosedMenusRef.current[item.title] !== true;
+      }
+      return false;
+    },
+    [isMenuActive]
+  );
+
+  const handleMenuToggle = React.useCallback(
+    (item: (typeof items)[0], wantsOpen: boolean) => {
+      const hasActiveRoute = isMenuActive(item);
+      if (hasActiveRoute) {
+        userClosedMenusRef.current[item.title] = !wantsOpen;
+        forceUpdate();
+      }
+    },
+    [isMenuActive]
+  );
+
+  const handleNavigation = React.useCallback(
+    (url: string, e?: React.MouseEvent) => {
+      e?.preventDefault();
+      e?.stopPropagation();
+      router.push(url);
+    },
+    [router]
+  );
+
+  if (!items || items.length === 0) {
+    return null;
+  }
 
   return (
     <TooltipProvider delayDuration={300}>
       <SidebarGroup className="mt-0 overflow-x-hidden">
         <SidebarMenu>
           {items.map((item) => {
-            const isActiveParent = item.items?.some((subItem) => isRouteMatch(pathname, subItem.url));
+            const hasActiveSubItem = isMenuActive(item);
             const isCollapsed = state === 'collapsed' && !isMobile;
-            const isChildActive = !!isActiveParent && pathname !== item.url;
+            const menuOpen = shouldMenuBeOpen(item);
+
+            const handleIconClick = (e: React.MouseEvent) => {
+              if (item.url) {
+                e.preventDefault();
+                e.stopPropagation();
+                router.push(item.url);
+              }
+            };
 
             const parentButton = (
               <SidebarMenuButton
                 variant="unstyled"
                 isActive={false}
                 style={CLIP_PATH_STYLE}
-                className={getParentClassName(!!isActiveParent, isChildActive, isCollapsed)}
+                className={getParentClassName(hasActiveSubItem, hasActiveSubItem, isCollapsed)}
               >
-                <NavMainButtonContent icon={item.icon} title={item.title} isActive={!!isActiveParent} />
+                <NavMainButtonContent
+                  icon={item.icon}
+                  title={item.title}
+                  isActive={hasActiveSubItem}
+                  url={item.url}
+                  onIconClick={handleIconClick}
+                />
               </SidebarMenuButton>
             );
 
             return (
               <Collapsible
                 key={item.title}
-                open={openGroups[item.title] || false}
-                onOpenChange={(open) =>
-                  setOpenGroups((prev) => ({
-                    ...prev,
-                    [item.title]: open,
-                  }))
-                }
+                open={menuOpen}
+                onOpenChange={(open) => handleMenuToggle(item, open)}
                 className="group/collapsible"
               >
                 <SidebarMenuItem>
@@ -183,7 +243,7 @@ export function NavMain({
                         <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
                         <p className="px-2 py-1.5 font-semibold">{item.title}</p>
                         {item.items?.map((subItem) => {
-                          const isSubActive = isRouteMatch(pathname, subItem.url);
+                          const isSubActive = isSubItemActive(subItem.url);
                           return (
                             <button
                               key={subItem.title}
@@ -218,11 +278,10 @@ export function NavMain({
                   ) : (
                     <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
                   )}
-                  {/* <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12 group-data-[state=collapsed]:hidden" /> */}
                   <CollapsibleContent className="transition-all duration-200">
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => {
-                        const isSubActive = isRouteMatch(pathname, subItem.url);
+                        const isSubActive = isSubItemActive(subItem.url);
                         return (
                           <SidebarMenuSubItem key={subItem.title} className="relative">
                             <SidebarMenuSubButton
@@ -258,14 +317,6 @@ export function NavMain({
                                 </Typography>
                               </div>
                             </SidebarMenuSubButton>
-                            {/* <Separator
-                              style={{
-                                position: 'relative',
-                                right: '-1rem',
-                                zIndex: isSubActive ? 10 : 1,
-                              }}
-                              className="bg-nav-separator-bg h-[0.05rem] my-1 w-9/12 opacity-50 ml-4"
-                            /> */}
                           </SidebarMenuSubItem>
                         );
                       })}

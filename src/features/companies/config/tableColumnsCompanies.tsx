@@ -5,11 +5,9 @@ import { TranslationKey } from '@/i18n';
 import { Companies } from '@/lib/services/api/companiesApi/interface';
 
 import { DeleteCompany } from '../componentes/DeleteCompany';
+import { ManageCompany } from '../componentes/ManageCompany';
 
-export const tableColumnsCompanies = (
-  t: (key: TranslationKey) => string,
-  currentCompaniesId?: number
-): CustomColumnDef<Companies>[] => [
+export const tableColumnsCompanies = (t: (key: TranslationKey) => string): CustomColumnDef<Companies>[] => [
   {
     accessorKey: 'name',
     header: t('n.name'),
@@ -48,9 +46,11 @@ export const tableColumnsCompanies = (
     header: t('a.actions'),
     cell: ({ row }) => {
       const companyId = Number(row.original.id);
+      const companyName = row.original.name;
 
       return (
         <div className="flex items-center gap-2">
+          <ManageCompany companyId={companyId} companyName={companyName} />
           <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
           <DeleteCompany companyId={companyId} />
         </div>

@@ -78,3 +78,69 @@
   --color-sidebar-trigger-text: hsl(var(--sidebar-trigger-text));
   --color-sidebar-trigger-text-mobile: hsl(var(--sidebar-trigger-text-mobile));
 }
+
+/* ============================================
+   Sidebar Scrollbar Styles - Scrollbar estilizado
+   ============================================ */
+
+/* Contenedor del sidebar con scroll personalizado */
+[data-sidebar='content'] {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  transform: scaleX(-1); /* Espeja el contenedor para mover scrollbar a la izquierda */
+}
+
+/* Restaurar orientación normal del contenido sin afectar layouts */
+[data-sidebar='content'] > * {
+  transform: scaleX(-1); /* Re-espeja el contenido para que se vea normal */
+}
+
+/* === Estilos para WebKit (Chrome, Safari, Edge) === */
+[data-sidebar='content']::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-sidebar='content']::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+  margin: 8px 0;
+}
+
+[data-sidebar='content']::-webkit-scrollbar-thumb {
+  background: hsl(var(--primitive_azul_brillante) / 0.25);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+[data-sidebar='content']::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primitive_azul_brillante) / 0.45);
+}
+
+[data-sidebar='content']::-webkit-scrollbar-thumb:active {
+  background: hsl(var(--primitive_azul_brillante) / 0.6);
+}
+
+/* Scrollbar invisible por defecto, visible al hacer hover en el contenedor */
+[data-sidebar='content']::-webkit-scrollbar-thumb {
+  background: hsl(var(--primitive_azul_brillante) / 0);
+}
+
+[data-sidebar='content']:hover::-webkit-scrollbar-thumb {
+  background: hsl(var(--primitive_azul_brillante) / 0.25);
+}
+
+[data-sidebar='content']:hover::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primitive_azul_brillante) / 0.45);
+}
+
+/* === Estilos para Firefox === */
+[data-sidebar='content'] {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primitive_azul_brillante) / 0.25) transparent;
+}
+
+/* Suavizado de esquinas del scrollbar */
+[data-sidebar='content']::-webkit-scrollbar-corner {
+  background: transparent;
+}

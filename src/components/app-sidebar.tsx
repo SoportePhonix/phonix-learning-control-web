@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/sidebar';
 import { sidebarLogos } from '@/config/sidebar-logos.config';
 import { useSidebarData } from '@/hooks/use-sidebar-data';
-import { useConfigWithLoading } from '@/utils/context';
+import { useConfigWithLoading, useSelectedCompany } from '@/utils/context';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { useTheme } from 'next-themes';
 
@@ -23,6 +23,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { session } = useSessionContext();
   const { theme } = useTheme();
   const { config, isLoading } = useConfigWithLoading();
+  const { selectedCompany } = useSelectedCompany();
 
   const isDarkMode = theme === 'dark';
   const isPresentationMode = React.useMemo(
@@ -30,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     [isLoading, config.presentationMode]
   );
 
-  const { sections, navMainItems } = useSidebarData({ isPresentationMode });
+  const { sections, navMainItems } = useSidebarData({ isPresentationMode, selectedCompany });
 
   const userSession = {
     name: `${session?.user?.name} ${session?.user?.lastName}`,
