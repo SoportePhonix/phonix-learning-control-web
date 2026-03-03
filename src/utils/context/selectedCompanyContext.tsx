@@ -14,6 +14,7 @@ interface SelectedCompanyContextProps {
   setSelectedCompany: (company: SelectedCompany | null) => void;
   clearSelectedCompany: () => void;
   isCompanySelected: boolean;
+  isInitialized: boolean;
 }
 
 const STORAGE_KEY = 'selectedCompany';
@@ -109,6 +110,7 @@ export const SelectedCompanyProvider = ({ children }: { children: ReactNode }) =
         setSelectedCompany,
         clearSelectedCompany,
         isCompanySelected,
+        isInitialized,
       }}
     >
       {children}

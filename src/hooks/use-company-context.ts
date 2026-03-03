@@ -30,7 +30,7 @@ interface UseCompanyContextOptions {
  */
 export const useCompanyContext = (options: UseCompanyContextOptions = {}) => {
   const { redirectOnMissing = true, redirectPath = '/companies' } = options;
-  const { selectedCompany, isCompanySelected, setSelectedCompany } = useSelectedCompany();
+  const { selectedCompany, isCompanySelected, setSelectedCompany, isInitialized } = useSelectedCompany();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -51,17 +51,21 @@ export const useCompanyContext = (options: UseCompanyContextOptions = {}) => {
 
   const companyName = selectedCompany?.name;
 
-  // Redirigir si no hay empresa seleccionada
+  // isLoading es true hasta que el contexto esté inicializado
+  // Si hay companyId en la URL, no necesitamos esperar
+  const isLoading = !companyIdFromUrl && !isInitialized;
+
+  // Redirigir si no hay empresa seleccionada (solo después de inicializar)
   useEffect(() => {
-    if (redirectOnMissing && !companyId) {
+    if (redirectOnMissing && isInitialized && !companyId) {
       router.push(redirectPath);
     }
-  }, [companyId, redirectOnMissing, redirectPath, router]);
+  }, [companyId, redirectOnMissing, redirectPath, router, isInitialized]);
 
   return {
     companyId,
     companyName,
     isCompanySelected: companyId !== null,
-    isLoading: false,
+    isLoading,
   };
 };
