@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   SidebarGroup,
@@ -28,6 +28,11 @@ export function NavSections({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleNavigation = (url: string, e?: React.MouseEvent<HTMLButtonElement>) => {
     if (pathname !== url) {
@@ -37,6 +42,7 @@ export function NavSections({
   };
 
   const isActive = (url: string) => {
+    if (!mounted) return false;
     const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
     const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
     return normalizedPathname === normalizedUrl;

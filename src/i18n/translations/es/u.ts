@@ -18,9 +18,12 @@ export const u = {
   updateArea: 'Actualizar área',
   updatePosition: 'Actualizar cargo',
   updateInstance: 'Actualizar instancia',
+  updateLms: 'Actualizar LMS',
   updating: 'Actualizando',
   upload: 'Cargar',
   url: 'URL',
+  urlPlaceholder: 'https://example.com',
+  urlMustBeValid: 'La URL debe tener un formato válido (ej: https://moodle.example.com)',
   user: 'Usuario',
   userCreation: 'Creación de usuario',
   userCreatedSuccessfully: 'Usuario creado con éxito',
@@ -29,4 +32,5 @@ export const u = {
   userUpdateFailed: 'No se pudo actualizar el usuario',
   username: 'Nombre de usuario',
   users: 'Usuarios',
+  urlIsRequired: 'La URL es obligatoria',
 };

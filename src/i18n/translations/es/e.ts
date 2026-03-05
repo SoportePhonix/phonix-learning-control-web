@@ -1,6 +1,3 @@
-import { Edit } from 'lucide-react';
-import { error } from 'node:console';
-
 export const e = {
   edit: 'Editar',
   editCompany: 'Editar empresa',
@@ -8,6 +5,7 @@ export const e = {
   editUser: 'Editar usuario',
   editArea: 'Editar área',
   editInstance: 'Editar instancia',
+  editLms: 'Editar LMS',
   editPosition: 'Editar cargo',
   email: 'Correo electrónico',
   emailAddress: 'Dirección de correo',
@@ -32,4 +30,13 @@ export const e = {
   existingEmail: 'Email existente',
   existingAreaName: 'Nombre de área existente',
   existingPositionName: 'Nombre de cargo existente',
+  existingLmsName: 'Nombre de LMS existente',
+  errorServerLmsIdExternalInvalid:
+    'El ID externo debe tener entre 3 y 191 caracteres, solo letras, números, guiones, puntos y guiones bajos',
+  errorServerUrlInvalid: 'La URL debe ser una dirección válida',
+  errorServerNameRequired: 'El nombre es requerido',
+  errorServerTokenRequired: 'El token es requerido',
+  errorServerTypeInvalid: 'El tipo de LMS no es válido',
+  errorServerCompanyRequired: 'Debe seleccionar al menos una empresa',
+  errorServerGeneric: 'Ocurrió un error en el servidor',
 };
