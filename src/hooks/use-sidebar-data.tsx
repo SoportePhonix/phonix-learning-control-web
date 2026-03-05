@@ -5,6 +5,7 @@ import { CompanyIcon } from '@/features/companies/componentes/icons/CompanyIcon'
 import { ManageCompaniesIcon } from '@/features/companies/componentes/icons/ManageCompaniesIcon';
 import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon';
+import { LmsIcon } from '@/features/lms/componentes/icons/LmsIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useTranslation } from '@/i18n';
@@ -52,6 +53,11 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         name: t('c.companies'),
         url: '/companies',
         icon: (props) => <CompanyIcon {...props} />,
+      },
+      {
+        name: t('l.lms'),
+        url: '/lms',
+        icon: (props) => <LmsIcon {...props} />,
       },
     ];
 

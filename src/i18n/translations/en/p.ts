@@ -9,6 +9,7 @@ export const p = {
   pending: 'Pending',
   phone: 'Phone',
   pleaseSelectACompany: 'Please select a company',
+  pleaseSelectAtLeastOneCompany: 'Please select at least one company',
   preview: 'Preview',
   previous: 'Previous',
   priority: 'Priority',

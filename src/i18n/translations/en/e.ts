@@ -1,5 +1,3 @@
-import { exist } from 'joi';
-
 export const e = {
   edit: 'Edit',
   editCompany: 'Edit company',
@@ -7,6 +5,7 @@ export const e = {
   editUser: 'Edit user',
   editArea: 'Edit area',
   editInstance: 'Edit instance',
+  editLms: 'Edit LMS',
   editPosition: 'Edit position',
   email: 'Email',
   emailAddress: 'Email address',
@@ -31,4 +30,14 @@ export const e = {
   existingEmail: 'Existing email',
   existingAreaName: 'Existing area name',
   existingPositionName: 'Existing position name',
+  existingLmsName: 'Existing LMS name',
+  // Server validation errors
+  errorServerLmsIdExternalInvalid:
+    'External ID must be 3-191 characters, only letters, numbers, hyphens, dots and underscores',
+  errorServerUrlInvalid: 'URL must be a valid address',
+  errorServerNameRequired: 'Name is required',
+  errorServerTokenRequired: 'Token is required',
+  errorServerTypeInvalid: 'LMS type is not valid',
+  errorServerCompanyRequired: 'You must select at least one company',
+  errorServerGeneric: 'A server error occurred',
 };

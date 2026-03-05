@@ -8,6 +8,7 @@ export const p = {
   passwordValidationMessageLength: 'La contraseña debe tener al menos 8 caracteres.',
   pending: 'Pendiente',
   pleaseSelectACompany: 'Por favor seleccione una empresa',
+  pleaseSelectAtLeastOneCompany: 'Por favor seleccione al menos una empresa',
   phone: 'Teléfono',
   preview: 'Vista previa',
   previous: 'Anterior',

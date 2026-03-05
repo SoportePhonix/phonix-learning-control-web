@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import {
   Avatar,
   AvatarFallback,
@@ -15,7 +17,7 @@ import {
   Skeleton,
   useSidebar,
 } from '@/components/ui';
-import { ChevronsUpDown, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export function NavUser({
@@ -30,23 +32,27 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
 
-  const isLoading = !user?.name || !user?.email || !user?.avatar;
-  const avatarName = user.name
-    .split(' ')
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join('');
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Mostrar skeleton durante SSR y hasta que se monte el componente
+  const isLoading = !isMounted || !user?.name || !user?.email || !user?.avatar;
+  const avatarName = user?.name
+    ? user.name
+        .split(' ')
+        .map((word) => word[0])
+        .slice(0, 2)
+        .join('')
+    : '';
 
   return (
     <SidebarMenu className="group-data-[collapsible=icon]:ml-0 -ml-10 text-base-white w-full">
       <SidebarMenuItem>
         <DropdownMenu>
-          <DropdownMenuTrigger
-            asChild
-            className="text-brand hover:text-brand cursor-pointer"
-            // className="text-brand hover:bg-verde_base hover:text-brand dark:hover:bg-background dark:hover:text-blanco"
-          >
+          <DropdownMenuTrigger asChild className="text-brand hover:text-brand cursor-pointer">
             {isLoading ? (
               <SidebarMenuButton size="lg" className="p-2">
                 <Skeleton className="h-8 w-8 rounded-lg mr-3" />
@@ -66,7 +72,6 @@ export function NavUser({
                   </AvatarFallback>
                 </Avatar>
                 <span className="truncate font-normal">Mi perfil</span>
-                {/* <ChevronsUpDown className="ml-auto size-4" /> */}
               </SidebarMenuButton>
             )}
           </DropdownMenuTrigger>
