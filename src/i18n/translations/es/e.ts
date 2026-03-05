@@ -31,7 +31,6 @@ export const e = {
   existingAreaName: 'Nombre de área existente',
   existingPositionName: 'Nombre de cargo existente',
   existingLmsName: 'Nombre de LMS existente',
-  // Errores de validación del servidor
   errorServerLmsIdExternalInvalid:
     'El ID externo debe tener entre 3 y 191 caracteres, solo letras, números, guiones, puntos y guiones bajos',
   errorServerUrlInvalid: 'La URL debe ser una dirección válida',
