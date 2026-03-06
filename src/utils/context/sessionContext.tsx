@@ -1,23 +1,11 @@
 'use client';
 
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 
-import { getSession } from 'next-auth/react';
+import type { Session } from '@/utils/session';
+import { useSession } from 'next-auth/react';
 
-export interface Session {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    accessToken: string;
-    lastName: string;
-    companyId: string;
-    expiresAt: string;
-  };
-  expires: string;
-  status: 'authenticated' | 'unauthenticated';
-  update: () => Promise<void>;
-}
+export type { Session };
 
 interface SessionContextProps {
   session: Session | null;
@@ -27,20 +15,11 @@ interface SessionContextProps {
 const SessionContext = createContext<SessionContextProps | undefined>(undefined);
 
 export const SessionContextProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data, status } = useSession();
 
-  useEffect(() => {
-    const loadSession = async () => {
-      const sessionData = await getSession();
-      if (sessionData) {
-        setSession(sessionData as unknown as Session);
-      }
-      setLoading(false);
-    };
+  const session: Session | null = data ? (data as unknown as Session) : null;
 
-    loadSession();
-  }, []);
+  const loading = status === 'loading';
 
   return <SessionContext.Provider value={{ session, loading }}>{children}</SessionContext.Provider>;
 };
