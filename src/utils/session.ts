@@ -6,10 +6,18 @@ export interface CustomToken {
   id: number;
   name: string;
   lastName: string;
-  identificationDocument: string;
   email: string;
-  companyId: string;
-  role: string;
+  status: string;
+  identificationDocument?: string;
+  companyId?: number;
+  role: Array<{
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    deletedAt: string | null;
+  }>;
+  companies: Array<any>;
 }
 
 export interface Session {
@@ -20,6 +28,17 @@ export interface Session {
     accessToken: string;
     lastName: string;
     expiresAt: string;
+    status: string;
+    identificationDocument?: string;
+    companyId?: number;
+    role: Array<{
+      id: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string | null;
+    }>;
+    companies: Array<any>;
   };
   expires: string;
   data: Record<string, unknown>;

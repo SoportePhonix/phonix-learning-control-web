@@ -8,13 +8,18 @@ declare module 'next-auth' {
       id: number;
       name: string;
       lastName: string;
-      identificationDocument: string;
       email: string;
-      companyId: number;
+      status: string;
+      identificationDocument?: string;
+      companyId?: number;
       role: Array<{
         id: number;
         name: string;
+        createdAt: string;
+        updatedAt: string;
+        deletedAt: string | null;
       }>;
+      companies: Array<any>;
     } & DefaultSession['user'];
   }
 
@@ -24,13 +29,18 @@ declare module 'next-auth' {
     id: number;
     name: string;
     lastName: string;
-    identificationDocument: string;
     email: string;
-    companyId: number;
+    status: string;
+    identificationDocument?: string;
+    companyId?: number;
     role: Array<{
       id: number;
       name: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string | null;
     }>;
+    companies: Array<any>;
   }
 
   interface User {
@@ -39,9 +49,17 @@ declare module 'next-auth' {
     id: number;
     name: string;
     lastName: string;
-    identificationDocument: string;
     email: string;
-    companyId: number;
-    role: { id: number; name: string }[];
+    status: string;
+    identificationDocument?: string;
+    companyId?: number;
+    role: Array<{
+      id: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string | null;
+    }>;
+    companies: Array<any>;
   }
 }
