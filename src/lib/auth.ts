@@ -45,10 +45,12 @@ export const authOptions: AuthOptions = {
             id: response.data.user.id,
             name: response.data.user.name,
             lastName: response.data.user.lastName,
-            identificationDocument: response.data.user.identificationDocument,
             email: response.data.user.email,
+            status: response.data.user.status,
+            identificationDocument: response.data.user.identificationDocument,
             companyId: response.data.user.companyId,
             role: response.data.user.role,
+            companies: response.data.user.companies,
             accessToken: response.data.token,
             expiresAt: new Date(response.data.token_expires).getTime(),
           };
@@ -70,10 +72,12 @@ export const authOptions: AuthOptions = {
         token.id = user.id;
         token.name = user.name;
         token.lastName = user.lastName;
-        token.identificationDocument = user.identificationDocument;
         token.email = user.email;
+        token.status = user.status;
+        token.identificationDocument = user.identificationDocument;
         token.companyId = user.companyId;
         token.role = user.role;
+        token.companies = user.companies;
       }
 
       // Verificar si el token ha expirado
@@ -104,11 +108,20 @@ export const authOptions: AuthOptions = {
         id: Number(token.id),
         name: String(token.name),
         lastName: String(token.lastName),
-        identificationDocument: String(token.identificationDocument),
         email: String(token.email),
-        companyId: Number(token.companyId),
-        role: token.role as { id: number; name: string }[],
+        status: String(token.status),
+        identificationDocument: token.identificationDocument ? String(token.identificationDocument) : undefined,
+        companyId: token.companyId ? Number(token.companyId) : undefined,
+        role: token.role as Array<{
+          id: number;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+          deletedAt: string | null;
+        }>,
+        companies: token.companies as Array<any>,
       };
+
       return session;
     },
   },

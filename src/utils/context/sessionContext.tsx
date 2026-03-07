@@ -11,8 +11,18 @@ export interface Session {
     email: string;
     accessToken: string;
     lastName: string;
-    companyId: string;
     expiresAt: string;
+    status: string;
+    identificationDocument?: string;
+    companyId?: number;
+    role: Array<{
+      id: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string | null;
+    }>;
+    companies: Array<any>;
   };
   expires: string;
   status: 'authenticated' | 'unauthenticated';
