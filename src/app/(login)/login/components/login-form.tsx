@@ -38,7 +38,7 @@ export function LoginForm() {
       const res = await signIn('credentials', {
         ...data,
         redirect: false,
-        callbackUrl: '/users',
+        callbackUrl: '/home',
       });
 
       if (res && res.error) {
@@ -47,7 +47,7 @@ export function LoginForm() {
         return;
       }
 
-      router.push('/users');
+      router.push('/home');
     } catch (err) {
       console.error(err);
       setLoginError(500);

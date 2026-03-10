@@ -43,43 +43,6 @@ export const ROLE_CAPABILITIES: Record<RoleName, RoleCapability> = {
     actions: ACTIONS,
   },
   manager: {
-    actions: ['view', 'create', 'edit', 'delete'],
-    exclude: [
-      // Sin acceso a usuarios
-      'users.view',
-      'users.create',
-      'users.edit',
-      'users.delete',
-      // Sin acceso a empresas
-      'companies.view',
-      'companies.create',
-      'companies.edit',
-      'companies.delete',
-      // Sin acceso a instancias
-      'instances.view',
-      'instances.create',
-      'instances.edit',
-      'instances.delete',
-      // Sin acceso a training pathways
-      'trainingPathways.view',
-      'trainingPathways.create',
-      'trainingPathways.edit',
-      'trainingPathways.delete',
-      // Sin acceso a áreas
-      'areas.view',
-      'areas.create',
-      'areas.edit',
-      'areas.delete',
-      // Sin acceso a posiciones
-      'positions.view',
-      'positions.create',
-      'positions.edit',
-      'positions.delete',
-      // Sin acceso a gestión de empresas
-      'manageCompanies.view',
-      'manageCompanies.manage',
-      // Sin acceso al dashboard global
-      'dashboard.view',
-    ],
+    actions: ACTIONS,
   },
 };
