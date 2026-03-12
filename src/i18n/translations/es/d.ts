@@ -14,6 +14,7 @@ export const d = {
   deleteArea: 'Eliminar área',
   deleteInstance: 'Eliminar instancia',
   deleteLms: 'Eliminar LMS',
+  deleteTrainingRoute: 'Eliminar ruta de formación',
   deletePosition: 'Eliminar cargo',
   department: 'Departamento',
   description: 'Descripción',

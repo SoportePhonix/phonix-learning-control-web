@@ -19,6 +19,7 @@ export const u = {
   updatePosition: 'Actualizar cargo',
   updateInstance: 'Actualizar instancia',
   updateLms: 'Actualizar LMS',
+  updateTrainingRoute: 'Actualizar ruta de formación',
   updating: 'Actualizando',
   upload: 'Cargar',
   url: 'URL',

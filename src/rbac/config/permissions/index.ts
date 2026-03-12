@@ -11,6 +11,7 @@ import { MANAGE_COMPANIES_PERMISSIONS } from './manage-companies.permissions';
 import { POSITIONS_PERMISSIONS } from './positions.permissions';
 import { STUDENTS_PERMISSIONS } from './students.permissions';
 import { TRAINING_PATHWAYS_PERMISSIONS } from './training-pathways.permissions';
+import { TRAINING_ROUTES_PERMISSIONS } from './training-routes.permissions';
 import { USERS_PERMISSIONS } from './users.permissions';
 
 /**
@@ -25,6 +26,7 @@ export const PERMISSIONS = {
   ...COURSES_PERMISSIONS,
   ...STUDENTS_PERMISSIONS,
   ...TRAINING_PATHWAYS_PERMISSIONS,
+  ...TRAINING_ROUTES_PERMISSIONS,
   ...AREAS_PERMISSIONS,
   ...POSITIONS_PERMISSIONS,
   ...MANAGE_COMPANIES_PERMISSIONS,
