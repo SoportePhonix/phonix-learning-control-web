@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-/* @import url(./youniversity.css); */
+@import './styles/phonix-ui.css';
 /* Layout específico de la app */
 @import './styles/design-system/primitive-colors.css';
 
