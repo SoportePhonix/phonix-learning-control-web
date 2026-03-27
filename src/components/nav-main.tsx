@@ -15,6 +15,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { useRBAC } from '@/rbac';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -106,6 +107,7 @@ export function NavMain({
   const pathname = usePathname();
   const router = useRouter();
   const { state, isMobile } = useSidebar();
+  const { isManager } = useRBAC();
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -153,23 +155,23 @@ export function NavMain({
     (item: (typeof items)[0]) => {
       const hasActiveRoute = isMenuActive(item);
 
-      if (hasActiveRoute) {
+      if (isManager || hasActiveRoute) {
         return userClosedMenusRef.current[item.title] !== true;
       }
       return false;
     },
-    [isMenuActive]
+    [isMenuActive, isManager]
   );
 
   const handleMenuToggle = React.useCallback(
     (item: (typeof items)[0], wantsOpen: boolean) => {
       const hasActiveRoute = isMenuActive(item);
-      if (hasActiveRoute) {
+      if (isManager || hasActiveRoute) {
         userClosedMenusRef.current[item.title] = !wantsOpen;
         forceUpdate();
       }
     },
-    [isMenuActive]
+    [isMenuActive, isManager]
   );
 
   const handleNavigation = React.useCallback(
