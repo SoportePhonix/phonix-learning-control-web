@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTranslation } from '@/i18n';
 import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
+import { useSessionContext } from '@/utils/context/sessionContext';
 import { Bolt } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -16,12 +17,18 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
   const { t } = useTranslation();
   const router = useRouter();
   const { setSelectedCompany } = useSelectedCompany();
+  const { session } = useSessionContext();
 
   const handleClick = () => {
+    const isAllowed = session?.user?.companies?.some((c: any) => c.id === companyId);
+    if (!isAllowed) {
+      throw new Error('Empresa no permitida');
+    }
+
     // Guardar la empresa en el contexto antes de navegar
     setSelectedCompany({ id: companyId, name: companyName });
-    // Navegar al dashboard con el companyId como query param
-    router.push(`/manage-companies/dashboard?companyId=${companyId}`);
+    // Navegar al dashboard
+    router.push(`/manage-companies/dashboard`);
   };
 
   return (

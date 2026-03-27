@@ -3,5 +3,5 @@
 import AreaAddPage from '@/features/areas/pages/AreaAddPage';
 
 export default function Page() {
-  return <AreaAddPage baseRoute="/manage-companies/areas" />;
+  return <AreaAddPage baseRoute="/areas" />;
 }

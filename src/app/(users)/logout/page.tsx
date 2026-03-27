@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { Loader } from '@/components/ui/loader';
 import { useLogoutMutation } from '@/lib/services/api';
+import { invalidateSessionCache } from '@/lib/services/api/api';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -17,6 +18,9 @@ export default function Logout() {
   useEffect(() => {
     const logoutUser = async () => {
       try {
+        // Aseguramos que el cache del interceptor API se limpia inmediatamente
+        invalidateSessionCache();
+
         if (!session) {
           console.warn('Session is null or expired. Logging out...');
           await signOut({ redirect: false });

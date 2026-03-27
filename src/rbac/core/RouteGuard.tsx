@@ -47,7 +47,9 @@ export function RouteGuard({ children, redirectTo = '/unauthorized' }: RouteGuar
       setAuthorized(true);
     } else {
       setAuthorized(false);
-      router.replace(redirectTo);
+      if (pathname !== redirectTo) {
+        router.replace(redirectTo);
+      }
     }
   }, [pathname, isReady, canAll, router, redirectTo]);
 

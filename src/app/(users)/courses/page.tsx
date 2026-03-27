@@ -3,5 +3,5 @@
 import CoursesPage from '@/features/courses/pages/CoursesPage';
 
 export default function Page() {
-  return <CoursesPage baseRoute="/manage-companies/courses" />;
+  return <CoursesPage baseRoute="/courses" />;
 }

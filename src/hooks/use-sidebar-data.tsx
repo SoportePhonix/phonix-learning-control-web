@@ -8,6 +8,7 @@ import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon
 import { LmsIcon } from '@/features/lms/componentes/icons/LmsIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
+import { useCompanyContext } from '@/hooks/use-company-context';
 import { useTranslation } from '@/i18n';
 import { useRBAC } from '@/rbac';
 import type { Permission } from '@/rbac';
@@ -44,7 +45,8 @@ interface NavMainItem {
 
 export function useSidebarData({ isPresentationMode, selectedCompany }: UseSidebarDataProps) {
   const { t } = useTranslation();
-  const { can } = useRBAC();
+  const { can, isManager } = useRBAC();
+  const { companyName } = useCompanyContext({ redirectOnMissing: false });
 
   const sections = React.useMemo<SidebarSection[]>(() => {
     const allSections: SidebarSection[] = [
@@ -98,51 +100,83 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
     ];
 
     return allSections.filter((section) => !section.permission || can(section.permission));
-  }, [isPresentationMode, t, can]);
+  }, [isPresentationMode, t, can, isManager]);
 
   const navMainItems = React.useMemo<NavMainItem[]>(() => {
-    if (!selectedCompany) {
-      return [];
-    }
+    let allItems: NavMainItem[] = [];
 
-    const companyId = selectedCompany.id;
-    const companyName = selectedCompany.name;
+    if (isManager) {
+      allItems.push({
+        title: companyName || 'Mi Empresa',
+        url: `/dashboard`,
+        icon: (props) => <CompanyIcon {...props} />,
+        permission: 'students.view', // Require only a base permission
+        items: [
+          {
+            title: t('d.dashboard'),
+            url: `/dashboard`,
+            permission: 'students.view',
+          },
+          {
+            title: t('s.students'),
+            url: `/students`,
+            permission: 'students.view',
+          },
+          {
+            title: t('c.courses'),
+            url: `/courses`,
+            permission: 'courses.view',
+          },
+          {
+            title: t('a.areas'),
+            url: `/areas`,
+            permission: 'areas.view',
+          },
+          {
+            title: t('p.post'),
+            url: `/positions`,
+            permission: 'positions.view',
+          },
+        ],
+      });
+    } else if (selectedCompany) {
+      const companyName = selectedCompany?.name;
+      const queryString = `?companyId=${selectedCompany?.id}`;
 
-    const allItems: NavMainItem[] = [
-      {
+      allItems.push({
         title: companyName ? `${t('m.manageCompanies')} - ${companyName}` : t('m.manageCompanies'),
-        url: `/manage-companies/dashboard?companyId=${companyId}`,
+        url: `/ 6-companies/dashboard${queryString}`,
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'manageCompanies.view',
         items: [
           {
             title: t('d.dashboard'),
-            url: `/manage-companies/dashboard?companyId=${companyId}`,
+            url: `/manage-companies/dashboard${queryString}`,
             permission: 'dashboard.view',
           },
           {
             title: t('s.students'),
-            url: `/manage-companies/students?companyId=${companyId}`,
+            url: `/manage-companies/students${queryString}`,
             permission: 'students.view',
           },
           {
             title: t('c.courses'),
-            url: `/manage-companies/courses?companyId=${companyId}`,
+            url: `/manage-companies/courses${queryString}`,
             permission: 'courses.view',
           },
           {
             title: t('a.areas'),
-            url: `/manage-companies/areas?companyId=${companyId}`,
+            url: `/manage-companies/areas${queryString}`,
             permission: 'areas.view',
           },
           {
             title: t('p.post'),
-            url: `/manage-companies/positions?companyId=${companyId}`,
+            url: `/manage-companies/positions${queryString}`,
             permission: 'positions.view',
           },
         ],
-      },
-    ];
+      });
+    }
 
     return allItems
       .filter((item) => !item.permission || can(item.permission))
@@ -150,7 +184,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         ...item,
         items: item.items.filter((sub) => !sub.permission || can(sub.permission)),
       }));
-  }, [t, selectedCompany, can]);
+  }, [t, selectedCompany, can, isManager, companyName]);
 
   return { sections, navMainItems };
 }

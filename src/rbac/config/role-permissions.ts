@@ -22,9 +22,13 @@ function buildRolePermissions(): RolePermissionMap {
       return capability.actions.includes(action);
     });
 
-    result[role] = capability.exclude
+    const baseAllowed = capability.exclude
       ? allowed.filter((p) => !(capability.exclude as readonly string[]).includes(p))
       : allowed;
+
+    const included = capability.include ? (capability.include as Permission[]) : [];
+
+    result[role] = Array.from(new Set([...baseAllowed, ...included]));
   }
 
   return result as RolePermissionMap;
