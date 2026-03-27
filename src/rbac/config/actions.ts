@@ -22,6 +22,7 @@ export interface RoleCapability {
   actions: readonly Action[];
   /** Permisos específicos a excluir (opcional) */
   exclude?: readonly `${string}.${string}`[];
+
   /** Permisos específicos a incluir explícitamente (opcional) */
   include?: readonly `${string}.${string}`[];
 }
