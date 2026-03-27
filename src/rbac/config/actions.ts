@@ -22,7 +22,16 @@ export interface RoleCapability {
   actions: readonly Action[];
   /** Permisos específicos a excluir (opcional) */
   exclude?: readonly `${string}.${string}`[];
+  /** Permisos específicos a incluir explícitamente (opcional) */
+  include?: readonly `${string}.${string}`[];
 }
+
+/**
+ * Helper para generar exclusiones de CRUD completo para ciertos módulos.
+ */
+const excludeRestrictedModules = (modules: string[]): `${string}.${string}`[] => {
+  return modules.flatMap((mod) => ACTIONS.map((action) => `${mod}.${action}` as `${string}.${string}`));
+};
 
 /**
  * Capacidades por rol.
@@ -41,8 +50,20 @@ export const ROLE_CAPABILITIES: Record<RoleName, RoleCapability> = {
   },
   admin: {
     actions: ACTIONS,
+    exclude: ['instances.view', 'instances.create', 'instances.edit', 'instances.delete', 'instances.manage'],
   },
   manager: {
     actions: ACTIONS,
+    // Se excluyen totalmente los módulos globales para el manager
+    exclude: excludeRestrictedModules([
+      'companies',
+      'instances',
+      'users',
+      'trainingPathways',
+      'config', // Por si se añade un módulo general de configuraciones
+    ]),
+    include: [
+      'manageCompanies.view', // 🔥 ESTA LÍNEA ES LA CLAVE (Llave de la puerta)
+    ],
   },
 };

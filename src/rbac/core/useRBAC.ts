@@ -70,6 +70,8 @@ export function useRBAC() {
     return roles.some((r) => roleNames.includes(r));
   };
 
+  const isManager = hasRole('manager');
+
   const isReady = !loading && roleNames.length > 0;
 
   return {
@@ -81,6 +83,8 @@ export function useRBAC() {
     loading,
     /** true cuando la sesión cargó y los roles están disponibles */
     isReady,
+    /** true si el usuario tiene el rol explícito de 'manager' */
+    isManager,
     /** Verificar un permiso */
     can,
     /** Verificar si tiene al menos uno de varios permisos */
