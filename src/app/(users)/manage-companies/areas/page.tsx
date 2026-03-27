@@ -1,41 +1,7 @@
 'use client';
 
-import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
-import { DataTable } from '@/components/ui/data-table';
-import { tableColumnsAreas } from '@/features/areas/config/tableColumnsAreas';
-import { useCompanyContext } from '@/hooks/use-company-context';
-import { useTranslation } from '@/i18n';
-import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
-import { Areas } from '@/lib/services/api/areasApi/interface';
-import { useSessionContext } from '@/utils/context/sessionContext';
-import { NotebookPen } from 'lucide-react';
+import AreasPage from '@/features/areas/pages/AreasPage';
 
 export default function Page() {
-  const { t } = useTranslation();
-  const { session } = useSessionContext();
-  const { companyId, companyName } = useCompanyContext();
-
-  const { data: areasData } = useGetAreasQuery();
-
-  const currentUserId = session?.user?.id ? Number(session.user.id) : undefined;
-
-  const filteredAreas = companyId
-    ? (areasData?.data ?? []).filter((area: Areas) => area.companyId === companyId)
-    : (areasData?.data ?? []);
-
-  return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('a.areas')}${companyName ? ` - ${companyName}` : ''}`} />
-
-      <CreateButton
-        href={`/manage-companies/areas/add?companyId=${companyId}`}
-        label={t('a.addArea')}
-        icon={<NotebookPen />}
-        align="right"
-      />
-
-      <DataTable data={filteredAreas} columns={tableColumnsAreas(t, currentUserId)} />
-    </div>
-  );
+  return <AreasPage baseRoute="/manage-companies/areas" />;
 }
