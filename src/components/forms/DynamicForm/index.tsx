@@ -1,8 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { TranslationKey } from '@/i18n';
+import { Button } from '@/lib/phonix-ui';
 import Link from 'next/link';
 import { FieldValues } from 'react-hook-form';
 
@@ -96,12 +95,7 @@ export function DynamicForm<T extends FieldValues>({
             </Link>
           )}
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className={!displayCancelButton ? 'w-full' : ''}
-            variant="secondary"
-          >
+          <Button type="submit" disabled={isLoading} variant="secondary">
             {isLoading
               ? mode === 'edit'
                 ? t('u.updating')

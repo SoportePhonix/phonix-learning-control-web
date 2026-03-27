@@ -2,6 +2,7 @@
 
 import { Loader } from '@/components/ui';
 import { FormPageLayoutProps } from '@/types/components/formPageLayout';
+import { Typography } from '@soportephonix/phx-typography';
 
 export function FormPageLayout({ description, children, isLoading = false }: FormPageLayoutProps) {
   if (isLoading) {
@@ -15,7 +16,11 @@ export function FormPageLayout({ description, children, isLoading = false }: For
   return (
     <div className="min-h-screen w-full">
       <div className="bg-base-white/70 backdrop-blur-sm rounded-md shadow-sm">
-        {description && <p className="text-center text-sm py-6 border-b">{description}</p>}
+        {description && (
+          <Typography variant="paragraph" className="text-center text-sm py-6 border-b">
+            {description}
+          </Typography>
+        )}
         {children}
       </div>
     </div>

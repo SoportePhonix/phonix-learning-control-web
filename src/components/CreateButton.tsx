@@ -2,7 +2,8 @@
 
 import { ReactNode } from 'react';
 
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
+import { Button } from '@/lib/phonix-ui';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -27,7 +28,7 @@ export const CreateButton = ({ href, label, icon, variant = 'secondary', align }
       )}
     >
       <Link href={href} className={!align ? 'w-full' : undefined}>
-        <Button variant={variant} hasIcon={!!icon} icon={icon} className={!align ? 'w-full' : undefined}>
+        <Button variant={variant} icon={'add'}>
           {label}
         </Button>
       </Link>

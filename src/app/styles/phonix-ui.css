@@ -1,1 +1,4 @@
-/* @import '@soportephonix/phx-button/styles'; */
+@import '@soportephonix/phx-button/styles';
+@import '@soportephonix/phx-input/styles';
+@import '@soportephonix/phx-search-select/styles';
+@import '@soportephonix/phx-typography/styles';
