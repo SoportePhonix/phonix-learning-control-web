@@ -6,6 +6,7 @@ export const e = {
   editArea: 'Edit area',
   editInstance: 'Edit instance',
   editLms: 'Edit LMS',
+  editTrainingRoute: 'Edit training route',
   editPosition: 'Edit position',
   email: 'Email',
   emailAddress: 'Email address',
@@ -31,6 +32,7 @@ export const e = {
   existingAreaName: 'Existing area name',
   existingPositionName: 'Existing position name',
   existingLmsName: 'Existing LMS name',
+  existingTrainingRouteName: 'Existing training route name',
   // Server validation errors
   errorServerLmsIdExternalInvalid:
     'External ID must be 3-191 characters, only letters, numbers, hyphens, dots and underscores',

@@ -6,6 +6,7 @@ export const e = {
   editArea: 'Editar área',
   editInstance: 'Editar instancia',
   editLms: 'Editar LMS',
+  editTrainingRoute: 'Editar ruta de formación',
   editPosition: 'Editar cargo',
   email: 'Correo electrónico',
   emailAddress: 'Dirección de correo',
@@ -31,6 +32,7 @@ export const e = {
   existingAreaName: 'Nombre de área existente',
   existingPositionName: 'Nombre de cargo existente',
   existingLmsName: 'Nombre de LMS existente',
+  existingTrainingRouteName: 'Nombre de ruta de formación existente',
   errorServerLmsIdExternalInvalid:
     'El ID externo debe tener entre 3 y 191 caracteres, solo letras, números, guiones, puntos y guiones bajos',
   errorServerUrlInvalid: 'La URL debe ser una dirección válida',

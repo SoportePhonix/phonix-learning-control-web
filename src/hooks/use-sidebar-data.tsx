@@ -7,6 +7,7 @@ import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon';
 import { LmsIcon } from '@/features/lms/componentes/icons/LmsIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
+import { TrainingRoutesIcon } from '@/features/trainingRoutes/componentes/icons/TrainingRoutesIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useCompanyContext } from '@/hooks/use-company-context';
 import { useTranslation } from '@/i18n';
@@ -73,6 +74,12 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         url: '/lms',
         icon: (props) => <LmsIcon {...props} />,
         permission: 'lms.view',
+      },
+      {
+        name: t('t.trainingRoutes'),
+        url: '/training-routes',
+        icon: (props) => <TrainingRoutesIcon {...props} />,
+        permission: 'trainingRoutes.view',
       },
       // Secciones de presentation mode
       ...(isPresentationMode

@@ -19,6 +19,7 @@ export const u = {
   updatePosition: 'Update position',
   updateInstance: 'Update instance',
   updateLms: 'Update LMS',
+  updateTrainingRoute: 'Update training route',
   updating: 'Updating',
   upload: 'Upload',
   url: 'URL',

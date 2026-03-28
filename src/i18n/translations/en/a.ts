@@ -30,6 +30,8 @@ export const a = {
   areYouSureYouWantToDeleteThisInstance: 'Are you sure want to delete this instance?',
   areSureWantToDeleteThisArea: 'Are sure want to delete this area?',
   areSureWantToDeleteThisLms: 'Are you sure want to delete this LMS?',
+  areSureWantToDeleteThisTrainingRoute: 'Are you sure you want to delete this training route?',
+  addTrainingRoute: 'Add training route',
   areaCreatedSuccessfully: 'Area created successfully',
   areaCreationFailed: 'Area creation failed',
   areaUpdatedSuccessfully: 'Area updated successfully',

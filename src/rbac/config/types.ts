@@ -28,6 +28,7 @@ export type Module =
   | 'courses'
   | 'students'
   | 'trainingPathways'
+  | 'trainingRoutes'
   | 'areas'
   | 'positions'
   | 'manageCompanies'
