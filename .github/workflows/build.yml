@@ -23,6 +23,20 @@ jobs:
         with:
           node-version: '20.9.0'
 
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Configure GitHub Packages authentication
+        run: |
+          echo "@soportephonix:registry=https://npm.pkg.github.com/" >> .npmrc
+          echo "@youniversityrepo:registry=https://npm.pkg.github.com/" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${PACKAGES_TOKEN_PHONIX_UI}" >> .npmrc
+        env:
+          PACKAGES_TOKEN_PHONIX_UI: ${{ secrets.PACKAGES_TOKEN_PHONIX_UI }}
+
+      - name: Set Yarn registry to public npm
+        run: yarn config set registry https://registry.npmjs.org
+
       - name: Install project dependencies
         run: yarn install
 

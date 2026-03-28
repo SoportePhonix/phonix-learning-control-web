@@ -30,7 +30,7 @@ export function RouteGuard({ children, redirectTo = '/unauthorized' }: RouteGuar
   const pathname = usePathname();
   const router = useRouter();
   const { canAll, isReady } = useRBAC();
-  const [authorized, setAuthorized] = useState(false);
+  const [authorized, setAuthorized] = useState(true);
 
   useEffect(() => {
     if (!isReady) return;
@@ -52,10 +52,6 @@ export function RouteGuard({ children, redirectTo = '/unauthorized' }: RouteGuar
       }
     }
   }, [pathname, isReady, canAll, router, redirectTo]);
-
-  if (!isReady) {
-    return null;
-  }
 
   if (!authorized) {
     return null;

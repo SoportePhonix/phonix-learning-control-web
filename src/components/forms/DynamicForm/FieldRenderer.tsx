@@ -1,10 +1,8 @@
 'use client';
 
 import { Textarea } from '@/components/ui';
-import { Input } from '@/components/ui/input';
-import { InputPassword } from '@/components/ui/input-password';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { TranslationKey } from '@/i18n';
+import { Input, SelectSearch } from '@/lib/phonix-ui';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { FieldConfig } from './types';
@@ -122,52 +120,17 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                   : undefined;
 
               return (
-                <div className="flex flex-col space-y-1">
-                  <Select
-                    key={`${fieldName}-${selectValue || 'empty'}`}
-                    value={selectValue}
-                    onValueChange={controllerField.onChange}
-                    disabled={field.disabled}
-                  >
-                    <SelectTrigger className={error ? 'border-b-error' : ''}>
-                      <SelectValue placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')} />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-lg border-verde_base/30 bg-brand z-50 text-[#3A484C]">
-                      {options.map((option) => (
-                        <SelectItem key={option.value} value={String(option.value)} className="bg-base-white">
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {error && !field.errorTooltip && (
-                    <span className="text-sm text-error whitespace-pre-line mt-1">
-                      {typeof error?.message === 'string' ? resolveErrorMessage(error.message) : ''}
-                    </span>
-                  )}
-                  {error && field.errorTooltip && (
-                    <div className="flex items-center gap-1 text-sm text-error group cursor-help mt-1">
-                      <span>{field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : 'Review field'}</span>
-                      <div className="relative inline-block">
-                        <svg
-                          className="w-4 h-4"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <div className="invisible group-hover:visible absolute left-0 top-6 z-50 w-72 p-3 text-sm bg-base-white border border-gray-200 rounded-md shadow-lg text-gray-700 whitespace-normal">
-                          {typeof error?.message === 'string' ? resolveErrorMessage(error.message) : ''}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <SelectSearch
+                  data={options}
+                  valueKey="value"
+                  labelKey="label"
+                  selectedValue={selectValue}
+                  onSelect={(value) => controllerField.onChange(value)}
+                  label={t(field.label)}
+                  placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')}
+                  error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
+                  required={isRequired}
+                />
               );
             }}
           />
@@ -175,22 +138,31 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
       case 'textarea':
         return (
-          <Textarea
-            {...register(fieldName, validationRules)}
-            placeholder={field.placeholder ? t(field.placeholder) : t('e.enterAValue')}
-            error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
-            disabled={field.disabled}
-            rows={field.rows ?? 4}
-            className={field.className}
-            errorTooltip={field.errorTooltip}
-            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
-          />
+          <>
+            <label className="text-sm text-label">
+              {t(field.label)}
+              {isRequired && <span className="text-error">*</span>}
+            </label>
+            <Textarea
+              {...register(fieldName, validationRules)}
+              placeholder={field.placeholder ? t(field.placeholder) : t('e.enterAValue')}
+              error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
+              disabled={field.disabled}
+              rows={field.rows ?? 4}
+              className={field.className}
+              errorTooltip={field.errorTooltip}
+              errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
+            />
+          </>
         );
 
       case 'password':
         return (
-          <InputPassword
+          <Input
+            type="password"
             {...register(fieldName, validationRules)}
+            label={t(field.label)}
+            required={isRequired}
             placeholder={
               mode === 'edit'
                 ? t('l.leaveBlankToKeepCurrent')
@@ -200,9 +172,6 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             }
             error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
             disabled={field.disabled}
-            className={field.className}
-            errorTooltip={field.errorTooltip}
-            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
           />
         );
 
@@ -211,12 +180,11 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
           <Input
             type="date"
             {...register(fieldName, validationRules)}
+            label={t(field.label)}
+            required={isRequired}
             placeholder={field.placeholder ? t(field.placeholder) : undefined}
             error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
             disabled={field.disabled}
-            className={field.className}
-            errorTooltip={field.errorTooltip}
-            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
           />
         );
 
@@ -226,32 +194,16 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
       default:
         return (
           <Input
-            type={field.type}
             {...register(fieldName, validationRules)}
+            label={t(field.label)}
+            required={isRequired}
             placeholder={field.placeholder ? t(field.placeholder) : t('e.enterAValue')}
             error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
             disabled={field.disabled}
-            className={field.className}
-            errorTooltip={field.errorTooltip}
-            errorTooltipTrigger={field.errorTooltipTrigger ? t(field.errorTooltipTrigger) : undefined}
           />
         );
     }
   };
 
-  return (
-    <div className="grid gap-2">
-      <label className="text-sm text-label">
-        {t(field.label)}
-        {isRequired && <span className="text-error">*</span>}
-        {mode === 'edit' && field.type === 'password' && !isRequired && (
-          <span className="text-sm text-label ml-2">({t('o.optional')})</span>
-        )}
-      </label>
-
-      {renderField()}
-
-      {/* Los errores de select ya se manejan dentro del componente */}
-    </div>
-  );
+  return <div className="grid gap-2">{renderField()}</div>;
 }
