@@ -15,6 +15,7 @@ export interface AddCompaniesRequest {
   nit: string;
   email: string;
   status: string;
+  instanceId?: number;
 }
 
 export interface AddCompaniesDataResponse {

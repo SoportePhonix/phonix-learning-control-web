@@ -3,4 +3,5 @@ export type CompaniesFormValues = {
   nit: string;
   email: string;
   status: string;
+  instanceId?: string;
 };
