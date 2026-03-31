@@ -3,7 +3,7 @@
 import { CoursesFormValues } from '@/components/courses/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useCreateCourses } from '@/features/courses/hooks/useCreateCourses';
 import { useTranslation } from '@/i18n';
@@ -40,7 +40,7 @@ export default function CourseAddPage({ baseRoute = '/manage-companies/courses' 
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addCourse')} />
+      <PageHeader title={t('a.addCourse')} />
       <FormPageLayout description={t('t.toCreateACoursePleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

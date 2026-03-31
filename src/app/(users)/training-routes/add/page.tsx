@@ -2,7 +2,7 @@
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { TrainingRouteFormValues } from '@/components/trainingRoutes/types';
 import { useCreateTrainingRoute } from '@/features/trainingRoutes/hooks/useCreateTrainingRoute';
 import { useTrainingRoutesForm } from '@/features/trainingRoutes/hooks/useTrainingRoutesForm';
@@ -31,7 +31,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addTrainingRoute')} />
+      <PageHeader title={t('a.addTrainingRoute')} />
       <FormPageLayout description={t('t.toCreateATrainingRoutePleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

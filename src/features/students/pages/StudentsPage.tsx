@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsStudents } from '@/features/students/config/tableColumnsStudents';
 import { useCompanyContext } from '@/hooks/use-company-context';
@@ -30,7 +30,7 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('s.students')} - ${companyName}`} />
+      <PageHeader title={`${t('s.students')} - ${companyName}`} />
       <CreateButton href={`${baseRoute}/add`} label={t('a.addStudent')} icon={<BookPlus />} align="right" />
 
       <DataTable data={filteredStudents} columns={tableColumnsStudents(t, currentUserId)} />

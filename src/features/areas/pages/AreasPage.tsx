@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsAreas } from '@/features/areas/config/tableColumnsAreas';
 import { useCompanyContext } from '@/hooks/use-company-context';
@@ -30,7 +30,7 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('a.areas')} - ${companyName}`} />
+      <PageHeader title={`${t('a.areas')} - ${companyName}`} />
 
       <CreateButton href={`${baseRoute}/add`} label={t('a.addArea')} icon={<NotebookPen />} align="right" />
 

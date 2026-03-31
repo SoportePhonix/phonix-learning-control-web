@@ -10,7 +10,7 @@ import { trainingRoutesMock } from '@/app/(users)/students-app/hooks/info/traini
 import { TrainingRoute } from '@/app/(users)/students-app/hooks/info/trainingRoute/trainingRoutes.types';
 import { studentStatsMock } from '@/app/(users)/students-app/hooks/studentStats.mock';
 import { studentsMock } from '@/app/(users)/students-app/hooks/students.mock';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
@@ -30,7 +30,7 @@ export default function StudentInfoPage() {
 
   return (
     <div className="p-8 mb-20 h-full w-full flex flex-col">
-      <SectionTitle title="Detalle de estudiante" />
+      <PageHeader title="Detalle de estudiante" />
 
       <div className="grid grid-cols-7 gap-12">
         <div className="col-span-3">
@@ -38,7 +38,7 @@ export default function StudentInfoPage() {
         </div>
 
         <div className="h-full w-full flex flex-col col-span-4">
-          <SectionTitle title="Rutas de formación" />
+          <PageHeader title="Rutas de formación" />
 
           <Link href="/courses" className="underline underline-offset-4 hover:no-underline">
             Todos los cursos
@@ -49,7 +49,7 @@ export default function StudentInfoPage() {
       </div>
 
       <div className="h-full w-full flex flex-col mt-6">
-        <SectionTitle title="Cursos" />
+        <PageHeader title="Cursos" />
 
         <h2 className="text-sm font-medium text-[#3A484C]">
           {selectedRoute?.name ?? 'Selecciona una ruta de formación'}

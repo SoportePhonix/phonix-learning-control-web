@@ -4,8 +4,8 @@ import { use } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
+import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
-import { SectionTitle } from '@/components/section-title';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useUpdatePosition } from '@/features/positions/hooks/useUpdatePosition';
 import { useTranslation } from '@/i18n';
@@ -41,7 +41,7 @@ export default function Page({ params }: { params: Promise<{ positionId: string 
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updatePosition')} />
+      <PageHeader title={t('u.updatePosition')} />
 
       <FormPageLayout description={t('t.toUpdateAPositionCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

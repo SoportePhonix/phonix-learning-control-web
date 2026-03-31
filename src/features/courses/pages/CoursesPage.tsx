@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsCourses } from '@/features/courses/config/tableColumnsCourses';
 import { useCompanyContext } from '@/hooks/use-company-context';
@@ -30,7 +30,7 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('c.courses')} - ${companyName}`} />
+      <PageHeader title={`${t('c.courses')} - ${companyName}`} />
 
       <CreateButton href={`${baseRoute}/add`} label={t('a.addCourse')} icon={<BookPlus />} align="right" />
 

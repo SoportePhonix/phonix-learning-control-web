@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { UserFormValues } from '@/components/users/types';
 import { useCreateUser } from '@/features/users/hooks/useCreateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
@@ -45,9 +45,9 @@ export default function Page() {
   });
 
   return (
-    <div className="px-2 py-4">
+    <div className="px-2">
       <Breadcrumb items={crumbRoutes} />
-      <SectionTitle title={t('a.addUser')} />
+      <PageHeader title={t('a.addUser')} />
       <FormPageLayout description={t('t.toCreateAUserPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

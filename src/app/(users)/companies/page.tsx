@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { Loader } from '@/components/ui/loader';
 import { tableColumnsCompanies } from '@/features/companies/config/tableColumnsCompanies';
@@ -54,7 +54,7 @@ export default function Page() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={t('c.companies')} />
+      <PageHeader title={t('c.companies')} />
 
       <CreateButton href="/companies/add" label={t('a.addCompanies')} icon={<Building2 />} align="right" />
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { tableColumns } from '@/features/users/config/tableColumns';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
@@ -20,7 +20,7 @@ export default function Page() {
   return (
     <div className="mb-8 px-2 flex flex-col">
       <Breadcrumb items={crumbRoutes} />
-      <SectionTitle title={t('u.users')} buttonLabel={t('a.addUsers')} buttonHref="/users/add" />
+      <PageHeader title={t('u.users')} buttonLabel={t('a.addUsers')} buttonHref="/users/add" />
 
       <DataTable
         striped

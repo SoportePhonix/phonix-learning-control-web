@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { Separator } from './ui';
 
-export const SectionTitle = ({ title, buttonLabel, buttonHref }: SectionTitleProps) => {
+export const PageHeader = ({ title, buttonLabel, buttonHref }: SectionTitleProps) => {
   const router = useRouter();
 
   return (

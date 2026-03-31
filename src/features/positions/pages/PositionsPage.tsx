@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsPositions } from '@/features/positions/config/tableColumnsPositions';
 import { useCompanyContext } from '@/hooks/use-company-context';
@@ -30,7 +30,7 @@ export default function PositionsPage({ baseRoute = '/manage-companies/positions
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('p.positions')} - ${companyName}`} />
+      <PageHeader title={`${t('p.positions')} - ${companyName}`} />
 
       <CreateButton href={`${baseRoute}/add`} label={t('a.addPosition')} icon={<ArchiveRestore />} align="right" />
 

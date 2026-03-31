@@ -4,7 +4,7 @@ import { use } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useUpdateStudent } from '@/features/students/hooks/useUpdateStudent';
 import { useTranslation } from '@/i18n';
@@ -53,7 +53,7 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateStudent')} />
+      <PageHeader title={t('u.updateStudent')} />
       <FormPageLayout description={t('t.toUpdateAStudentCompleteTheFields' as any)} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}

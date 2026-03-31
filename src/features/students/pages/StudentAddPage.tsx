@@ -2,7 +2,7 @@
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useTranslation } from '@/i18n';
@@ -50,7 +50,7 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addStudent')} />
+      <PageHeader title={t('a.addStudent')} />
       <FormPageLayout description={t('t.toCreateAStudentPleaseFillInTheFields' as any)}>
         <DynamicForm
           config={formConfig}

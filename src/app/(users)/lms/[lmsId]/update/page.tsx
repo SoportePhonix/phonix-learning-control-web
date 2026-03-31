@@ -5,7 +5,7 @@ import { use } from 'react';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { LmsFormValues } from '@/components/lms/types';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useLmsForm } from '@/features/lms/hooks/useLmsForm';
 import { useUpdateLms } from '@/features/lms/hooks/useUpdateLms';
 import { useTranslation } from '@/i18n';
@@ -44,7 +44,7 @@ export default function Page({ params }: { params: Promise<{ lmsId: string }> })
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateLms')} />
+      <PageHeader title={t('u.updateLms')} />
 
       <FormPageLayout description={t('t.toUpdateAnLmsCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
