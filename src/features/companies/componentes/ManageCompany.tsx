@@ -3,6 +3,8 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTranslation } from '@/i18n';
+import { useRBAC } from '@/rbac';
+import { Role } from '@/rbac/config/roles';
 import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { Bolt } from 'lucide-react';
@@ -18,9 +20,12 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
   const router = useRouter();
   const { setSelectedCompany } = useSelectedCompany();
   const { session } = useSessionContext();
+  const { hasRole } = useRBAC();
+
+  const isSuperAdmin = hasRole(Role.SUPERADMIN);
 
   const handleClick = () => {
-    const isAllowed = session?.user?.companies?.some((c: any) => c.id === companyId);
+    const isAllowed = isSuperAdmin || session?.user?.companies?.some((c: any) => c.id === companyId);
     if (!isAllowed) {
       throw new Error('Empresa no permitida');
     }
