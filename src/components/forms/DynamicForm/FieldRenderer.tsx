@@ -106,9 +106,12 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
     switch (field.type) {
       case 'select': {
         const options = typeof field.options === 'function' ? field.options() : (field.options ?? []);
+        const currentValue = form.watch(fieldName);
+        const hasValue = currentValue !== '' && currentValue !== null && currentValue !== undefined;
 
         return (
           <Select
+            key={`${fieldName}-${hasValue ? 'set' : 'empty'}`}
             name={fieldName}
             options={options}
             control={control}
@@ -123,9 +126,12 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
       case 'select-search': {
         const options = typeof field.options === 'function' ? field.options() : (field.options ?? []);
+        const currentValue = form.watch(fieldName);
+        const hasValue = currentValue !== '' && currentValue !== null && currentValue !== undefined;
 
         return (
           <Controller
+            key={`${fieldName}-${hasValue ? 'set' : 'empty'}`}
             control={control}
             name={fieldName}
             rules={validationRules}
