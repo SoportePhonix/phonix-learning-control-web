@@ -6,11 +6,17 @@ import { InstanceFormValues } from '@/components/instance/types';
 import { PageHeader } from '@/components/page-header';
 import { useCreateInstance } from '@/features/instance/hooks/useCreateInstance';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('i.instances'), path: '/instances' }, { label: t('a.addInstance') }],
+    { withLoader: true }
+  );
 
   const form = useForm<InstanceFormValues>({
     defaultValues: {
@@ -29,7 +35,8 @@ export default function Page() {
   });
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('a.addInstance')} />
       <FormPageLayout description={t('t.toCreateAnInstancePleaseFillInTheFields')}>
         <DynamicForm

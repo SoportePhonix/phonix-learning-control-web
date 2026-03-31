@@ -6,8 +6,10 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useCreateCourses } from '@/features/courses/hooks/useCreateCourses';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 interface CourseAddPageProps {
@@ -16,6 +18,10 @@ interface CourseAddPageProps {
 
 export default function CourseAddPage({ baseRoute = '/manage-companies/courses' }: CourseAddPageProps) {
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('c.courses'), path: baseRoute }, { label: t('a.addCourse') }],
+    { withLoader: true }
+  );
   const { data: companiesData } = useGetCompaniesQuery();
 
   const form = useForm<CoursesFormValues>({
@@ -39,7 +45,8 @@ export default function CourseAddPage({ baseRoute = '/manage-companies/courses' 
   });
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('a.addCourse')} />
       <FormPageLayout description={t('t.toCreateACoursePleaseFillInTheFields')}>
         <DynamicForm

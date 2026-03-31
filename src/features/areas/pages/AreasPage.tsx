@@ -1,15 +1,14 @@
 'use client';
 
-import { CreateButton } from '@/components/CreateButton';
 import { PageHeader } from '@/components/page-header';
-import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsAreas } from '@/features/areas/config/tableColumnsAreas';
 import { useCompanyContext } from '@/hooks/use-company-context';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { Areas } from '@/lib/services/api/areasApi/interface';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { NotebookPen } from 'lucide-react';
 
 interface AreasPageProps {
   baseRoute?: string;
@@ -19,8 +18,9 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const { crumbRoutes } = useBreadcrumbs([{ label: 'Áreas' }], { withLoader: true });
 
-  const { data: areasData } = useGetAreasQuery();
+  const { data: areasData, isLoading, isFetching } = useGetAreasQuery();
 
   const currentUserId = session?.user?.id ? Number(session.user.id) : undefined;
 
@@ -29,12 +29,29 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
     : (areasData?.data ?? []);
 
   return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <PageHeader title={`${t('a.areas')} - ${companyName}`} />
+    <div className="mb-8 px-2 flex flex-col">
+      <Breadcrumb items={crumbRoutes} />
+      <PageHeader
+        title={`${t('a.areas')} - ${companyName}`}
+        buttonLabel={t('a.addArea')}
+        buttonHref={`${baseRoute}/add`}
+      />
 
-      <CreateButton href={`${baseRoute}/add`} label={t('a.addArea')} icon={<NotebookPen />} align="right" />
-
-      <DataTable data={filteredAreas} columns={tableColumnsAreas(t, currentUserId)} />
+      <DataTable
+        striped
+        data={filteredAreas}
+        variant="primary"
+        columns={tableColumnsAreas(t, currentUserId)}
+        isLoading={isLoading || isFetching}
+        storageKey="datatable-areas"
+        searchable
+        enableFilters={false}
+        labels={{
+          columnsButton: 'Columnas',
+          rowsSuffix: 'filas',
+          fallbackColumnName: 'Columna',
+        }}
+      />
     </div>
   );
 }

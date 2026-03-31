@@ -6,7 +6,9 @@ import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
 import { useCreatePositions } from '@/features/positions/hooks/useCreatePositions';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 interface PositionAddPageProps {
@@ -15,6 +17,10 @@ interface PositionAddPageProps {
 
 export default function PositionAddPage({ baseRoute = '/manage-companies/positions' }: PositionAddPageProps) {
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('p.positions'), path: baseRoute }, { label: t('a.addPosition') }],
+    { withLoader: true }
+  );
 
   const form = useForm<PositionsFormValues>({
     defaultValues: {
@@ -33,7 +39,8 @@ export default function PositionAddPage({ baseRoute = '/manage-companies/positio
   });
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('a.addPosition')} />
       <FormPageLayout description={t('t.toCreateAPositionPleaseFillInTheFields')}>
         <DynamicForm
