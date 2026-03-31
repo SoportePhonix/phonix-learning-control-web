@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import { AppSidebar } from '@/components/app-sidebar';
+import { FloatingUserAvatar } from '@/components/floating-user-avatar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
@@ -37,7 +38,10 @@ export default async function UserLayout({ children }: { children: React.ReactNo
                         <div className="flex h-screen w-screen">
                           <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed" />
                           <AppSidebar />
-                          <main className="flex-1 md:px-8 overflow-y-scroll">{children}</main>
+                          <main className="flex-1 overflow-y-scroll">
+                            <FloatingUserAvatar />
+                            <div className="md:px-8">{children}</div>
+                          </main>
                           <Toaster richColors position="top-right" />
                         </div>
                       </RouteGuard>

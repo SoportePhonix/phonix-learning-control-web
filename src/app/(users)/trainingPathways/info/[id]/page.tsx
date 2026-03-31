@@ -1,3 +1,5 @@
+'use client';
+
 import { TrainingPathwayDetailCard } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/TrainingPathwaysDetailCard';
 import { TrainingPathwayCoursesTable } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/info/trainingPathwayCoursesTable';
 import { SectionTitle } from '@/components/section-title';

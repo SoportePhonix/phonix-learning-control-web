@@ -1,8 +1,8 @@
 import { EditButton } from '@/components/EditButton';
 import { StatusBadge } from '@/components/StatusBadge';
-import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
+import { CustomColumnDef } from '@soportephonix/phx-datatable';
 
 import { DeleteUser } from '../componentes/DeleteUser';
 
@@ -10,25 +10,37 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
   {
     accessorKey: 'name',
     header: t('n.name'),
+    canHide: false,
+    enableSorting: true,
   },
   {
     accessorKey: 'lastName',
     header: t('l.lastName'),
+    canHide: true,
+    enableSorting: true,
   },
   {
     accessorKey: 'typeOfIdentificationDocument.name',
     header: t('t.typeOfIdentificationDocument'),
+    canHide: true,
+    enableSorting: true,
   },
   {
     accessorKey: 'identificationDocument',
     header: t('i.identificationDocument'),
+    canHide: true,
+    enableSorting: true,
   },
   {
     accessorKey: 'email',
     header: t('e.email'),
+    canHide: false,
+    enableSorting: true,
   },
   {
     header: t('r.role'),
+    canHide: true,
+    enableSorting: true,
     cell: ({ row }) => {
       const roles = row.original.role;
 
@@ -45,6 +57,8 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
   },
   {
     header: t('c.company'),
+    canHide: true,
+    enableSorting: true,
     cell: ({ row }) => {
       const { companies = [], role = [] } = row.original;
       const isAdmin = role.some((r) => r.name === 'Administrator');
@@ -71,6 +85,8 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
   {
     accessorKey: 'status',
     header: t('s.status'),
+    canHide: true,
+    enableSorting: true,
     cell: ({ row }) => {
       const status = String(row.original.status).toLowerCase();
 
@@ -99,7 +115,7 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
       return (
         <div className="flex items-center">
           <EditButton href={`/users/${userId}/update`} tooltipText={t('e.editUser')} />
-          {/*   {!isCurrentUser && <DeleteUser userId={Number(userId)} />} */}
+          {!isCurrentUser && <DeleteUser userId={Number(userId)} />}
         </div>
       );
     },

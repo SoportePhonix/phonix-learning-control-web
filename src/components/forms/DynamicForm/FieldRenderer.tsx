@@ -3,6 +3,7 @@
 import { Textarea } from '@/components/ui';
 import { TranslationKey } from '@/i18n';
 import { Input, SelectSearch } from '@/lib/phonix-ui';
+import { Select } from '@soportephonix/phx-select';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { FieldConfig } from './types';
@@ -103,7 +104,24 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
 
   const renderField = () => {
     switch (field.type) {
-      case 'select':
+      case 'select': {
+        const options = typeof field.options === 'function' ? field.options() : (field.options ?? []);
+
+        return (
+          <Select
+            name={fieldName}
+            options={options}
+            control={control}
+            errors={errors}
+            label={t(field.label)}
+            placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')}
+            required={isRequired}
+            disabled={field.disabled}
+          />
+        );
+      }
+
+      case 'select-search': {
         const options = typeof field.options === 'function' ? field.options() : (field.options ?? []);
 
         return (
@@ -135,6 +153,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
             }}
           />
         );
+      }
 
       case 'textarea':
         return (

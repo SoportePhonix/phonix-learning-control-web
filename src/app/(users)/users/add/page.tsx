@@ -8,12 +8,19 @@ import { SectionTitle } from '@/components/section-title';
 import { UserFormValues } from '@/components/users/types';
 import { useCreateUser } from '@/features/users/hooks/useCreateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('u.users'), path: '/users' }, { label: t('a.addUser') }],
+    { withLoader: true }
+  );
+
   const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
 
   const form = useForm<UserFormValues>({
@@ -38,7 +45,8 @@ export default function Page() {
   });
 
   return (
-    <div className="p-8">
+    <div className="px-2 py-4">
+      <Breadcrumb items={crumbRoutes} />
       <SectionTitle title={t('a.addUser')} />
       <FormPageLayout description={t('t.toCreateAUserPleaseFillInTheFields')}>
         <DynamicForm
