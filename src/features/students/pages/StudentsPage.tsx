@@ -1,15 +1,14 @@
 'use client';
 
-import { CreateButton } from '@/components/CreateButton';
 import { PageHeader } from '@/components/page-header';
-import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsStudents } from '@/features/students/config/tableColumnsStudents';
 import { useCompanyContext } from '@/hooks/use-company-context';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { Students } from '@/lib/services/api/studentsApi/interface';
 import { useGetStudentsQuery } from '@/lib/services/api/studentsApi/studentsApi';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { BookPlus } from 'lucide-react';
 
 interface StudentsPageProps {
   baseRoute?: string;
@@ -19,8 +18,9 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const { crumbRoutes } = useBreadcrumbs([{ label: 'Estudiantes' }], { withLoader: true });
 
-  const { data: studentsData } = useGetStudentsQuery();
+  const { data: studentsData, isLoading, isFetching } = useGetStudentsQuery();
 
   const currentUserId = session?.user?.id ? Number(session.user.id) : undefined;
 
@@ -29,11 +29,29 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
     : (studentsData?.data ?? []);
 
   return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <PageHeader title={`${t('s.students')} - ${companyName}`} />
-      <CreateButton href={`${baseRoute}/add`} label={t('a.addStudent')} icon={<BookPlus />} align="right" />
+    <div className="mb-8 px-2 flex flex-col">
+      <Breadcrumb items={crumbRoutes} />
+      <PageHeader
+        title={`${t('s.students')} - ${companyName}`}
+        buttonLabel={t('a.addStudent')}
+        buttonHref={`${baseRoute}/add`}
+      />
 
-      <DataTable data={filteredStudents} columns={tableColumnsStudents(t, currentUserId)} />
+      <DataTable
+        striped
+        data={filteredStudents}
+        variant="primary"
+        columns={tableColumnsStudents(t, currentUserId)}
+        isLoading={isLoading || isFetching}
+        storageKey="datatable-students"
+        searchable
+        enableFilters={false}
+        labels={{
+          columnsButton: 'Columnas',
+          rowsSuffix: 'filas',
+          fallbackColumnName: 'Columna',
+        }}
+      />
     </div>
   );
 }

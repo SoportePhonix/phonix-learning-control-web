@@ -12,7 +12,7 @@ export const PageHeader = ({ title, buttonLabel, buttonHref }: SectionTitleProps
   return (
     <div className="px-2 py-8">
       <div className="flex justify-between items-center">
-        <Typography variant="subheading_large" font="light" color="verde-oscuro">
+        <Typography variant="subheading_large" font="light" color="azul-textos-medio">
           {title}
         </Typography>
         {buttonLabel && buttonHref && (

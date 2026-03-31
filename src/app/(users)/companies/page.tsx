@@ -2,17 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-import { CreateButton } from '@/components/CreateButton';
 import { PageHeader } from '@/components/page-header';
-import { DataTable } from '@/components/ui/data-table';
 import { Loader } from '@/components/ui/loader';
 import { tableColumnsCompanies } from '@/features/companies/config/tableColumnsCompanies';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { Role } from '@/rbac/config/roles';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { Building2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
@@ -21,6 +20,7 @@ export default function Page() {
   const { session, loading: isSessionLoading } = useSessionContext();
   const { isManager, hasRole, loading: isRbacLoading } = useRBAC();
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const { crumbRoutes } = useBreadcrumbs([{ label: 'Empresas' }], { withLoader: true });
 
   const isSuperAdmin = hasRole(Role.SUPERADMIN);
 
@@ -53,12 +53,25 @@ export default function Page() {
   }
 
   return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <PageHeader title={t('c.companies')} />
+    <div className="mb-8 px-2 flex flex-col">
+      <Breadcrumb items={crumbRoutes} />
+      <PageHeader title={t('c.companies')} buttonLabel={t('a.addCompanies')} buttonHref="/companies/add" />
 
-      <CreateButton href="/companies/add" label={t('a.addCompanies')} icon={<Building2 />} align="right" />
-
-      <DataTable data={filteredCompanies} columns={tableColumnsCompanies(t)} />
+      <DataTable
+        striped
+        data={filteredCompanies}
+        variant="primary"
+        columns={tableColumnsCompanies(t)}
+        isLoading={isCompaniesLoading}
+        storageKey="datatable-companies"
+        searchable
+        enableFilters={false}
+        labels={{
+          columnsButton: 'Columnas',
+          rowsSuffix: 'filas',
+          fallbackColumnName: 'Columna',
+        }}
+      />
     </div>
   );
 }

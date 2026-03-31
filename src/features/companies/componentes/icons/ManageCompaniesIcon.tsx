@@ -5,40 +5,41 @@ interface CompanyIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 export const ManageCompaniesIcon = ({ className, ...props }: CompanyIconProps) => (
-  <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clipPath="url(#clip0_4_3372)">
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    {...props}
+  >
+    <g clipPath="url(#clip0_529_5990)">
       <path
-        d="M13 6.5H9C8.72386 6.5 8.5 6.72386 8.5 7V13C8.5 13.2761 8.72386 13.5 9 13.5H13C13.2761 13.5 13.5 13.2761 13.5 13V7C13.5 6.72386 13.2761 6.5 13 6.5Z"
+        d="M11.9998 23.1429C18.1538 23.1429 23.1426 18.154 23.1426 12C23.1426 5.84597 18.1538 0.857147 11.9998 0.857147C5.84576 0.857147 0.856934 5.84597 0.856934 12C0.856934 18.154 5.84576 23.1429 11.9998 23.1429Z"
         stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M13 0.5H9C8.72386 0.5 8.5 0.723858 8.5 1V3.01C8.5 3.28614 8.72386 3.51 9 3.51H13C13.2761 3.51 13.5 3.28614 13.5 3.01V1C13.5 0.723858 13.2761 0.5 13 0.5Z"
+        d="M0.856934 12L23.1426 12"
         stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M5 0.5H1C0.723858 0.5 0.5 0.723858 0.5 1V7C0.5 7.27614 0.723858 7.5 1 7.5H5C5.27614 7.5 5.5 7.27614 5.5 7V1C5.5 0.723858 5.27614 0.5 5 0.5Z"
+        d="M16.2853 12C16.0748 16.0748 14.5739 19.9772 11.9996 23.1429C9.42527 19.9772 7.92438 16.0748 7.71387 12C7.92438 7.92516 9.42527 4.02284 11.9996 0.857147C14.5739 4.02284 16.0748 7.92516 16.2853 12V12Z"
         stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M5 10.49H1C0.723858 10.49 0.5 10.7138 0.5 10.99V13C0.5 13.2761 0.723858 13.5 1 13.5H5C5.27614 13.5 5.5 13.2761 5.5 13V10.99C5.5 10.7138 5.27614 10.49 5 10.49Z"
-        stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </g>
     <defs>
-      <clipPath id="clip0_4_3372">
-        <rect width="14" height="14" fill="white" />
+      <clipPath id="clip0_529_5990">
+        <rect width="24" height="24" fill="white" />
       </clipPath>
     </defs>
   </svg>

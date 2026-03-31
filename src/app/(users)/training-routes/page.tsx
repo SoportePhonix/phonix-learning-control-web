@@ -2,21 +2,21 @@
 
 import { useMemo } from 'react';
 
-import { CreateButton } from '@/components/CreateButton';
 import { PageHeader } from '@/components/page-header';
-import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsTrainingRoutes } from '@/features/trainingRoutes/config/tableColumnsTrainingRoutes';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useGetPositionsQuery } from '@/lib/services/api/positionsApi/positionsApi';
 import { useGetTrainingRoutesQuery } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
-import { Route } from 'lucide-react';
 
 export default function Page() {
   const { t } = useTranslation();
+  const { crumbRoutes } = useBreadcrumbs([{ label: 'Rutas de Formación' }], { withLoader: true });
 
-  const { data: trainingRoutesData } = useGetTrainingRoutesQuery();
+  const { data: trainingRoutesData, isLoading, isFetching } = useGetTrainingRoutesQuery();
   const { data: companiesData } = useGetCompaniesQuery();
   const { data: areasData } = useGetAreasQuery();
   const { data: positionsData } = useGetPositionsQuery();
@@ -37,12 +37,29 @@ export default function Page() {
   }, [trainingRoutesData, companiesData, areasData, positionsData]);
 
   return (
-    <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <PageHeader title={t('t.trainingRoutes')} />
+    <div className="mb-8 px-2 flex flex-col">
+      <Breadcrumb items={crumbRoutes} />
+      <PageHeader
+        title={t('t.trainingRoutes')}
+        buttonLabel={t('a.addTrainingRoute')}
+        buttonHref="/training-routes/add"
+      />
 
-      <CreateButton href="/training-routes/add" label={t('a.addTrainingRoute')} icon={<Route />} align="right" />
-
-      <DataTable data={enrichedData} columns={tableColumnsTrainingRoutes(t)} />
+      <DataTable
+        striped
+        data={enrichedData}
+        variant="primary"
+        columns={tableColumnsTrainingRoutes(t)}
+        isLoading={isLoading || isFetching}
+        storageKey="datatable-training-routes"
+        searchable
+        enableFilters={false}
+        labels={{
+          columnsButton: 'Columnas',
+          rowsSuffix: 'filas',
+          fallbackColumnName: 'Columna',
+        }}
+      />
     </div>
   );
 }

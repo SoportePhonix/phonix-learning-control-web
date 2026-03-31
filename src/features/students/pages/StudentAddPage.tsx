@@ -5,8 +5,10 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 interface StudentAddPageProps {
@@ -15,6 +17,10 @@ interface StudentAddPageProps {
 
 export default function StudentAddPage({ baseRoute = '/manage-companies/students' }: StudentAddPageProps) {
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('s.students'), path: baseRoute }, { label: t('a.addStudent') }],
+    { withLoader: true }
+  );
   const { data: companiesData } = useGetCompaniesQuery();
 
   const form = useForm<Record<string, any>>({
@@ -49,7 +55,8 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
   });
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('a.addStudent')} />
       <FormPageLayout description={t('t.toCreateAStudentPleaseFillInTheFields' as any)}>
         <DynamicForm

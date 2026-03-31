@@ -38,7 +38,7 @@ const NAV_INACTIVE_CLASSES =
   'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-text';
 
 const BASE_BUTTON_CLASSES =
-  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:w-23!';
+  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:px-0 group-data-[state=collapsed]:w-23!';
 
 // --- Helpers ---
 
@@ -64,9 +64,9 @@ function NavMainButtonContent({
   onIconClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:ml-0 ml-6">
+    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:items-center group-data-[state=collapsed]:gap-0 group-data-[state=collapsed]:ml-0 ml-6">
       <div
-        className={`shrink-0 group-data-[state=collapsed]:mx-auto ${url ? 'cursor-pointer hover:opacity-80' : ''}`}
+        className={`shrink-0 group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:flex group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:w-full ${url ? 'cursor-pointer hover:opacity-80' : ''}`}
         onClick={url ? onIconClick : undefined}
         role={url ? 'button' : undefined}
         tabIndex={url ? 0 : undefined}
