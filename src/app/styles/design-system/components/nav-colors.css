@@ -4,9 +4,9 @@
     --nav-item-active-text: var(--primitive_verde_base);
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
-    --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-bg: var(--primitive_verde_medio);
     --nav-item-active-collapsed-text: var(--primitive_azul_brillante);
-    --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-hover-bg: var(--primitive_verde_medio);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;
@@ -56,9 +56,9 @@
     --nav-item-active-text: var(--primitive_verde_base);
     --nav-item-active-hover-bg: var(--primitive_fondo_base);
     --nav-item-active-hover-text: var(--primitive_verde_base);
-    --nav-item-active-collapsed-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-bg: var(--primitive_verde_medio);
     --nav-item-active-collapsed-text: var(--primitive_azul_brillante);
-    --nav-item-active-collapsed-hover-bg: var(--primitive_azul_principal);
+    --nav-item-active-collapsed-hover-bg: var(--primitive_verde_medio);
     --nav-item-inactive-bg: transparent;
     --nav-item-inactive-text: var(--primitive_azul_brillante);
     --nav-item-inactive-hover-bg: var(--primitive_fondo_base) / 0.3;

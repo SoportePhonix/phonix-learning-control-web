@@ -64,16 +64,16 @@ export function NavSections({
                 isActive(item.url)
                   ? 'bg-nav-item-active-bg text-nav-item-active-text hover:bg-nav-item-active-hover-bg hover:text-nav-item-active-hover-text active:bg-nav-item-active-bg active:text-nav-item-active-text group-data-[state=collapsed]:bg-nav-item-active-collapsed-bg group-data-[state=collapsed]:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:text-nav-item-active-collapsed-text group-data-[state=collapsed]:hover:bg-nav-item-active-collapsed-hover-bg group-data-[state=collapsed]:active:bg-nav-item-active-collapsed-bg'
                   : 'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-text'
-              } group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:w-23!`}
+              } group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:w-23!`}
             >
-              <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden">
-                <div className="ml-7 shrink-0">
+              <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:items-center group-data-[state=collapsed]:gap-0">
+                <div className="ml-7 shrink-0 group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:flex group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:w-full">
                   <item.icon
                     className={`${
                       isActive(item.url)
                         ? 'stroke-nav-icon-active group-data-[state=collapsed]:stroke-nav-icon-active-collapsed'
                         : 'stroke-nav-icon-inactive'
-                    } w-4 h-4 ml-1`}
+                    } w-4 h-4 ml-1 group-data-[state=collapsed]:ml-0`}
                   />
                 </div>
                 <Typography
@@ -92,7 +92,7 @@ export function NavSections({
                 </span>
               </div>
             </SidebarMenuButton>
-            <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 my-2 w-10/12" />
+            <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 group-data-[state=collapsed]:mx-auto my-2 w-10/12 group-data-[state=collapsed]:w-14" />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
