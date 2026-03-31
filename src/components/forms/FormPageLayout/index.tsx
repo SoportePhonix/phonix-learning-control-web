@@ -19,7 +19,7 @@ export function FormPageLayout({ description, children, isLoading = false }: For
         {description && (
           <Typography
             variant="paragraph"
-            className="text-center text-sm py-6 border-b font-prompt font-semibold leading-none tracking-normal text-verde_base"
+            className="text-center text-base py-6 border-b font-prompt font-semibold leading-none tracking-normal text-verde_base"
           >
             {description}
           </Typography>

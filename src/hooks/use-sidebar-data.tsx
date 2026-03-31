@@ -114,7 +114,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
 
     if (isManager) {
       allItems.push({
-        title: companyName || 'Mi Empresa',
+        title: 'Gestionar Empresa',
         url: `/dashboard`,
         icon: (props) => <CompanyIcon {...props} />,
         permission: 'students.view', // Require only a base permission
@@ -151,7 +151,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
       const queryString = `?companyId=${selectedCompany?.id}`;
 
       allItems.push({
-        title: companyName ? `${t('m.manageCompanies')} - ${companyName}` : t('m.manageCompanies'),
+        title: 'Gestionar Empresa',
         url: `/ 6-companies/dashboard${queryString}`,
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'manageCompanies.view',
