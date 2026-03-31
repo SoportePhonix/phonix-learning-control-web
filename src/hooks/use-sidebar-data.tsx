@@ -140,7 +140,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
             permission: 'areas.view',
           },
           {
-            title: t('p.post'),
+            title: t('p.positions'),
             url: `/positions`,
             permission: 'positions.view',
           },
@@ -177,7 +177,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
             permission: 'areas.view',
           },
           {
-            title: t('p.post'),
+            title: t('p.positions'),
             url: `/manage-companies/positions${queryString}`,
             permission: 'positions.view',
           },
