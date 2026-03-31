@@ -30,6 +30,12 @@ export const companiesFormConfig: FormConfig = {
       placeholder: 'e.enterAValue',
       required: true,
     },
+    {
+      name: 'instanceId',
+      type: 'select-search',
+      label: 'i.instance',
+      required: true,
+    },
   ],
   columns: 2,
 };

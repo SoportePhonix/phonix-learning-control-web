@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsTrainingRoutes } from '@/features/trainingRoutes/config/tableColumnsTrainingRoutes';
 import { useTranslation } from '@/i18n';
@@ -38,7 +38,7 @@ export default function Page() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={t('t.trainingRoutes')} />
+      <PageHeader title={t('t.trainingRoutes')} />
 
       <CreateButton href="/training-routes/add" label={t('a.addTrainingRoute')} icon={<Route />} align="right" />
 

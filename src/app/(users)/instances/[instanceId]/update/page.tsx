@@ -5,7 +5,7 @@ import { use } from 'react';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { InstanceFormValues } from '@/components/instance/types';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
 import { useUpdateInstance } from '@/features/instance/hooks/useUpdateInstance';
 import { useTranslation } from '@/i18n';
@@ -41,7 +41,7 @@ export default function Page({ params }: { params: Promise<{ instanceId: string 
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateInstance')} />
+      <PageHeader title={t('u.updateInstance')} />
 
       <FormPageLayout description={t('t.toUpdateAnInstanceCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

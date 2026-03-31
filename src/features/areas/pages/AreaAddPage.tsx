@@ -3,7 +3,7 @@
 import { AreasFormValues } from '@/components/areas/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
 import { useCreateAreas } from '@/features/areas/hooks/useCreateAreas';
 import { useTranslation } from '@/i18n';
@@ -34,7 +34,7 @@ export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: A
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addArea')} />
+      <PageHeader title={t('a.addArea')} />
       <FormPageLayout description={t('t.toCreateAnAreaPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

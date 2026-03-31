@@ -1,6 +1,8 @@
+'use client';
+
 import { TrainingPathwayDetailCard } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/TrainingPathwaysDetailCard';
 import { TrainingPathwayCoursesTable } from '@/app/(users)/trainingPathways/components/trainingPathways-detail-card/info/trainingPathwayCoursesTable';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 
 import { coursesByTrainingPathway } from '../../hooks/info/courses/courses.mock';
 import { trainingPathwaysMock } from '../../hooks/trainingPathways.mock';
@@ -27,10 +29,10 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="p-8 mb-20 h-full w-full flex flex-col">
-      <SectionTitle title="Rutas de información" />
+      <PageHeader title="Rutas de información" />
       <TrainingPathwayDetailCard trainingPathway={trainingPathway} stats={stats} />
       <div className="py-12">
-        <SectionTitle title="Cursos" />
+        <PageHeader title="Cursos" />
         <h2 className="text-sm font-medium text-[#3A484C] mb-4">{trainingPathway.name}</h2>
         <TrainingPathwayCoursesTable data={courses} />
       </div>

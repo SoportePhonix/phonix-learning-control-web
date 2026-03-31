@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsInstance } from '@/features/instance/config/tableColumnsInstance';
 import { useTranslation } from '@/i18n';
@@ -19,7 +19,7 @@ export default function Page() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={t('i.instance')} />
+      <PageHeader title={t('i.instance')} />
 
       <CreateButton href="/instances/add" label={t('a.addInstance')} icon={<HousePlus />} align="right" />
 

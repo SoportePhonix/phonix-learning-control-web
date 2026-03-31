@@ -3,7 +3,7 @@
 import { CompaniesFormValues } from '@/components/companies/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
 import { useCreateCompanies } from '@/features/companies/hooks/useCreateCompanies';
 import { useTranslation } from '@/i18n';
@@ -30,7 +30,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addCompany')} />
+      <PageHeader title={t('a.addCompany')} />
       <FormPageLayout description={t('t.toCreateACompanyPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

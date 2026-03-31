@@ -4,7 +4,7 @@ import { use } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { TrainingRouteFormValues } from '@/components/trainingRoutes/types';
 import { useTrainingRoutesForm } from '@/features/trainingRoutes/hooks/useTrainingRoutesForm';
 import { useUpdateTrainingRoute } from '@/features/trainingRoutes/hooks/useUpdateTrainingRoute';
@@ -35,7 +35,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateTrainingRoute')} />
+      <PageHeader title={t('u.updateTrainingRoute')} />
 
       <FormPageLayout description={t('t.toUpdateATrainingRouteCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

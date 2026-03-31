@@ -2,8 +2,8 @@
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
+import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
-import { SectionTitle } from '@/components/section-title';
 import { useCreatePositions } from '@/features/positions/hooks/useCreatePositions';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useTranslation } from '@/i18n';
@@ -34,7 +34,7 @@ export default function PositionAddPage({ baseRoute = '/manage-companies/positio
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addPosition')} />
+      <PageHeader title={t('a.addPosition')} />
       <FormPageLayout description={t('t.toCreateAPositionPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

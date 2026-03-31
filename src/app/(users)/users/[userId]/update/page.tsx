@@ -4,7 +4,7 @@ import { use } from 'react';
 
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { UserFormValues } from '@/components/users/types';
 import { useUpdateUser } from '@/features/users/hooks/useUpdateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
@@ -51,7 +51,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
 
   return (
     <div className="p-8">
-      <SectionTitle title={`${t('u.updateUser')}`} />
+      <PageHeader title={`${t('u.updateUser')}`} />
       <FormPageLayout description={t('t.toUpdateAUserCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}

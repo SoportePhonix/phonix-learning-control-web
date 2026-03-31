@@ -1,6 +1,6 @@
 'use client';
 
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCompanyContext } from '@/hooks/use-company-context';
 import { useTranslation } from '@/i18n';
 
@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={`${t('d.dashboard')} - ${companyName}`} />
+      <PageHeader title={`${t('d.dashboard')} - ${companyName}`} />
 
       {companyId && (
         <div className="mt-4">

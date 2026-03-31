@@ -64,7 +64,7 @@ export const userFormConfig: FormConfig = {
     },
     {
       name: 'companyId',
-      type: 'select',
+      type: 'select-search',
       label: 'c.company',
       required: false,
     },

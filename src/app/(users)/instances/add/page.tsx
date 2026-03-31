@@ -3,7 +3,7 @@
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { InstanceFormValues } from '@/components/instance/types';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCreateInstance } from '@/features/instance/hooks/useCreateInstance';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
 import { useTranslation } from '@/i18n';
@@ -30,7 +30,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addInstance')} />
+      <PageHeader title={t('a.addInstance')} />
       <FormPageLayout description={t('t.toCreateAnInstancePleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

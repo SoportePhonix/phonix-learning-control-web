@@ -3,7 +3,7 @@
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { LmsFormValues } from '@/components/lms/types';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCreateLms } from '@/features/lms/hooks/useCreateLms';
 import { useLmsForm } from '@/features/lms/hooks/useLmsForm';
 import { useTranslation } from '@/i18n';
@@ -33,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('a.addLms')} />
+      <PageHeader title={t('a.addLms')} />
       <FormPageLayout description={t('t.toCreateAnLmsPleaseFillInTheFields')}>
         <DynamicForm
           config={formConfig}

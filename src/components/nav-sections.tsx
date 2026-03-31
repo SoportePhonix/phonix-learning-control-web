@@ -45,7 +45,7 @@ export function NavSections({
     if (!mounted) return false;
     const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
     const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
-    return normalizedPathname === normalizedUrl;
+    return normalizedPathname === normalizedUrl || normalizedPathname.startsWith(normalizedUrl + '/');
   };
 
   return (

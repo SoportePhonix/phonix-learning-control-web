@@ -5,7 +5,7 @@ import { use } from 'react';
 import { CoursesFormValues } from '@/components/courses/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useUpdateCourse } from '@/features/courses/hooks/useUpdateCourse';
 import { useTranslation } from '@/i18n';
@@ -43,7 +43,7 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateCourse')} />
+      <PageHeader title={t('u.updateCourse')} />
 
       <FormPageLayout description={t('t.toUpdateACourseCompleteTheFields')} isLoading={false}>
         <DynamicForm

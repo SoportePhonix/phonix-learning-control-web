@@ -1621,7 +1621,17 @@
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
-"@soportephonix/phx-button@0.1.10":
+"@soportephonix/phx-breadcrumb@0.1.6":
+  version "0.1.6"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-breadcrumb/0.1.6/329e045b0a1d41c83f6cb32c742ed7e613622ece#329e045b0a1d41c83f6cb32c742ed7e613622ece"
+  integrity sha512-/H1cmihpwPZfBaWZFczhJqE8hZ0lkpQyfVBTxupI5ojhMW/1M0WTw+1sKVcPCROpmr6EJRVKGwhmQmEfig5XSg==
+  dependencies:
+    "@radix-ui/react-slot" "^1.2.3"
+    clsx "^2.1.1"
+    tailwind-merge "^2.5.5"
+    tailwindcss "^4.1.7"
+
+"@soportephonix/phx-button@*":
   version "0.1.10"
   resolved "https://npm.pkg.github.com/download/@soportephonix/phx-button/0.1.10/a757884fe6d7e138569b31e8883c78c875a65f4d#a757884fe6d7e138569b31e8883c78c875a65f4d"
   integrity sha512-R2VZGy/WOv5K58r11uUufnhfQ2A9A7+YTGL2Uh2V9ro9Trq91PtRd3HQuJzUVk30HPkSNoschjSb6ESw7DyfpA==
@@ -1629,7 +1639,29 @@
     "@radix-ui/react-slot" "^1.2.3"
     tailwindcss "^4.1.7"
 
-"@soportephonix/phx-input@0.1.14":
+"@soportephonix/phx-button@0.1.17":
+  version "0.1.17"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-button/0.1.17/04ae14bf6e8eccfbbedf0be468a751d4536e6c40#04ae14bf6e8eccfbbedf0be468a751d4536e6c40"
+  integrity sha512-VqBFhr6nxh0wsDmMZ+KKBkTJHcI/Oq4MT0gCqbFF+j/B3CWxuMNmuMI0Pf9HRR2KQeabKkqqKHQKuu44wBZPWw==
+  dependencies:
+    "@radix-ui/react-slot" "^1.2.3"
+    tailwindcss "^4.1.7"
+
+"@soportephonix/phx-datatable@0.1.14":
+  version "0.1.14"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-datatable/0.1.14/ebc85d31b39ff66172ca19f18b70c111518f117e#ebc85d31b39ff66172ca19f18b70c111518f117e"
+  integrity sha512-mUY+z61RqXUyi0bTAZxUfVnirg1Ym7hs15yiZLWnQVBdPCmARSBb/07dQIS1o0GDVdquWlSZghHIkSf4SEIL2Q==
+  dependencies:
+    "@radix-ui/react-slot" "^1.2.3"
+    "@soportephonix/phx-button" "*"
+    "@soportephonix/phx-input" "*"
+    "@tanstack/react-table" "^8.20.5"
+    clsx "^2.1.1"
+    lucide-react "^0.460.0"
+    tailwind-merge "^2.5.5"
+    tailwindcss "^4.1.7"
+
+"@soportephonix/phx-input@*":
   version "0.1.14"
   resolved "https://npm.pkg.github.com/download/@soportephonix/phx-input/0.1.14/7a40575373ac4889d0a273d48b983a5ec8ce16b5#7a40575373ac4889d0a273d48b983a5ec8ce16b5"
   integrity sha512-6x3zruPwPfsBwAsdlgL9obo87FmzV2Okqr0xiGo3ZcX37OHGvnwbnrJGXkzG7wVyHTsFRIN44gPtWy0xZvajrQ==
@@ -1639,10 +1671,30 @@
     tailwind-merge "^2.5.5"
     tailwindcss "^4.1.7"
 
-"@soportephonix/phx-search-select@0.1.7":
-  version "0.1.7"
-  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.7/d5a15f64b7060f3e6fdfc5805bf280436b3d6076#d5a15f64b7060f3e6fdfc5805bf280436b3d6076"
-  integrity sha512-m5GieUhG4G2TTH6cAzDDPXA1lwYh+JPSCtvuc45cJrKf9XySOTzG0t7bfDB0mx2bEtXHyanLNkHANU2ypu4JEg==
+"@soportephonix/phx-input@0.1.18":
+  version "0.1.18"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-input/0.1.18/3f416274183bd46ac19cb91a755d93e12af8b1d1#3f416274183bd46ac19cb91a755d93e12af8b1d1"
+  integrity sha512-Z2oqVSt85QezkKlqUyw3a9WBOjV81RAoW3LVwn9HnS1iLrTJazFj/OsAiKUjFjwsbR3Jo0IXs3d3SYktMAouHw==
+  dependencies:
+    "@radix-ui/react-slot" "^1.2.3"
+    clsx "^2.1.1"
+    tailwind-merge "^2.5.5"
+    tailwindcss "^4.1.7"
+
+"@soportephonix/phx-search-select@0.1.17":
+  version "0.1.17"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.17/59cc5b46124df962b527716c4899945734b48555#59cc5b46124df962b527716c4899945734b48555"
+  integrity sha512-iXaN3aH8PepRIpatyjE0Hg08VJ7bOD4bHuO/1riblRGWNCpYKm8iluoqRfEJXW102NSJ5plpzBn5uCJsVEf/dw==
+  dependencies:
+    "@radix-ui/react-slot" "^1.2.3"
+    clsx "^2.1.1"
+    tailwind-merge "^2.5.5"
+    tailwindcss "^4.1.7"
+
+"@soportephonix/phx-select@0.1.10":
+  version "0.1.10"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-select/0.1.10/838e17e07da5a85be5dba0628710be0b824e9813#838e17e07da5a85be5dba0628710be0b824e9813"
+  integrity sha512-//ZcUCXwsn/rDcoN2qRBuGIYITWNoi3X3KiL2mpzYoIh4/aKFPaqqFizZGOQu5L/6zJkUo/QMuN2xlxfx++dGQ==
   dependencies:
     "@radix-ui/react-slot" "^1.2.3"
     clsx "^2.1.1"
@@ -1786,7 +1838,7 @@
     postcss "^8.4.41"
     tailwindcss "4.1.18"
 
-"@tanstack/react-table@^8.21.3":
+"@tanstack/react-table@^8.20.5", "@tanstack/react-table@^8.21.3":
   version "8.21.3"
   resolved "https://registry.npmjs.org/@tanstack/react-table/-/react-table-8.21.3.tgz"
   integrity sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==
@@ -5156,6 +5208,11 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+lucide-react@^0.460.0:
+  version "0.460.0"
+  resolved "https://registry.npmjs.org/lucide-react/-/lucide-react-0.460.0.tgz#5681364b6bd94d1d475944f0385239c0b1408e35"
+  integrity sha512-BVtq/DykVeIvRTJvRAgCsOwaGL8Un3Bxh8MbDxMhEWlZay3T4IpEKDEpwt5KZ0KJMHzgm6jrltxlT5eXOWXDHg==
 
 lucide-react@^0.562.0:
   version "0.562.0"

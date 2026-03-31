@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Loader } from '@/components/ui/loader';
 import { Typography } from '@/components/ui/typography';
 import { TranslationKey, useTranslation } from '@/i18n';
-import { signIn } from 'next-auth/react';
+import { normalizeRoleName } from '@/rbac';
+import { getSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -47,7 +48,15 @@ export function LoginForm() {
         return;
       }
 
-      router.push('/home');
+      const session = await getSession();
+      const roleName = session?.user?.role?.[0]?.name;
+      const role = roleName ? normalizeRoleName(roleName) : undefined;
+
+      if (role === 'manager') {
+        router.push('/lms');
+      } else {
+        router.push('/users');
+      }
     } catch (err) {
       console.error(err);
       setLoginError(500);

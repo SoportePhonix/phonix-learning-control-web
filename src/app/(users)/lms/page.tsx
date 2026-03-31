@@ -1,7 +1,7 @@
 'use client';
 
 import { CreateButton } from '@/components/CreateButton';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { DataTable } from '@/components/ui/data-table';
 import { tableColumnsLms } from '@/features/lms/config/tableColumnsLms';
 import { useTranslation } from '@/i18n';
@@ -15,7 +15,7 @@ export default function Page() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <SectionTitle title={t('l.lms')} />
+      <PageHeader title={t('l.lms')} />
 
       <CreateButton href="/lms/add" label={t('a.addLms')} icon={<BookOpen />} align="right" />
 

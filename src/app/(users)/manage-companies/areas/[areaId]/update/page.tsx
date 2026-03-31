@@ -5,7 +5,7 @@ import { use } from 'react';
 import { AreasFormValues } from '@/components/areas/types';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
-import { SectionTitle } from '@/components/section-title';
+import { PageHeader } from '@/components/page-header';
 import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
 import { useUpdateArea } from '@/features/areas/hooks/useUpdateArea';
 import { useTranslation } from '@/i18n';
@@ -41,7 +41,7 @@ export default function Page({ params }: { params: Promise<{ areaId: string }> }
 
   return (
     <div className="p-8">
-      <SectionTitle title={t('u.updateArea')} />
+      <PageHeader title={t('u.updateArea')} />
 
       <FormPageLayout description={t('t.toUpdateAnAreaCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
