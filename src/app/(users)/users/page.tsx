@@ -1,6 +1,5 @@
 'use client';
 
-import { CreateButton } from '@/components/CreateButton';
 import { SectionTitle } from '@/components/section-title';
 import { tableColumns } from '@/features/users/config/tableColumns';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
@@ -21,10 +20,7 @@ export default function Page() {
   return (
     <div className="mb-8 px-2 flex flex-col">
       <Breadcrumb items={crumbRoutes} />
-      <div className="flex justify-between items-center pt-4 pb-8">
-        <SectionTitle title={t('u.users')} />
-        <CreateButton href="/users/add" label={t('a.addUsers')} align="right" />
-      </div>
+      <SectionTitle title={t('u.users')} buttonLabel={t('a.addUsers')} buttonHref="/users/add" />
 
       <DataTable
         striped
