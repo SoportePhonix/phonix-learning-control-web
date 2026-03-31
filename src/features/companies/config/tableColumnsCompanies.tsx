@@ -21,6 +21,14 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
     header: t('e.email'),
   },
   {
+    id: 'instance',
+    header: 'Instancia',
+    cell: ({ row }) => {
+      const instance = (row.original as any).instance;
+      return instance?.name || '—';
+    },
+  },
+  {
     accessorKey: 'status',
     header: t('s.status'),
     cell: ({ row }) => {
