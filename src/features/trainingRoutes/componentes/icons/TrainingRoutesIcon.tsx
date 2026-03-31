@@ -6,52 +6,45 @@ interface TrainingRoutesIconProps extends React.SVGProps<SVGSVGElement> {
 
 export const TrainingRoutesIcon = ({ className, ...props }: TrainingRoutesIconProps) => (
   <svg
-    width="14"
-    height="14"
-    viewBox="0 0 12 14"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     {...props}
   >
     <path
-      d="M5.75 13.5C6.85457 13.5 7.75 12.6046 7.75 11.5C7.75 10.3954 6.85457 9.5 5.75 9.5C4.64543 9.5 3.75 10.3954 3.75 11.5C3.75 12.6046 4.64543 13.5 5.75 13.5Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path d="M5.75 9.5V0.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path
-      d="M4.25 2L5.75 0.5L7.25 2"
+      d="M5.89286 0.75H1.60714C1.13376 0.75 0.75 1.13376 0.75 1.60714V22.1786C0.75 22.652 1.13376 23.0357 1.60714 23.0357H5.89286C6.36624 23.0357 6.75 22.652 6.75 22.1786V1.60714C6.75 1.13376 6.36624 0.75 5.89286 0.75Z"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M4.78 9.77999C4.20693 9.60875 3.67776 9.31538 3.22892 8.92006C2.78009 8.52473 2.42224 8.03685 2.18 7.48999"
+      d="M11.8929 4.17859H7.60714C7.13376 4.17859 6.75 4.56234 6.75 5.03573V22.1786C6.75 22.652 7.13376 23.0357 7.60714 23.0357H11.8929C12.3662 23.0357 12.75 22.652 12.75 22.1786V5.03573C12.75 4.56234 12.3662 4.17859 11.8929 4.17859Z"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M2 7.5C2.69036 7.5 3.25 6.94036 3.25 6.25C3.25 5.55964 2.69036 5 2 5C1.30964 5 0.75 5.55964 0.75 6.25C0.75 6.94036 1.30964 7.5 2 7.5Z"
+      d="M17.6299 3.70932L14.3039 4.54167C13.8447 4.65659 13.5656 5.12203 13.6805 5.58126L17.8422 22.2113C17.9572 22.6705 18.4226 22.9496 18.8818 22.8347L22.2078 22.0023C22.6671 21.8874 22.9462 21.422 22.8313 20.9627L18.6695 4.33273C18.5546 3.87351 18.0891 3.5944 17.6299 3.70932Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M0.75 17.0358H6.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M6.75 15.3214H12.75"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M5.78 8.60003C6.54762 8.36803 7.25645 7.97387 7.85856 7.44422C8.46067 6.91458 8.942 6.26179 9.27 5.53003"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M9.56 5.57007C10.2504 5.57007 10.81 5.01042 10.81 4.32007C10.81 3.62971 10.2504 3.07007 9.56 3.07007C8.86964 3.07007 8.31 3.62971 8.31 4.32007C8.31 5.01042 8.86964 5.57007 9.56 5.57007Z"
+      d="M17.0356 18.75L21.9728 17.5157"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
