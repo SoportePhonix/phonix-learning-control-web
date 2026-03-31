@@ -10,6 +10,7 @@ import { tableColumnsCompanies } from '@/features/companies/config/tableColumnsC
 import { useTranslation } from '@/i18n';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
+import { Role } from '@/rbac/config/roles';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { Building2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -18,32 +19,36 @@ export default function Page() {
   const { t } = useTranslation();
   const router = useRouter();
   const { session, loading: isSessionLoading } = useSessionContext();
-  const { isManager, loading: isRbacLoading } = useRBAC();
+  const { isManager, hasRole, loading: isRbacLoading } = useRBAC();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
+  const isSuperAdmin = hasRole(Role.SUPERADMIN);
+
   const { data: companiesData, isLoading: isCompaniesLoading } = useGetCompaniesQuery(undefined, {
-    skip: isManager, // Optimización: no hacer fecth de todas si es manager
+    skip: isManager && !isSuperAdmin, // Optimización: no hacer fetch si es estrictamente manager y no superadmin
   });
 
   const allowedCompanies = Array.isArray(session?.user?.companies) ? session.user.companies.map((c: any) => c.id) : [];
 
-  const filteredCompanies = companiesData?.data?.filter((c) => allowedCompanies.includes(c.id)) ?? [];
+  const filteredCompanies = isSuperAdmin
+    ? (companiesData?.data ?? [])
+    : (companiesData?.data?.filter((c) => allowedCompanies.includes(c.id)) ?? []);
 
   useEffect(() => {
     if (isSessionLoading || isRbacLoading) return;
 
-    if (session?.user && isManager) {
+    if (session?.user && isManager && !isSuperAdmin) {
       setIsRedirecting(true);
       router.replace('/manage-companies/students');
     }
-  }, [session, isSessionLoading, isRbacLoading, isManager, router]);
+  }, [session, isSessionLoading, isRbacLoading, isManager, isSuperAdmin, router]);
 
   if (isSessionLoading || isRbacLoading || isRedirecting) {
     return <Loader message="Verificando acceso..." />;
   }
 
-  // Previene el render de la tabla en caso de que el routing se retrase
-  if (isManager) {
+  // Previene el render de la tabla en caso de que el routing se retrase para managers puros
+  if (isManager && !isSuperAdmin) {
     return null;
   }
 
