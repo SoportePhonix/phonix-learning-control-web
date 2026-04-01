@@ -8,6 +8,8 @@ export interface Companies {
   nit: string;
   email: string;
   status: string;
+  instanceId?: number;
+  instances?: { id: number }[];
 }
 
 export interface AddCompaniesRequest {

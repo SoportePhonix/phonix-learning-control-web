@@ -35,7 +35,33 @@ export const ROLE_NAME_MAP: Record<string, RoleName> = {
  * Normaliza un nombre de rol del backend a la clave interna.
  * Retorna undefined si el rol no está mapeado.
  */
-export function normalizeRoleName(backendName: string): RoleName | undefined {
-  const key = backendName.toLowerCase().replace(/\s+/g, '');
-  return ROLE_NAME_MAP[key];
+export function normalizeRoleName(backendName?: string): RoleName | string | undefined {
+  if (!backendName) return undefined;
+
+  const role = backendName.toLowerCase().replace(/\s+/g, '');
+
+  if (role === 'administrator') return Role.ADMIN;
+  if (role === 'superadmin') return Role.SUPERADMIN;
+
+  return ROLE_NAME_MAP[role] || role;
+}
+
+/**
+ * Verifica si un usuario con ciertos roles puede asignar un rol específico.
+ */
+export function canAssignRole(currentRoles: any[], targetRoleName: string): boolean {
+  if (!Array.isArray(currentRoles)) return false;
+
+  const isSuperAdmin = currentRoles.some((r: any) => normalizeRoleName(r.name) === Role.SUPERADMIN);
+
+  // SuperAdmin puede todo
+  if (isSuperAdmin) return true;
+
+  // Admin solo NO puede asignar SuperAdmin
+  if (normalizeRoleName(targetRoleName) === Role.SUPERADMIN) {
+    return false;
+  }
+
+  // Todo lo demás permitido
+  return true;
 }

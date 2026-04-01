@@ -3,6 +3,7 @@ export interface GetInstanceResponse {
 }
 
 export interface Instance {
+  id?: number;
   nit: string;
   name: string;
   description: string;

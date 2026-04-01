@@ -10,6 +10,7 @@ declare module 'next-auth' {
       lastName: string;
       email: string;
       status: string;
+      instanceId?: number;
       identificationDocument?: string;
       companyId?: number;
       role: Array<{
@@ -31,6 +32,7 @@ declare module 'next-auth' {
     lastName: string;
     email: string;
     status: string;
+    instanceId?: number;
     identificationDocument?: string;
     companyId?: number;
     role: Array<{
@@ -51,6 +53,7 @@ declare module 'next-auth' {
     lastName: string;
     email: string;
     status: string;
+    instanceId?: number;
     identificationDocument?: string;
     companyId?: number;
     role: Array<{

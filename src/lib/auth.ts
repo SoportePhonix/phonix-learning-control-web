@@ -47,6 +47,7 @@ export const authOptions: AuthOptions = {
             lastName: response.data.user.lastName,
             email: response.data.user.email,
             status: response.data.user.status,
+            instanceId: response.data.user.instances?.[0]?.id || response.data.user.instanceId,
             identificationDocument: response.data.user.identificationDocument,
             companyId: response.data.user.companyId,
             role: response.data.user.role,
@@ -74,6 +75,7 @@ export const authOptions: AuthOptions = {
         token.lastName = user.lastName;
         token.email = user.email;
         token.status = user.status;
+        token.instanceId = user.instanceId;
         token.identificationDocument = user.identificationDocument;
         token.companyId = user.companyId;
         token.role = user.role;
@@ -110,6 +112,7 @@ export const authOptions: AuthOptions = {
         lastName: String(token.lastName),
         email: String(token.email),
         status: String(token.status),
+        instanceId: token.instanceId ? Number(token.instanceId) : undefined,
         identificationDocument: token.identificationDocument ? String(token.identificationDocument) : undefined,
         companyId: token.companyId ? Number(token.companyId) : undefined,
         role: token.role as Array<{

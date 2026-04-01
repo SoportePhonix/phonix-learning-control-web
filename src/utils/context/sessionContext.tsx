@@ -15,6 +15,7 @@ export interface Session {
     status: string;
     identificationDocument?: string;
     companyId?: number;
+    instanceId?: number;
     role: Array<{
       id: number;
       name: string;
