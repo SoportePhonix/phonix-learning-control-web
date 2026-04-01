@@ -10,6 +10,7 @@ export const i = {
   images: 'Imágenes',
   import: 'Importar',
   inactive: 'Inactivo',
+  inactiveF: 'Inactiva',
   incorrectEmailAndOrPassword: 'Correo y/o contraseña incorrectos',
   info: 'Información',
   information: 'Información',

@@ -27,7 +27,7 @@
     --link-hover: var(--blue_medium);
     --success: var(--green-success);
     --success-emphasis: var(--green-active);
-    --warning: var(--error);
+    --warning: var(--primitive_error);
     --warning-emphasis: var(--error);
     --error: var(--primitive_error);
     --error-emphasis: var(--error);
@@ -62,7 +62,7 @@
     --link-hover: var(--blue_medium);
     --success: var(--green-success);
     --success-emphasis: var(--green-active);
-    --warning: var(--error);
+    --warning: var(--primitive_error);
     --warning-emphasis: var(--error);
     --error: var(--primitive_error);
     --error-emphasis: var(--error);

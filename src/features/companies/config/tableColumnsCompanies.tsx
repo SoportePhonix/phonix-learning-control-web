@@ -11,37 +11,42 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
   {
     accessorKey: 'name',
     header: t('n.name'),
+    enableSorting: true,
   },
   {
     accessorKey: 'nit',
     header: t('n.nit'),
+    enableSorting: true,
   },
   {
     accessorKey: 'email',
     header: t('e.email'),
+    enableSorting: true,
   },
   {
     id: 'instance',
-    header: 'Instancia',
+    header: t('i.instance'),
+    enableSorting: true,
     cell: ({ row }) => {
       const instance = (row.original as any).instance;
-      return instance?.name || '—';
+      return instance?.name;
     },
   },
   {
     accessorKey: 'status',
     header: t('s.status'),
+    enableSorting: true,
     cell: ({ row }) => {
       const status = String(row.original.status).toLowerCase();
 
       const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
-        active: { type: 'success', label: 'a.active' },
-        '1': { type: 'success', label: 'a.active' },
-        true: { type: 'success', label: 'a.active' },
+        active: { type: 'success', label: 'a.activeF' },
+        '1': { type: 'success', label: 'a.activeF' },
+        true: { type: 'success', label: 'a.activeF' },
 
-        inactive: { type: 'error', label: 'i.inactive' },
-        '0': { type: 'error', label: 'i.inactive' },
-        false: { type: 'error', label: 'i.inactive' },
+        inactive: { type: 'error', label: 'i.inactiveF' },
+        '0': { type: 'error', label: 'i.inactiveF' },
+        false: { type: 'error', label: 'i.inactiveF' },
       };
 
       const config = statusMap[status] ?? ({ type: 'progress' } as const);
