@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -22,15 +22,23 @@ export function EditButton({
   tooltipText = 'Editar',
   buttonVariant = 'ghost',
   buttonSize = 'sm',
-  buttonClassName = 'h-8 w-8 p-0',
+  buttonClassName = 'h-8 w-8 p-0 cursor-pointer',
 }: EditButtonProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger asChild>
           <Link href={href}>
-            <Button variant={buttonVariant} size={buttonSize} className={buttonClassName}>
-              <Icon className={iconClassName} />
+            <Button
+              variant={buttonVariant}
+              size={buttonSize}
+              className={buttonClassName}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            >
+              <Icon className={iconClassName} strokeWidth={hovered ? 3 : 2} />
               <span className="sr-only">{tooltipText}</span>
             </Button>
           </Link>

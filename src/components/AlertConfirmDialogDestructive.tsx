@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   AlertDialog,
@@ -45,8 +45,10 @@ export function AlertConfirmDialogDestructive({
   isLoading = false,
   triggerButtonVariant = 'ghost',
   triggerButtonSize = 'sm',
-  triggerButtonClassName = 'h-8 w-8 p-0',
+  triggerButtonClassName = 'h-8 w-8 p-0 cursor-pointer hover:text-warning',
 }: AlertConfirmDialogProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <AlertDialog>
       <TooltipProvider delayDuration={0}>
@@ -58,8 +60,10 @@ export function AlertConfirmDialogDestructive({
                 size={triggerButtonSize}
                 className={triggerButtonClassName}
                 disabled={isLoading}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
               >
-                <Icon className={iconClassName} />
+                <Icon className={iconClassName} strokeWidth={hovered ? 3 : 2} />
                 <span className="sr-only">{tooltipText}</span>
               </Button>
             </AlertDialogTrigger>

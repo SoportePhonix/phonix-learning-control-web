@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTranslation } from '@/i18n';
@@ -18,6 +20,7 @@ interface ManageCompanyProps {
 export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) => {
   const { t } = useTranslation();
   const router = useRouter();
+  const [hovered, setHovered] = useState(false);
   const { setSelectedCompany } = useSelectedCompany();
   const { session } = useSessionContext();
   const { hasRole } = useRBAC();
@@ -35,13 +38,19 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
     // Navegar al dashboard
     router.push(`/manage-companies/dashboard`);
   };
-
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={handleClick}>
-            <Bolt className="h-4 w-4" />
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0 cursor-pointer"
+            onClick={handleClick}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <Bolt className="h-4 w-4" strokeWidth={hovered ? 3 : 2} />
             <span className="sr-only">{t('m.manageCompanies')}</span>
           </Button>
         </TooltipTrigger>
