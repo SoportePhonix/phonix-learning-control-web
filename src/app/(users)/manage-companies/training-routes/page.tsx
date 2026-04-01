@@ -14,8 +14,6 @@ import { useGetTrainingRoutesQuery } from '@/lib/services/api/trainingRoutesApi/
 
 export default function Page() {
   const { t } = useTranslation();
-  const { crumbRoutes } = useBreadcrumbs([{ label: 'Rutas de Formación' }], { withLoader: true });
-
   const { data: trainingRoutesData, isLoading, isFetching } = useGetTrainingRoutesQuery();
   const { data: companiesData } = useGetCompaniesQuery();
   const { data: areasData } = useGetAreasQuery();
@@ -37,12 +35,11 @@ export default function Page() {
   }, [trainingRoutesData, companiesData, areasData, positionsData]);
 
   return (
-    <div className="mb-8 px-2 flex flex-col">
-      <Breadcrumb items={crumbRoutes} />
+    <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
         title={t('t.trainingRoutes')}
         buttonLabel={t('a.addTrainingRoute')}
-        buttonHref="/training-routes/add"
+        buttonHref="/manage-companies/training-routes/add"
       />
 
       <DataTable

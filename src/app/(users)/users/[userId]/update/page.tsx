@@ -8,13 +8,19 @@ import { PageHeader } from '@/components/page-header';
 import { UserFormValues } from '@/components/users/types';
 import { useUpdateUser } from '@/features/users/hooks/useUpdateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ userId: string }> }) {
   const { userId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('u.users'), path: '/users' }, { label: t('u.updateUser') }],
+    { withLoader: true }
+  );
   const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
   const { updateUser, isLoading, apiError } = useUpdateUser(userId);
 
@@ -50,7 +56,8 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={`${t('u.updateUser')}`} />
       <FormPageLayout description={t('t.toUpdateAUserCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

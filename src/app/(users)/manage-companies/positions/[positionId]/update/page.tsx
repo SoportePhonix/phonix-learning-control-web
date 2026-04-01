@@ -8,12 +8,18 @@ import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useUpdatePosition } from '@/features/positions/hooks/useUpdatePosition';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ positionId: string }> }) {
   const { positionId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('p.positions'), path: '/manage-companies/positions' }, { label: t('u.updatePosition') }],
+    { withLoader: true }
+  );
 
   const form = useForm<PositionsFormValues>({
     defaultValues: {
@@ -40,9 +46,9 @@ export default function Page({ params }: { params: Promise<{ positionId: string 
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('u.updatePosition')} />
-
       <FormPageLayout description={t('t.toUpdateAPositionCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}

@@ -8,13 +8,13 @@ import { useCreateTrainingRoute } from '@/features/trainingRoutes/hooks/useCreat
 import { useTrainingRoutesForm } from '@/features/trainingRoutes/hooks/useTrainingRoutesForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('t.trainingRoutes'), path: '/training-routes' }, { label: t('a.addTrainingRoute') }],
+    [{ label: t('t.trainingRoutes'), path: '/manage-companies/training-routes' }, { label: t('a.addTrainingRoute') }],
     { withLoader: true }
   );
 
@@ -48,7 +48,7 @@ export default function Page() {
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/training-routes"
+          cancelUrl="/manage-companies/training-routes"
           t={t}
         />
       </FormPageLayout>

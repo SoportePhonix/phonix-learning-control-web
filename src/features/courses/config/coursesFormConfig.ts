@@ -26,7 +26,7 @@ export const coursesFormConfig: FormConfig = {
     {
       name: 'companyId',
       label: 'c.company',
-      type: 'select',
+      type: 'select-search',
       placeholder: 's.selectAnOption',
       required: true,
       options: [],

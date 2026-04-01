@@ -38,7 +38,7 @@ const NAV_INACTIVE_CLASSES =
   'text-nav-item-inactive-text hover:bg-nav-item-inactive-hover-bg group-data-[state=collapsed]:hover:bg-nav-item-inactive-collapsed-hover-bg hover:text-nav-item-inactive-hover-text active:bg-nav-item-inactive-hover-bg active:text-nav-item-inactive-text';
 
 const BASE_BUTTON_CLASSES =
-  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:mx-auto group-data-[state=collapsed]:px-0 group-data-[state=collapsed]:w-23!';
+  'py-4.5 px-4 ml-4 rounded-none transition-colors cursor-pointer group-data-[state=collapsed]:-ml-2 group-data-[state=collapsed]:px-0 group-data-[state=collapsed]:w-23! ';
 
 // --- Helpers ---
 
@@ -64,7 +64,7 @@ function NavMainButtonContent({
   onIconClick?: (e: React.MouseEvent) => void;
 }) {
   return (
-    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:items-center group-data-[state=collapsed]:gap-0 group-data-[state=collapsed]:ml-0 ml-6">
+    <div className="flex items-center gap-2 w-full relative whitespace-nowrap overflow-hidden group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:items-center group-data-[state=collapsed]:gap-0 ml-6 group-data-[state=collapsed]:ml-0">
       <div
         className={`shrink-0 group-data-[state=collapsed]:ml-0 group-data-[state=collapsed]:flex group-data-[state=collapsed]:justify-center group-data-[state=collapsed]:w-full ${url ? 'cursor-pointer hover:opacity-80' : ''}`}
         onClick={url ? onIconClick : undefined}
@@ -97,6 +97,7 @@ export function NavMain({
     title: string;
     url?: string;
     icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+    className?: string;
     items: {
       title: string;
       url: string;
@@ -209,7 +210,7 @@ export function NavMain({
                 variant="unstyled"
                 isActive={false}
                 style={CLIP_PATH_STYLE}
-                className={getParentClassName(hasActiveSubItem, hasActiveSubItem, isCollapsed)}
+                className={`${getParentClassName(hasActiveSubItem, hasActiveSubItem, isCollapsed)}${item.className ? ` ${item.className}` : ''}`}
               >
                 <NavMainButtonContent
                   icon={item.icon}

@@ -14,7 +14,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className="flex flex-col space-y-1 relative">
         <textarea
           className={cn(
-            'flex min-h-20 w-full rounded-t-lg border-0 border-b border-b-[#3A484C] bg-base-white px-3 py-1 text-base font-light shadow-sm transition-colors placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-y',
+            'flex min-h-20 w-full rounded-t-sm border-0 border-b border-b-placeholder hover:border-b-primary bg-white text-primary  p-4 text-base font-normal shadow-sm transition-colors placeholder:text-placeholder hover:border-primary focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 resize-y placeholder:text-base placeholder:font-normal',
             error && 'border-b-error',
             className
           )}

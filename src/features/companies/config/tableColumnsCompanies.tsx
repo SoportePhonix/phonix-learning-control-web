@@ -3,6 +3,7 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { Companies } from '@/lib/services/api/companiesApi/interface';
+import { capitalizeFirst } from '@/utils/textFormatters';
 
 import { DeleteCompany } from '../componentes/DeleteCompany';
 import { ManageCompany } from '../componentes/ManageCompany';
@@ -12,24 +13,43 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
     accessorKey: 'name',
     header: t('n.name'),
     enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '230px', textAlign: 'center', padding: '0 2px' }}>
+        {capitalizeFirst(row.getValue('name'))}
+      </span>
+    ),
   },
   {
     accessorKey: 'nit',
     header: t('n.nit'),
     enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '170px', textAlign: 'center', padding: '0 2px' }}>
+        {capitalizeFirst(row.getValue('nit'))}
+      </span>
+    ),
   },
   {
     accessorKey: 'email',
     header: t('e.email'),
     enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '300px', textAlign: 'center', padding: '0 2px' }}>
+        {capitalizeFirst(row.getValue('email'))}
+      </span>
+    ),
   },
   {
     id: 'instance',
     header: t('i.instance'),
-    enableSorting: true,
+    enableSorting: false,
     cell: ({ row }) => {
       const instance = (row.original as any).instance;
-      return instance?.name;
+      return (
+        <span style={{ display: 'inline-block', width: '230px', textAlign: 'center', padding: '0 2px' }}>
+          {instance?.name}
+        </span>
+      );
     },
   },
   {
@@ -51,7 +71,11 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
 
       const config = statusMap[status] ?? ({ type: 'progress' } as const);
 
-      return <StatusBadge type={config.type} label={config.label} />;
+      return (
+        <span style={{ display: 'inline-block', width: '120px', textAlign: 'center', padding: '0 2px' }}>
+          <StatusBadge type={config.type} label={config.label} />
+        </span>
+      );
     },
   },
   {
@@ -62,7 +86,7 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
       const companyName = row.original.name;
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center">
           <ManageCompany companyId={companyId} companyName={companyName} />
           <EditButton href={`/companies/${companyId}/update`} tooltipText={t('e.editCompany')} />
           <DeleteCompany companyId={companyId} />

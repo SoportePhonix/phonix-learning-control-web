@@ -164,7 +164,7 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
       case 'textarea':
         return (
           <>
-            <label className="text-sm text-label">
+            <label className="text-base font-semibold text-primary">
               {t(field.label)}
               {isRequired && <span className="text-error">*</span>}
             </label>

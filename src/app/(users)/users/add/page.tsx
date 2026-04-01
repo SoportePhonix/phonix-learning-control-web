@@ -10,8 +10,8 @@ import { useCreateUser } from '@/features/users/hooks/useCreateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {

@@ -12,6 +12,8 @@ import { useSessionContext } from '@/utils/context/sessionContext';
 import { Bolt } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+import { ManageCompaniesIcon } from './icons/ManageCompaniesIcon';
+
 interface ManageCompanyProps {
   companyId: number;
   companyName?: string;
@@ -36,7 +38,7 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
     // Guardar la empresa en el contexto antes de navegar
     setSelectedCompany({ id: companyId, name: companyName });
     // Navegar al dashboard
-    router.push(`/manage-companies/dashboard`);
+    router.push(`/manage-companies/students?companyId=${companyId}`);
   };
   return (
     <TooltipProvider delayDuration={0}>
@@ -50,7 +52,7 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
           >
-            <Bolt className="h-4 w-4" strokeWidth={hovered ? 3 : 2} />
+            <ManageCompaniesIcon className="h-4 w-4" strokeWidth={hovered ? 2.3 : 1.7} />
             <span className="sr-only">{t('m.manageCompanies')}</span>
           </Button>
         </TooltipTrigger>

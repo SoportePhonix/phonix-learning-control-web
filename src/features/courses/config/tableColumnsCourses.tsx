@@ -3,6 +3,7 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
 import { TranslationKey } from '@/i18n';
 import { Courses } from '@/lib/services/api/coursesApi/interface';
+import { capitalizeFirst } from '@/utils/textFormatters';
 
 import { DeleteCourse } from '../componentes/DeleteCourse';
 
@@ -24,22 +25,40 @@ export const tableColumnsCourses = (
   {
     accessorKey: 'shortName',
     header: t('s.shortName'),
+    enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '180px', textAlign: 'center', padding: '0 2px' }}>
+        {capitalizeFirst(row.getValue('shortName'))}
+      </span>
+    ),
   },
   {
     accessorKey: 'fullName',
     header: t('f.fullName'),
+    enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '210px', textAlign: 'center', padding: '0 2px' }}>
+        {capitalizeFirst(row.getValue('fullName'))}
+      </span>
+    ),
   },
   {
     accessorKey: 'summary',
     header: t('s.summary'),
+    enableSorting: true,
     cell: ({ row }) => {
       const value = row.original.summary;
-      return value ? value : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '350px', textAlign: 'center', padding: '0 2px' }}>
+          {value ? value : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
     accessorKey: 'status',
     header: t('s.status'),
+    enableSorting: true,
     cell: ({ row }) => {
       const status = String(row.original.status).toLowerCase();
 
@@ -55,29 +74,43 @@ export const tableColumnsCourses = (
 
       const config = statusMap[status] ?? ({ type: 'progress' } as const);
 
-      return <StatusBadge type={config.type} label={config.label} />;
+      return (
+        <span style={{ display: 'inline-block', width: '120px', textAlign: 'center', padding: '0 2px' }}>
+          <StatusBadge type={config.type} label={config.label} />
+        </span>
+      );
     },
   },
   {
     accessorKey: 'startDate',
     header: t('s.startDate'),
-    cell: ({ row }) => (row.original.startDate ? formatDate(row.original.startDate) : EMPTY_VALUE(t)),
+    enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '170px', textAlign: 'center', padding: '0 2px' }}>
+        {row.original.startDate ? formatDate(row.original.startDate) : EMPTY_VALUE(t)}
+      </span>
+    ),
   },
   {
     accessorKey: 'endDate',
     header: t('e.endDate'),
-    cell: ({ row }) => (row.original.endDate ? formatDate(row.original.endDate) : EMPTY_VALUE(t)),
+    enableSorting: true,
+    cell: ({ row }) => (
+      <span style={{ display: 'inline-block', width: '170px', textAlign: 'center', padding: '0 2px' }}>
+        {row.original.endDate ? formatDate(row.original.endDate) : EMPTY_VALUE(t)}
+      </span>
+    ),
   },
   {
     header: t('c.company'),
+    enableSorting: true,
     cell: ({ row }) => {
       const { companyName } = row.original;
-
-      if (!companyName) {
-        return EMPTY_VALUE(t);
-      }
-
-      return <span>{companyName}</span>;
+      return (
+        <span style={{ display: 'inline-block', width: '230px', textAlign: 'center', padding: '0 2px' }}>
+          {companyName ? companyName : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
 
@@ -88,7 +121,7 @@ export const tableColumnsCourses = (
       const courseId = Number(row.original.id);
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center">
           <EditButton href={`/manage-companies/courses/${courseId}/update`} tooltipText={t('e.editCourse')} />
           <DeleteCourse courseId={courseId} />
         </div>

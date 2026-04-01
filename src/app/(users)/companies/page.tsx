@@ -45,7 +45,7 @@ export default function Page() {
   }
 
   return (
-    <div className="mb-8 px-2 flex flex-col">
+    <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader title={t('c.companies')} buttonLabel={t('a.addCompanies')} buttonHref="/companies/add" />
 
       <DataTable

@@ -8,12 +8,18 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
 import { useUpdateCompany } from '@/features/companies/hooks/useUpdateCompany';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ companyId: string }> }) {
   const { companyId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('c.companies'), path: '/companies' }, { label: t('u.updateCompany') }],
+    { withLoader: true }
+  );
 
   const { updateCompanies, isLoading, apiError } = useUpdateCompany(companyId);
 
@@ -40,7 +46,8 @@ export default function Page({ params }: { params: Promise<{ companyId: string }
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('u.updateCompany')} />
 
       <FormPageLayout description={t('t.toUpdateACompanyCompleteTheFields')} isLoading={false}>

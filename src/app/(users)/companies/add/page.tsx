@@ -8,7 +8,7 @@ import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
 import { useCreateCompanies } from '@/features/companies/hooks/useCreateCompanies';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {

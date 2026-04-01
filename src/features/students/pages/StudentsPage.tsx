@@ -3,9 +3,8 @@
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsStudents } from '@/features/students/config/tableColumnsStudents';
 import { useCompanyContext } from '@/hooks/use-company-context';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
+import { DataTable } from '@/lib/phonix-ui';
 import { Students } from '@/lib/services/api/studentsApi/interface';
 import { useGetStudentsQuery } from '@/lib/services/api/studentsApi/studentsApi';
 import { useSessionContext } from '@/utils/context/sessionContext';
@@ -18,7 +17,6 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
-  const { crumbRoutes } = useBreadcrumbs([{ label: 'Estudiantes' }], { withLoader: true });
 
   const { data: studentsData, isLoading, isFetching } = useGetStudentsQuery();
 
@@ -29,14 +27,12 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
     : (studentsData?.data ?? []);
 
   return (
-    <div className="mb-8 px-2 flex flex-col">
-      <Breadcrumb items={crumbRoutes} />
+    <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
         title={`${t('s.students')} - ${companyName}`}
         buttonLabel={t('a.addStudent')}
         buttonHref={`${baseRoute}/add`}
       />
-
       <DataTable
         striped
         data={filteredStudents}
