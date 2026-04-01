@@ -42,7 +42,6 @@ export function NavSections({
   };
 
   const isActive = (url: string) => {
-    if (!mounted) return false;
     const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
     const normalizedUrl = url.endsWith('/') && url !== '/' ? url.slice(0, -1) : url;
     return normalizedPathname === normalizedUrl || normalizedPathname.startsWith(normalizedUrl + '/');
