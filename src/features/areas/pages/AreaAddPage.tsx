@@ -8,7 +8,7 @@ import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
 import { useCreateAreas } from '@/features/areas/hooks/useCreateAreas';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 interface AreaAddPageProps {

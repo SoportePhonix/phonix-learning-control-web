@@ -49,7 +49,7 @@ export function NavSections({
   };
 
   return (
-    <SidebarGroup className="mt-8">
+    <SidebarGroup className="mt-8 group-data-[state=collapsed]:ml-2.5">
       {showLabel && <SidebarGroupLabel>sections</SidebarGroupLabel>}
       <SidebarMenu>
         {sections.map((item) => (
@@ -92,7 +92,7 @@ export function NavSections({
                 </span>
               </div>
             </SidebarMenuButton>
-            <Separator className="bg-nav-separator-bg h-[0.05rem] ml-4 group-data-[state=collapsed]:mx-auto my-2 w-10/12 group-data-[state=collapsed]:w-14" />
+            <Separator className="bg-nav-separator-bg h-[0.05rem] mx-auto group-data-[state=collapsed]:mx-auto my-2 w-10/12 group-data-[state=collapsed]:w-18 group-data-[state=collapsed]:ml-3" />
           </SidebarMenuItem>
         ))}
       </SidebarMenu>

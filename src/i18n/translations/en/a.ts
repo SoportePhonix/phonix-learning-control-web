@@ -6,6 +6,7 @@ export const a = {
   action: 'Action',
   actions: 'Actions',
   active: 'Active',
+  activeF: 'Active',
   activeGroup: 'Active Group',
   add: 'Add',
   addCompanies: 'Add companies',

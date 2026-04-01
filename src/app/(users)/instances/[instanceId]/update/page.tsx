@@ -8,12 +8,18 @@ import { InstanceFormValues } from '@/components/instance/types';
 import { PageHeader } from '@/components/page-header';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
 import { useUpdateInstance } from '@/features/instance/hooks/useUpdateInstance';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ instanceId: string }> }) {
   const { instanceId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('i.instances'), path: '/instances' }, { label: t('u.updateInstance') }],
+    { withLoader: true }
+  );
 
   const form = useForm<InstanceFormValues>({
     defaultValues: {
@@ -40,9 +46,9 @@ export default function Page({ params }: { params: Promise<{ instanceId: string 
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('u.updateInstance')} />
-
       <FormPageLayout description={t('t.toUpdateAnInstanceCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}

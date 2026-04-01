@@ -20,7 +20,6 @@ import { useSessionContext } from '@/utils/context/sessionContext';
 import { useTheme } from 'next-themes';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { session } = useSessionContext();
   const { theme } = useTheme();
   const { config, isLoading } = useConfigWithLoading();
   const { selectedCompany } = useSelectedCompany();
@@ -32,12 +31,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   );
 
   const { sections, navMainItems } = useSidebarData({ isPresentationMode, selectedCompany });
-
-  const userSession = {
-    name: `${session?.user?.name} ${session?.user?.lastName}`,
-    email: `${session?.user?.email}`,
-    avatar: `${session?.user?.name?.charAt(0) || ''} ${session?.user?.lastName?.charAt(0) || ''}`.trim(),
-  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -51,9 +44,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSections sections={sections} />
         <NavMain items={navMainItems} />
       </SidebarContent>
-      {/* <SidebarFooter>
-        <NavUser user={userSession} />
-      </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
   );

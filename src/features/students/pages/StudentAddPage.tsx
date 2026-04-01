@@ -7,8 +7,8 @@ import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
 import { useForm } from 'react-hook-form';
 
 interface StudentAddPageProps {

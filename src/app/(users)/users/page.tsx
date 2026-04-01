@@ -2,26 +2,22 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumns } from '@/features/users/config/tableColumns';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
+import { DataTable } from '@/lib/phonix-ui';
 import { useGetAllUsersQuery } from '@/lib/services/api/usersApi/usersApi';
 import { useSessionContext } from '@/utils/context/sessionContext';
 
 export default function Page() {
   const { t } = useTranslation();
   const { session } = useSessionContext();
-  const { crumbRoutes, isNavigating } = useBreadcrumbs([{ label: 'Usuarios' }], { withLoader: true });
 
   const { data: usersData, isLoading, isFetching, error, status, isSuccess, isError } = useGetAllUsersQuery();
 
   const currentUserId = session?.user?.id ? Number(session.user.id) : undefined;
 
   return (
-    <div className="mb-8 px-2 flex flex-col">
-      <Breadcrumb items={crumbRoutes} />
+    <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader title={t('u.users')} buttonLabel={t('a.addUsers')} buttonHref="/users/add" />
-
       <DataTable
         striped
         data={usersData?.data ?? []}

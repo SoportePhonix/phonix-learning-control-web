@@ -8,12 +8,18 @@ import { LmsFormValues } from '@/components/lms/types';
 import { PageHeader } from '@/components/page-header';
 import { useLmsForm } from '@/features/lms/hooks/useLmsForm';
 import { useUpdateLms } from '@/features/lms/hooks/useUpdateLms';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ lmsId: string }> }) {
   const { lmsId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('l.lms'), path: '/lms' }, { label: t('u.updateLms') }],
+    { withLoader: true }
+  );
 
   const form = useForm<LmsFormValues>({
     defaultValues: {
@@ -43,9 +49,9 @@ export default function Page({ params }: { params: Promise<{ lmsId: string }> })
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('u.updateLms')} />
-
       <FormPageLayout description={t('t.toUpdateAnLmsCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm
           config={formConfig}

@@ -8,7 +8,7 @@ import { useCreateInstance } from '@/features/instance/hooks/useCreateInstance';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {

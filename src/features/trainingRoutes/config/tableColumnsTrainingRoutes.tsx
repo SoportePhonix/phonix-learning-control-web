@@ -16,7 +16,11 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     enableSorting: true,
     cell: ({ row }) => {
       const name = row.getValue('name') as string;
-      return name ? <div className="font-medium text-foreground">{name}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '225px', textAlign: 'center', padding: '0 2px' }}>
+          {name ? name : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -25,12 +29,10 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     enableSorting: true,
     cell: ({ row }) => {
       const description = row.getValue('description') as string;
-      return description ? (
-        <div className="max-w-60 truncate text-muted-foreground" title={description}>
-          {description}
-        </div>
-      ) : (
-        EMPTY_VALUE(t)
+      return (
+        <span style={{ display: 'inline-block', width: '225px', textAlign: 'center', padding: '0 2px' }}>
+          {description ? description : EMPTY_VALUE(t)}
+        </span>
       );
     },
   },
@@ -40,7 +42,11 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     enableSorting: true,
     cell: ({ row }) => {
       const companyName = row.getValue('companyName') as string;
-      return companyName ? <div className="text-muted-foreground">{companyName}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '225px', textAlign: 'center', padding: '0 2px' }}>
+          {companyName ? companyName : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -49,7 +55,11 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     enableSorting: true,
     cell: ({ row }) => {
       const areaName = row.getValue('areaName') as string;
-      return areaName ? <div className="text-muted-foreground">{areaName}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '225px', textAlign: 'center', padding: '0 2px' }}>
+          {areaName ? areaName : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -58,7 +68,11 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     enableSorting: true,
     cell: ({ row }) => {
       const positionName = row.getValue('positionName') as string;
-      return positionName ? <div className="text-muted-foreground">{positionName}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '225px', textAlign: 'center', padding: '0 2px' }}>
+          {positionName ? positionName : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -70,8 +84,8 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
       const id = Number(trainingRoute.id);
 
       return (
-        <div className="flex items-center gap-2">
-          <EditButton href={`/training-routes/${id}/update`} tooltipText={t('e.editTrainingRoute')} />
+        <div className="flex justify-center">
+          <EditButton href={`/manage-companies/training-routes/${id}/update`} tooltipText={t('e.editTrainingRoute')} />
           <DeleteTrainingRoute id={id} />
         </div>
       );

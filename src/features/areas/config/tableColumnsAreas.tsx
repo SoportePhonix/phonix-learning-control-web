@@ -20,7 +20,11 @@ export const tableColumnsAreas = (
     enableSorting: true,
     cell: ({ row }) => {
       const name = row.getValue('name') as string;
-      return name ? <div className="font-medium text-foreground">{name}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '200px', textAlign: 'center', padding: '0 2px' }}>
+          {name ? name : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -29,12 +33,10 @@ export const tableColumnsAreas = (
     enableSorting: true,
     cell: ({ row }) => {
       const description = row.getValue('description') as string;
-      return description ? (
-        <div className="max-w-50 truncate text-muted-foreground" title={description}>
-          {description}
-        </div>
-      ) : (
-        EMPTY_VALUE(t)
+      return (
+        <span style={{ display: 'inline-block', width: '200px', textAlign: 'center', padding: '0 2px' }}>
+          {description ? description : EMPTY_VALUE(t)}
+        </span>
       );
     },
   },
@@ -43,12 +45,11 @@ export const tableColumnsAreas = (
     enableSorting: true,
     cell: ({ row }) => {
       const { companyName } = row.original;
-
-      if (!companyName) {
-        return EMPTY_VALUE(t);
-      }
-
-      return <div className="font-medium text-primary">{companyName}</div>;
+      return (
+        <span style={{ display: 'inline-block', width: '200px', textAlign: 'center', padding: '0 2px' }}>
+          {companyName ? companyName : EMPTY_VALUE(t)}
+        </span>
+      );
     },
   },
   {
@@ -59,18 +60,22 @@ export const tableColumnsAreas = (
       const status = String(row.original.status || '').toLowerCase();
 
       const statusMap: Record<string, { type: 'success' | 'progress' | 'error'; label?: TranslationKey }> = {
-        active: { type: 'success', label: 'a.active' },
-        '1': { type: 'success', label: 'a.active' },
-        true: { type: 'success', label: 'a.active' },
+        active: { type: 'success', label: 'a.activeF' },
+        '1': { type: 'success', label: 'a.activeF' },
+        true: { type: 'success', label: 'a.activeF' },
 
-        inactive: { type: 'error', label: 'i.inactive' },
-        '0': { type: 'error', label: 'i.inactive' },
-        false: { type: 'error', label: 'i.inactive' },
+        inactive: { type: 'error', label: 'i.inactiveF' },
+        '0': { type: 'error', label: 'i.inactiveF' },
+        false: { type: 'error', label: 'i.inactiveF' },
       };
 
       const config = statusMap[status] ?? ({ type: 'progress' } as const);
 
-      return <StatusBadge type={config.type} label={config.label} />;
+      return (
+        <span style={{ display: 'inline-block', width: '120px', textAlign: 'center', padding: '0 2px' }}>
+          <StatusBadge type={config.type} label={config.label} />
+        </span>
+      );
     },
   },
   {
@@ -82,7 +87,7 @@ export const tableColumnsAreas = (
       const areaId = Number(area.id);
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center">
           <EditButton href={`/manage-companies/areas/${areaId}/update`} tooltipText={t('e.editArea')} />
           <DeleteArea areaId={areaId} />
         </div>

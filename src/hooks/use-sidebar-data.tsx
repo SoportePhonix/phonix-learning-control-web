@@ -7,7 +7,6 @@ import { CourseIcon } from '@/features/courses/componentes/icons/CourseIcon';
 import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon';
 import { LmsIcon } from '@/features/lms/componentes/icons/LmsIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
-import { TrainingRoutesIcon } from '@/features/trainingRoutes/componentes/icons/TrainingRoutesIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
 import { useCompanyContext } from '@/hooks/use-company-context';
 import { useTranslation } from '@/i18n';
@@ -41,6 +40,7 @@ interface NavMainItem {
   url?: string;
   icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
   permission?: Permission;
+  className?: string;
   items: NavMainSubItem[];
 }
 
@@ -64,22 +64,16 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         permission: 'instances.view',
       },
       {
-        name: t('c.companies'),
-        url: '/companies',
-        icon: (props) => <CompanyIcon {...props} />,
-        permission: 'companies.view',
-      },
-      {
         name: t('l.lms'),
         url: '/lms',
         icon: (props) => <LmsIcon {...props} />,
         permission: 'lms.view',
       },
       {
-        name: t('t.trainingRoutes'),
-        url: '/training-routes',
-        icon: (props) => <TrainingRoutesIcon {...props} />,
-        permission: 'trainingRoutes.view',
+        name: t('c.companies'),
+        url: '/companies',
+        icon: (props) => <CompanyIcon {...props} />,
+        permission: 'companies.view',
       },
       // Secciones de presentation mode
       ...(isPresentationMode
@@ -115,15 +109,11 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
     if (isManager) {
       allItems.push({
         title: 'Gestionar Empresa',
-        url: `/dashboard`,
-        icon: (props) => <CompanyIcon {...props} />,
+        url: `/students`,
+        icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'students.view', // Require only a base permission
+        className: 'bg-nav-item-inactive-collapsed-hover-bg',
         items: [
-          {
-            title: t('d.dashboard'),
-            url: `/dashboard`,
-            permission: 'students.view',
-          },
           {
             title: t('s.students'),
             url: `/students`,
@@ -144,6 +134,11 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
             url: `/positions`,
             permission: 'positions.view',
           },
+          {
+            title: t('t.trainingRoutes'),
+            url: '/training-routes',
+            permission: 'trainingRoutes.view',
+          },
         ],
       });
     } else if (selectedCompany) {
@@ -152,15 +147,16 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
 
       allItems.push({
         title: 'Gestionar Empresa',
-        url: `/ 6-companies/dashboard${queryString}`,
+        url: `/manage-companies/students${queryString}`,
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'manageCompanies.view',
+        className: 'bg-nav-item-active-collapsed-bg',
         items: [
-          {
-            title: t('d.dashboard'),
-            url: `/manage-companies/dashboard${queryString}`,
-            permission: 'dashboard.view',
-          },
+          // {
+          //   title: t('d.dashboard'),
+          //   url: `/manage-companies/dashboard${queryString}`,
+          //   permission: 'dashboard.view',
+          // },
           {
             title: t('s.students'),
             url: `/manage-companies/students${queryString}`,
@@ -180,6 +176,11 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
             title: t('p.positions'),
             url: `/manage-companies/positions${queryString}`,
             permission: 'positions.view',
+          },
+          {
+            title: t('t.trainingRoutes'),
+            url: `/manage-companies/training-routes${queryString}` /**TODO estamos aca, necesitamos mover la ruta para la parte correcta */,
+            permission: 'trainingRoutes.view',
           },
         ],
       });

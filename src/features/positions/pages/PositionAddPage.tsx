@@ -8,7 +8,7 @@ import { useCreatePositions } from '@/features/positions/hooks/useCreatePosition
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb } from '@soportephonix/phx-breadcrumb';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
 
 interface PositionAddPageProps {

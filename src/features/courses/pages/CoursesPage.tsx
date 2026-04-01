@@ -3,9 +3,8 @@
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsCourses } from '@/features/courses/config/tableColumnsCourses';
 import { useCompanyContext } from '@/hooks/use-company-context';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
-import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
+import { DataTable } from '@/lib/phonix-ui';
 import { useGetCoursesQuery } from '@/lib/services/api/coursesApi/coursesApi';
 import { Courses } from '@/lib/services/api/coursesApi/interface';
 import { useSessionContext } from '@/utils/context/sessionContext';
@@ -18,7 +17,6 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
-  const { crumbRoutes } = useBreadcrumbs([{ label: 'Cursos' }], { withLoader: true });
 
   const { data: coursesData, isLoading, isFetching } = useGetCoursesQuery();
 
@@ -29,14 +27,12 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
     : (coursesData?.data ?? []);
 
   return (
-    <div className="mb-8 px-2 flex flex-col">
-      <Breadcrumb items={crumbRoutes} />
+    <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
         title={`${t('c.courses')} - ${companyName}`}
         buttonLabel={t('a.addCourse')}
         buttonHref={`${baseRoute}/add`}
       />
-
       <DataTable
         striped
         data={filteredCourses}

@@ -8,13 +8,19 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useUpdateCourse } from '@/features/courses/hooks/useUpdateCourse';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
+import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = use(params);
   const { t } = useTranslation();
+  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+    [{ label: t('c.courses'), path: '/manage-companies/courses' }, { label: t('u.updateCourse') }],
+    { withLoader: true }
+  );
   const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
   const { updateCourse, isLoading, apiError } = useUpdateCourse(courseId);
 
@@ -42,7 +48,8 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
   };
 
   return (
-    <div className="p-8">
+    <div className="px-2">
+      <Breadcrumb items={crumbRoutes} />
       <PageHeader title={t('u.updateCourse')} />
 
       <FormPageLayout description={t('t.toUpdateACourseCompleteTheFields')} isLoading={false}>

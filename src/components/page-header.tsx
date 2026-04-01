@@ -16,9 +16,11 @@ export const PageHeader = ({ title, buttonLabel, buttonHref }: SectionTitleProps
           {title}
         </Typography>
         {buttonLabel && buttonHref && (
-          <Button variant="secondary" onClick={() => router.push(buttonHref)}>
-            {buttonLabel}
-          </Button>
+          <div className="-mr-2">
+            <Button variant="secondary" onClick={() => router.push(buttonHref)}>
+              {buttonLabel}
+            </Button>
+          </div>
         )}
       </div>
       <Separator />

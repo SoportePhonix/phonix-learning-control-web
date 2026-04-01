@@ -20,7 +20,9 @@ export const tableColumnsInstance = (
     enableSorting: true,
     cell: ({ row }) => {
       const nit = row.getValue('nit') as string;
-      return nit ? <div className="font-medium text-foreground">{nit}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '170px', textAlign: 'center', padding: '0 2px' }}>{nit}</span>
+      );
     },
   },
   {
@@ -29,7 +31,9 @@ export const tableColumnsInstance = (
     enableSorting: true,
     cell: ({ row }) => {
       const name = row.getValue('name') as string;
-      return name ? <div className="font-medium text-foreground">{name}</div> : EMPTY_VALUE(t);
+      return (
+        <span style={{ display: 'inline-block', width: '230px', textAlign: 'center', padding: '0 2px' }}>{name}</span>
+      );
     },
   },
   {
@@ -38,12 +42,10 @@ export const tableColumnsInstance = (
     enableSorting: true,
     cell: ({ row }) => {
       const description = row.getValue('description') as string;
-      return description ? (
-        <div className="max-w-50 truncate text-muted-foreground" title={description}>
+      return (
+        <span style={{ display: 'inline-block', width: '250px', textAlign: 'center', padding: '0 2px' }}>
           {description}
-        </div>
-      ) : (
-        EMPTY_VALUE(t)
+        </span>
       );
     },
   },
@@ -66,7 +68,11 @@ export const tableColumnsInstance = (
 
       const config = statusMap[status] ?? ({ type: 'progress' } as const);
 
-      return <StatusBadge type={config.type} label={config.label} />;
+      return (
+        <span style={{ display: 'inline-block', width: '120px', textAlign: 'center', padding: '0 2px' }}>
+          <StatusBadge type={config.type} label={config.label} />
+        </span>
+      );
     },
   },
   {
@@ -78,7 +84,7 @@ export const tableColumnsInstance = (
       const instanceNit = String(instance.nit ?? '').trim();
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center">
           <EditButton href={`/instances/${instanceNit}/update`} tooltipText={t('e.editInstance')} />
           <DeleteInstance instanceNit={instanceNit} />
         </div>
