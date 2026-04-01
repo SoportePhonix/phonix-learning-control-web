@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { PageHeader } from '@/components/page-header';
 import { Loader } from '@/components/ui/loader';
@@ -9,7 +9,7 @@ import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
-import { Role } from '@/rbac/config/roles';
+import { Role, normalizeRoleName } from '@/rbac/config/roles';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { useRouter } from 'next/navigation';
 
@@ -19,17 +19,15 @@ export default function Page() {
   const { session, loading: isSessionLoading } = useSessionContext();
   const { isManager, hasRole, loading: isRbacLoading } = useRBAC();
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const isSuperAdmin = hasRole(Role.SUPERADMIN);
 
-  const { data: companiesData, isLoading: isCompaniesLoading } = useGetCompaniesQuery(undefined, {
-    skip: isManager && !isSuperAdmin, // Optimización: no hacer fetch si es estrictamente manager y no superadmin
-  });
+  const currentInstanceId = session?.user?.instanceId;
+  const roles = session?.user?.role || [];
+  const isSuperAdmin = Array.isArray(roles) && roles.some((r: any) => normalizeRoleName(r.name) === Role.SUPERADMIN);
+  const isAdministrator = Array.isArray(roles) && roles.some((r: any) => normalizeRoleName(r.name) === Role.ADMIN);
 
-  const allowedCompanies = Array.isArray(session?.user?.companies) ? session.user.companies.map((c: any) => c.id) : [];
+  const { data: companiesData, isLoading: isCompaniesLoading } = useGetCompaniesQuery();
 
-  const filteredCompanies = isSuperAdmin
-    ? (companiesData?.data ?? [])
-    : (companiesData?.data?.filter((c) => allowedCompanies.includes(c.id)) ?? []);
+  const companies = companiesData?.data || [];
 
   useEffect(() => {
     if (isSessionLoading || isRbacLoading) return;
@@ -44,13 +42,23 @@ export default function Page() {
     return <Loader message="Verificando acceso..." />;
   }
 
+  // Previene el render de la tabla en caso de que el routing se retrase para managers puros
+  if (isManager && !isSuperAdmin) {
+    return null;
+  }
+
+  const isAllowed = isSuperAdmin || (isAdministrator && !!currentInstanceId);
+  if (!isAllowed) {
+    throw new Error('Empresa no permitida');
+  }
+
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader title={t('c.companies')} buttonLabel={t('a.addCompanies')} buttonHref="/companies/add" />
 
       <DataTable
         striped
-        data={filteredCompanies}
+        data={companies}
         variant="primary"
         columns={tableColumnsCompanies(t)}
         isLoading={isCompaniesLoading}

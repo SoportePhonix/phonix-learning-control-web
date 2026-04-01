@@ -60,7 +60,7 @@ export function useCompaniesForm({ mode, companyId, form }: UseCompaniesFormProp
         fields.push({
           name: 'instanceId',
           label: 'i.instance',
-          type: 'select',
+          type: 'select-search',
           placeholder: 'e.enterAValue',
           required: true,
           options: instanceOptions,

@@ -32,15 +32,24 @@ export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
       status: values.status,
     };
 
-    if (isSuperAdmin && values.instanceId) {
-      payload.instanceId = Number(values.instanceId);
+    if (isSuperAdmin) {
+      if (values.instanceId) {
+        payload.instanceId = Number(values.instanceId);
+      }
+    } else {
+      if (session?.user?.instanceId) {
+        payload.instanceId = Number(session.user.instanceId);
+      } else {
+        toast.error(t('s.sessionMissingInstanceId') || 'Instance ID missing in session');
+        return;
+      }
     }
 
     try {
       setApiError(null);
       setApiErrorMessage(undefined);
 
-      await addCompany(payload).unwrap();
+      const companyResponse = await addCompany(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
       router.push('/companies');
