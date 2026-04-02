@@ -176,6 +176,7 @@ export const api = createApi({
     'TrainingRoutes',
     'InstanceCompany',
     'AdminInstance',
+    'Enrollments',
   ],
 
   // 🚀 Configuración personalizada de cache
