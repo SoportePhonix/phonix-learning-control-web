@@ -9,10 +9,15 @@ export async function POST(req: NextRequest) {
     const body = await new Response(req.body).json();
     const session: CustomSession | null = await getServerSession(authOptions);
 
+    const payload = {
+      studentId: Number(body.studentId),
+      courseId: Number(body.courseId),
+    };
+
     const response = await (
       await fetch(`${process.env.API_URL}/enrollment`, {
         method: 'POST',
-        body: JSON.stringify(body),
+        body: JSON.stringify(payload),
         headers: {
           authorization: `Bearer ${session?.user?.accessToken}`,
           accept: 'application/json',
