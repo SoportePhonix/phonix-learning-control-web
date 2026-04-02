@@ -15,6 +15,10 @@ export const companiesFormConfig: FormConfig = {
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,
+      validation: {
+        minLength: 6,
+        minLengthMessage: 'n.nitMustBeLongerThanOrEqualTo6Characters',
+      },
     },
     {
       name: 'email',
@@ -22,6 +26,10 @@ export const companiesFormConfig: FormConfig = {
       type: 'email',
       placeholder: 'e.enterAValue',
       required: true,
+      validation: {
+        pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        patternMessage: 'e.emailInvalidFormat',
+      },
     },
     {
       name: 'status',

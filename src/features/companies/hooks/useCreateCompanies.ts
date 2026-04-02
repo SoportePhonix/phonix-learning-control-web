@@ -11,6 +11,7 @@ import { useSessionContext } from '@/utils/context/sessionContext';
 import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
+import { cs } from 'zod/v4/locales';
 
 export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
   const { t } = useTranslation();
@@ -56,6 +57,9 @@ export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
+
+      console.log('status:', status);
+      console.log('errorMessage:', errorMessage);
 
       if (status === 409) {
         if (

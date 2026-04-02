@@ -28,7 +28,7 @@ export const tableColumnsCourses = (
     enableSorting: true,
     cell: ({ row }) => (
       <span style={{ display: 'inline-block', width: '180px', textAlign: 'center', padding: '0 2px' }}>
-        {capitalizeFirst(row.getValue('shortName'))}
+        {row.getValue('shortName')}
       </span>
     ),
   },

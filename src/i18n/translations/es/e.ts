@@ -29,6 +29,7 @@ export const e = {
   existingInstanceNit: 'Nit de instancia existente',
   existingShortName: 'Nombre corto existente',
   existingEmail: 'Email existente',
+  emailInvalidFormat: 'El correo electrónico no tiene un formato válido.',
   existingAreaName: 'Nombre de área existente',
   existingPositionName: 'Nombre de cargo existente',
   existingLmsName: 'Nombre de LMS existente',
