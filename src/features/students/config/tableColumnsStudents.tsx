@@ -1,6 +1,8 @@
 import { EditButton } from '@/components/EditButton';
 import { StatusBadge } from '@/components/StatusBadge';
 import { CustomColumnDef } from '@/components/ui/data-table';
+import { EnrollStudentModal } from '@/features/enrollment/componentes/EnrollStudentModal';
+import { UnenrollStudentModal } from '@/features/enrollment/componentes/UnenrollStudentModal';
 import { TranslationKey } from '@/i18n';
 import { Students } from '@/lib/services/api/studentsApi/interface';
 import { capitalizeFirst } from '@/utils/textFormatters';
@@ -245,6 +247,8 @@ export const tableColumnsStudents = (
 
       return (
         <div className="flex justify-center">
+          <EnrollStudentModal studentId={Number(studentId)} />
+          <UnenrollStudentModal studentId={Number(studentId)} />
           <EditButton href={`/manage-companies/students/${studentId}/update`} tooltipText={t('e.editUser')} />
           {!isCurrentUser && <DeleteStudent studentId={Number(studentId)} />}
         </div>
