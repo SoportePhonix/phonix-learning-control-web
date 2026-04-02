@@ -28,9 +28,10 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
   const { hasRole } = useRBAC();
 
   const isSuperAdmin = hasRole(Role.SUPERADMIN);
+  const isAdministrator = hasRole(Role.ADMIN);
 
   const handleClick = () => {
-    const isAllowed = isSuperAdmin || session?.user?.companies?.some((c: any) => c.id === companyId);
+    const isAllowed = isSuperAdmin || (isAdministrator && !!session?.user?.instanceId);
     if (!isAllowed) {
       throw new Error('Empresa no permitida');
     }

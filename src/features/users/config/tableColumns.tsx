@@ -2,6 +2,7 @@ import { EditButton } from '@/components/EditButton';
 import { StatusBadge } from '@/components/StatusBadge';
 import { TranslationKey } from '@/i18n';
 import { User } from '@/lib/services/api/usersApi/interface/users.interface';
+import { Role, normalizeRoleName } from '@/rbac/config/roles';
 import { capitalizeFirst } from '@/utils/textFormatters';
 import { CustomColumnDef } from '@soportephonix/phx-datatable';
 
@@ -106,6 +107,23 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
           </div>
         </span>
       );
+    },
+  },
+  {
+    header: t('i.instance' as TranslationKey) !== 'i.instance' ? t('i.instance' as TranslationKey) : 'Instancia',
+    canHide: true,
+    enableSorting: false,
+    cell: ({ row }) => {
+      const user = row.original as any;
+      const roleName = normalizeRoleName(user.role?.[0]?.name);
+
+      if (roleName === Role.MANAGER) {
+        return <span className="text-muted-foreground">No aplica</span>;
+      }
+
+      const instanceName = user.instances?.[0]?.name || user.instance?.name || 'No aplica';
+
+      return <span className="text-muted-foreground">{instanceName !== 'No aplica' ? instanceName : '—'}</span>;
     },
   },
   {

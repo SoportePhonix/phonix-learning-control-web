@@ -6,6 +6,7 @@ export type UserFormValues = {
   email: string;
   password: string;
   roleId: string;
-  companyId: string;
+  companyId?: string;
+  instanceId?: string;
   status: string;
 };

@@ -5,6 +5,7 @@ export const s = {
   searchResults: 'Search results',
   select: 'Select',
   selectAll: 'Select all',
+  sessionMissingInstanceId: 'Instance ID missing in session',
   selectAnOption: 'Select an option',
   selected: 'Selected',
   send: 'Send',

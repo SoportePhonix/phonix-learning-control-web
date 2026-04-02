@@ -42,6 +42,7 @@ export interface AddUserRequest {
     },
   ];
   companyId?: number;
+  instanceId?: number;
   status: string;
 }
 
@@ -80,6 +81,7 @@ export interface UpdateUserRequest {
     },
   ];
   companyId?: number;
+  instanceId?: number;
   status: string;
 }
 

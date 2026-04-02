@@ -69,6 +69,12 @@ export const userFormConfig: FormConfig = {
       required: false,
     },
     {
+      name: 'instanceId',
+      type: 'select-search',
+      label: 'i.instance',
+      required: false,
+    },
+    {
       name: 'status',
       label: 's.status',
       type: 'select',

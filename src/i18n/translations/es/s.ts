@@ -5,6 +5,7 @@ export const s = {
   searchResults: 'Resultados de búsqueda',
   select: 'Seleccionar',
   selectAll: 'Seleccionar todo',
+  sessionMissingInstanceId: 'ID de instancia faltante en la sesión',
   selectAnOption: 'Seleccione una opción',
   selected: 'Seleccionado',
   send: 'Enviar',

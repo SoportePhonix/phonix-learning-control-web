@@ -38,6 +38,7 @@ export const c = {
   create: 'Crear',
   created: 'Creado',
   createdAt: 'Creado el',
+  createInstanceFirst: 'Crea una instancia primero',
   createdBy: 'Creado por',
   creating: 'Creando',
   current: 'Actual',

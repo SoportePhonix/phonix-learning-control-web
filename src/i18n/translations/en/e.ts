@@ -29,6 +29,7 @@ export const e = {
   existingInstanceNit: 'Existing instance nit',
   existingShortName: 'Existing short name',
   existingEmail: 'Existing email',
+  emailInvalidFormat: 'The email address is not valid.',
   existingAreaName: 'Existing area name',
   existingPositionName: 'Existing position name',
   existingLmsName: 'Existing LMS name',

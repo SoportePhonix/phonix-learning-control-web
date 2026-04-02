@@ -38,6 +38,7 @@ export const c = {
   create: 'Create',
   created: 'Created',
   createdAt: 'Created at',
+  createInstanceFirst: 'Create instance first',
   createdBy: 'Created by',
   creating: 'Creating',
   current: 'Current',

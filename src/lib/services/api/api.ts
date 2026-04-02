@@ -175,6 +175,7 @@ export const api = createApi({
     'Lms',
     'TrainingRoutes',
     'InstanceCompany',
+    'AdminInstance',
   ],
 
   // 🚀 Configuración personalizada de cache

@@ -2,11 +2,15 @@ import { useEffect, useMemo } from 'react';
 
 import { FormConfig, SelectOption } from '@/components/forms/DynamicForm/types';
 import { UserFormValues } from '@/components/users/types';
-import { useTranslation } from '@/i18n';
+import { useGetInstancesSelect } from '@/features/adminInstance/hooks/useGetInstancesSelect';
+import { TranslationKey, useTranslation } from '@/i18n';
 import { useGetAllRolesQuery } from '@/lib/services/api/rolesApi/rolesApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { useGetUserByIdQuery } from '@/lib/services/api/usersApi/usersApi';
+import { Role, canAssignRole, normalizeRoleName } from '@/rbac/config/roles';
+import { useSessionContext } from '@/utils/context/sessionContext';
 import { UseFormReturn } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { userFormConfig } from '../config/usersFormConfig';
 
@@ -23,19 +27,29 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
   const { data: typesIdData } = useGetAllTypeOfIdentificationDocumentQuery();
   const userById = useGetUserByIdQuery({ userId: userId! }, { skip: mode === 'create' || !userId });
 
+  const { session } = useSessionContext();
+  const currentInstanceId = session?.user?.instanceId || (session?.user as any)?.instance?.id;
+  const instanceName = 'Instancia actual'; // Puedes ajustarlo si viene en session
+  const isInstanceLoading = false; // Ya no dependemos de un hook que carga
+
+  const { data: instancesOptions } = useGetInstancesSelect();
+
   const selectedRoleId = form.watch('roleId');
 
-  const adminRoleId = rolesData?.data?.find((r: any) => r.name === 'Administrator')?.id;
-  const managerRoleId = rolesData?.data?.find((r: any) => r.name === 'Manager')?.id;
+  const superAdminRoleId = rolesData?.data?.find((r: any) => normalizeRoleName(r.name) === Role.SUPERADMIN)?.id;
+  const adminRoleId = rolesData?.data?.find((r: any) => normalizeRoleName(r.name) === Role.ADMIN)?.id;
+  const managerRoleId = rolesData?.data?.find((r: any) => normalizeRoleName(r.name) === Role.MANAGER)?.id;
 
-  const rolesOptions: SelectOption[] = useMemo(
-    () =>
-      rolesData?.data?.map((role: any) => ({
+  const rolesOptions: SelectOption[] = useMemo(() => {
+    if (!rolesData?.data) return [];
+    const currentRoles = session?.user?.role || [];
+    return rolesData.data
+      .filter((role: any) => canAssignRole(currentRoles, role.name))
+      .map((role: any) => ({
         value: String(role.id),
         label: role.name,
-      })) ?? [],
-    [rolesData]
-  );
+      }));
+  }, [rolesData?.data, session?.user?.role]);
 
   const typesIdOptions: SelectOption[] = useMemo(
     () =>
@@ -66,10 +80,11 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
   );
 
   const formConfig: FormConfig = useMemo(() => {
-    const isAdmin = !!adminRoleId && String(adminRoleId) === selectedRoleId;
-    const isManager = !!managerRoleId && String(managerRoleId) === selectedRoleId;
+    const isSuperAdminSelection = !!superAdminRoleId && String(superAdminRoleId) === selectedRoleId;
+    const isAdminSelection = !!adminRoleId && String(adminRoleId) === selectedRoleId;
+    const isManagerSelection = !!managerRoleId && String(managerRoleId) === selectedRoleId;
 
-    const shouldShowCompany = !!selectedRoleId && !isAdmin;
+    const shouldShowCompany = !!selectedRoleId && !isAdminSelection && !isSuperAdminSelection;
 
     const config = { ...userFormConfig };
 
@@ -101,7 +116,30 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
           return {
             ...field,
             options: companiesOptions,
-            required: isManager,
+            required: isManagerSelection,
+          };
+        }
+
+        if (field.name === 'instanceId') {
+          if (!isAdminSelection && !isSuperAdminSelection) return null;
+
+          if (currentInstanceId) {
+            return null; // 🔥 ADMIN → NO VE SELECT
+          }
+
+          if (isSuperAdminSelection) {
+            return {
+              ...field,
+              options: instancesOptions,
+              disabled: false,
+              required: false,
+            };
+          }
+
+          return {
+            ...field,
+            options: instancesOptions,
+            required: true,
           };
         }
 
@@ -110,15 +148,49 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
       .filter((field): field is NonNullable<typeof field> => Boolean(field));
 
     return config;
-  }, [mode, rolesOptions, typesIdOptions, companiesOptions, selectedRoleId, adminRoleId, managerRoleId, statusOptions]);
+  }, [
+    mode,
+    rolesOptions,
+    typesIdOptions,
+    companiesOptions,
+    instancesOptions,
+    selectedRoleId,
+    superAdminRoleId,
+    adminRoleId,
+    managerRoleId,
+    statusOptions,
+    currentInstanceId,
+    instanceName,
+  ]);
 
   useEffect(() => {
-    const isAdmin = !!adminRoleId && String(adminRoleId) === selectedRoleId;
+    const isSuperAdminSelection = !!superAdminRoleId && String(superAdminRoleId) === selectedRoleId;
+    const isAdminSelection = !!adminRoleId && String(adminRoleId) === selectedRoleId;
+    const isManagerSelection = !!managerRoleId && String(managerRoleId) === selectedRoleId;
 
-    if (isAdmin) {
+    if (isAdminSelection || isSuperAdminSelection) {
+      if (isAdminSelection && !currentInstanceId && instancesOptions.length === 0) {
+        toast.error('Debes crear una instancia antes de crear un administrador');
+      }
       form.setValue('companyId', '');
+      if (isAdminSelection && currentInstanceId && mode === 'create') {
+        form.setValue('instanceId', String(currentInstanceId));
+      }
     }
-  }, [selectedRoleId, adminRoleId, form]);
+
+    if (!isAdminSelection && !isSuperAdminSelection) {
+      form.setValue('instanceId', '');
+    }
+  }, [
+    selectedRoleId,
+    superAdminRoleId,
+    adminRoleId,
+    managerRoleId,
+    form,
+    currentInstanceId,
+    mode,
+    instancesOptions.length,
+  ]);
 
   useEffect(() => {
     if (mode === 'edit' && userById.data?.data && typesIdOptions.length > 0 && rolesOptions.length > 0) {
@@ -145,7 +217,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
 
   return {
     formConfig,
-    isLoadingData: mode === 'edit' ? userById.isLoading : false,
+    isLoadingData: (mode === 'edit' ? userById.isLoading : false) || isInstanceLoading,
     userData: userById.data?.data,
     currentPassword: userById.data?.data?.password,
     currentStatus: userById.data?.data?.status,

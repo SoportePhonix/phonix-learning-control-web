@@ -6,6 +6,7 @@ export const n = {
   nit: 'Nit',
   nitCannotContainSpaces: 'The NIT cannot contain spaces. If you want to separate words, you can use hyphens (-).',
   nitMustBeLongerThanOrEqualTo3Characters: 'The NIT must be at least 3 characters long.',
+  nitMustBeLongerThanOrEqualTo6Characters: 'The NIT must be at least 6 characters long.',
   no: 'No',
   noData: 'No data',
   notProvided: 'Not provided',

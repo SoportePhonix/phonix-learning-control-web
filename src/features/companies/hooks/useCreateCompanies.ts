@@ -11,6 +11,7 @@ import { useSessionContext } from '@/utils/context/sessionContext';
 import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
+import { cs } from 'zod/v4/locales';
 
 export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
   const { t } = useTranslation();
@@ -32,21 +33,33 @@ export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
       status: values.status,
     };
 
-    if (isSuperAdmin && values.instanceId) {
-      payload.instanceId = Number(values.instanceId);
+    if (isSuperAdmin) {
+      if (values.instanceId) {
+        payload.instanceId = Number(values.instanceId);
+      }
+    } else {
+      if (session?.user?.instanceId) {
+        payload.instanceId = Number(session.user.instanceId);
+      } else {
+        toast.error(t('s.sessionMissingInstanceId') || 'Instance ID missing in session');
+        return;
+      }
     }
 
     try {
       setApiError(null);
       setApiErrorMessage(undefined);
 
-      await addCompany(payload).unwrap();
+      const companyResponse = await addCompany(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
       router.push('/companies');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
+
+      console.log('status:', status);
+      console.log('errorMessage:', errorMessage);
 
       if (status === 409) {
         if (
