@@ -23,7 +23,7 @@ COPY ./package.json ./yarn.lock /app/
 
 # Crear .npmrc dentro del contenedor con el token y el scope
 RUN echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc && \
-    echo "@youniversityrepo:registry=https://npm.pkg.github.com" >> /root/.npmrc
+    echo "@soportephonix:registry=https://npm.pkg.github.com" >> /root/.npmrc
 
 # Instalar dependencias
 RUN yarn install --frozen-lockfile

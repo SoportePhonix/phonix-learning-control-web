@@ -16,6 +16,7 @@ export const e = {
   end: 'End',
   endDate: 'End date',
   enter: 'Enter',
+  entering: 'Entering',
   enterAValue: 'Enter a value',
   error: 'Error',
   errorMessage: 'Error message',

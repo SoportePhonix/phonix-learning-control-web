@@ -19,6 +19,7 @@ export function DynamicForm<T extends FieldValues>({
   cancelUrl,
   t,
   submitLabel,
+  submitLoadingLabel,
   cancelLabel,
   showCancelButton = true,
 }: DynamicFormProps<T>) {
@@ -79,13 +80,7 @@ export function DynamicForm<T extends FieldValues>({
 
         {/* Botones */}
         <div
-          className={`${
-            config.columns === 3
-              ? 'col-span-1 laptop:col-span-2 desktop-1920:col-span-3'
-              : config.columns === 2
-                ? 'col-span-1 laptop:col-span-2'
-                : 'col-span-1'
-          } flex justify-end gap-4 mt-4`}
+          className={`${displayCancelButton ? 'col-span-full' : config.columns === 3 ? 'col-span-1 laptop:col-span-2 desktop-1920:col-span-3' : config.columns === 2 ? 'col-span-1 laptop:col-span-2' : 'col-span-1'} flex justify-end gap-4 mt-4`}
         >
           {displayCancelButton && (
             <Link href={cancelUrl!}>
@@ -95,11 +90,18 @@ export function DynamicForm<T extends FieldValues>({
             </Link>
           )}
 
-          <Button type="submit" disabled={isLoading} variant="secondary">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            variant="secondary"
+            {...(!displayCancelButton && { size: 'w-full' })}
+          >
             {isLoading
-              ? mode === 'edit'
-                ? t('u.updating')
-                : t('c.creating')
+              ? submitLoadingLabel
+                ? t(submitLoadingLabel)
+                : mode === 'edit'
+                  ? t('u.updating')
+                  : t('c.creating')
               : submitLabel
                 ? t(submitLabel)
                 : mode === 'edit'

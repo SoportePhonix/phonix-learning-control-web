@@ -51,7 +51,7 @@ export const lmsFormConfig: FormConfig = {
     {
       name: 'companyId',
       label: 'c.company',
-      type: 'select',
+      type: 'select-search',
       placeholder: 'e.enterAValue',
       required: true,
     },

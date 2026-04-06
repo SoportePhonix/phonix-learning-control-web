@@ -16,6 +16,7 @@ export const e = {
   end: 'Fin',
   endDate: 'Fecha de fin',
   enter: 'Ingresar',
+  entering: 'Ingresando',
   enterAValue: 'Ingrese un valor',
   error: 'Error',
   errorMessage: 'Mensaje de error',
