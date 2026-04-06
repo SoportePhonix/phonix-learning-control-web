@@ -89,6 +89,7 @@ export function LoginForm() {
             apiErrorMessage={apiErrorMessage}
             t={t}
             submitLabel="e.enter"
+            submitLoadingLabel="e.entering"
             showCancelButton={false}
           />
         </div>
