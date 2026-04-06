@@ -1681,20 +1681,20 @@
     tailwind-merge "^2.5.5"
     tailwindcss "^4.1.7"
 
-"@soportephonix/phx-search-select@0.1.17":
-  version "0.1.17"
-  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.17/59cc5b46124df962b527716c4899945734b48555#59cc5b46124df962b527716c4899945734b48555"
-  integrity sha512-iXaN3aH8PepRIpatyjE0Hg08VJ7bOD4bHuO/1riblRGWNCpYKm8iluoqRfEJXW102NSJ5plpzBn5uCJsVEf/dw==
+"@soportephonix/phx-search-select@0.1.18":
+  version "0.1.18"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.18/a45cf23af50fc86552ab786a5776307409371292#a45cf23af50fc86552ab786a5776307409371292"
+  integrity sha512-6VE30tydy+XXPkfyBZ+J13ZV9jUl34N3pwDTeAfwp4z+EfCzsGSLPH5Gez4ETNLOpHxmExETTY7bj1mXlgjE0A==
   dependencies:
     "@radix-ui/react-slot" "^1.2.3"
     clsx "^2.1.1"
     tailwind-merge "^2.5.5"
     tailwindcss "^4.1.7"
 
-"@soportephonix/phx-select@0.1.10":
-  version "0.1.10"
-  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-select/0.1.10/838e17e07da5a85be5dba0628710be0b824e9813#838e17e07da5a85be5dba0628710be0b824e9813"
-  integrity sha512-//ZcUCXwsn/rDcoN2qRBuGIYITWNoi3X3KiL2mpzYoIh4/aKFPaqqFizZGOQu5L/6zJkUo/QMuN2xlxfx++dGQ==
+"@soportephonix/phx-select@0.1.11":
+  version "0.1.11"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-select/0.1.11/9f7c50143c64f77e6e173baf8a8aa7069711c176#9f7c50143c64f77e6e173baf8a8aa7069711c176"
+  integrity sha512-NDClDI5FzZLpcKoUywsCzDFqq5obIWqsoFmqKllUi57N+5EcML/9RjeLel3OWC0EVVJT7D0FV81Wo7aEuDJ21A==
   dependencies:
     "@radix-ui/react-slot" "^1.2.3"
     clsx "^2.1.1"
