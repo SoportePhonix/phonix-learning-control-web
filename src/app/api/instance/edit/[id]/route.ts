@@ -1,15 +1,11 @@
 import { ApiRes } from '@/utils/api-response';
 import { fetchWithAuth } from '@/utils/auth-fetch';
-import { NextRequest } from 'next/server';
 
-export async function POST(req: NextRequest) {
+export async function PATCH(req: Request, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
+
   try {
-    let body;
-    try {
-      body = await req.json();
-    } catch {
-      return ApiRes.customError(400, 'Invalid JSON body');
-    }
+    const body = await req.json();
 
     if (body.nit && typeof body.nit === 'string' && body.nit.includes(' ')) {
       return ApiRes.customError(
@@ -19,17 +15,19 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await (
-      await fetchWithAuth('/instance', {
-        method: 'POST',
-        body,
-      })
-    ).json();
+    const { nit, ...bodyWithoutNit } = body;
 
-    const errorResponse = ApiRes.fromExternalResponse(response);
+    const response = await fetchWithAuth(`/instance/${id}`, {
+      method: 'PATCH',
+      body: bodyWithoutNit,
+    });
+
+    const data = await response.json();
+
+    const errorResponse = ApiRes.fromExternalResponse(data);
     if (errorResponse) return errorResponse;
 
-    return ApiRes.success(response.data);
+    return ApiRes.success(data?.data ?? data);
   } catch (error: any) {
     if (error.message === 'UNAUTHORIZED') return ApiRes.customError(401, 'Unauthorized');
     return ApiRes.fromException(error);

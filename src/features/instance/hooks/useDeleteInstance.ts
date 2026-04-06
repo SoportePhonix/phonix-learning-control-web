@@ -8,11 +8,11 @@ export function useDeleteInstance() {
   const router = useRouter();
   const [deleteInstanceMutation, { isLoading, error }] = useDeleteInstanceMutation();
 
-  const deleteInstance = async (instanceNit: string) => {
-    const cleanNit = instanceNit.trim();
+  const deleteInstance = async (instanceId: string) => {
+    const cleanId = instanceId.trim();
 
     try {
-      const result = await deleteInstanceMutation({ nit: cleanNit }).unwrap();
+      const result = await deleteInstanceMutation({ id: cleanId }).unwrap();
       toast.success(`${t('i.instanceSuccessfullyRemoved')}`);
       router.refresh();
     } catch (err: any) {

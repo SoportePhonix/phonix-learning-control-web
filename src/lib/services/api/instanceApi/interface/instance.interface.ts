@@ -36,6 +36,7 @@ export interface AddInstanceDataResponse {
 }
 
 export interface UpdateInstanceRequest {
+  id: string;
   nit: string;
   name: string;
   description: string;
@@ -53,7 +54,7 @@ export interface UpdateInstanceResponse {
 }
 
 export interface DeleteInstanceRequest {
-  nit: string;
+  id: string;
 }
 
 export interface DeleteInstanceResponse {

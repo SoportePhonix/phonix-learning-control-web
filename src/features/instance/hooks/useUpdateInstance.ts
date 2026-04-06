@@ -38,11 +38,12 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       form.clearErrors();
 
       const payload = {
-        nit: instanceId,
+        id: instanceId,
+        nit: values.nit,
         name: values.name,
         description: values.description,
         ...(values.status && { status: values.status }),
-      } as unknown as UpdateInstanceRequest;
+      } as UpdateInstanceRequest;
 
       await updateInstance(payload).unwrap();
 

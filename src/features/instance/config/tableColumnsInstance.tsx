@@ -81,12 +81,12 @@ export const tableColumnsInstance = (
     enableSorting: false,
     cell: ({ row }) => {
       const instance = row.original;
-      const instanceNit = String(instance.nit ?? '').trim();
+      const instanceId = String(instance.id);
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/instances/${instanceNit}/update`} tooltipText={t('e.editInstance')} />
-          <DeleteInstance instanceNit={instanceNit} />
+          <EditButton href={`/instances/${instanceId}/update`} tooltipText={t('e.editInstance')} />
+          <DeleteInstance instanceId={instanceId} />
         </div>
       );
     },
