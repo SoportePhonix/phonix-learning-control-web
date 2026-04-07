@@ -8,6 +8,10 @@ export const instanceFormConfig: FormConfig = {
       type: 'text',
       placeholder: 'e.enterAValue',
       required: true,
+      validation: {
+        pattern: /^\S+$/,
+        patternMessage: 'n.nitCannotContainSpaces',
+      },
     },
     {
       name: 'name',

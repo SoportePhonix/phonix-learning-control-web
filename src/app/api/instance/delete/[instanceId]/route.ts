@@ -3,8 +3,8 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function DELETE(req: Request, { params }: any) {
-  const { nit: instanceId } = await params;
+export async function DELETE(req: Request, { params }: { params: Promise<{ instanceId: string }> }) {
+  const { instanceId } = await params;
 
   try {
     const session: CustomSession | null = await getServerSession(authOptions);

@@ -3,8 +3,8 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id: instanceId } = await params;
+export async function PATCH(req: Request, { params }: { params: Promise<{ instanceId: string }> }) {
+  const { instanceId } = await params;
 
   try {
     const body = await req.json();

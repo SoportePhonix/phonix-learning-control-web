@@ -38,7 +38,6 @@ export interface AddInstanceDataResponse {
 
 export interface UpdateInstanceRequest {
   id: number;
-  nit?: string;
   name: string;
   description: string;
   status?: string;
