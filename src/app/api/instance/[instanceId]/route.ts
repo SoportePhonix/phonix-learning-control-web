@@ -3,8 +3,8 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function GET(req: Request, context: { params: Promise<{ instanceNit: string }> }) {
-  const { instanceNit } = await context.params;
+export async function GET(req: Request, { params }: { params: Promise<{ instanceId: string }> }) {
+  const { instanceId } = await params;
 
   try {
     const session: CustomSession | null = await getServerSession(authOptions);
@@ -14,7 +14,7 @@ export async function GET(req: Request, context: { params: Promise<{ instanceNit
     }
 
     const response = await (
-      await fetch(`${process.env.API_URL}/instance/${instanceNit}`, {
+      await fetch(`${process.env.API_URL}/instance/${instanceId}`, {
         headers: {
           authorization: `Bearer ${session.user.accessToken}`,
           accept: 'application/json',

@@ -3,19 +3,11 @@ import { ApiRes } from '@/utils/api-response';
 import { CustomSession } from '@/utils/session';
 import { getServerSession } from 'next-auth/next';
 
-export async function PATCH(req: Request, { params }: { params: Promise<{ nit: string }> }) {
-  const { nit: instanceNit } = await params;
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id: instanceId } = await params;
 
   try {
     const body = await req.json();
-
-    if (body.nit && typeof body.nit === 'string' && body.nit.includes(' ')) {
-      return ApiRes.customError(
-        400,
-        'El NIT no debe contener espacios. Si deseas separar palabras, puedes usar guiones (-).',
-        'INVALID_NIT_FORMAT'
-      );
-    }
 
     const session: CustomSession | null = await getServerSession(authOptions);
 
@@ -23,13 +15,9 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ nit: s
       return ApiRes.customError(401, 'Unauthorized');
     }
 
-    const { nit, ...bodyWithoutNit } = body;
-
-    const url = `${process.env.API_URL}/instance/${instanceNit}`;
-
-    const response = await fetch(url, {
+    const response = await fetch(`${process.env.API_URL}/instance/${instanceId}`, {
       method: 'PATCH',
-      body: JSON.stringify(bodyWithoutNit),
+      body: JSON.stringify(body),
       headers: {
         authorization: `Bearer ${session.user.accessToken}`,
         accept: 'application/json',

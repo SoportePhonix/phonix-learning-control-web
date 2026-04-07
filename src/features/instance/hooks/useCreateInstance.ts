@@ -54,17 +54,7 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
         toast.error(`Error del servidor: ${translatedMessage}`);
       }
 
-      // Manejar error de NIT con espacios (400)
       if (status === 400) {
-        if (errorMessage.toLowerCase().includes('nit') && errorMessage.toLowerCase().includes('espacio')) {
-          form.setError('nit', {
-            type: 'manual',
-            message: errorMessage,
-          });
-          return;
-        }
-
-        // Manejar error de longitud mínima del NIT
         if (
           errorMessage.toLowerCase().includes('nit') &&
           errorMessage.toLowerCase().includes('longer than or equal to 3 characters')

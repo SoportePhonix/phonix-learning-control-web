@@ -30,19 +30,19 @@ export const instanceApi = api.injectEndpoints({
       invalidatesTags: ['Instance'],
     }),
     updateInstance: builder.mutation<UpdateInstanceResponse, UpdateInstanceRequest>({
-      query: ({ nit, ...params }) => ({
-        url: `/instance/edit/${nit}`,
+      query: ({ id, ...params }) => ({
+        url: `/instance/edit/${id}`,
         method: 'PATCH',
         body: params,
       }),
-      invalidatesTags: (result, error, { nit }) => [{ type: 'Instance' }, { type: 'Instance', id: nit }],
+      invalidatesTags: (result, error, { id }) => [{ type: 'Instance' }, { type: 'Instance', id: id }],
     }),
     deleteInstance: builder.mutation<DeleteInstanceResponse, DeleteInstanceRequest>({
-      query: ({ nit }) => ({
-        url: `/instance/delete/${nit}`,
+      query: ({ id }) => ({
+        url: `/instance/delete/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result, error, { nit }) => [{ type: 'Instance' }, { type: 'Instance', id: nit }],
+      invalidatesTags: (result, error, { id }) => [{ type: 'Instance' }, { type: 'Instance', id: id }],
     }),
   }),
   overrideExisting: true,

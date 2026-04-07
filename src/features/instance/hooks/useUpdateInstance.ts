@@ -18,16 +18,13 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
   const [apiError, setApiError] = useState<number | null>(null);
   const [apiErrorMessage, setApiErrorMessage] = useState<TranslationKey | undefined>(undefined);
 
-  // Función para traducir mensajes comunes del servidor
   const translateServerError = (message: string): string => {
     const lowerMessage = message.toLowerCase();
 
-    // Detectar error de longitud mínima del NIT
     if (lowerMessage.includes('nit') && lowerMessage.includes('longer than or equal to 3 characters')) {
       return t('n.nitMustBeLongerThanOrEqualTo3Characters');
     }
 
-    // Si no hay traducción específica, retornar el mensaje original
     return message;
   };
 
@@ -37,10 +34,11 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      const payload = {
-        nit: instanceId,
+      const payload: UpdateInstanceRequest = {
+        id: Number(instanceId),
         name: values.name,
         description: values.description,
+
         ...(values.status && { status: values.status }),
       } as unknown as UpdateInstanceRequest;
 
@@ -57,17 +55,7 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
         toast.error(`Error del servidor: ${translatedMessage}`);
       }
 
-      // Manejar error de NIT con espacios (400)
       if (status === 400) {
-        if (errorMessage.toLowerCase().includes('nit') && errorMessage.toLowerCase().includes('espacio')) {
-          form.setError('nit', {
-            type: 'manual',
-            message: errorMessage,
-          });
-          return;
-        }
-
-        // Manejar error de longitud mínima del NIT
         if (
           errorMessage.toLowerCase().includes('nit') &&
           errorMessage.toLowerCase().includes('longer than or equal to 3 characters')
