@@ -9,12 +9,8 @@ export const instanceFormConfig: FormConfig = {
       placeholder: 'e.enterAValue',
       required: true,
       validation: {
-        custom: (value: string) => {
-          if (value && value.includes(' ')) {
-            return 'n.nitCannotContainSpaces';
-          }
-          return true;
-        },
+        pattern: /^\S+$/,
+        patternMessage: 'n.nitCannotContainSpaces',
       },
     },
     {

@@ -4,6 +4,7 @@ export const n = {
   new: 'Nuevo',
   next: 'Siguiente',
   nit: 'NIT',
+  nitEditDisabled: 'NIT (No puedes editar este campo)',
   nitCannotContainSpaces: 'El NIT no debe contener espacios. Si deseas separar palabras, puedes usar guiones (-).',
   nitMustBeLongerThanOrEqualTo3Characters: 'El NIT debe tener al menos 3 caracteres.',
   nitMustBeLongerThanOrEqualTo6Characters: 'El NIT debe tener al menos 6 caracteres.',

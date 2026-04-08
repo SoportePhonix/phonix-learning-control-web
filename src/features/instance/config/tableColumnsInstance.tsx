@@ -75,18 +75,17 @@ export const tableColumnsInstance = (
       );
     },
   },
+
   {
     accessorKey: 'id',
     header: t('a.actions'),
-    enableSorting: false,
     cell: ({ row }) => {
-      const instance = row.original;
-      const instanceNit = String(instance.nit ?? '').trim();
+      const instanceId = Number(row.original.id);
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/instances/${instanceNit}/update`} tooltipText={t('e.editInstance')} />
-          <DeleteInstance instanceNit={instanceNit} />
+          <EditButton href={`/instances/${instanceId}/update`} tooltipText={t('e.editInstance')} />
+          <DeleteInstance instanceId={instanceId} />
         </div>
       );
     },
