@@ -56,11 +56,9 @@ WORKDIR /app
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001
 
-# Copiar la aplicación construida desde la etapa anterior
-COPY --from=build --chown=nextjs:nodejs /app/package.json /app/yarn.lock ./
-COPY --from=build --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=build --chown=nextjs:nodejs /app/next.config.ts ./
+# Copiar la aplicación construida desde la etapa anterior (standalone)
+COPY --from=build --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=build --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=build --chown=nextjs:nodejs /app/public ./public
 
 # Configurar permisos seguros
@@ -85,4 +83,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 ENTRYPOINT ["dumb-init", "--"]
 
 # Comando para iniciar la aplicación
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
