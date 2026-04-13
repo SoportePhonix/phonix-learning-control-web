@@ -1,0 +1,30 @@
+FROM node:lts-alpine
+
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
+
+RUN apk add --no-cache \
+    g++ \
+    make \
+    python3 \
+    git
+
+WORKDIR /app
+
+COPY ./package.json ./yarn.lock /app/
+
+RUN echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc && \
+    echo "@soportephonix:registry=https://npm.pkg.github.com" >> /root/.npmrc
+
+RUN yarn install
+
+RUN rm -f /root/.npmrc
+
+EXPOSE 3000
+
+ENV NODE_ENV=development \
+    PORT=3000 \
+    WATCHPACK_POLLING=true \
+    NEXT_TURBOPACK=0
+
+CMD ["yarn", "next", "dev"]
