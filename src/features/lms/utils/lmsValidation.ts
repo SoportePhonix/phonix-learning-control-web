@@ -4,10 +4,10 @@ import { UseFormReturn } from 'react-hook-form';
 
 /**
  * Patrón de validación para URLs válidas
- * Acepta URLs con protocolo http o https y dominio válido
+ * Acepta URLs con protocolo http o https, dominios válidos, localhost e IPs.
  */
 const URL_PATTERN =
-  /^https?:\/\/[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)+(\/.*)?$/;
+  /^https?:\/\/([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*|localhost|\d{1,3}(\.\d{1,3}){3})(:\d+)?(\/.*)?$/;
 
 /**
  * Normaliza una URL agregando https:// si no tiene protocolo
