@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Dialog,
@@ -14,10 +14,9 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTranslation } from '@/i18n';
 import { Button, SelectSearch } from '@/lib/phonix-ui';
-import { useGetCoursesQuery } from '@/lib/services/api/coursesApi/coursesApi';
-import { GraduationCap, Lock } from 'lucide-react';
-
-import { useEnrollStudent } from '../hooks/useEnrollStudent';
+import { useAddEnrollmentMutation, useGetAvailableCoursesQuery } from '@/lib/services/api/enrollmentApi/enrollmentApi';
+import { Lock } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface EnrollStudentModalProps {
   studentId: number;
@@ -26,11 +25,17 @@ interface EnrollStudentModalProps {
 export const EnrollStudentModal = ({ studentId }: EnrollStudentModalProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(undefined);
+  const [selectedCourseId, setSelectedCourseId] = useState<string>('');
 
-  const { data: coursesData, isLoading: isLoadingCourses } = useGetCoursesQuery();
-  const { enrollStudent, isLoading: isEnrolling } = useEnrollStudent();
+  const { data: coursesData, isLoading: isLoadingCourses } = useGetAvailableCoursesQuery(studentId, {
+    skip: !open,
+  });
+  const [addEnrollmentMutation, { isLoading: isEnrolling }] = useAddEnrollmentMutation();
   const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    setSelectedCourseId('');
+  }, [studentId]);
 
   const courseOptions =
     coursesData?.data.map((course) => ({
@@ -40,15 +45,28 @@ export const EnrollStudentModal = ({ studentId }: EnrollStudentModalProps) => {
 
   const handleEnroll = async () => {
     if (!selectedCourseId) return;
-    await enrollStudent(studentId, Number(selectedCourseId), () => {
+    try {
+      await addEnrollmentMutation({
+        studentId,
+        courseId: Number(selectedCourseId),
+      }).unwrap();
+      toast.success(t('e.enrollmentSuccessful'));
       setOpen(false);
-      setSelectedCourseId(undefined);
-    });
+      setSelectedCourseId('');
+    } catch (err: unknown) {
+      const status =
+        typeof err === 'object' && err !== null && 'status' in err ? (err as { status?: number }).status : undefined;
+      if (status === 409) {
+        toast.error(t('e.enrollmentAlreadyExists'));
+      } else {
+        toast.error(t('e.enrollmentFailed'));
+      }
+    }
   };
 
   const handleOpenChange = (value: boolean) => {
     setOpen(value);
-    if (!value) setSelectedCourseId(undefined);
+    if (!value) setSelectedCourseId('');
   };
 
   return (
@@ -87,7 +105,7 @@ export const EnrollStudentModal = ({ studentId }: EnrollStudentModalProps) => {
             selectedValue={selectedCourseId}
             onSelect={(value) => setSelectedCourseId(String(value))}
             label={t('c.courses')}
-            placeholder={isLoadingCourses ? '...' : t('s.selectAnOption')}
+            placeholder={isLoadingCourses ? 'Cargando cursos...' : t('s.selectAnOption')}
           />
         </div>
 
