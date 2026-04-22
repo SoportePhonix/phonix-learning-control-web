@@ -35,7 +35,8 @@ export function useUpdateTrainingRoute(id: string, form: UseFormReturn<TrainingR
       await updateTrainingRoute(payload).unwrap();
 
       toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
-      router.push('/training-routes');
+      const query = values.companyId ? `?companyId=${values.companyId}` : '';
+      router.push(`/manage-companies/training-routes${query}`);
     } catch (err: any) {
       const status = err?.status ?? 500;
 
