@@ -35,7 +35,7 @@ export const tableColumnsCompanies = (t: (key: TranslationKey) => string): Custo
     enableSorting: true,
     cell: ({ row }) => (
       <span style={{ display: 'inline-block', width: '300px', textAlign: 'center', padding: '0 2px' }}>
-        {capitalizeFirst(row.getValue('email'))}
+        {row.getValue('email')}
       </span>
     ),
   },

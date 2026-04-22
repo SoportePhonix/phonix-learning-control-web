@@ -26,7 +26,7 @@ export const userFormConfig: FormConfig = {
     {
       name: 'companyId',
       label: 'c.company',
-      type: 'select',
+      type: 'select-search',
       placeholder: 's.selectAnOption',
       required: true,
       options: [],
@@ -122,7 +122,7 @@ export const userFormConfig: FormConfig = {
     {
       name: 'areaId',
       label: 'a.area',
-      type: 'select',
+      type: 'select-search',
       placeholder: 's.selectAnOption',
       required: false,
       options: [],
@@ -130,7 +130,7 @@ export const userFormConfig: FormConfig = {
     {
       name: 'positionId',
       label: 'p.position',
-      type: 'select',
+      type: 'select-search',
       placeholder: 's.selectAnOption',
       required: false,
       options: [],

@@ -63,7 +63,7 @@ export const tableColumns = (t: (key: TranslationKey) => string, currentUserId?:
     enableSorting: true,
     cell: ({ row }) => (
       <span style={{ display: 'inline-block', width: '250px', textAlign: 'center', padding: '0 2px' }}>
-        {capitalizeFirst(row.getValue('email'))}
+        {row.getValue('email')}
       </span>
     ),
   },
