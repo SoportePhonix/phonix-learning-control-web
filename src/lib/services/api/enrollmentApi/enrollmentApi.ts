@@ -2,12 +2,22 @@ import { api } from '../api';
 import {
   AddEnrollmentRequest,
   AddEnrollmentResponse,
+  AvailableCoursesResponse,
   DeleteEnrollmentRequest,
   DeleteEnrollmentResponse,
+  StudentEnrollmentsResponse,
 } from './interface';
 
 export const enrollmentApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    getStudentEnrollments: builder.query<StudentEnrollmentsResponse, number>({
+      query: (studentId) => `/enrollment/student/${studentId}`,
+      providesTags: (result, error, studentId) => [{ type: 'Enrollments', id: studentId }],
+    }),
+    getAvailableCourses: builder.query<AvailableCoursesResponse, number>({
+      query: (studentId) => `/enrollment/student/${studentId}/available-courses`,
+      providesTags: (result, error, studentId) => [{ type: 'AvailableCourses', id: studentId }],
+    }),
     addEnrollment: builder.mutation<AddEnrollmentResponse, AddEnrollmentRequest>({
       query: (params) => ({
         url: '/enrollment',
@@ -16,7 +26,7 @@ export const enrollmentApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, { studentId }) => [
         { type: 'Enrollments', id: studentId },
-        { type: 'Enrollments' },
+        { type: 'AvailableCourses', id: studentId },
       ],
     }),
     deleteEnrollment: builder.mutation<DeleteEnrollmentResponse, DeleteEnrollmentRequest>({
@@ -26,7 +36,7 @@ export const enrollmentApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, { studentId }) => [
         { type: 'Enrollments', id: studentId },
-        { type: 'Enrollments' },
+        { type: 'AvailableCourses', id: studentId },
       ],
     }),
   }),
@@ -37,6 +47,8 @@ export const {
   /**
    * Get
    */
+  useGetStudentEnrollmentsQuery,
+  useGetAvailableCoursesQuery,
 
   /**
    * Mutations

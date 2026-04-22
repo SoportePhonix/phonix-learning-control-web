@@ -16,6 +16,26 @@ export interface Enrollment {
   updatedAt: string;
 }
 
+export interface Course {
+  id: number;
+  fullName: string;
+  shortName: string;
+}
+
+export interface StudentEnrollmentItem {
+  course: Course;
+}
+
+export interface AvailableCoursesResponse {
+  data: Course[];
+}
+
+export interface StudentEnrollmentsResponse {
+  data: {
+    enrollments: StudentEnrollmentItem[];
+  };
+}
+
 export interface DeleteEnrollmentRequest {
   studentId: number;
   courseId: number;

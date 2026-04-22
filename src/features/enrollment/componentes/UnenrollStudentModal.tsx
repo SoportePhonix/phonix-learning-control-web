@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Dialog,
@@ -14,10 +14,12 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTranslation } from '@/i18n';
 import { Button, SelectSearch } from '@/lib/phonix-ui';
-import { useGetCoursesQuery } from '@/lib/services/api/coursesApi/coursesApi';
-import { LockOpen, UserMinus } from 'lucide-react';
-
-import { useUnenrollStudent } from '../hooks/useUnenrollStudent';
+import {
+  useDeleteEnrollmentMutation,
+  useGetStudentEnrollmentsQuery,
+} from '@/lib/services/api/enrollmentApi/enrollmentApi';
+import { LockOpen } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface UnenrollStudentModalProps {
   studentId: number;
@@ -26,29 +28,48 @@ interface UnenrollStudentModalProps {
 export const UnenrollStudentModal = ({ studentId }: UnenrollStudentModalProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>(undefined);
+  const [selectedCourseId, setSelectedCourseId] = useState<string>('');
   const [hovered, setHovered] = useState(false);
 
-  const { data: coursesData, isLoading: isLoadingCourses } = useGetCoursesQuery();
-  const { unenrollStudent, isLoading: isUnenrolling } = useUnenrollStudent();
+  const { data: coursesData, isLoading: isLoadingCourses } = useGetStudentEnrollmentsQuery(studentId, {
+    skip: !open,
+  });
+  const [deleteEnrollmentMutation, { isLoading: isUnenrolling }] = useDeleteEnrollmentMutation();
+
+  useEffect(() => {
+    setSelectedCourseId('');
+  }, [studentId]);
 
   const courseOptions =
-    coursesData?.data.map((course) => ({
-      value: course.id,
-      label: course.fullName,
+    coursesData?.data.enrollments.map((enrollment) => ({
+      value: enrollment.course.id,
+      label: enrollment.course.fullName,
     })) ?? [];
 
   const handleUnenroll = async () => {
     if (!selectedCourseId) return;
-    await unenrollStudent(studentId, Number(selectedCourseId), () => {
+    try {
+      await deleteEnrollmentMutation({
+        studentId,
+        courseId: Number(selectedCourseId),
+      }).unwrap();
+      toast.success(t('e.unenrollmentSuccessful'));
       setOpen(false);
-      setSelectedCourseId(undefined);
-    });
+      setSelectedCourseId('');
+    } catch (err: unknown) {
+      const status =
+        typeof err === 'object' && err !== null && 'status' in err ? (err as { status?: number }).status : undefined;
+      if (status === 404) {
+        toast.error(t('e.unenrollmentNotFound'));
+      } else {
+        toast.error(t('e.unenrollmentFailed'));
+      }
+    }
   };
 
   const handleOpenChange = (value: boolean) => {
     setOpen(value);
-    if (!value) setSelectedCourseId(undefined);
+    if (!value) setSelectedCourseId('');
   };
 
   return (
@@ -87,7 +108,7 @@ export const UnenrollStudentModal = ({ studentId }: UnenrollStudentModalProps) =
             selectedValue={selectedCourseId}
             onSelect={(value) => setSelectedCourseId(String(value))}
             label={t('c.courses')}
-            placeholder={isLoadingCourses ? '...' : t('s.selectAnOption')}
+            placeholder={isLoadingCourses ? 'Cargando cursos...' : t('s.selectAnOption')}
           />
         </div>
 

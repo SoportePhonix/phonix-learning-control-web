@@ -177,6 +177,7 @@ export const api = createApi({
     'InstanceCompany',
     'AdminInstance',
     'Enrollments',
+    'AvailableCourses',
   ],
 
   // 🚀 Configuración personalizada de cache
