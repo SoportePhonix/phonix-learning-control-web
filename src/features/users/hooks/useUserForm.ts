@@ -121,19 +121,10 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
         }
 
         if (field.name === 'instanceId') {
-          if (!isAdminSelection && !isSuperAdminSelection) return null;
+          if (!isAdminSelection) return null;
 
           if (currentInstanceId) {
             return null; // 🔥 ADMIN → NO VE SELECT
-          }
-
-          if (isSuperAdminSelection) {
-            return {
-              ...field,
-              options: instancesOptions,
-              disabled: false,
-              required: false,
-            };
           }
 
           return {
@@ -173,6 +164,13 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
         toast.error('Debes crear una instancia antes de crear un administrador');
       }
       form.setValue('companyId', '');
+      form.clearErrors('companyId');
+
+      if (isSuperAdminSelection) {
+        form.setValue('instanceId', '');
+        form.clearErrors('instanceId');
+      }
+
       if (isAdminSelection && currentInstanceId && mode === 'create') {
         form.setValue('instanceId', String(currentInstanceId));
       }
@@ -180,6 +178,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
 
     if (!isAdminSelection && !isSuperAdminSelection) {
       form.setValue('instanceId', '');
+      form.clearErrors('instanceId');
     }
   }, [
     selectedRoleId,

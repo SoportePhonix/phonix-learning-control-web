@@ -41,8 +41,9 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      const finalInstanceId = currentInstanceId || values.instanceId;
       const normalizedRole = normalizeRoleName(selectedRole?.name);
+      const isSuperAdminRole = normalizedRole === Role.SUPERADMIN;
+      const finalInstanceId = isSuperAdminRole ? undefined : currentInstanceId || values.instanceId;
 
       if (normalizedRole === Role.MANAGER && !values.companyId) {
         toast.error('Debes seleccionar una empresa para crear un Manager');
@@ -58,7 +59,7 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
         password: values.password,
         role: [{ id: Number(values.roleId) }],
         ...(normalizedRole === Role.MANAGER ? { companyId: Number(values.companyId) } : {}),
-        ...(finalInstanceId ? { instanceId: Number(finalInstanceId) } : {}),
+        ...(!isSuperAdminRole && finalInstanceId ? { instanceId: Number(finalInstanceId) } : {}),
         status: 'active',
       };
 
@@ -68,7 +69,7 @@ export function useCreateUser(form: UseFormReturn<UserFormValues>) {
       const newUserId = (newUserResponse?.data as any)?.id;
 
       // Flujo de unión: Si ingresó un instanceId (Signo de que es un admin en este formato) lo intentamos linkear a la instancia
-      if (finalInstanceId && newUserId) {
+      if (normalizedRole === Role.ADMIN && finalInstanceId && newUserId) {
         try {
           await createAdminInstance({
             userId: Number(newUserId),

@@ -31,7 +31,8 @@ export function useUpdateUser(userId: string) {
       return;
     }
 
-    const finalInstanceId = currentInstanceId || values.instanceId;
+    const isSuperAdminRole = normalizedRole === Role.SUPERADMIN;
+    const finalInstanceId = isSuperAdminRole ? undefined : currentInstanceId || values.instanceId;
 
     const payload = {
       name: values.name,
@@ -42,7 +43,9 @@ export function useUpdateUser(userId: string) {
       role: [{ id: Number(values.roleId) }] as [{ id: number }],
       password: values.password,
       ...(values.companyId !== '' && values.companyId != null ? { companyId: Number(values.companyId) } : {}),
-      ...(finalInstanceId !== '' && finalInstanceId != null ? { instanceId: Number(finalInstanceId) } : {}),
+      ...(!isSuperAdminRole && finalInstanceId !== '' && finalInstanceId != null
+        ? { instanceId: Number(finalInstanceId) }
+        : {}),
       status: values.status ?? 'active',
     };
 
