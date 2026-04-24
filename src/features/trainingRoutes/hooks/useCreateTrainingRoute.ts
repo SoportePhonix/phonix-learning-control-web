@@ -40,7 +40,7 @@ export function useCreateTrainingRoute(form: UseFormReturn<TrainingRouteFormValu
       await addTrainingRoute(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
-      router.push('/manage-companies/training-routes');
+      router.push(`/manage-companies/training-routes?companyId=${values.companyId}`);
     } catch (err: any) {
       const status = err?.status ?? 500;
 

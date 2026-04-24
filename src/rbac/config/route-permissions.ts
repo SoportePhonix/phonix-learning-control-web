@@ -16,6 +16,7 @@ export const ROUTE_PERMISSIONS: { path: string; permissions: Permission[] }[] = 
   { path: '/manage-companies/courses', permissions: [PERMISSIONS.COURSES_VIEW] },
   { path: '/manage-companies/areas', permissions: [PERMISSIONS.AREAS_VIEW] },
   { path: '/manage-companies/positions', permissions: [PERMISSIONS.POSITIONS_VIEW] },
+  { path: '/manage-companies/training-routes', permissions: [PERMISSIONS.TRAINING_ROUTES_VIEW] },
   { path: '/manage-companies', permissions: [PERMISSIONS.MANAGE_COMPANIES_VIEW] },
 
   // ─── Secciones principales ──────────────────────────────────────
@@ -23,7 +24,6 @@ export const ROUTE_PERMISSIONS: { path: string; permissions: Permission[] }[] = 
   { path: '/instances', permissions: [PERMISSIONS.INSTANCES_VIEW] },
   { path: '/companies', permissions: [PERMISSIONS.COMPANIES_VIEW] },
   { path: '/lms', permissions: [PERMISSIONS.LMS_VIEW] },
-  { path: '/training-routes', permissions: [PERMISSIONS.TRAINING_ROUTES_VIEW] },
   { path: '/students-app', permissions: [PERMISSIONS.STUDENTS_VIEW] },
   { path: '/trainingPathways', permissions: [PERMISSIONS.TRAINING_PATHWAYS_VIEW] },
   { path: '/courses-app', permissions: [PERMISSIONS.COURSES_VIEW] },

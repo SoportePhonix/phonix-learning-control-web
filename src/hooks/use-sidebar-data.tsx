@@ -136,7 +136,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
           },
           {
             title: t('t.trainingRoutes'),
-            url: '/training-routes',
+            url: '/manage-companies/training-routes',
             permission: 'trainingRoutes.view',
           },
         ],
@@ -179,7 +179,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
           },
           {
             title: t('t.trainingRoutes'),
-            url: `/manage-companies/training-routes${queryString}` /**TODO estamos aca, necesitamos mover la ruta para la parte correcta */,
+            url: `/manage-companies/training-routes${queryString}`,
             permission: 'trainingRoutes.view',
           },
         ],
