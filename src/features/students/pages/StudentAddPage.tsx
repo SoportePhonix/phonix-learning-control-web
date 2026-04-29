@@ -3,6 +3,7 @@
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
@@ -17,6 +18,7 @@ interface StudentAddPageProps {
 
 export default function StudentAddPage({ baseRoute = '/manage-companies/students' }: StudentAddPageProps) {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [{ label: t('s.students'), path: baseRoute }, { label: t('a.addStudent') }],
     { withLoader: true }
@@ -67,7 +69,7 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl={baseRoute}
+          cancelUrl={companyNav.href(baseRoute)}
           t={t}
         />
       </FormPageLayout>

@@ -1,13 +1,13 @@
 import { CoursesFormValues } from '@/components/courses/types';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useTranslation } from '@/i18n';
 import { useUpdateCoursesMutation } from '@/lib/services/api/coursesApi/coursesApi';
 import { UpdateCoursesRequest } from '@/lib/services/api/coursesApi/interface';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 export function useUpdateCourse(courseId: string) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
 
   const [updateCoursesMutation, { isLoading, error }] = useUpdateCoursesMutation();
 
@@ -30,7 +30,7 @@ export function useUpdateCourse(courseId: string) {
         id: 'course-updated-success',
       });
 
-      router.push('/manage-companies/courses');
+      companyNavigation.push('/manage-companies/courses');
     } catch {
       toast.error(t('c.courseUpdateFailed'), {
         id: 'courses-updated-error',

@@ -15,7 +15,8 @@ const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
 
 export const tableColumnsStudents = (
   t: (key: TranslationKey) => string,
-  currentUserId?: number
+  currentUserId?: number,
+  buildHref?: (path: string) => string
 ): CustomColumnDef<Students>[] => [
   {
     accessorKey: 'firstname',
@@ -244,12 +245,15 @@ export const tableColumnsStudents = (
     cell: ({ row }) => {
       const studentId = row.original.id;
       const isCurrentUser = Number(currentUserId) === Number(studentId);
+      const editHref = buildHref
+        ? buildHref(`/manage-companies/students/${studentId}/update`)
+        : `/manage-companies/students/${studentId}/update`;
 
       return (
         <div className="flex justify-center">
           <EnrollStudentModal studentId={Number(studentId)} />
           <UnenrollStudentModal studentId={Number(studentId)} />
-          <EditButton href={`/manage-companies/students/${studentId}/update`} tooltipText={t('e.editUser')} />
+          <EditButton href={editHref} tooltipText={t('e.editUser')} />
           {!isCurrentUser && <DeleteStudent studentId={Number(studentId)} />}
         </div>
       );

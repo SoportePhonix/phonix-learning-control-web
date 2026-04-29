@@ -4,13 +4,14 @@ import { useState } from 'react';
 
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
-import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
+import { useCompanyNavigation } from './useCompanyNavigation';
+
 export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
   const [addStudent, { isLoading }] = useAddStudentMutation();
 
   const [apiError, setApiError] = useState<number | null>(null);
@@ -47,7 +48,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
 
       toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
 
-      router.push('/manage-companies/students');
+      companyNavigation.push('/manage-companies/students');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = (err?.data?.message || '').toString();

@@ -20,7 +20,8 @@ const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
 
 export const tableColumnsCourses = (
   t: (key: TranslationKey) => string,
-  currentCoursesId?: number
+  currentCoursesId?: number,
+  buildHref?: (path: string) => string
 ): CustomColumnDef<Courses>[] => [
   {
     accessorKey: 'shortName',
@@ -119,10 +120,13 @@ export const tableColumnsCourses = (
     header: t('a.actions'),
     cell: ({ row }) => {
       const courseId = Number(row.original.id);
+      const editHref = buildHref
+        ? buildHref(`/manage-companies/courses/${courseId}/update`)
+        : `/manage-companies/courses/${courseId}/update`;
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/manage-companies/courses/${courseId}/update`} tooltipText={t('e.editCourse')} />
+          <EditButton href={editHref} tooltipText={t('e.editCourse')} />
           <DeleteCourse courseId={courseId} />
         </div>
       );

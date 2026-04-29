@@ -3,16 +3,16 @@
 import { useState } from 'react';
 
 import { TrainingRouteFormValues } from '@/components/trainingRoutes/types';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { UpdateTrainingRouteRequest } from '@/lib/services/api/trainingRoutesApi/interface';
 import { useUpdateTrainingRouteMutation } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
-import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export function useUpdateTrainingRoute(id: string, form: UseFormReturn<TrainingRouteFormValues>) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
   const [updateTrainingRoute, { isLoading }] = useUpdateTrainingRouteMutation();
 
   const [apiError, setApiError] = useState<number | null>(null);
@@ -35,8 +35,7 @@ export function useUpdateTrainingRoute(id: string, form: UseFormReturn<TrainingR
       await updateTrainingRoute(payload).unwrap();
 
       toast.success(`${values.name} ${t('u.updatedSuccessfully')}`);
-      const query = values.companyId ? `?companyId=${values.companyId}` : '';
-      router.push(`/manage-companies/training-routes${query}`);
+      companyNavigation.push('/manage-companies/training-routes');
     } catch (err: any) {
       const status = err?.status ?? 500;
 

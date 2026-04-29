@@ -9,7 +9,10 @@ const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
   <span className="text-muted-foreground">{t('n.notProvided')}</span>
 );
 
-export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): CustomColumnDef<TrainingRoute>[] => [
+export const tableColumnsTrainingRoutes = (
+  t: (key: TranslationKey) => string,
+  buildHref?: (path: string) => string
+): CustomColumnDef<TrainingRoute>[] => [
   {
     accessorKey: 'name',
     header: t('n.name'),
@@ -82,10 +85,13 @@ export const tableColumnsTrainingRoutes = (t: (key: TranslationKey) => string): 
     cell: ({ row }) => {
       const trainingRoute = row.original;
       const id = Number(trainingRoute.id);
+      const editHref = buildHref
+        ? buildHref(`/manage-companies/training-routes/${id}/update`)
+        : `/manage-companies/training-routes/${id}/update`;
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/manage-companies/training-routes/${id}/update`} tooltipText={t('e.editTrainingRoute')} />
+          <EditButton href={editHref} tooltipText={t('e.editTrainingRoute')} />
           <DeleteTrainingRoute id={id} />
         </div>
       );

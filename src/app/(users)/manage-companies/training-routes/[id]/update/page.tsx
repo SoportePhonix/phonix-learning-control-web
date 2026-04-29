@@ -6,6 +6,7 @@ import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { TrainingRouteFormValues } from '@/components/trainingRoutes/types';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useTrainingRoutesForm } from '@/features/trainingRoutes/hooks/useTrainingRoutesForm';
 import { useUpdateTrainingRoute } from '@/features/trainingRoutes/hooks/useUpdateTrainingRoute';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
@@ -16,8 +17,12 @@ import { useForm } from 'react-hook-form';
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('t.trainingRoutes'), path: '/manage-companies/training-routes' }, { label: t('a.addTrainingRoute') }],
+    [
+      { label: t('t.trainingRoutes'), path: companyNav.href('/manage-companies/training-routes') },
+      { label: t('a.addTrainingRoute') },
+    ],
     { withLoader: true }
   );
 
@@ -52,7 +57,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           onSubmit={updateTrainingRouteData}
           isLoading={isLoading}
           apiError={apiError}
-          cancelUrl="/manage-companies/training-routes"
+          cancelUrl={companyNav.href('/manage-companies/training-routes')}
           t={t}
         />
       </FormPageLayout>

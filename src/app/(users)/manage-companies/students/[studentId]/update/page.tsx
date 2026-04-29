@@ -5,6 +5,7 @@ import { use } from 'react';
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useUpdateStudent } from '@/features/students/hooks/useUpdateStudent';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
@@ -16,8 +17,9 @@ import { useForm } from 'react-hook-form';
 export default function Page({ params }: { params: Promise<{ studentId: string }> }) {
   const { studentId } = use(params);
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('s.students'), path: '/manage-companies/students' }, { label: t('u.updateStudent') }],
+    [{ label: t('s.students'), path: companyNav.href('/manage-companies/students') }, { label: t('u.updateStudent') }],
     { withLoader: true }
   );
   const { data: companiesData, isLoading: companiesLoading, error: companiesError } = useGetCompaniesQuery();
@@ -69,7 +71,7 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
           onSubmit={handleSubmit}
           isLoading={isLoading}
           apiError={apiError}
-          cancelUrl="/manage-companies/students"
+          cancelUrl={companyNav.href('/manage-companies/students')}
           t={t}
         />
       </FormPageLayout>

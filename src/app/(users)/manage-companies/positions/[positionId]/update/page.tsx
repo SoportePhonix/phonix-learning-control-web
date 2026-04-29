@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useUpdatePosition } from '@/features/positions/hooks/useUpdatePosition';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
@@ -16,8 +17,12 @@ import { useForm } from 'react-hook-form';
 export default function Page({ params }: { params: Promise<{ positionId: string }> }) {
   const { positionId } = use(params);
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('p.positions'), path: '/manage-companies/positions' }, { label: t('u.updatePosition') }],
+    [
+      { label: t('p.positions'), path: companyNav.href('/manage-companies/positions') },
+      { label: t('u.updatePosition') },
+    ],
     { withLoader: true }
   );
 
@@ -58,7 +63,7 @@ export default function Page({ params }: { params: Promise<{ positionId: string 
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/manage-companies/positions"
+          cancelUrl={companyNav.href('/manage-companies/positions')}
           t={t}
         />
       </FormPageLayout>

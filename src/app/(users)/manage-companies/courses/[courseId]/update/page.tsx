@@ -8,6 +8,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useUpdateCourse } from '@/features/courses/hooks/useUpdateCourse';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
@@ -17,8 +18,9 @@ import { useForm } from 'react-hook-form';
 export default function Page({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = use(params);
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('c.courses'), path: '/manage-companies/courses' }, { label: t('u.updateCourse') }],
+    [{ label: t('c.courses'), path: companyNav.href('/manage-companies/courses') }, { label: t('u.updateCourse') }],
     { withLoader: true }
   );
   const { data: companiesData, isLoading: companiesLoading, error } = useGetCompaniesQuery();
@@ -60,7 +62,7 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
           onSubmit={handleSubmit}
           isLoading={isLoading}
           apiError={apiError}
-          cancelUrl="/manage-companies/courses"
+          cancelUrl={companyNav.href('/manage-companies/courses')}
           t={t}
         />
       </FormPageLayout>

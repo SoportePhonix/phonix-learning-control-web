@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 
 import { PageHeader } from '@/components/page-header';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { tableColumnsTrainingRoutes } from '@/features/trainingRoutes/config/tableColumnsTrainingRoutes';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
@@ -14,6 +15,7 @@ import { useGetTrainingRoutesQuery } from '@/lib/services/api/trainingRoutesApi/
 
 export default function Page() {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { data: trainingRoutesData, isLoading, isFetching } = useGetTrainingRoutesQuery();
   const { data: companiesData } = useGetCompaniesQuery();
   const { data: areasData } = useGetAreasQuery();
@@ -39,14 +41,14 @@ export default function Page() {
       <PageHeader
         title={t('t.trainingRoutes')}
         buttonLabel={t('a.addTrainingRoute')}
-        buttonHref="/manage-companies/training-routes/add"
+        buttonHref={companyNav.href('/manage-companies/training-routes/add')}
       />
 
       <DataTable
         striped
         data={enrichedData}
         variant="primary"
-        columns={tableColumnsTrainingRoutes(t)}
+        columns={tableColumnsTrainingRoutes(t, companyNav.href)}
         isLoading={isLoading || isFetching}
         storageKey="datatable-training-routes"
         searchable

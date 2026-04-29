@@ -8,6 +8,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
 import { useUpdateArea } from '@/features/areas/hooks/useUpdateArea';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
@@ -16,8 +17,9 @@ import { useForm } from 'react-hook-form';
 export default function Page({ params }: { params: Promise<{ areaId: string }> }) {
   const { areaId } = use(params);
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('a.areas'), path: '/manage-companies/areas' }, { label: t('u.updateArea') }],
+    [{ label: t('a.areas'), path: companyNav.href('/manage-companies/areas') }, { label: t('u.updateArea') }],
     { withLoader: true }
   );
 
@@ -59,7 +61,7 @@ export default function Page({ params }: { params: Promise<{ areaId: string }> }
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl="/manage-companies/areas"
+          cancelUrl={companyNav.href('/manage-companies/areas')}
           t={t}
         />
       </FormPageLayout>

@@ -12,7 +12,8 @@ const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
 
 export const tableColumnsAreas = (
   t: (key: TranslationKey) => string,
-  currentAreaId?: number
+  currentAreaId?: number,
+  buildHref?: (path: string) => string
 ): CustomColumnDef<Areas>[] => [
   {
     accessorKey: 'name',
@@ -85,10 +86,13 @@ export const tableColumnsAreas = (
     cell: ({ row }) => {
       const area = row.original;
       const areaId = Number(area.id);
+      const editHref = buildHref
+        ? buildHref(`/manage-companies/areas/${areaId}/update`)
+        : `/manage-companies/areas/${areaId}/update`;
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/manage-companies/areas/${areaId}/update`} tooltipText={t('e.editArea')} />
+          <EditButton href={editHref} tooltipText={t('e.editArea')} />
           <DeleteArea areaId={areaId} />
         </div>
       );

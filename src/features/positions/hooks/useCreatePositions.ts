@@ -3,16 +3,16 @@
 import { useState } from 'react';
 
 import { PositionsFormValues } from '@/components/positions/types';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { AddPositionsRequest } from '@/lib/services/api/positionsApi/interface';
 import { useAddPositionsMutation } from '@/lib/services/api/positionsApi/positionsApi';
-import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export function useCreatePositions(form: UseFormReturn<PositionsFormValues>) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
   const [addPosition, { isLoading }] = useAddPositionsMutation();
 
   const [apiError, setApiError] = useState<number | null>(null);
@@ -39,7 +39,7 @@ export function useCreatePositions(form: UseFormReturn<PositionsFormValues>) {
       await addPosition(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
-      router.push('/manage-companies/positions');
+      companyNavigation.push('/manage-companies/positions');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

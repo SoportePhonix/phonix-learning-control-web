@@ -2,6 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsPositions } from '@/features/positions/config/tableColumnsPositions';
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useCompanyContext } from '@/hooks/use-company-context';
 import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
@@ -17,6 +18,7 @@ export default function PositionsPage({ baseRoute = '/manage-companies/positions
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const companyNav = useCompanyNavigation();
 
   const { data: positionsData, isLoading, isFetching } = useGetPositionsQuery();
 
@@ -31,13 +33,13 @@ export default function PositionsPage({ baseRoute = '/manage-companies/positions
       <PageHeader
         title={`${t('p.positions')} - ${companyName}`}
         buttonLabel={t('a.addPosition')}
-        buttonHref={`${baseRoute}/add`}
+        buttonHref={companyNav.href(`${baseRoute}/add`)}
       />
       <DataTable
         striped
         data={filteredPositions}
         variant="primary"
-        columns={tableColumnsPositions(t, currentUserId)}
+        columns={tableColumnsPositions(t, currentUserId, companyNav.href)}
         isLoading={isLoading || isFetching}
         storageKey="datatable-positions"
         searchable
