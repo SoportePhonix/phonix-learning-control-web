@@ -2,13 +2,13 @@
 
 import React, { useMemo } from 'react';
 
-import { SelectSearch } from '@/components/ui/SelectSearch';
 import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { Role } from '@/rbac/config/roles';
 import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
 import { useSessionContext } from '@/utils/context/sessionContext';
+import { SelectSearch } from '@soportephonix/phx-search-select';
 import { usePathname } from 'next/navigation';
 
 /**
@@ -41,13 +41,15 @@ export function CompanySelector() {
 
   // useMemo is ALWAYS called (with condition inside the callback)
   const companies = useMemo(() => {
-    if (isSuperAdmin && allCompaniesData?.data) {
-      return allCompaniesData.data;
-    }
-    if (isAdmin && session?.user?.companies) {
-      return session.user.companies;
-    }
-    return [];
+    const raw = (() => {
+      if (isSuperAdmin && allCompaniesData?.data) return allCompaniesData.data;
+      if (isAdmin && session?.user?.companies) return session.user.companies;
+      return [];
+    })();
+    return raw.map((c: { id: number | string; name: string }) => ({
+      value: String(c.id),
+      label: c.name,
+    }));
   }, [isSuperAdmin, isAdmin, allCompaniesData, session?.user?.companies]);
 
   // Manejar el cambio de empresa
@@ -64,11 +66,12 @@ export function CompanySelector() {
   }
 
   return (
-    <div className="w-90 h-12 flex items-center">
-      <SelectSearch<any>
+    <div className="w-90 ml-8 mt-4">
+      <SelectSearch
+        variant="secondary"
         data={companies}
-        valueKey="id"
-        labelKey="name"
+        valueKey="value"
+        labelKey="label"
         selectedValue={selectedCompanyId}
         onSelect={handleChangeCompany}
         placeholder={isLoading ? 'Cargando...' : 'Seleccionar empresa'}
