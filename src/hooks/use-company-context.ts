@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 
+import { useGetCompanyByIdQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
 import { useSessionContext } from '@/utils/context/sessionContext';
@@ -40,40 +41,81 @@ export const useCompanyContext = (options: UseCompanyContextOptions = {}) => {
   const { session, loading: isSessionLoading } = useSessionContext();
 
   const companyIdFromUrl = searchParams.get('companyId');
+  const parsedCompanyIdFromUrl = companyIdFromUrl ? parseInt(companyIdFromUrl, 10) : null;
 
-  // Sincronizar URL con contexto
+  // Fetch company by ID from API (only when URL has companyId)
+  const { data: companyData, isLoading: isCompanyLoading } = useGetCompanyByIdQuery(
+    { companyId: companyIdFromUrl || '' },
+    { skip: !companyIdFromUrl || isSessionLoading }
+  );
+
+  // Sincronizar URL con contexto: usar nombre de compañía del API
   useEffect(() => {
-    if (companyIdFromUrl) {
-      const parsedId = parseInt(companyIdFromUrl, 10);
-      if (!isNaN(parsedId) && (!selectedCompany || selectedCompany.id !== parsedId)) {
-        setSelectedCompany({ id: parsedId });
-      }
+    if (
+      parsedCompanyIdFromUrl &&
+      companyData?.data?.name &&
+      (!selectedCompany ||
+        selectedCompany.id !== parsedCompanyIdFromUrl ||
+        selectedCompany.name !== companyData.data.name)
+    ) {
+      // Actualizar solo cuando hay datos del API y algo ha cambiado
+      setSelectedCompany({ id: parsedCompanyIdFromUrl, name: companyData.data.name });
     }
-  }, [companyIdFromUrl, selectedCompany, setSelectedCompany]);
+  }, [parsedCompanyIdFromUrl, companyData, selectedCompany, setSelectedCompany]);
 
   // Determinar el companyId final:
   // 1. URL manda (Admin que cambia de vista o entra por link)
   // 2. Sesión manda (Manager que entra a sus rutas)
   // 3. Fallback a memoria local (Admin ya habiendo ingresado antes sin ref refrescada en URL)
-  const parsedCompanyId = Number(companyIdFromUrl);
-
-  const isValidCompanyId = companyIdFromUrl && Number.isInteger(parsedCompanyId) && parsedCompanyId > 0;
+  const isValidCompanyId =
+    parsedCompanyIdFromUrl && Number.isInteger(parsedCompanyIdFromUrl) && parsedCompanyIdFromUrl > 0;
 
   // 🔥 manager usa companies[0].id (sujeto a cambios)
   const validCompanyIdFromSession = session?.user?.companies?.[0]?.id ?? session?.user?.companyId;
-  const companyId = isValidCompanyId ? parsedCompanyId : (validCompanyIdFromSession ?? selectedCompany?.id ?? null);
+  const companyId = isValidCompanyId
+    ? parsedCompanyIdFromUrl
+    : (validCompanyIdFromSession ?? selectedCompany?.id ?? null);
 
-  // Obtener el nombre de la empresa
-  let resolvedCompanyName = selectedCompany?.name;
-  if (isManager && session?.user?.companies?.[0]?.name) {
+  // Obtener el nombre de la empresa con prioridad (IMMEDIATE resolution - no async wait):
+  // 1. session.user.companies match (PRIMARY - already loaded, no async)
+  // 2. API companyData (fallback if not in session)
+  // 3. selectedCompany context (fallback if no API data)
+  // 4. default: "Mi Empresa"
+
+  let resolvedCompanyName: string | undefined;
+
+  // PRIMARY: Search in session.user.companies first (immediate, synchronous)
+  if (session?.user?.companies && companyId) {
+    const company = session.user.companies.find((c: any) => c.id === companyId);
+    resolvedCompanyName = company?.name;
+  }
+
+  // FALLBACK: Use API data if not found in session
+  if (!resolvedCompanyName && companyData?.data?.name) {
+    resolvedCompanyName = companyData.data.name;
+  }
+
+  // FALLBACK: Use context state
+  if (!resolvedCompanyName && selectedCompany?.name) {
+    resolvedCompanyName = selectedCompany.name;
+  }
+
+  // FALLBACK: For manager without companyId in URL (use first company from session)
+  if (!resolvedCompanyName && isManager && session?.user?.companies?.[0]?.name) {
     resolvedCompanyName = session.user.companies[0].name;
   }
 
   const companyName = resolvedCompanyName || 'Mi Empresa';
 
-  // isLoading es true hasta que el contexto esté inicializado
-  // Si hay companyId en la URL, no necesitamos esperar
-  const isLoading = (!companyIdFromUrl && !isInitialized) || isRbacLoading || isSessionLoading;
+  // isLoading es true hasta que:
+  // 1. El contexto esté inicializado (si no hay companyId en URL)
+  // 2. La sesión esté cargada
+  // 3. La compañía del API esté cargada (si hay companyId en URL)
+  const isLoading =
+    (!companyIdFromUrl && !isInitialized) ||
+    isRbacLoading ||
+    isSessionLoading ||
+    (companyIdFromUrl ? isCompanyLoading : false);
 
   // Redirigir si no hay empresa seleccionada (solo después de inicializar)
   useEffect(() => {

@@ -141,45 +141,38 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
           },
         ],
       });
-    } else if (selectedCompany) {
-      const companyName = selectedCompany?.name;
-      const queryString = `?companyId=${selectedCompany?.id}`;
-
+    } else {
+      // Always show "Gestionar Empresa" but with programmatic navigation
       allItems.push({
         title: 'Gestionar Empresa',
-        url: `/manage-companies/students${queryString}`,
+        url: '/manage-companies', // Will be handled programmatically
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'manageCompanies.view',
         className: 'bg-nav-item-active-collapsed-bg',
         items: [
-          // {
-          //   title: t('d.dashboard'),
-          //   url: `/manage-companies/dashboard${queryString}`,
-          //   permission: 'dashboard.view',
-          // },
           {
             title: t('s.students'),
-            url: `/manage-companies/students${queryString}`,
+            url: `/manage-companies/students`,
             permission: 'students.view',
           },
           {
             title: t('c.courses'),
-            url: `/manage-companies/courses${queryString}`,
+            url: `/manage-companies/courses`,
             permission: 'courses.view',
           },
           {
             title: t('a.areas'),
-            url: `/manage-companies/areas${queryString}`,
+            url: `/manage-companies/areas`,
             permission: 'areas.view',
           },
           {
             title: t('p.positions'),
-            url: `/manage-companies/positions${queryString}`,
+            url: `/manage-companies/positions`,
             permission: 'positions.view',
           },
           {
             title: t('t.trainingRoutes'),
-            url: `/manage-companies/training-routes${queryString}`,
+            url: `/manage-companies/training-routes`,
             permission: 'trainingRoutes.view',
           },
         ],
@@ -192,7 +185,7 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         ...item,
         items: item.items.filter((sub) => !sub.permission || can(sub.permission)),
       }));
-  }, [t, selectedCompany, can, isManager, companyName]);
+  }, [t, can, isManager]);
 
   return { sections, navMainItems };
 }
