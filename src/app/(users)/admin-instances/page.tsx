@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsAdminInstance } from '@/features/adminInstance/config/tableColumnsAdminInstance';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetAdminInstancesQuery } from '@/lib/services/api/adminInstanceApi/adminInstanceApi';

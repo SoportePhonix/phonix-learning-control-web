@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { AreasFormValues } from '@/components/areas/types';
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useUpdateAreasMutation } from '@/lib/services/api/areasApi/areasApi';
 import { UpdateAreasRequest } from '@/lib/services/api/areasApi/interface';

@@ -14,7 +14,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { sidebarLogos } from '@/config/sidebar-logos.config';
-import { useSidebarData } from '@/hooks/use-sidebar-data';
+import { useSidebarData } from '@/hooks';
 import { useConfigWithLoading, useSelectedCompany } from '@/utils/context';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { useTheme } from 'next-themes';

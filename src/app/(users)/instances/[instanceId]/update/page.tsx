@@ -8,7 +8,7 @@ import { InstanceFormValues } from '@/components/instance/types';
 import { PageHeader } from '@/components/page-header';
 import { useInstanceForm } from '@/features/instance/hooks/useInstanceForm';
 import { useUpdateInstance } from '@/features/instance/hooks/useUpdateInstance';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';

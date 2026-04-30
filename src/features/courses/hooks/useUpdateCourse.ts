@@ -1,5 +1,5 @@
 import { CoursesFormValues } from '@/components/courses/types';
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { useUpdateCoursesMutation } from '@/lib/services/api/coursesApi/coursesApi';
 import { UpdateCoursesRequest } from '@/lib/services/api/coursesApi/interface';

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { TrainingRouteFormValues } from '@/components/trainingRoutes/types';
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { UpdateTrainingRouteRequest } from '@/lib/services/api/trainingRoutesApi/interface';
 import { useUpdateTrainingRouteMutation } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';

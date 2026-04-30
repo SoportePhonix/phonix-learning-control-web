@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { UseFormReturn } from 'react-hook-form';

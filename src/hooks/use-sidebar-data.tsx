@@ -8,7 +8,7 @@ import { InstanceIcon } from '@/features/instance/componentes/icons/InstanceIcon
 import { LmsIcon } from '@/features/lms/componentes/icons/LmsIcon';
 import { StudentsIcon } from '@/features/students/componentes/icons/StudentIcon';
 import { UserIcon } from '@/features/users/componentes/icons/UserIcon';
-import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyContext } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { useRBAC } from '@/rbac';
 import type { Permission } from '@/rbac';

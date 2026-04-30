@@ -1,4 +1,4 @@
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { useUpdateStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { toast } from 'sonner';

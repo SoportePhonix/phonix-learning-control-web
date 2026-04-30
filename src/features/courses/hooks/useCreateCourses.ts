@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { CoursesFormValues } from '@/components/courses/types';
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddCoursesMutation } from '@/lib/services/api/coursesApi/coursesApi';
 import { AddCoursesRequest } from '@/lib/services/api/coursesApi/interface';

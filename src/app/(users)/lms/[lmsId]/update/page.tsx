@@ -8,7 +8,7 @@ import { LmsFormValues } from '@/components/lms/types';
 import { PageHeader } from '@/components/page-header';
 import { useLmsForm } from '@/features/lms/hooks/useLmsForm';
 import { useUpdateLms } from '@/features/lms/hooks/useUpdateLms';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';

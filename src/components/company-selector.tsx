@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 
-import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { Role } from '@/rbac/config/roles';
