@@ -3,9 +3,9 @@
 import { useMemo } from 'react';
 
 import { PageHeader } from '@/components/page-header';
-import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { tableColumnsTrainingRoutes } from '@/features/trainingRoutes/config/tableColumnsTrainingRoutes';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';

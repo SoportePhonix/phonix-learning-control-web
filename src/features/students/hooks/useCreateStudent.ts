@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
-
-import { useCompanyNavigation } from './useCompanyNavigation';
 
 export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
   const { t } = useTranslation();

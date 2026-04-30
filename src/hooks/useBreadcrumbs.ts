@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { useNextCrumbs } from '@/lib/phonix-ui';
 import { useRouter } from 'next/navigation';
 

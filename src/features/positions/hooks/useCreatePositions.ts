@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { PositionsFormValues } from '@/components/positions/types';
-import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { AddPositionsRequest } from '@/lib/services/api/positionsApi/interface';
 import { useAddPositionsMutation } from '@/lib/services/api/positionsApi/positionsApi';

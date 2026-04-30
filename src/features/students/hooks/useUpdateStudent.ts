@@ -1,8 +1,7 @@
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { useTranslation } from '@/i18n';
 import { useUpdateStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
 import { toast } from 'sonner';
-
-import { useCompanyNavigation } from './useCompanyNavigation';
 
 export function useUpdateStudent(userId: string) {
   const { t } = useTranslation();

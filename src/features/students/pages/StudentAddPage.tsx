@@ -3,10 +3,10 @@
 import { DynamicForm } from '@/components/forms/DynamicForm';
 import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
-import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';

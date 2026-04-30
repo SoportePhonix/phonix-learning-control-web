@@ -2,8 +2,8 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsPositions } from '@/features/positions/config/tableColumnsPositions';
-import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyNavigation } from '@/hooks/useCompanyNavigation';
 import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
 import { Positions } from '@/lib/services/api/positionsApi/interface';
