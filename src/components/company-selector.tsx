@@ -6,10 +6,9 @@ import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNaviga
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { Role } from '@/rbac/config/roles';
-import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { SelectSearch } from '@soportephonix/phx-search-select';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 /**
  * Selector de empresas para la navbar.
@@ -23,12 +22,12 @@ import { usePathname } from 'next/navigation';
 export function CompanySelector() {
   // ✅ ALL hooks MUST be called unconditionally and in the same order on every render
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const companyNav = useCompanyNavigation();
-  const { selectedCompany } = useSelectedCompany();
   const { session, loading: isSessionLoading } = useSessionContext();
   const { hasRole, loading: isRbacLoading } = useRBAC();
 
-  // Fetch todas las empresas (para Super Admin)
+  // Fetch todas las empresas
   // RTK query hook is always called (skip parameter is fine)
   const { data: allCompaniesData, isLoading: isLoadingAllCompanies } = useGetCompaniesQuery(undefined, {
     skip: isSessionLoading || isRbacLoading,
@@ -42,15 +41,22 @@ export function CompanySelector() {
   // useMemo is ALWAYS called (with condition inside the callback)
   const companies = useMemo(() => {
     const raw = (() => {
-      if (isSuperAdmin && allCompaniesData?.data) return allCompaniesData.data;
-      if (isAdmin && session?.user?.companies) return session.user.companies;
+      if (isSuperAdmin) return allCompaniesData?.data ?? [];
+
+      if (isAdmin) {
+        return (allCompaniesData?.data ?? []).filter(
+          (company: { id: number | string; name: string; instanceId?: number | string }) =>
+            company.instanceId === session?.user?.instanceId
+        );
+      }
+
       return [];
     })();
     return raw.map((c: { id: number | string; name: string }) => ({
       value: String(c.id),
       label: c.name,
     }));
-  }, [isSuperAdmin, isAdmin, allCompaniesData, session?.user?.companies]);
+  }, [isSuperAdmin, isAdmin, allCompaniesData, session?.user?.instanceId]);
 
   // Manejar el cambio de empresa
   const handleChangeCompany = (companyId: string) => {
@@ -58,7 +64,14 @@ export function CompanySelector() {
   };
 
   const isLoading = isSessionLoading || isRbacLoading || isLoadingAllCompanies;
-  const selectedCompanyId = selectedCompany?.id ? String(selectedCompany.id) : '';
+
+  // ✅ URL es la única fuente de verdad
+  const companyIdFromUrl = searchParams.get('companyId');
+  const selectedCompanyId = companyIdFromUrl
+    ? String(companyIdFromUrl)
+    : companies.length > 0
+      ? String(companies[0].value)
+      : undefined;
 
   // ✅ Use condition ONLY in JSX rendering, not around hooks
   if (!isAdminLike) {

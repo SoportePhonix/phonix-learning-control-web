@@ -112,7 +112,6 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         url: `/students`,
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'students.view', // Require only a base permission
-        className: 'bg-nav-item-inactive-collapsed-hover-bg',
         items: [
           {
             title: t('s.students'),
@@ -148,7 +147,6 @@ export function useSidebarData({ isPresentationMode, selectedCompany }: UseSideb
         url: '/manage-companies', // Will be handled programmatically
         icon: (props) => <ManageCompaniesIcon {...props} />,
         permission: 'manageCompanies.view',
-        className: 'bg-nav-item-active-collapsed-bg',
         items: [
           {
             title: t('s.students'),
