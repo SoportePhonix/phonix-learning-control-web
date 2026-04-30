@@ -58,9 +58,6 @@ export function useCreateCompanies(form: UseFormReturn<CompaniesFormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      console.log('status:', status);
-      console.log('errorMessage:', errorMessage);
-
       if (status === 409) {
         if (
           errorMessage.toLowerCase().includes('nit') ||

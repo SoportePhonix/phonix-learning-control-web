@@ -195,12 +195,8 @@ export function NavMain({
 
   const handleManageCompaniesNavigation = React.useCallback(
     (subItemUrl: string) => {
-      console.log('handleManageCompaniesNavigation called with:', { subItemUrl, isLoadingCompanies });
-      console.log('companies from API:', companies);
-
       // If still loading, avoid navigation
       if (isLoadingCompanies) {
-        console.warn('Companies still loading, skipping navigation');
         return;
       }
 
@@ -209,7 +205,6 @@ export function NavMain({
       const existingCompanyId = searchParams.get('companyId');
 
       if (existingCompanyId) {
-        console.log('CompanyId already in URL, using existing:', existingCompanyId);
         // Navigate with existing companyId
         let normalizedUrl = subItemUrl;
         if (subItemUrl === '/manage-companies') {
@@ -235,7 +230,7 @@ export function NavMain({
       // Use first company ID to navigate
       const firstCompanyId = companies[0].id;
       const url = `${normalizedUrl}?companyId=${firstCompanyId}`;
-      console.log('Navigating to:', url);
+
       router.push(url);
     },
     [companies, isLoadingCompanies, router]
@@ -250,7 +245,6 @@ export function NavMain({
       if (url && url.includes('/manage-companies')) {
         // Skip navigation if still loading companies
         if (isLoadingCompanies) {
-          console.log('Companies loading, skipping navigation');
           return;
         }
         handleManageCompaniesNavigation(url);
