@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useCompanyNavigation } from '@/features/students/hooks/useCompanyNavigation';
 import { useNextCrumbs } from '@/lib/phonix-ui';
 import { useRouter } from 'next/navigation';
 
@@ -21,6 +22,7 @@ interface UseBreadcrumbsReturn {
  * Hook personalizado que simplifica el uso de breadcrumbs
  * Maneja internamente el useRouter para evitar repetir código
  * Incluye manejo automático del loader durante navegación (solo para items con path)
+ * PRESERVA AUTOMÁTICAMENTE el companyId en todos los breadcrumb links
  *
  * @param items - Array de items para el breadcrumb
  * @param options - Opciones del hook (withLoader para activar funcionalidad de loader)
@@ -52,10 +54,22 @@ export function useBreadcrumbs(items: BreadcrumbItem[]): any[];
 export function useBreadcrumbs(items: BreadcrumbItem[], options: { withLoader: true }): UseBreadcrumbsReturn;
 export function useBreadcrumbs(items: BreadcrumbItem[], options?: UseBreadcrumbsOptions): any[] | UseBreadcrumbsReturn {
   const router = useRouter();
+  const companyNav = useCompanyNavigation();
   const [isNavigating, setIsNavigating] = useState(false);
 
-  // Obtener los breadcrumbs originales
-  const originalCrumbRoutes = useNextCrumbs(items, router);
+  // Transformar items para preservar companyId en los paths
+  const itemsWithCompanyId: BreadcrumbItem[] = items.map((item) => {
+    if (!item.path) {
+      return item;
+    }
+    return {
+      ...item,
+      path: companyNav.href(item.path),
+    };
+  });
+
+  // Obtener los breadcrumbs originales con paths que ya incluyen companyId
+  const originalCrumbRoutes = useNextCrumbs(itemsWithCompanyId, router);
 
   if (options?.withLoader) {
     // Interceptar los eventos onClick para activar el loader solo en items que tienen path
