@@ -6,7 +6,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useAreaForm } from '@/features/areas/hooks/useAreaForm';
 import { useCreateAreas } from '@/features/areas/hooks/useCreateAreas';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ interface AreaAddPageProps {
 
 export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: AreaAddPageProps) {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [{ label: t('a.areas'), path: baseRoute }, { label: t('a.addArea') }],
     { withLoader: true }
@@ -51,7 +52,7 @@ export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: A
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl={baseRoute}
+          cancelUrl={companyNav.href(baseRoute)}
           t={t}
         />
       </FormPageLayout>

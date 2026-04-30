@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsAreas } from '@/features/areas/config/tableColumnsAreas';
-import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyContext, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
@@ -17,6 +17,7 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const companyNav = useCompanyNavigation();
 
   const { data: areasData, isLoading, isFetching } = useGetAreasQuery();
 
@@ -31,13 +32,13 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
       <PageHeader
         title={`${t('a.areas')} - ${companyName}`}
         buttonLabel={t('a.addArea')}
-        buttonHref={`${baseRoute}/add`}
+        buttonHref={companyNav.href(`${baseRoute}/add`)}
       />
       <DataTable
         striped
         data={filteredAreas}
         variant="primary"
-        columns={tableColumnsAreas(t, currentUserId)}
+        columns={tableColumnsAreas(t, currentUserId, companyNav.href)}
         isLoading={isLoading || isFetching}
         storageKey="datatable-areas"
         searchable

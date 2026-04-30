@@ -8,7 +8,7 @@ import { PageHeader } from '@/components/page-header';
 import { UserFormValues } from '@/components/users/types';
 import { useCreateUser } from '@/features/users/hooks/useCreateUser';
 import { useUserForm } from '@/features/users/hooks/useUserForm';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';

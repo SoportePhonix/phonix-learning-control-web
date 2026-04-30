@@ -12,7 +12,8 @@ const EMPTY_VALUE = (t: (key: TranslationKey) => string) => (
 
 export const tableColumnsPositions = (
   t: (key: TranslationKey) => string,
-  currentPositionId?: number
+  currentPositionId?: number,
+  buildHref?: (path: string) => string
 ): CustomColumnDef<Positions>[] => [
   {
     accessorKey: 'name',
@@ -85,10 +86,13 @@ export const tableColumnsPositions = (
     cell: ({ row }) => {
       const position = row.original;
       const positionId = Number(position.id);
+      const editHref = buildHref
+        ? buildHref(`/manage-companies/positions/${positionId}/update`)
+        : `/manage-companies/positions/${positionId}/update`;
 
       return (
         <div className="flex justify-center">
-          <EditButton href={`/manage-companies/positions/${positionId}/update`} tooltipText={t('e.editPosition')} />
+          <EditButton href={editHref} tooltipText={t('e.editPosition')} />
           <DeletePosition positionId={positionId} />
         </div>
       );

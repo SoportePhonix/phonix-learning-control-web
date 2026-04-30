@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/page-header';
 import { PositionsFormValues } from '@/components/positions/types';
 import { useCreatePositions } from '@/features/positions/hooks/useCreatePositions';
 import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ interface PositionAddPageProps {
 
 export default function PositionAddPage({ baseRoute = '/manage-companies/positions' }: PositionAddPageProps) {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [{ label: t('p.positions'), path: baseRoute }, { label: t('a.addPosition') }],
     { withLoader: true }
@@ -51,7 +52,7 @@ export default function PositionAddPage({ baseRoute = '/manage-companies/positio
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl={baseRoute}
+          cancelUrl={companyNav.href(baseRoute)}
           t={t}
         />
       </FormPageLayout>

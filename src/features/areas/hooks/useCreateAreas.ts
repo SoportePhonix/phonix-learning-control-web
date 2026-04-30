@@ -3,16 +3,16 @@
 import { useState } from 'react';
 
 import { AreasFormValues } from '@/components/areas/types';
+import { useCompanyNavigation } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { useAddAreasMutation } from '@/lib/services/api/areasApi/areasApi';
 import { AddAreasRequest } from '@/lib/services/api/areasApi/interface';
-import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export function useCreateAreas(form: UseFormReturn<AreasFormValues>) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
   const [addArea, { isLoading }] = useAddAreasMutation();
 
   const [apiError, setApiError] = useState<number | null>(null);
@@ -39,7 +39,7 @@ export function useCreateAreas(form: UseFormReturn<AreasFormValues>) {
       await addArea(payload).unwrap();
 
       toast.success(`${values.name} ${t('a.addedSuccessfully')}`);
-      router.push('/manage-companies/areas');
+      companyNavigation.push('/manage-companies/areas');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';

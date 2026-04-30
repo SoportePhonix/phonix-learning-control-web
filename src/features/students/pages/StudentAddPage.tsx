@@ -5,7 +5,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
@@ -17,6 +17,7 @@ interface StudentAddPageProps {
 
 export default function StudentAddPage({ baseRoute = '/manage-companies/students' }: StudentAddPageProps) {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [{ label: t('s.students'), path: baseRoute }, { label: t('a.addStudent') }],
     { withLoader: true }
@@ -67,7 +68,7 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl={baseRoute}
+          cancelUrl={companyNav.href(baseRoute)}
           t={t}
         />
       </FormPageLayout>

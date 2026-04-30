@@ -6,7 +6,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCompaniesForm } from '@/features/companies/hooks/useCompanyForm';
 import { useCreateCompanies } from '@/features/companies/hooks/useCreateCompanies';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useForm } from 'react-hook-form';

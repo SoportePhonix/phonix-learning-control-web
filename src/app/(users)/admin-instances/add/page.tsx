@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { AdminInstanceForm } from '@/features/adminInstance/components/AdminInstanceForm';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs } from '@/hooks';
 import { TranslationKey, useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 

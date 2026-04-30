@@ -12,7 +12,6 @@ export function useEnrollStudent() {
       toast.success(t('e.enrollmentSuccessful'));
       onSuccess?.();
     } catch (err: any) {
-      console.log('Enrollment error:', err);
       const status = err?.status;
       if (status === 409) {
         toast.error(t('e.enrollmentAlreadyExists'));

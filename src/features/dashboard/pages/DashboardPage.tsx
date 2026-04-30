@@ -1,7 +1,7 @@
 'use client';
 
 import { PageHeader } from '@/components/page-header';
-import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyContext } from '@/hooks';
 import { useTranslation } from '@/i18n';
 
 export default function DashboardPage() {

@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsStudents } from '@/features/students/config/tableColumnsStudents';
-import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyContext, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
 import { Students } from '@/lib/services/api/studentsApi/interface';
@@ -17,6 +17,7 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const companyNav = useCompanyNavigation();
 
   const { data: studentsData, isLoading, isFetching } = useGetStudentsQuery();
 
@@ -31,13 +32,13 @@ export default function StudentsPage({ baseRoute = '/manage-companies/students' 
       <PageHeader
         title={`${t('s.students')} - ${companyName}`}
         buttonLabel={t('a.addStudent')}
-        buttonHref={`${baseRoute}/add`}
+        buttonHref={companyNav.href(`${baseRoute}/add`)}
       />
       <DataTable
         striped
         data={filteredStudents}
         variant="primary"
-        columns={tableColumnsStudents(t, currentUserId)}
+        columns={tableColumnsStudents(t, currentUserId, companyNav.href)}
         isLoading={isLoading || isFetching}
         storageKey="datatable-students"
         searchable

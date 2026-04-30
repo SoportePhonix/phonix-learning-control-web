@@ -15,7 +15,9 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
+import { useSessionContext } from '@/utils/context/sessionContext';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -109,8 +111,13 @@ export function NavMain({
   const router = useRouter();
   const { state, isMobile } = useSidebar();
   const { isManager } = useRBAC();
+  const { session } = useSessionContext();
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Fetch companies from API
+  const { data: companiesData, isLoading: isLoadingCompanies } = useGetCompaniesQuery();
+  const companies = companiesData?.data ?? [];
 
   // Estado para menús cerrados manualmente (key: título del menú)
   // Se usa useRef para evitar re-renders innecesarios
@@ -138,11 +145,22 @@ export function NavMain({
     [pathname]
   );
 
+  const isManageCompaniesActive = React.useCallback(() => {
+    // Check if current path is manage-companies AND has companyId in URL
+    const searchParams = new URL(window.location.href).searchParams;
+    const hasCompanyId = searchParams.has('companyId');
+    return pathname.startsWith('/manage-companies') && hasCompanyId;
+  }, [pathname]);
+
   const isMenuActive = React.useCallback(
     (item: (typeof items)[0]) => {
+      // Special handling for manage-companies menu
+      if (item.url === '/manage-companies') {
+        return isManageCompaniesActive();
+      }
       return item.items?.some((subItem) => isSubItemActive(subItem.url)) ?? false;
     },
-    [isSubItemActive]
+    [isSubItemActive, isManageCompaniesActive]
   );
 
   React.useEffect(() => {
@@ -175,13 +193,66 @@ export function NavMain({
     [isMenuActive, isManager]
   );
 
-  const handleNavigation = React.useCallback(
-    (url: string, e?: React.MouseEvent) => {
-      e?.preventDefault();
-      e?.stopPropagation();
+  const handleManageCompaniesNavigation = React.useCallback(
+    (subItemUrl: string) => {
+      // If still loading, avoid navigation
+      if (isLoadingCompanies) {
+        return;
+      }
+
+      // Check if companyId already exists in URL
+      const searchParams = new URL(window.location.href).searchParams;
+      const existingCompanyId = searchParams.get('companyId');
+
+      if (existingCompanyId) {
+        // Navigate with existing companyId
+        let normalizedUrl = subItemUrl;
+        if (subItemUrl === '/manage-companies') {
+          normalizedUrl = '/manage-companies/students';
+        }
+        const url = `${normalizedUrl}?companyId=${existingCompanyId}`;
+        router.push(url);
+        return;
+      }
+
+      // No companies available from API
+      if (!companies || companies.length === 0) {
+        console.warn('No companies available from API');
+        return;
+      }
+
+      // Normalize URL: if it's just /manage-companies (main menu), use /manage-companies/students
+      let normalizedUrl = subItemUrl;
+      if (subItemUrl === '/manage-companies') {
+        normalizedUrl = '/manage-companies/students';
+      }
+
+      // Use first company ID to navigate
+      const firstCompanyId = companies[0].id;
+      const url = `${normalizedUrl}?companyId=${firstCompanyId}`;
+
       router.push(url);
     },
-    [router]
+    [companies, isLoadingCompanies, router]
+  );
+
+  const handleNavigation = React.useCallback(
+    (url: string, itemTitle?: string, e?: React.MouseEvent) => {
+      e?.preventDefault();
+      e?.stopPropagation();
+
+      // URL-based detection for manage-companies module
+      if (url && url.includes('/manage-companies')) {
+        // Skip navigation if still loading companies
+        if (isLoadingCompanies) {
+          return;
+        }
+        handleManageCompaniesNavigation(url);
+      } else if (url) {
+        router.push(url);
+      }
+    },
+    [router, handleManageCompaniesNavigation, isLoadingCompanies]
   );
 
   if (!items || items.length === 0) {
@@ -199,9 +270,16 @@ export function NavMain({
 
             const handleIconClick = (e: React.MouseEvent) => {
               if (item.url) {
-                e.preventDefault();
-                e.stopPropagation();
-                router.push(item.url);
+                handleNavigation(item.url, undefined, e);
+              }
+            };
+
+            const handleParentButtonClick = (e: React.MouseEvent) => {
+              // Explicitly handle manage-companies to avoid passing empty string
+              if (item.url === '/manage-companies') {
+                handleNavigation('/manage-companies', undefined, e);
+              } else if (item.url) {
+                handleNavigation(item.url, undefined, e);
               }
             };
 
@@ -211,6 +289,7 @@ export function NavMain({
                 isActive={false}
                 style={CLIP_PATH_STYLE}
                 className={`${getParentClassName(hasActiveSubItem, hasActiveSubItem, isCollapsed)}${item.className ? ` ${item.className}` : ''}`}
+                onClick={handleParentButtonClick}
               >
                 <NavMainButtonContent
                   icon={item.icon}
@@ -250,7 +329,7 @@ export function NavMain({
                           return (
                             <button
                               key={subItem.title}
-                              onClick={(e) => handleNavigation(subItem.url, e)}
+                              onClick={(e) => handleNavigation(subItem.url, undefined, e)}
                               className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
                                 isSubActive
                                   ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
@@ -278,6 +357,8 @@ export function NavMain({
                         })}
                       </PopoverContent>
                     </Popover>
+                  ) : item.url === '/manage-companies' ? (
+                    parentButton
                   ) : (
                     <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
                   )}
@@ -288,7 +369,7 @@ export function NavMain({
                         return (
                           <SidebarMenuSubItem key={subItem.title} className="relative">
                             <SidebarMenuSubButton
-                              onClick={(e) => handleNavigation(subItem.url, e)}
+                              onClick={(e) => handleNavigation(subItem.url, undefined, e)}
                               style={{
                                 ...CLIP_PATH_STYLE,
                                 position: 'relative',

@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsCourses } from '@/features/courses/config/tableColumnsCourses';
-import { useCompanyContext } from '@/hooks/use-company-context';
+import { useCompanyContext, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { DataTable } from '@/lib/phonix-ui';
 import { useGetCoursesQuery } from '@/lib/services/api/coursesApi/coursesApi';
@@ -17,6 +17,7 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
   const { t } = useTranslation();
   const { session } = useSessionContext();
   const { companyId, companyName } = useCompanyContext({ redirectOnMissing: false });
+  const companyNav = useCompanyNavigation();
 
   const { data: coursesData, isLoading, isFetching } = useGetCoursesQuery();
 
@@ -31,13 +32,13 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
       <PageHeader
         title={`${t('c.courses')} - ${companyName}`}
         buttonLabel={t('a.addCourse')}
-        buttonHref={`${baseRoute}/add`}
+        buttonHref={companyNav.href(`${baseRoute}/add`)}
       />
       <DataTable
         striped
         data={filteredCourses}
         variant="primary"
-        columns={tableColumnsCourses(t, currentUserId)}
+        columns={tableColumnsCourses(t, currentUserId, companyNav.href)}
         isLoading={isLoading || isFetching}
         storageKey="datatable-courses"
         searchable

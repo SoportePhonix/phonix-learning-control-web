@@ -1,11 +1,11 @@
+import { useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { useUpdateStudentMutation } from '@/lib/services/api/studentsApi/studentsApi';
-import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 export function useUpdateStudent(userId: string) {
   const { t } = useTranslation();
-  const router = useRouter();
+  const companyNavigation = useCompanyNavigation();
   const [updateStudentMutation, { isLoading, error }] = useUpdateStudentMutation();
 
   const updateStudent = async (values: Record<string, any>) => {
@@ -40,7 +40,7 @@ export function useUpdateStudent(userId: string) {
         id: 'student-updated-success',
       });
 
-      router.push('/manage-companies/students');
+      companyNavigation.push('/manage-companies/students');
     } catch (err: any) {
       const status = err?.status ?? 500;
       const message = (err?.data?.message || '').toString().toLowerCase();

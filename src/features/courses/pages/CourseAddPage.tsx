@@ -6,7 +6,7 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCoursesForm } from '@/features/courses/hooks/useCoursesForm';
 import { useCreateCourses } from '@/features/courses/hooks/useCreateCourses';
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
@@ -18,6 +18,7 @@ interface CourseAddPageProps {
 
 export default function CourseAddPage({ baseRoute = '/manage-companies/courses' }: CourseAddPageProps) {
   const { t } = useTranslation();
+  const companyNav = useCompanyNavigation();
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [{ label: t('c.courses'), path: baseRoute }, { label: t('a.addCourse') }],
     { withLoader: true }
@@ -57,7 +58,7 @@ export default function CourseAddPage({ baseRoute = '/manage-companies/courses' 
           isLoading={isLoading}
           apiError={apiError}
           apiErrorMessage={apiErrorMessage}
-          cancelUrl={baseRoute}
+          cancelUrl={companyNav.href(baseRoute)}
           t={t}
         />
       </FormPageLayout>
