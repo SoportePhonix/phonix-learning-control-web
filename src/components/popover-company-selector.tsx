@@ -2,50 +2,56 @@
 
 import React, { useMemo } from 'react';
 
+import { CompanySearchSelectContent } from '@/components/company-search-select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useCompanyNavigation } from '@/hooks';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
 import { Role } from '@/rbac/config/roles';
 import { useSessionContext } from '@/utils/context/sessionContext';
-import { SelectSearch } from '@soportephonix/phx-search-select';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+interface PopoverCompanySelectorProps {
+  /**
+   * Controls whether the popover is open
+   */
+  isOpen: boolean;
+  /**
+   * Callback when the popover open state should change
+   */
+  onOpenChange: (open: boolean) => void;
+  /**
+   * The trigger element (typically the "Gestionar Empresa" button)
+   */
+  children: React.ReactNode;
+}
+
 /**
- * Selector de empresas para la navbar.
- * Solo visible para Super Admin y Admin.
- *
- * @example
- * ```tsx
- * <CompanySelector />
- * ```
+ * Sidebar company selector using the exact same content from CompanySearchSelect.
+ * Maintains visual consistency while keeping the popover overlay pattern.
  */
-export function CompanySelector() {
-  // ✅ Mount guard: prevent URL-based rendering during SSR
+export function PopoverCompanySelector({ isOpen, onOpenChange, children }: PopoverCompanySelectorProps) {
   const [isMounted, setIsMounted] = React.useState(false);
+  const prevCompanyIdRef = React.useRef<string | null>(null);
 
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // ✅ ALL hooks MUST be called unconditionally and in the same order on every render
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const companyNav = useCompanyNavigation();
   const { session, loading: isSessionLoading } = useSessionContext();
   const { hasRole, loading: isRbacLoading } = useRBAC();
 
-  // Fetch todas las empresas
-  // RTK query hook is always called (skip parameter is fine)
   const { data: allCompaniesData, isLoading: isLoadingAllCompanies } = useGetCompaniesQuery(undefined, {
     skip: isSessionLoading || isRbacLoading,
   });
 
-  // Determinar si el usuario es Super Admin o Admin
   const isSuperAdmin = hasRole(Role.SUPERADMIN);
   const isAdmin = hasRole(Role.ADMIN);
   const isAdminLike = isSuperAdmin || isAdmin;
 
-  // useMemo is ALWAYS called (with condition inside the callback)
   const companies = useMemo(() => {
     const raw = (() => {
       if (isSuperAdmin) return allCompaniesData?.data ?? [];
@@ -65,46 +71,59 @@ export function CompanySelector() {
     }));
   }, [isSuperAdmin, isAdmin, allCompaniesData, session?.user?.instanceId]);
 
-  // Manejar el cambio de empresa
-  const handleChangeCompany = (companyId: string) => {
-    companyNav.replace(pathname, companyId);
-  };
-
-  const isLoading = isSessionLoading || isRbacLoading || isLoadingAllCompanies;
-
-  // ✅ URL es la única fuente de verdad (solo acceder después de montarse)
   const companyIdFromUrl = isMounted ? searchParams.get('companyId') : null;
 
-  // 📍 Derive selected company from URL (no local state)
-  const selectedCompanyId = React.useMemo(() => {
+  const selectedCompanyValue = React.useMemo(() => {
     if (!companyIdFromUrl || companies.length === 0) return undefined;
 
-    // Find company matching the URL companyId
     const selectedCompany = companies.find((c) => String(c.value) === String(companyIdFromUrl));
     return selectedCompany?.value;
   }, [companyIdFromUrl, companies]);
 
-  // ✅ Use condition ONLY in JSX rendering, not around hooks
+  React.useEffect(() => {
+    if (!isMounted || !isOpen) return;
+
+    if (prevCompanyIdRef.current !== null && prevCompanyIdRef.current !== companyIdFromUrl) {
+      onOpenChange(false);
+    }
+
+    prevCompanyIdRef.current = companyIdFromUrl;
+  }, [companyIdFromUrl, isOpen, onOpenChange, isMounted]);
+
+  const handleSelectCompany = (companyId: string) => {
+    onOpenChange(false);
+
+    let targetUrl = pathname;
+
+    if (!pathname.startsWith('/manage-companies')) {
+      targetUrl = '/manage-companies/students';
+    }
+
+    companyNav.replace(targetUrl, companyId);
+  };
+
   if (!isAdminLike) {
-    return null;
+    return <>{children}</>;
   }
 
-  // ✅ Don't render until mounted (prevent hydration mismatch)
   if (!isMounted) {
-    return null;
+    return <>{children}</>;
   }
 
   return (
-    <div className="w-90 ml-8 mt-4">
-      <SelectSearch
-        variant="secondary"
-        data={companies}
-        valueKey="value"
-        labelKey="label"
-        selectedValue={selectedCompanyId}
-        onSelect={handleChangeCompany}
-        placeholder={isLoading ? 'Cargando...' : 'Seleccionar empresa'}
-      />
-    </div>
+    <Popover open={isOpen} onOpenChange={onOpenChange}>
+      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverContent side="right" align="start" sideOffset={-2} className="w-auto p-0 border-none">
+        <CompanySearchSelectContent
+          data={companies}
+          valueKey="value"
+          labelKey="label"
+          selectedValue={selectedCompanyValue}
+          onSelect={handleSelectCompany}
+          variant="secondary"
+          autoFocusInput={isOpen}
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
