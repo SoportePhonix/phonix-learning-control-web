@@ -20,6 +20,13 @@ import { usePathname, useSearchParams } from 'next/navigation';
  * ```
  */
 export function CompanySelector() {
+  // ✅ Mount guard: prevent URL-based rendering during SSR
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // ✅ ALL hooks MUST be called unconditionally and in the same order on every render
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -65,16 +72,25 @@ export function CompanySelector() {
 
   const isLoading = isSessionLoading || isRbacLoading || isLoadingAllCompanies;
 
-  // ✅ URL es la única fuente de verdad
-  const companyIdFromUrl = searchParams.get('companyId');
-  const selectedCompanyId = companyIdFromUrl
-    ? String(companyIdFromUrl)
-    : companies.length > 0
-      ? String(companies[0].value)
-      : undefined;
+  // ✅ URL es la única fuente de verdad (solo acceder después de montarse)
+  const companyIdFromUrl = isMounted ? searchParams.get('companyId') : null;
+
+  // 📍 Derive selected company from URL (no local state)
+  const selectedCompanyId = React.useMemo(() => {
+    if (!companyIdFromUrl || companies.length === 0) return undefined;
+
+    // Find company matching the URL companyId
+    const selectedCompany = companies.find((c) => String(c.value) === String(companyIdFromUrl));
+    return selectedCompany?.value;
+  }, [companyIdFromUrl, companies]);
 
   // ✅ Use condition ONLY in JSX rendering, not around hooks
   if (!isAdminLike) {
+    return null;
+  }
+
+  // ✅ Don't render until mounted (prevent hydration mismatch)
+  if (!isMounted) {
     return null;
   }
 

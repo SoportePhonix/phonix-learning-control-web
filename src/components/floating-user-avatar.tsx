@@ -33,7 +33,7 @@ export function FloatingUserAvatar() {
   const isLoading = !isMounted || !name || !email;
 
   // Determinar si estamos en una ruta donde se debe mostrar el selector
-  // Se muestra en todas EXCEPTO: /users, /instances, /lms
+  // Se muestra en todas EXCEPTO: /users, /instances, /lms, /companies
   const isCompanyRoute =
     !pathname.startsWith('/users') &&
     !pathname.startsWith('/instances') &&
