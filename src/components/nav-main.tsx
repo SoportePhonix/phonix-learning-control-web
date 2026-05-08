@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import { PopoverCompanySelector } from '@/components/popover-company-selector';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
@@ -113,6 +114,7 @@ export function NavMain({
   const { isManager } = useRBAC();
   const { session } = useSessionContext();
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
+  const [manageCompaniesPopoverOpen, setManageCompaniesPopoverOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Fetch companies from API
@@ -217,7 +219,6 @@ export function NavMain({
 
       // No companies available from API
       if (!companies || companies.length === 0) {
-        console.warn('No companies available from API');
         return;
       }
 
@@ -275,9 +276,11 @@ export function NavMain({
             };
 
             const handleParentButtonClick = (e: React.MouseEvent) => {
-              // Explicitly handle manage-companies to avoid passing empty string
+              // For manage-companies, toggle the company selector popover
               if (item.url === '/manage-companies') {
-                handleNavigation('/manage-companies', undefined, e);
+                e?.preventDefault();
+                e?.stopPropagation();
+                setManageCompaniesPopoverOpen((prev) => !prev);
               } else if (item.url) {
                 handleNavigation(item.url, undefined, e);
               }
@@ -358,7 +361,12 @@ export function NavMain({
                       </PopoverContent>
                     </Popover>
                   ) : item.url === '/manage-companies' ? (
-                    parentButton
+                    <PopoverCompanySelector
+                      isOpen={manageCompaniesPopoverOpen}
+                      onOpenChange={setManageCompaniesPopoverOpen}
+                    >
+                      {parentButton}
+                    </PopoverCompanySelector>
                   ) : (
                     <CollapsibleTrigger asChild>{parentButton}</CollapsibleTrigger>
                   )}
