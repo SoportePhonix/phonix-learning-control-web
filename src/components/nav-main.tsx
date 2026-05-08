@@ -21,7 +21,7 @@ import { useRBAC } from '@/rbac';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Typography } from './ui/typography';
 
@@ -109,6 +109,7 @@ export function NavMain({
   }[];
 }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const { state, isMobile } = useSidebar();
   const { isManager } = useRBAC();
@@ -120,6 +121,16 @@ export function NavMain({
   // Fetch companies from API
   const { data: companiesData, isLoading: isLoadingCompanies } = useGetCompaniesQuery();
   const companies = companiesData?.data ?? [];
+
+  // Get selected company name from URL - always derived from current searchParams
+  const selectedCompanyName = React.useMemo(() => {
+    const companyId = searchParams.get('companyId');
+
+    if (!companyId || companies.length === 0) return null;
+
+    const selectedCompany = companies.find((c) => String(c.id) === String(companyId));
+    return selectedCompany?.name ?? null;
+  }, [searchParams, companies]);
 
   // Estado para menús cerrados manualmente (key: título del menú)
   // Se usa useRef para evitar re-renders innecesarios
@@ -275,6 +286,9 @@ export function NavMain({
               }
             };
 
+            const displayTitle =
+              item.url === '/manage-companies' && selectedCompanyName ? selectedCompanyName : item.title;
+
             const handleParentButtonClick = (e: React.MouseEvent) => {
               // For manage-companies, toggle the company selector popover
               if (item.url === '/manage-companies') {
@@ -296,7 +310,7 @@ export function NavMain({
               >
                 <NavMainButtonContent
                   icon={item.icon}
-                  title={item.title}
+                  title={displayTitle}
                   isActive={hasActiveSubItem}
                   url={item.url}
                   onIconClick={handleIconClick}
@@ -326,7 +340,9 @@ export function NavMain({
                         onMouseLeave={closePopover}
                       >
                         <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
-                        <p className="px-2 py-1.5 font-semibold">{item.title}</p>
+                        <p className="px-2 py-1.5 font-semibold">
+                          {item.url === '/manage-companies' && selectedCompanyName ? selectedCompanyName : item.title}
+                        </p>
                         {item.items?.map((subItem) => {
                           const isSubActive = isSubItemActive(subItem.url);
                           return (
