@@ -4,7 +4,7 @@ import React from 'react';
 
 import { PopoverCompanySelector } from '@/components/popover-company-selector';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Popover, PopoverAnchor, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   SidebarGroup,
   SidebarMenu,
@@ -18,7 +18,6 @@ import {
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useRBAC } from '@/rbac';
-import { useSessionContext } from '@/utils/context/sessionContext';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { ChevronRight, Dot } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -113,7 +112,6 @@ export function NavMain({
   const router = useRouter();
   const { state, isMobile } = useSidebar();
   const { isManager } = useRBAC();
-  const { session } = useSessionContext();
   const [hoveredPopover, setHoveredPopover] = React.useState<string | null>(null);
   const [manageCompaniesPopoverOpen, setManageCompaniesPopoverOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -281,6 +279,9 @@ export function NavMain({
             const menuOpen = shouldMenuBeOpen(item);
 
             const handleIconClick = (e: React.MouseEvent) => {
+              if (isCollapsed && item.url === '/manage-companies') {
+                return;
+              }
               if (item.url) {
                 handleNavigation(item.url, undefined, e);
               }
@@ -327,55 +328,134 @@ export function NavMain({
               >
                 <SidebarMenuItem>
                   {isCollapsed ? (
-                    <Popover open={hoveredPopover === item.title}>
-                      <PopoverTrigger asChild onMouseEnter={() => openPopover(item.title)} onMouseLeave={closePopover}>
-                        {parentButton}
-                      </PopoverTrigger>
-                      <PopoverContent
-                        side="right"
-                        align="start"
-                        sideOffset={20}
-                        className="w-auto py-2 bg-sidebar-tooltip-bg text-sidebar-tooltip-text border-none shadow-md rounded-lg"
-                        onMouseEnter={() => openPopover(item.title)}
-                        onMouseLeave={closePopover}
-                      >
-                        <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
-                        <p className="px-2 py-1.5 font-semibold">
-                          {item.url === '/manage-companies' && selectedCompanyName ? selectedCompanyName : item.title}
-                        </p>
-                        {item.items?.map((subItem) => {
-                          const isSubActive = isSubItemActive(subItem.url);
-                          return (
-                            <button
-                              key={subItem.title}
-                              onClick={(e) => handleNavigation(subItem.url, undefined, e)}
-                              className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
-                                isSubActive
-                                  ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
-                                  : 'text-nav-icon-active-collapsed hover:bg-nav-item-inactive-hover-bg'
-                              }`}
+                    item.url === '/manage-companies' ? (
+                      <Popover open={hoveredPopover === item.title}>
+                        <PopoverAnchor asChild>
+                          <div
+                            onMouseEnter={() => {
+                              if (!selectedCompanyName) {
+                                if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                                setManageCompaniesPopoverOpen(true);
+                              } else {
+                                openPopover(item.title);
+                              }
+                            }}
+                            onMouseLeave={() => {
+                              if (!selectedCompanyName) {
+                                closeTimeoutRef.current = setTimeout(() => setManageCompaniesPopoverOpen(false), 80);
+                              } else {
+                                closePopover();
+                              }
+                            }}
+                          >
+                            <PopoverCompanySelector
+                              isOpen={manageCompaniesPopoverOpen}
+                              onOpenChange={setManageCompaniesPopoverOpen}
+                              sideOffset={9}
+                              onContentMouseEnter={
+                                !selectedCompanyName
+                                  ? () => {
+                                      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                                    }
+                                  : undefined
+                              }
+                              onContentMouseLeave={
+                                !selectedCompanyName
+                                  ? () => {
+                                      closeTimeoutRef.current = setTimeout(
+                                        () => setManageCompaniesPopoverOpen(false),
+                                        80
+                                      );
+                                    }
+                                  : undefined
+                              }
                             >
-                              {subItem.icon ? (
-                                <subItem.icon
-                                  className={`w-4 h-4 shrink-0 ${
-                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
-                                  }`}
-                                />
-                              ) : (
-                                <Dot
-                                  className={`w-4 h-4 shrink-0 ${
-                                    isSubActive ? 'stroke-nav-icon-active' : 'stroke-nav-icon-active'
-                                  }`}
-                                />
-                              )}
-                              <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
-                                {subItem.title}
-                              </Typography>
-                            </button>
-                          );
-                        })}
-                      </PopoverContent>
-                    </Popover>
+                              {parentButton}
+                            </PopoverCompanySelector>
+                          </div>
+                        </PopoverAnchor>
+                        <PopoverContent
+                          side="right"
+                          align="start"
+                          sideOffset={20}
+                          className="w-auto py-2 bg-sidebar-tooltip-bg text-sidebar-tooltip-text border-none shadow-md rounded-lg"
+                          onMouseEnter={() => openPopover(item.title)}
+                          onMouseLeave={closePopover}
+                        >
+                          <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
+                          <p className="px-2 py-1.5 font-semibold">{selectedCompanyName ?? item.title}</p>
+                          {item.items?.map((subItem) => {
+                            const isSubActive = isSubItemActive(subItem.url);
+                            return (
+                              <button
+                                key={subItem.title}
+                                onClick={(e) => handleNavigation(subItem.url, undefined, e)}
+                                className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
+                                  isSubActive
+                                    ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
+                                    : 'text-nav-icon-active-collapsed hover:bg-nav-item-inactive-hover-bg'
+                                }`}
+                              >
+                                {subItem.icon ? (
+                                  <subItem.icon className="w-4 h-4 shrink-0 stroke-nav-icon-active" />
+                                ) : (
+                                  <Dot className="w-4 h-4 shrink-0 stroke-nav-icon-active" />
+                                )}
+                                <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
+                                  {subItem.title}
+                                </Typography>
+                              </button>
+                            );
+                          })}
+                        </PopoverContent>
+                      </Popover>
+                    ) : (
+                      <Popover open={hoveredPopover === item.title}>
+                        <PopoverTrigger
+                          asChild
+                          onMouseEnter={() => openPopover(item.title)}
+                          onMouseLeave={closePopover}
+                        >
+                          {parentButton}
+                        </PopoverTrigger>
+                        <PopoverContent
+                          side="right"
+                          align="start"
+                          sideOffset={20}
+                          className="w-auto py-2 bg-sidebar-tooltip-bg text-sidebar-tooltip-text border-none shadow-md rounded-lg"
+                          onMouseEnter={() => openPopover(item.title)}
+                          onMouseLeave={closePopover}
+                        >
+                          <PopoverPrimitive.Arrow className="fill-sidebar-tooltip-bg" />
+                          <p className="px-2 py-1.5 font-semibold">
+                            {item.url === '/manage-companies' && selectedCompanyName ? selectedCompanyName : item.title}
+                          </p>
+                          {item.items?.map((subItem) => {
+                            const isSubActive = isSubItemActive(subItem.url);
+                            return (
+                              <button
+                                key={subItem.title}
+                                onClick={(e) => handleNavigation(subItem.url, undefined, e)}
+                                className={`w-full text-left px-2 py-1.5 rounded-sm flex items-center gap-2 cursor-pointer ${
+                                  isSubActive
+                                    ? 'bg-nav-item-active-bg text-nav-item-active-text pointer-events-none'
+                                    : 'text-nav-icon-active-collapsed hover:bg-nav-item-inactive-hover-bg'
+                                }`}
+                              >
+                                {subItem.icon ? (
+                                  <subItem.icon className="w-4 h-4 shrink-0 stroke-nav-icon-active" />
+                                ) : (
+                                  <Dot className="w-4 h-4 shrink-0 stroke-nav-icon-active" />
+                                )}
+                                <Typography variant="parrafo-pequeno" className="text-inherit! text-sm">
+                                  {subItem.title}
+                                </Typography>
+                              </button>
+                            );
+                          })}
+                        </PopoverContent>
+                      </Popover>
+                    )
                   ) : item.url === '/manage-companies' ? (
                     <PopoverCompanySelector
                       isOpen={manageCompaniesPopoverOpen}

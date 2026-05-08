@@ -24,13 +24,26 @@ interface PopoverCompanySelectorProps {
    * The trigger element (typically the "Gestionar Empresa" button)
    */
   children: React.ReactNode;
+  /**
+   * Distance in px between the trigger and the popover. Defaults to -2.
+   */
+  sideOffset?: number;
+  onContentMouseEnter?: () => void;
+  onContentMouseLeave?: () => void;
 }
 
 /**
  * Sidebar company selector using the exact same content from CompanySearchSelect.
  * Maintains visual consistency while keeping the popover overlay pattern.
  */
-export function PopoverCompanySelector({ isOpen, onOpenChange, children }: PopoverCompanySelectorProps) {
+export function PopoverCompanySelector({
+  isOpen,
+  onOpenChange,
+  children,
+  sideOffset = -2,
+  onContentMouseEnter,
+  onContentMouseLeave,
+}: PopoverCompanySelectorProps) {
   const [isMounted, setIsMounted] = React.useState(false);
   const prevCompanyIdRef = React.useRef<string | null>(null);
 
@@ -113,7 +126,14 @@ export function PopoverCompanySelector({ isOpen, onOpenChange, children }: Popov
   return (
     <Popover open={isOpen} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent side="right" align="start" sideOffset={-2} className="w-auto p-0 border-none">
+      <PopoverContent
+        side="right"
+        align="start"
+        sideOffset={sideOffset}
+        className="w-auto p-0 border-none"
+        onMouseEnter={onContentMouseEnter}
+        onMouseLeave={onContentMouseLeave}
+      >
         <CompanySearchSelectContent
           data={companies}
           valueKey="value"
