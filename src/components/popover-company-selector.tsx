@@ -113,7 +113,7 @@ export function PopoverCompanySelector({ isOpen, onOpenChange, children }: Popov
   return (
     <Popover open={isOpen} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent side="right" align="start" sideOffset={12} className="w-auto p-0 border-none">
+      <PopoverContent side="right" align="start" sideOffset={-2} className="w-auto p-0 border-none">
         <CompanySearchSelectContent
           data={companies}
           valueKey="value"
