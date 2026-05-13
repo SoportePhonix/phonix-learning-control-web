@@ -9,11 +9,14 @@ import { useTrainingRoutesForm } from '@/features/trainingRoutes/hooks/useTraini
 import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export default function Page() {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
+  const searchParams = useSearchParams();
+  const companyId = searchParams.get('companyId');
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [
       { label: t('t.trainingRoutes'), path: companyNav.href('/manage-companies/training-routes') },
@@ -37,6 +40,7 @@ export default function Page() {
   const { formConfig } = useTrainingRoutesForm({
     mode: 'create',
     form,
+    companyId,
   });
 
   return (
