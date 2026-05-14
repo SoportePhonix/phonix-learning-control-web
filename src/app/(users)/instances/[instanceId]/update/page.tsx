@@ -47,7 +47,7 @@ export default function Page({ params }: { params: Promise<{ instanceId: string 
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('u.updateInstance')} />
       <FormPageLayout description={t('t.toUpdateAnInstanceCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

@@ -19,7 +19,7 @@ export default function AdminInstancesPage() {
 
   return (
     <div className="mb-8 px-2 flex flex-col">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader
         title={t('a.adminInstances') as string}
         buttonLabel={t('a.addAdminInstance') as string}

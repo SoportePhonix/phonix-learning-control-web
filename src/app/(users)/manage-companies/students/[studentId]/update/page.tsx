@@ -60,7 +60,7 @@ export default function Page({ params }: { params: Promise<{ studentId: string }
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('u.updateStudent')} />
       <FormPageLayout description={t('t.toUpdateAStudentCompleteTheFields' as any)} isLoading={isLoadingData}>
         <DynamicForm

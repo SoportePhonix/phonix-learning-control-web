@@ -47,7 +47,7 @@ export default function CourseAddPage({ baseRoute = '/manage-companies/courses' 
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('a.addCourse')} />
       <FormPageLayout description={t('t.toCreateACoursePleaseFillInTheFields')}>
         <DynamicForm

@@ -18,7 +18,7 @@ export default function AddAdminInstancePage() {
 
   return (
     <div className="mb-8 px-2 flex flex-col max-w-4xl mx-auto w-full">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('a.addAdminToInstance') as string} />
 
       <div className="mt-6 border rounded-lg p-6 bg-white dark:bg-card">

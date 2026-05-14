@@ -41,7 +41,7 @@ export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: A
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('a.addArea')} />
       <FormPageLayout description={t('t.toCreateAnAreaPleaseFillInTheFields')}>
         <DynamicForm

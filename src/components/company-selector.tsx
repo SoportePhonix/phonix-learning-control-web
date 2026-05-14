@@ -95,16 +95,14 @@ export function CompanySelector() {
   }
 
   return (
-    <div className="w-90 ml-8 mt-4">
-      <SelectSearch
-        variant="secondary"
-        data={companies}
-        valueKey="value"
-        labelKey="label"
-        selectedValue={selectedCompanyId}
-        onSelect={handleChangeCompany}
-        placeholder={isLoading ? 'Cargando...' : 'Seleccionar empresa'}
-      />
-    </div>
+    <SelectSearch
+      variant="secondary"
+      data={companies}
+      valueKey="value"
+      labelKey="label"
+      selectedValue={selectedCompanyId}
+      onSelect={handleChangeCompany}
+      placeholder={isLoading ? 'Cargando...' : 'Seleccionar empresa'}
+    />
   );
 }
