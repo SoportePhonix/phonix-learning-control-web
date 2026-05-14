@@ -57,7 +57,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={`${t('u.updateUser')}`} />
       <FormPageLayout description={t('t.toUpdateAUserCompleteTheFields')} isLoading={isLoadingData}>
         <DynamicForm

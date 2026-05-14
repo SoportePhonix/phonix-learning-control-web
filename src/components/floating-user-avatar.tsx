@@ -51,7 +51,7 @@ export function FloatingUserAvatar() {
   return (
     <div className="border-b border-placeholder w-full flex items-center justify-between px-4 py-0 gap-4 h-16">
       {/* Company Selector - Always in layout, visibility controlled by CSS */}
-      <div className={`shrink-0 ${isCompanyRoute ? 'visible' : 'invisible'}`}>
+      <div className={`shrink-0 ml-3 ${isCompanyRoute ? 'visible' : 'invisible'}`}>
         <CompanySelector />
       </div>
 

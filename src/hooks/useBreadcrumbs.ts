@@ -45,7 +45,7 @@ interface UseBreadcrumbsReturn {
  * return (
  *   <>
  *     <Loader isVisible={isNavigating} />
- *     <Breadcrumb items={crumbRoutes} />
+ *     <Breadcrumb items={crumbRoutes} className="mt-2" />
  *   </>
  * );
  * ```

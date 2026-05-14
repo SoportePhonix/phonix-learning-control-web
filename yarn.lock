@@ -1689,10 +1689,10 @@
     tailwind-merge "^2.5.5"
     tailwindcss "^4.1.7"
 
-"@soportephonix/phx-search-select@0.1.18":
-  version "0.1.18"
-  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.18/a45cf23af50fc86552ab786a5776307409371292#a45cf23af50fc86552ab786a5776307409371292"
-  integrity sha512-6VE30tydy+XXPkfyBZ+J13ZV9jUl34N3pwDTeAfwp4z+EfCzsGSLPH5Gez4ETNLOpHxmExETTY7bj1mXlgjE0A==
+"@soportephonix/phx-search-select@0.1.19":
+  version "0.1.19"
+  resolved "https://npm.pkg.github.com/download/@soportephonix/phx-search-select/0.1.19/ba6a915f854d39f3d2baa6c92e6a103c913f6d61#ba6a915f854d39f3d2baa6c92e6a103c913f6d61"
+  integrity sha512-/1tx0mT/+OD/elY3XZplfCj9uIumV3S+tNVhcZXnai/uOd9sJ+IDfCpxPbUosWyuJqFxjnoen+uKzPuyWYB0QA==
   dependencies:
     "@radix-ui/react-slot" "^1.2.3"
     clsx "^2.1.1"

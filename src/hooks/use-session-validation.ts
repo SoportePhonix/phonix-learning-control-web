@@ -29,7 +29,8 @@ export function useSessionValidation(checkIntervalMs: number = 10000) {
       if (timeUntilExpiry <= 5000 && !isRedirecting.current) {
         isRedirecting.current = true;
         console.warn('useSessionValidation: Token expirado, redirigiendo...');
-        router.push('/logout');
+        // Hard redirect para forzar re-evaluación de sesión en proxy.ts
+        window.location.href = '/logout';
       }
     };
 

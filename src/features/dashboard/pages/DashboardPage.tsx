@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
   return (
     <div className="pt-10 px-2 h-full w-full flex flex-col">
-      <PageHeader title={`${t('d.dashboard')} - ${companyName}`} />
+      <PageHeader title={`${t('d.dashboard')}`} />
 
       {companyId && (
         <div className="mt-4">

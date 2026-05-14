@@ -57,7 +57,7 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('a.addStudent')} />
       <FormPageLayout description={t('t.toCreateAStudentPleaseFillInTheFields' as any)}>
         <DynamicForm

@@ -10,17 +10,15 @@ export const PageHeader = ({ title, buttonLabel, buttonHref }: SectionTitleProps
   const router = useRouter();
 
   return (
-    <div className="px-2 py-8">
+    <div className="py-8">
       <div className="flex justify-between items-center">
         <Typography variant="subheading_large" font="light" color="azul-textos-medio">
           {title}
         </Typography>
         {buttonLabel && buttonHref && (
-          <div className="-mr-2">
-            <Button variant="secondary" onClick={() => router.push(buttonHref)}>
-              {buttonLabel}
-            </Button>
-          </div>
+          <Button variant="secondary" onClick={() => router.push(buttonHref)}>
+            {buttonLabel}
+          </Button>
         )}
       </div>
       <Separator />

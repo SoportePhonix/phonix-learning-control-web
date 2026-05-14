@@ -46,7 +46,7 @@ export default function Page() {
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
-        title={`${t('t.trainingRoutes')} - ${companyName}`}
+        title={`${t('t.trainingRoutes')}`}
         buttonLabel={t('a.addTrainingRoute')}
         buttonHref={companyNav.href('/manage-companies/training-routes/add')}
       />

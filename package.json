@@ -44,7 +44,7 @@
     "@soportephonix/phx-button": "0.1.17",
     "@soportephonix/phx-datatable": "0.1.14",
     "@soportephonix/phx-input": "0.1.18",
-    "@soportephonix/phx-search-select": "0.1.18",
+    "@soportephonix/phx-search-select": "0.1.19",
     "@soportephonix/phx-select": "0.1.11",
     "@soportephonix/phx-typography": "0.1.1",
     "@tanstack/react-table": "^8.21.3",

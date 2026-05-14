@@ -50,7 +50,7 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('u.updateCourse')} />
 
       <FormPageLayout description={t('t.toUpdateACourseCompleteTheFields')} isLoading={false}>

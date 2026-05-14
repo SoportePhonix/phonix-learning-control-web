@@ -48,7 +48,7 @@ export default function Page({ params }: { params: Promise<{ areaId: string }> }
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('u.updateArea')} />
 
       <FormPageLayout description={t('t.toUpdateAnAreaCompleteTheFields')} isLoading={isLoadingData}>

@@ -41,7 +41,7 @@ export default function PositionAddPage({ baseRoute = '/manage-companies/positio
 
   return (
     <div className="px-2">
-      <Breadcrumb items={crumbRoutes} />
+      <Breadcrumb items={crumbRoutes} className="mt-2" />
       <PageHeader title={t('a.addPosition')} />
       <FormPageLayout description={t('t.toCreateAPositionPleaseFillInTheFields')}>
         <DynamicForm
