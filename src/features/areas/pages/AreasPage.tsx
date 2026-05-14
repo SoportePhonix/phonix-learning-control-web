@@ -30,7 +30,7 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
-        title={`${t('a.areas')} - ${companyName}`}
+        title={`${t('a.areas')}`}
         buttonLabel={t('a.addArea')}
         buttonHref={companyNav.href(`${baseRoute}/add`)}
       />

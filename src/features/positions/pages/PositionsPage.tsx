@@ -30,7 +30,7 @@ export default function PositionsPage({ baseRoute = '/manage-companies/positions
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
-        title={`${t('p.positions')} - ${companyName}`}
+        title={`${t('p.positions')}`}
         buttonLabel={t('a.addPosition')}
         buttonHref={companyNav.href(`${baseRoute}/add`)}
       />

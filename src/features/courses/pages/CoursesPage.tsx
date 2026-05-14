@@ -30,7 +30,7 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
-        title={`${t('c.courses')} - ${companyName}`}
+        title={`${t('c.courses')}`}
         buttonLabel={t('a.addCourse')}
         buttonHref={companyNav.href(`${baseRoute}/add`)}
       />
