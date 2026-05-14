@@ -11,12 +11,15 @@ import { useUpdateTrainingRoute } from '@/features/trainingRoutes/hooks/useUpdat
 import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
+  const searchParams = useSearchParams();
+  const companyId = searchParams.get('companyId');
   const { crumbRoutes, isNavigating } = useBreadcrumbs(
     [
       { label: t('t.trainingRoutes'), path: companyNav.href('/manage-companies/training-routes') },
@@ -41,6 +44,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     mode: 'edit',
     id,
     form,
+    companyId,
   });
 
   return (

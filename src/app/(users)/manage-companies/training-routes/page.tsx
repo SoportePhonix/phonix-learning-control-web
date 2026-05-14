@@ -4,18 +4,26 @@ import { useMemo } from 'react';
 
 import { PageHeader } from '@/components/page-header';
 import { tableColumnsTrainingRoutes } from '@/features/trainingRoutes/config/tableColumnsTrainingRoutes';
-import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
+import { useBreadcrumbs, useCompanyContext, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb, DataTable } from '@/lib/phonix-ui';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useGetPositionsQuery } from '@/lib/services/api/positionsApi/positionsApi';
-import { useGetTrainingRoutesQuery } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
+import { useGetTrainingRoutesByCompanyQuery } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { data: trainingRoutesData, isLoading, isFetching } = useGetTrainingRoutesQuery();
+  const { companyName } = useCompanyContext({ redirectOnMissing: false });
+  const searchParams = useSearchParams();
+  const companyId = searchParams.get('companyId');
+  const {
+    data: trainingRoutesData,
+    isLoading,
+    isFetching,
+  } = useGetTrainingRoutesByCompanyQuery({ companyId: Number(companyId) }, { skip: !companyId });
   const { data: companiesData } = useGetCompaniesQuery();
   const { data: areasData } = useGetAreasQuery();
   const { data: positionsData } = useGetPositionsQuery();
@@ -38,7 +46,7 @@ export default function Page() {
   return (
     <div className="mb-8 -mt-1 px-2 flex flex-col">
       <PageHeader
-        title={t('t.trainingRoutes')}
+        title={`${t('t.trainingRoutes')} - ${companyName}`}
         buttonLabel={t('a.addTrainingRoute')}
         buttonHref={companyNav.href('/manage-companies/training-routes/add')}
       />

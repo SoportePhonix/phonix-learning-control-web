@@ -6,7 +6,7 @@ import { useTranslation } from '@/i18n';
 import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
 import { useGetPositionsQuery } from '@/lib/services/api/positionsApi/positionsApi';
-import { useGetTrainingRoutesQuery } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
+import { useGetTrainingRoutesByCompanyQuery } from '@/lib/services/api/trainingRoutesApi/trainingRoutesApi';
 import { UseFormReturn } from 'react-hook-form';
 
 import { trainingRoutesFormConfig } from '../config/trainingRoutesFormConfig';
@@ -15,14 +15,18 @@ type UseTrainingRoutesFormProps = {
   mode: 'create' | 'edit';
   id?: string;
   form: UseFormReturn<TrainingRouteFormValues>;
+  companyId?: string;
 };
 
-export function useTrainingRoutesForm({ mode, id, form }: UseTrainingRoutesFormProps) {
+export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTrainingRoutesFormProps) {
   const { t } = useTranslation();
 
-  const trainingRoutesQuery = useGetTrainingRoutesQuery(undefined, {
-    skip: mode === 'create',
-  });
+  const trainingRoutesQuery = useGetTrainingRoutesByCompanyQuery(
+    { companyId: Number(companyId) },
+    {
+      skip: mode === 'create' || !companyId,
+    }
+  );
 
   const trainingRouteData = useMemo(() => {
     if (!id || !trainingRoutesQuery.data?.data) return undefined;
