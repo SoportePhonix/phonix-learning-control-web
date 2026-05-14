@@ -34,7 +34,8 @@ export const SessionExpiredProvider = ({ children }: SessionExpiredProviderProps
       if (timeUntilExpiry <= 5000 && !isLoggingOut.current) {
         isLoggingOut.current = true;
         console.warn('Token expirado. Redirigiendo al logout...');
-        router.push('/logout');
+        // Hard redirect para forzar re-evaluación de sesión en proxy.ts
+        window.location.href = '/logout';
         return true;
       }
       return false;

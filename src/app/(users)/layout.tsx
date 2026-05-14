@@ -36,7 +36,7 @@ export default async function UserLayout({ children }: { children: React.ReactNo
                     <RtkRequestsProvider>
                       <RouteGuard>
                         <div className="flex h-screen w-screen">
-                          <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed fixed" />
+                          <SidebarTrigger className="group-data-[collapsible=offcanvas]:fixed absolute z-10" />
                           <AppSidebar />
                           <main className="flex-1 overflow-y-scroll relative">
                             <FloatingUserAvatar />

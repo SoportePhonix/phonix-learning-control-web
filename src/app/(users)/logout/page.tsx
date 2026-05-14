@@ -34,8 +34,9 @@ export default function Logout() {
         // }
         //TODO pendiente implementar logout
 
+        // Usar hard redirect para evitar race conditions con proxy.ts y api.ts
         await signOut({ redirect: false });
-        router.push('/login');
+        window.location.href = '/login';
       } catch (error) {
         console.error('Error during logout:', error);
       } finally {
