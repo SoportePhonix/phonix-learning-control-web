@@ -23,7 +23,7 @@ export interface GetTrainingRouteByIdRequest {
 }
 
 export interface GetTrainingRoutesByCompanyRequest {
-  companyId: string;
+  companyId: number;
 }
 
 export interface AddTrainingRouteRequest {

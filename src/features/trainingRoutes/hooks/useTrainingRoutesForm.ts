@@ -15,7 +15,7 @@ type UseTrainingRoutesFormProps = {
   mode: 'create' | 'edit';
   id?: string;
   form: UseFormReturn<TrainingRouteFormValues>;
-  companyId?: string;
+  companyId?: string | null;
 };
 
 export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTrainingRoutesFormProps) {
