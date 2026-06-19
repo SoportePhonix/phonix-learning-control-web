@@ -1,14 +1,27 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { Textarea } from '@/components/ui';
 import { TranslationKey } from '@/i18n';
 import { Input, SelectSearch } from '@/lib/phonix-ui';
+import { cn } from '@/lib/utils';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Select } from '@soportephonix/phx-select';
+import { Check, Search } from 'lucide-react';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { FieldConfig, SelectOption } from './types';
+
+type MultiSelectSearchProps = {
+  options: SelectOption[];
+  selectedValues: string[];
+  onChange: (values: string[]) => void;
+  label: string;
+  placeholder: string;
+  required?: boolean;
+  error?: string;
+};
 
 function MultiSelectSearch({
   options,
@@ -21,17 +34,6 @@ function MultiSelectSearch({
 }: MultiSelectSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const filteredOptions = options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -52,96 +54,76 @@ function MultiSelectSearch({
   };
 
   return (
-    <div className="grid gap-2" ref={containerRef}>
-      <label className="text-base font-semibold text-primary">
+    <div className="grid gap-2">
+      <label className="text-base font-light text-primary">
         {label}
         {required && <span className="text-error">*</span>}
       </label>
-      <div className="relative">
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <span className={displayValue ? 'text-foreground' : 'text-muted-foreground'}>
-            {displayValue || placeholder}
-          </span>
-          <svg
-            className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+      <DropdownMenuPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuPrimitive.Trigger asChild>
+          <button
+            type="button"
+            className="flex h-12 w-full items-center justify-between whitespace-nowrap rounded-t-lg border-0 border-b border-b-[#3A484C] bg-white px-3 text-base shadow-sm transition-colors placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </button>
-        {isOpen && (
-          <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-white py-1 shadow-lg">
-            <div className="p-2">
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar..."
-                className="mb-2 w-full rounded-md border px-3 py-2 text-sm"
-              />
-            </div>
-            <div className="max-h-40 overflow-y-auto">
-              {filteredOptions.length === 0 ? (
-                <div className="px-3 py-2 text-sm text-muted-foreground">Sin resultados</div>
-              ) : (
-                filteredOptions.map((option) => {
-                  const isSelected = selectedValues.includes(String(option.value));
-                  return (
-                    <button
-                      key={String(option.value)}
-                      type="button"
-                      onClick={() => handleSelect(String(option.value))}
-                      className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100"
-                    >
-                      <span
-                        className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
-                          isSelected ? 'border-primary bg-primary text-white' : 'border-gray-300 bg-white'
-                        }`}
-                      >
-                        {isSelected && (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            className="h-3 w-3"
-                          >
-                            <path d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
-                      </span>
-                      {option.label}
-                    </button>
-                  );
-                })
-              )}
-            </div>
+            <span className={displayValue ? 'text-sm' : 'text-placeholder'}>{displayValue || placeholder}</span>
+            <svg
+              className="h-4 w-4 opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+        </DropdownMenuPrimitive.Trigger>
+        <DropdownMenuPrimitive.Content
+          className="z-50 w-full rounded-md border border-[#3A484C] bg-white p-0 shadow-md outline-none"
+          sideOffset={0}
+          align="start"
+        >
+          <div className="flex items-center border-b border-[#3A484C]/20 px-3 py-3">
+            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar..."
+              className="flex-1 bg-transparent text-base font-light placeholder:text-placeholder outline-none"
+            />
           </div>
-        )}
-      </div>
+          <div className="max-h-60 overflow-y-auto py-1">
+            {filteredOptions.length === 0 ? (
+              <div className="px-3 py-3 text-base font-light text-placeholder">Sin resultados</div>
+            ) : (
+              filteredOptions.map((option) => {
+                const isSelected = selectedValues.includes(String(option.value));
+                return (
+                  <button
+                    key={String(option.value)}
+                    type="button"
+                    onClick={() => handleSelect(String(option.value))}
+                    className={cn(
+                      'relative flex w-full cursor-default select-none items-center py-3 pl-10 pr-3 text-base font-light outline-none hover:bg-gray-50',
+                      isSelected && 'bg-gray-50'
+                    )}
+                  >
+                    <span className="absolute left-3 flex h-4 w-4 items-center justify-center rounded border border-[#3A484C]/50">
+                      {isSelected && <Check className="h-3 w-3 text-[#3A484C]" />}
+                    </span>
+                    <span className={cn('text-base', isSelected && 'font-normal')}>{option.label}</span>
+                  </button>
+                );
+              })
+            )}
+          </div>
+        </DropdownMenuPrimitive.Content>
+      </DropdownMenuPrimitive.Root>
       {error && <span className="text-sm text-error">{error}</span>}
     </div>
   );
 }
-
-type MultiSelectSearchProps = {
-  options: SelectOption[];
-  selectedValues: string[];
-  onChange: (values: string[]) => void;
-  label: string;
-  placeholder: string;
-  required?: boolean;
-  error?: string;
-};
 
 type FieldRendererProps<T extends FieldValues> = {
   field: FieldConfig;
