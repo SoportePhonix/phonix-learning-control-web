@@ -34,14 +34,17 @@ export function useCreateLms(form: UseFormReturn<LmsFormValues>) {
       const normalizedUrl = validateAndNormalizeUrl(values.url, form, t);
       if (!normalizedUrl) return;
 
+      // lmsIdExternal is auto-generated from name on the backend
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { lmsIdExternal: _lmsIdExternal, ...rest } = values;
+
       const payload: AddLmsRequest = {
-        name: values.name,
-        type: values.type,
+        name: rest.name,
+        type: rest.type,
         url: normalizedUrl,
-        token: values.token,
-        lmsIdExternal: values.lmsIdExternal,
-        companyIds: [Number(values.companyId)],
-        ...(values.status && { status: values.status }),
+        token: rest.token,
+        companyIds: [Number(rest.companyId)],
+        ...(rest.status && { status: rest.status }),
       };
 
       await addLms(payload).unwrap();
@@ -50,6 +53,19 @@ export function useCreateLms(form: UseFormReturn<LmsFormValues>) {
       router.push('/lms');
     } catch (err: any) {
       const status = err?.status ?? 500;
+      const errorMessage = err?.data?.message || '';
+
+      if (status === 409) {
+        const lowerMessage = errorMessage.toLowerCase();
+        if (lowerMessage.includes('name') || (lowerMessage.includes('lms') && lowerMessage.includes('exists'))) {
+          toast.error(`Error del servidor: ${t('e.existingLmsName')}`);
+          form.setError('name', {
+            type: 'manual',
+            message: t('e.existingLmsName'),
+          });
+          return;
+        }
+      }
 
       // Traducir y mostrar mensaje de error del servidor
       if (err?.data?.message) {

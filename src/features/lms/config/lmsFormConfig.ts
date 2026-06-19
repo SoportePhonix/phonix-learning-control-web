@@ -39,7 +39,9 @@ export const lmsFormConfig: FormConfig = {
       label: 'l.lmsIdExternal',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: true,
+      required: false,
+      hidden: true,
+      disabled: true,
     },
     {
       name: 'status',
