@@ -19,7 +19,7 @@ export interface GetInstanceByIdRequest {
 }
 
 export interface AddInstanceRequest {
-  nit: string;
+  nit?: string;
   name: string;
   description: string;
   status?: string;

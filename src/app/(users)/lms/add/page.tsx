@@ -25,7 +25,7 @@ export default function Page() {
       url: '',
       token: '',
       lmsIdExternal: '',
-      companyId: '',
+      companyIds: [],
       status: '',
     },
   });

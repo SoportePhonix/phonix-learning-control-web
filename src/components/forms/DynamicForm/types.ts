@@ -1,7 +1,16 @@
 import { TranslationKey } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 
-export type FieldType = 'text' | 'email' | 'password' | 'number' | 'select' | 'select-search' | 'textarea' | 'date';
+export type FieldType =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'number'
+  | 'select'
+  | 'select-search'
+  | 'multi-select-search'
+  | 'textarea'
+  | 'date';
 
 export type FieldRequirement = boolean | { create: boolean; edit: boolean };
 
@@ -34,6 +43,7 @@ export type FieldConfig = {
   options?: SelectOption[] | (() => SelectOption[]); // Estático o función para cargar dinámicamente
   validation?: FieldValidation;
   disabled?: boolean;
+  hidden?: boolean; // Ocultar campo del formulario
   rows?: number; // Para textarea
   className?: string; // Clases adicionales
   errorTooltip?: boolean; // Mostrar error en tooltip en lugar de inline

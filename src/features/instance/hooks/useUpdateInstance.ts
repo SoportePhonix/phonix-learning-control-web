@@ -50,16 +50,12 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      if (err?.data?.message) {
-        const translatedMessage = translateServerError(err.data.message);
-        toast.error(`Error del servidor: ${translatedMessage}`);
-      }
-
       if (status === 400) {
         if (
           errorMessage.toLowerCase().includes('nit') &&
           errorMessage.toLowerCase().includes('longer than or equal to 3 characters')
         ) {
+          toast.error(`Error del servidor: ${t('n.nitMustBeLongerThanOrEqualTo3Characters')}`);
           form.setError('nit', {
             type: 'manual',
             message: t('n.nitMustBeLongerThanOrEqualTo3Characters'),
@@ -69,10 +65,11 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
       }
 
       if (status === 409) {
-        if (errorMessage.toLowerCase().includes('nit')) {
-          form.setError('nit', {
+        if (errorMessage.toLowerCase().includes('name')) {
+          toast.error(`Error del servidor: ${t('e.existingInstanceName')}`);
+          form.setError('name', {
             type: 'manual',
-            message: t('e.existingInstanceNit'),
+            message: t('e.existingInstanceName'),
           });
           return;
         }
@@ -83,9 +80,14 @@ export function useUpdateInstance(instanceId: string, form: UseFormReturn<Instan
         return;
       }
 
+      // Fallback for other errors
+      if (err?.data?.message) {
+        const translatedMessage = translateServerError(err.data.message);
+        toast.error(`Error del servidor: ${translatedMessage}`);
+      }
+
       setApiError(status);
       setApiErrorMessage('i.instanceUpdateFailed');
-
       toast.error(`Error en la actualización de la instancia (Status: ${status})`);
     }
   };

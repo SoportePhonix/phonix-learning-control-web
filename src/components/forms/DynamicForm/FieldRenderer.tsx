@@ -1,12 +1,121 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Textarea } from '@/components/ui';
 import { TranslationKey } from '@/i18n';
 import { Input, SelectSearch } from '@/lib/phonix-ui';
+import { cn } from '@/lib/utils';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Select } from '@soportephonix/phx-select';
+import { Check, ChevronDown, Search } from 'lucide-react';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
-import { FieldConfig } from './types';
+import { FieldConfig, SelectOption } from './types';
+
+type MultiSelectSearchProps = {
+  options: SelectOption[];
+  selectedValues: string[];
+  onChange: (values: string[]) => void;
+  label: string;
+  placeholder: string;
+  required?: boolean;
+  error?: string;
+};
+
+function MultiSelectSearch({
+  options,
+  selectedValues,
+  onChange,
+  label,
+  placeholder,
+  required,
+  error,
+}: MultiSelectSearchProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredOptions = options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  const selectedLabels = options.filter((opt) => selectedValues.includes(String(opt.value))).map((opt) => opt.label);
+
+  const displayValue =
+    selectedValues.length === 0
+      ? ''
+      : selectedValues.length === 1
+        ? selectedLabels[0]
+        : `${selectedValues.length} seleccionados`;
+
+  const handleSelect = (value: string) => {
+    const newValues = selectedValues.includes(value)
+      ? selectedValues.filter((v) => v !== value)
+      : [...selectedValues, value];
+    onChange(newValues);
+  };
+
+  return (
+    <div className="grid gap-2">
+      <label className="text-base font-light text-primary">
+        {label}
+        {required && <span className="text-error">*</span>}
+      </label>
+      <DropdownMenuPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuPrimitive.Trigger asChild>
+          <button
+            type="button"
+            className="flex h-12 w-full items-center justify-between whitespace-nowrap rounded-t-lg border-0 border-b border-b-[#3A484C] bg-white px-3 text-base shadow-sm transition-colors placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <span className={displayValue ? 'font-semibold' : 'text-placeholder'}>{displayValue || placeholder}</span>
+            <ChevronDown className="h-5 w-5 opacity-50" />
+          </button>
+        </DropdownMenuPrimitive.Trigger>
+        <DropdownMenuPrimitive.Content
+          className="z-50 w-full rounded-md border border-[#3A484C] bg-white p-0 shadow-md outline-none"
+          side="bottom"
+          sideOffset={0}
+          align="start"
+        >
+          <div className="flex items-center border-b border-[#3A484C]/20 px-3 py-3">
+            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar..."
+              className="flex-1 bg-transparent text-base font-light placeholder:text-placeholder outline-none"
+            />
+          </div>
+          <div className="max-h-60 overflow-y-auto py-1">
+            {filteredOptions.length === 0 ? (
+              <div className="px-3 py-3 text-base font-light text-placeholder">Sin resultados</div>
+            ) : (
+              filteredOptions.map((option) => {
+                const isSelected = selectedValues.includes(String(option.value));
+                return (
+                  <button
+                    key={String(option.value)}
+                    type="button"
+                    onClick={() => handleSelect(String(option.value))}
+                    className={cn(
+                      'relative flex w-full cursor-default select-none items-center py-3 pl-10 pr-3 text-base font-light outline-none hover:bg-gray-50',
+                      isSelected && 'bg-gray-50'
+                    )}
+                  >
+                    <span className="absolute left-3 flex h-4 w-4 items-center justify-center rounded border border-[#3A484C]/50">
+                      {isSelected && <Check className="h-3 w-3 text-[#3A484C]" />}
+                    </span>
+                    <span className={cn('text-base', isSelected && 'font-normal')}>{option.label}</span>
+                  </button>
+                );
+              })
+            )}
+          </div>
+        </DropdownMenuPrimitive.Content>
+      </DropdownMenuPrimitive.Root>
+      {error && <span className="text-sm text-error">{error}</span>}
+    </div>
+  );
+}
 
 type FieldRendererProps<T extends FieldValues> = {
   field: FieldConfig;
@@ -157,6 +266,31 @@ export function FieldRenderer<T extends FieldValues>({ field, form, mode, t }: F
                 />
               );
             }}
+          />
+        );
+      }
+
+      case 'multi-select-search': {
+        const options = typeof field.options === 'function' ? field.options() : (field.options ?? []);
+        const currentValue = form.watch(fieldName) as string[];
+        const selectedValues = Array.isArray(currentValue) ? currentValue.map(String) : [];
+
+        return (
+          <Controller
+            control={control}
+            name={fieldName}
+            rules={validationRules}
+            render={({ field: controllerField }) => (
+              <MultiSelectSearch
+                options={options}
+                selectedValues={selectedValues}
+                onChange={(values) => controllerField.onChange(values)}
+                label={t(field.label)}
+                placeholder={field.placeholder ? t(field.placeholder) : t('s.selectAnOption')}
+                required={isRequired}
+                error={typeof error?.message === 'string' ? resolveErrorMessage(error.message) : undefined}
+              />
+            )}
           />
         );
       }

@@ -36,15 +36,18 @@ export function useUpdateLms(lmsId: string, form: UseFormReturn<LmsFormValues>) 
         return;
       }
 
+      // lmsIdExternal is auto-generated from name on the backend
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { lmsIdExternal: _lmsIdExternal, ...rest } = values;
+
       const payload: UpdateLmsRequest = {
         id: Number(lmsId),
-        name: values.name,
-        type: values.type,
+        name: rest.name,
+        type: rest.type,
         url: normalizedUrl,
-        lmsIdExternal: values.lmsIdExternal,
-        status: values.status || 'active',
-        ...(values.token && { token: values.token }),
-        ...(values.companyId && { companyIds: [Number(values.companyId)] }),
+        status: rest.status || 'active',
+        ...(rest.token && { token: rest.token }),
+        ...(rest.companyIds && { companyIds: rest.companyIds.map(Number) }),
       };
 
       await updateLms(payload).unwrap();

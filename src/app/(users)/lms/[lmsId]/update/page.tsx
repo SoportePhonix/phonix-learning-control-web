@@ -28,7 +28,7 @@ export default function Page({ params }: { params: Promise<{ lmsId: string }> })
       url: '',
       token: '',
       lmsIdExternal: '',
-      companyId: '',
+      companyIds: [],
       status: '',
     },
   });

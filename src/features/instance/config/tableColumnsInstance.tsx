@@ -15,17 +15,6 @@ export const tableColumnsInstance = (
   currentInstanceId?: number
 ): CustomColumnDef<InstanceType>[] => [
   {
-    accessorKey: 'nit',
-    header: t('n.nit'),
-    enableSorting: true,
-    cell: ({ row }) => {
-      const nit = row.getValue('nit') as string;
-      return (
-        <span style={{ display: 'inline-block', width: '170px', textAlign: 'center', padding: '0 2px' }}>{nit}</span>
-      );
-    },
-  },
-  {
     accessorKey: 'name',
     header: t('n.name'),
     enableSorting: true,

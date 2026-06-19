@@ -27,7 +27,7 @@ export interface AddLmsRequest {
   url: string;
   token: string;
   status?: string;
-  lmsIdExternal: string;
+  lmsIdExternal?: string;
   companyIds: number[];
 }
 
@@ -51,7 +51,7 @@ export interface UpdateLmsRequest {
   url: string;
   token?: string;
   status?: string;
-  lmsIdExternal: string;
+  lmsIdExternal?: string;
   companyIds?: number[];
 }
 

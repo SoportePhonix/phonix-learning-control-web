@@ -5,5 +5,5 @@ export type LmsFormValues = {
   token: string;
   status?: string;
   lmsIdExternal: string;
-  companyId: string;
+  companyIds: string[];
 };

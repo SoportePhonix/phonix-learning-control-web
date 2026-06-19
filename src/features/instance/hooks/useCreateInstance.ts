@@ -34,11 +34,14 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
       setApiErrorMessage(undefined);
       form.clearErrors();
 
+      // NIT comes from MIM automatically, not from user input
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { nit: _nit, ...rest } = values;
+
       const payload: AddInstanceRequest = {
-        nit: values.nit,
-        name: values.name,
-        description: values.description,
-        ...(values.status && { status: values.status }),
+        name: rest.name,
+        description: rest.description,
+        ...(rest.status && { status: rest.status }),
       };
 
       await addInstance(payload).unwrap();
@@ -49,29 +52,23 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
       const status = err?.status ?? 500;
       const errorMessage = err?.data?.message || '';
 
-      if (err?.data?.message) {
-        const translatedMessage = translateServerError(err.data.message);
-        toast.error(`Error del servidor: ${translatedMessage}`);
-      }
-
       if (status === 400) {
         if (
           errorMessage.toLowerCase().includes('nit') &&
           errorMessage.toLowerCase().includes('longer than or equal to 3 characters')
         ) {
-          form.setError('nit', {
-            type: 'manual',
-            message: t('n.nitMustBeLongerThanOrEqualTo3Characters'),
-          });
+          // NIT is hidden (sourced from MIM automatically), show toast only
+          toast.error(`Error del servidor: ${t('n.nitMustBeLongerThanOrEqualTo3Characters')}`);
           return;
         }
       }
 
       if (status === 409) {
-        if (errorMessage.toLowerCase().includes('nit')) {
-          form.setError('nit', {
+        if (errorMessage.toLowerCase().includes('name')) {
+          toast.error(`Error del servidor: ${t('e.existingInstanceName')}`);
+          form.setError('name', {
             type: 'manual',
-            message: t('e.existingInstanceNit'),
+            message: t('e.existingInstanceName'),
           });
           return;
         }
@@ -80,6 +77,12 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
       if (status === 500) {
         toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
+      }
+
+      // Fallback for other errors
+      if (err?.data?.message) {
+        const translatedMessage = translateServerError(err.data.message);
+        toast.error(`Error del servidor: ${translatedMessage}`);
       }
 
       setApiError(status);

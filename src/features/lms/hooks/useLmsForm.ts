@@ -51,7 +51,7 @@ export function useLmsForm({ mode, lmsId, form }: UseLmsFormProps) {
       if (field.name === 'status') {
         return { ...field, options: statusOptions };
       }
-      if (field.name === 'companyId') {
+      if (field.name === 'companyIds') {
         // En modo edición, company es opcional porque el API no lo devuelve
         return {
           ...field,
@@ -84,7 +84,7 @@ export function useLmsForm({ mode, lmsId, form }: UseLmsFormProps) {
         url: lms.url || '',
         token: lms.token || '',
         lmsIdExternal: lms.lmsIdExternal || '',
-        companyId: lms.companyIds?.[0]?.toString() || '',
+        companyIds: lms.companyIds?.map(String) || [],
         status: lms.status || '',
       };
 

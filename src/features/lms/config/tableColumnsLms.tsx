@@ -51,19 +51,6 @@ export const tableColumnsLms = (t: (key: TranslationKey) => string): CustomColum
     },
   },
   {
-    accessorKey: 'lmsIdExternal',
-    header: t('l.lmsIdExternal'),
-    enableSorting: true,
-    cell: ({ row }) => {
-      const lmsIdExternal = row.getValue('lmsIdExternal') as string;
-      return (
-        <span style={{ display: 'inline-block', width: '250px', textAlign: 'center', padding: '0 2px' }}>
-          {lmsIdExternal ? lmsIdExternal : EMPTY_VALUE(t)}
-        </span>
-      );
-    },
-  },
-  {
     accessorKey: 'status',
     header: t('s.status'),
     enableSorting: true,

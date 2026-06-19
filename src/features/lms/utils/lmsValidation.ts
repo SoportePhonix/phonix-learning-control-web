@@ -97,16 +97,11 @@ export function translateServerError(serverMessage: string, t: (key: Translation
 
   // Mapeo de patrones de error a claves de traducción
   const errorPatterns: Array<{ pattern: RegExp | string; key: TranslationKey; field?: keyof LmsFormValues }> = [
-    {
-      pattern: /lmsidexternal.*must match|lmsidexternal.*regular expression/i,
-      key: 'e.errorServerLmsIdExternalInvalid',
-      field: 'lmsIdExternal',
-    },
     { pattern: /url must be a url/i, key: 'e.errorServerUrlInvalid', field: 'url' },
     { pattern: /name.*required|name.*empty/i, key: 'e.errorServerNameRequired', field: 'name' },
     { pattern: /token.*required|token.*empty/i, key: 'e.errorServerTokenRequired', field: 'token' },
     { pattern: /type.*invalid|type.*must be/i, key: 'e.errorServerTypeInvalid', field: 'type' },
-    { pattern: /company.*required|companyids.*empty/i, key: 'e.errorServerCompanyRequired', field: 'companyId' },
+    { pattern: /company.*required|companyids.*empty/i, key: 'e.errorServerCompanyRequired', field: 'companyIds' },
   ];
 
   for (const { pattern, key } of errorPatterns) {
@@ -132,12 +127,11 @@ export function handleServerValidationError(
 
   // Mapeo de patrones a campos del formulario
   const fieldPatterns: Array<{ pattern: RegExp; field: keyof LmsFormValues }> = [
-    { pattern: /lmsidexternal/i, field: 'lmsIdExternal' },
     { pattern: /url/i, field: 'url' },
     { pattern: /name/i, field: 'name' },
     { pattern: /token/i, field: 'token' },
     { pattern: /type/i, field: 'type' },
-    { pattern: /company|companyids/i, field: 'companyId' },
+    { pattern: /company|companyids/i, field: 'companyIds' },
   ];
 
   for (const { pattern, field } of fieldPatterns) {

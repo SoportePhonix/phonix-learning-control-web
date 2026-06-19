@@ -50,6 +50,8 @@ export function DynamicForm<T extends FieldValues>({
         className={`w-full grid ${gridCols} gap-x-12 gap-y-6 px-12 py-10 relative`}
       >
         {config.fields.map((field) => {
+          if (field.hidden) return null;
+
           let spanClass = '';
 
           if (field.colSpan === 2) {

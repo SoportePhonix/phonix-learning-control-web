@@ -28,6 +28,7 @@ export const e = {
   existingIdentificationDocument: 'Documento de identificación existente',
   existingNit: 'Nit existente',
   existingInstanceNit: 'Nit de instancia existente',
+  existingInstanceName: 'Nombre de instancia existente',
   existingShortName: 'Nombre corto existente',
   existingEmail: 'Email existente',
   emailInvalidFormat: 'El correo electrónico no tiene un formato válido.',
