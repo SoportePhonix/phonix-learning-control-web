@@ -26,7 +26,7 @@ export function useCreateLms(form: UseFormReturn<LmsFormValues>) {
       setApiErrorMessage(undefined);
       form.clearErrors();
 
-      if (!values.companyId) {
+      if (!values.companyIds || values.companyIds.length === 0) {
         toast.error(t('p.pleaseSelectACompany'));
         return;
       }
@@ -43,7 +43,7 @@ export function useCreateLms(form: UseFormReturn<LmsFormValues>) {
         type: rest.type,
         url: normalizedUrl,
         token: rest.token,
-        companyIds: [Number(rest.companyId)],
+        companyIds: rest.companyIds.map(Number),
         ...(rest.status && { status: rest.status }),
       };
 

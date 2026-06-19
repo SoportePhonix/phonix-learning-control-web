@@ -47,7 +47,7 @@ export function useUpdateLms(lmsId: string, form: UseFormReturn<LmsFormValues>) 
         url: normalizedUrl,
         status: rest.status || 'active',
         ...(rest.token && { token: rest.token }),
-        ...(rest.companyId && { companyIds: [Number(rest.companyId)] }),
+        ...(rest.companyIds && { companyIds: rest.companyIds.map(Number) }),
       };
 
       await updateLms(payload).unwrap();

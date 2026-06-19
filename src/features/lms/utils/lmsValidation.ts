@@ -101,7 +101,7 @@ export function translateServerError(serverMessage: string, t: (key: Translation
     { pattern: /name.*required|name.*empty/i, key: 'e.errorServerNameRequired', field: 'name' },
     { pattern: /token.*required|token.*empty/i, key: 'e.errorServerTokenRequired', field: 'token' },
     { pattern: /type.*invalid|type.*must be/i, key: 'e.errorServerTypeInvalid', field: 'type' },
-    { pattern: /company.*required|companyids.*empty/i, key: 'e.errorServerCompanyRequired', field: 'companyId' },
+    { pattern: /company.*required|companyids.*empty/i, key: 'e.errorServerCompanyRequired', field: 'companyIds' },
   ];
 
   for (const { pattern, key } of errorPatterns) {
@@ -131,7 +131,7 @@ export function handleServerValidationError(
     { pattern: /name/i, field: 'name' },
     { pattern: /token/i, field: 'token' },
     { pattern: /type/i, field: 'type' },
-    { pattern: /company|companyids/i, field: 'companyId' },
+    { pattern: /company|companyids/i, field: 'companyIds' },
   ];
 
   for (const { pattern, field } of fieldPatterns) {
