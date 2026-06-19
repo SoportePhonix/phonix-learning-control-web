@@ -8,7 +8,7 @@ import { Input, SelectSearch } from '@/lib/phonix-ui';
 import { cn } from '@/lib/utils';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { Select } from '@soportephonix/phx-select';
-import { Check, Search } from 'lucide-react';
+import { Check, ChevronDown, Search } from 'lucide-react';
 import { Controller, FieldValues, Path, UseFormReturn } from 'react-hook-form';
 
 import { FieldConfig, SelectOption } from './types';
@@ -65,21 +65,13 @@ function MultiSelectSearch({
             type="button"
             className="flex h-12 w-full items-center justify-between whitespace-nowrap rounded-t-lg border-0 border-b border-b-[#3A484C] bg-white px-3 text-base shadow-sm transition-colors placeholder:text-placeholder hover:border-primary-100 focus:border-blue_cta outline-none focus:outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <span className={displayValue ? 'text-sm' : 'text-placeholder'}>{displayValue || placeholder}</span>
-            <svg
-              className="h-4 w-4 opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+            <span className={displayValue ? 'font-semibold' : 'text-placeholder'}>{displayValue || placeholder}</span>
+            <ChevronDown className="h-5 w-5 opacity-50" />
           </button>
         </DropdownMenuPrimitive.Trigger>
         <DropdownMenuPrimitive.Content
           className="z-50 w-full rounded-md border border-[#3A484C] bg-white p-0 shadow-md outline-none"
+          side="bottom"
           sideOffset={0}
           align="start"
         >
