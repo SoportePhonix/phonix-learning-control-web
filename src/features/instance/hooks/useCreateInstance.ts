@@ -57,11 +57,8 @@ export function useCreateInstance(form: UseFormReturn<InstanceFormValues>) {
           errorMessage.toLowerCase().includes('nit') &&
           errorMessage.toLowerCase().includes('longer than or equal to 3 characters')
         ) {
+          // NIT is hidden (sourced from MIM automatically), show toast only
           toast.error(`Error del servidor: ${t('n.nitMustBeLongerThanOrEqualTo3Characters')}`);
-          form.setError('nit', {
-            type: 'manual',
-            message: t('n.nitMustBeLongerThanOrEqualTo3Characters'),
-          });
           return;
         }
       }

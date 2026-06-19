@@ -57,7 +57,8 @@ export function useCreateLms(form: UseFormReturn<LmsFormValues>) {
 
       if (status === 409) {
         const lowerMessage = errorMessage.toLowerCase();
-        if (lowerMessage.includes('name') || (lowerMessage.includes('lms') && lowerMessage.includes('exists'))) {
+        // Match "LMS name already exists" patterns specifically
+        if (lowerMessage.includes('lms') && lowerMessage.includes('name') && lowerMessage.includes('exists')) {
           toast.error(`Error del servidor: ${t('e.existingLmsName')}`);
           form.setError('name', {
             type: 'manual',
