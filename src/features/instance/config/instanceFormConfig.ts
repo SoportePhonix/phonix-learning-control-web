@@ -7,7 +7,9 @@ export const instanceFormConfig: FormConfig = {
       label: 'n.nit',
       type: 'text',
       placeholder: 'e.enterAValue',
-      required: true,
+      required: false,
+      hidden: true,
+      disabled: true,
       validation: {
         pattern: /^\S+$/,
         patternMessage: 'n.nitCannotContainSpaces',

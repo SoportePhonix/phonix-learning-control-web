@@ -36,7 +36,7 @@ export function useInstanceForm({ mode, instanceId, form }: UseInstanceFormProps
     const config = { ...instanceFormConfig };
 
     config.fields = config.fields.map((field: FieldConfig) => {
-      if (field.name === 'nit' && mode === 'edit') {
+      if (field.name === 'nit') {
         return { ...field, disabled: true, required: false, label: 'n.nitEditDisabled' };
       }
 
