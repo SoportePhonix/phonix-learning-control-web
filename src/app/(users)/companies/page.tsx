@@ -12,6 +12,7 @@ import { useRBAC } from '@/rbac';
 import { Role, normalizeRoleName } from '@/rbac/config/roles';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function Page() {
   const { t } = useTranslation();
@@ -49,7 +50,8 @@ export default function Page() {
 
   const isAllowed = isSuperAdmin || (isAdministrator && !!currentInstanceId);
   if (!isAllowed) {
-    throw new Error('Empresa no permitida');
+    toast.error('No tienes acceso a este apartado. Este usuario no pertenece a una instancia.');
+    return null;
   }
 
   return (
