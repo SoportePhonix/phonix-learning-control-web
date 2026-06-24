@@ -5,10 +5,12 @@ import { FormPageLayout } from '@/components/forms/FormPageLayout';
 import { PageHeader } from '@/components/page-header';
 import { useCreateStudent } from '@/features/students/hooks/useCreateStudent';
 import { useStudentForm } from '@/features/students/hooks/useStudentForm';
-import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
+import { useBreadcrumbs, useCompanyContext, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { useRBAC } from '@/rbac';
+import { useSessionContext } from '@/utils/context/sessionContext';
 import { useForm } from 'react-hook-form';
 
 interface StudentAddPageProps {
@@ -18,11 +20,14 @@ interface StudentAddPageProps {
 export default function StudentAddPage({ baseRoute = '/manage-companies/students' }: StudentAddPageProps) {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('s.students'), path: baseRoute }, { label: t('a.addStudent') }],
-    { withLoader: true }
-  );
+  const { crumbRoutes } = useBreadcrumbs([{ label: t('s.students'), path: baseRoute }, { label: t('a.addStudent') }], {
+    withLoader: true,
+  });
   const { data: companiesData } = useGetCompaniesQuery();
+  const { session } = useSessionContext();
+  const { companyId } = useCompanyContext({ redirectOnMissing: false });
+  const { hasRole } = useRBAC();
+  const isSuperadmin = hasRole('superadmin');
 
   const form = useForm<Record<string, any>>({
     defaultValues: {
@@ -53,7 +58,28 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
     studentId: undefined,
     form,
     companies: companiesData?.data ?? [],
+    session,
+    companyId,
   });
+
+  // Check if user has permission to create students in the selected company
+  const userHasAccessToCompany =
+    isSuperadmin || !companyId || session?.user?.companies?.some((c: any) => c.id === companyId);
+  const showPermissionError = !!companyId && !isSuperadmin && !userHasAccessToCompany;
+
+  if (showPermissionError) {
+    return (
+      <div className="px-2">
+        <Breadcrumb items={crumbRoutes} className="mt-2" />
+        <PageHeader title={t('a.addStudent')} />
+        <FormPageLayout>
+          <div className="flex items-center justify-center p-8 text-red-600">
+            <p>No tenés permisos para crear estudiantes en esta empresa</p>
+          </div>
+        </FormPageLayout>
+      </div>
+    );
+  }
 
   return (
     <div className="px-2">
