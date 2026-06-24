@@ -28,9 +28,13 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
   const userById = useGetUserByIdQuery({ userId: userId! }, { skip: mode === 'create' || !userId });
 
   const { session } = useSessionContext();
-  const currentInstanceId = session?.user?.instanceId || (session?.user as any)?.instance?.id;
-  const instanceName = 'Instancia actual'; // Puedes ajustarlo si viene en session
-  const isInstanceLoading = false; // Ya no dependemos de un hook que carga
+
+  // En modo edit, obtener instanceId del usuario que se edita
+  // En modo create, obtener de la sesión
+  const currentInstanceId =
+    mode === 'edit'
+      ? userById.data?.data?.instances?.[0]?.id
+      : session?.user?.instanceId || (session?.user as any)?.instance?.id;
 
   const { data: instancesOptions } = useGetInstancesSelect();
 
@@ -121,15 +125,26 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
         }
 
         if (field.name === 'instanceId') {
+          // Si no es ADMIN ni SUPERADMIN → ocultar
           if (!isAdminSelection) return null;
 
-          if (currentInstanceId) {
-            return null; // 🔥 ADMIN → NO VE SELECT
+          // Construir opciones que incluyan la instancia actual del usuario (aunque no esté en session)
+          const userInstanceId = mode === 'edit' ? userById.data?.data?.instances?.[0]?.id : null;
+          const userInstanceName = mode === 'edit' ? userById.data?.data?.instances?.[0]?.name : null;
+
+          const allInstanceOptions = [...instancesOptions];
+
+          // Agregar la instancia del usuario si no viene en las opciones
+          if (userInstanceId && userInstanceName) {
+            const userInstanceValue = String(userInstanceId);
+            if (!allInstanceOptions.some((opt) => opt.value === userInstanceValue)) {
+              allInstanceOptions.unshift({ value: userInstanceValue, label: userInstanceName });
+            }
           }
 
           return {
             ...field,
-            options: instancesOptions,
+            options: allInstanceOptions,
             required: true,
           };
         }
@@ -150,8 +165,6 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
     adminRoleId,
     managerRoleId,
     statusOptions,
-    currentInstanceId,
-    instanceName,
   ]);
 
   useEffect(() => {
@@ -208,6 +221,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
           roleId: userData.role?.[0]?.id ? String(userData.role[0].id) : '',
           companyId: userData.companies?.[0]?.id ? String(userData.companies[0]?.id) : '',
           status: userData.status || '',
+          instanceId: userData.instances?.[0]?.id ? String(userData.instances[0].id) : '',
         },
         { keepDefaultValues: false }
       );
@@ -216,7 +230,7 @@ export function useUserForm({ mode, userId, form, companies }: UseUserFormProps)
 
   return {
     formConfig,
-    isLoadingData: (mode === 'edit' ? userById.isLoading : false) || isInstanceLoading,
+    isLoadingData: mode === 'edit' ? userById.isLoading : false,
     userData: userById.data?.data,
     currentPassword: userById.data?.data?.password,
     currentStatus: userById.data?.data?.status,
