@@ -5,6 +5,8 @@ import { FieldConfig, FormConfig, SelectOption } from '@/components/forms/Dynami
 import { useTranslation } from '@/i18n';
 import { useGetAreaByIdQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { useRBAC } from '@/rbac';
+import { Session, useSessionContext } from '@/utils/context/sessionContext';
 import { UseFormReturn } from 'react-hook-form';
 
 import { areasFormConfig } from '../config/areasFormConfig';
@@ -13,10 +15,16 @@ type UseAreaFormProps = {
   mode: 'create' | 'edit';
   areaId?: string;
   form: UseFormReturn<AreasFormValues>;
+  session?: Session | null;
+  companyId?: number | null;
 };
 
-export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
+export function useAreaForm({ mode, areaId, form, session, companyId }: UseAreaFormProps) {
   const { t } = useTranslation();
+  const { hasRole } = useRBAC();
+  const { session: contextSession } = useSessionContext();
+  const resolvedSession = session ?? contextSession;
+  const isSuperadmin = hasRole('superadmin');
 
   const areaById = useGetAreaByIdQuery(
     { areaId: areaId! },
@@ -38,11 +46,23 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
   const companyOptions: SelectOption[] = useMemo(() => {
     if (!companiesQuery.data?.data) return [];
 
-    return companiesQuery.data.data.map((company) => ({
-      value: company.id.toString(),
-      label: company.name,
-    }));
-  }, [companiesQuery.data]);
+    const activeCompanies = companiesQuery.data.data.filter((company) => company.status === 'active');
+
+    // Filter by session for non-superadmin
+    if (isSuperadmin) {
+      return activeCompanies.map((company) => ({
+        value: company.id.toString(),
+        label: company.name,
+      }));
+    }
+
+    return activeCompanies
+      .filter((company) => resolvedSession?.user?.companies?.some((uc: any) => uc.id === company.id))
+      .map((company) => ({
+        value: company.id.toString(),
+        label: company.name,
+      }));
+  }, [companiesQuery.data, resolvedSession, isSuperadmin]);
 
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...areasFormConfig };
@@ -74,6 +94,13 @@ export function useAreaForm({ mode, areaId, form }: UseAreaFormProps) {
       form.reset(formData, { keepDefaultValues: false });
     }
   }, [mode, areaById.data, form, areaId]);
+
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', String(companyId), { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   return {
     formConfig,

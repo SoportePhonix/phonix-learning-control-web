@@ -32,7 +32,7 @@ export default function AreasPage({ baseRoute = '/manage-companies/areas' }: Are
       <PageHeader
         title={`${t('a.areas')}`}
         buttonLabel={t('a.addArea')}
-        buttonHref={companyNav.href(`${baseRoute}/add`)}
+        buttonHref={companyId ? `${baseRoute}/add?companyId=${companyId}` : `${baseRoute}/add`}
       />
       <DataTable
         striped

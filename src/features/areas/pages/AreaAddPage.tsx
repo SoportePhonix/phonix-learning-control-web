@@ -9,6 +9,8 @@ import { useCreateAreas } from '@/features/areas/hooks/useCreateAreas';
 import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
+import { useSessionContext } from '@/utils/context/sessionContext';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface AreaAddPageProps {
@@ -18,10 +20,14 @@ interface AreaAddPageProps {
 export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: AreaAddPageProps) {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('a.areas'), path: baseRoute }, { label: t('a.addArea') }],
-    { withLoader: true }
-  );
+  const { crumbRoutes } = useBreadcrumbs([{ label: t('a.areas'), path: baseRoute }, { label: t('a.addArea') }], {
+    withLoader: true,
+  });
+
+  const { session } = useSessionContext();
+  const searchParams = useSearchParams();
+  const companyIdFromUrl = searchParams.get('companyId');
+  const companyId = companyIdFromUrl ? parseInt(companyIdFromUrl, 10) : null;
 
   const form = useForm<AreasFormValues>({
     defaultValues: {
@@ -37,6 +43,8 @@ export default function AreaAddPage({ baseRoute = '/manage-companies/areas' }: A
   const { formConfig } = useAreaForm({
     mode: 'create',
     form,
+    session,
+    companyId,
   });
 
   return (
