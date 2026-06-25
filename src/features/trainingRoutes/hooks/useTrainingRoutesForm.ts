@@ -46,20 +46,24 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
   }, [companiesQuery.data]);
 
   const areaOptions: SelectOption[] = useMemo(() => {
-    if (!areasQuery.data?.data) return [];
-    return areasQuery.data.data.map((area) => ({
-      value: area.id.toString(),
-      label: area.name,
-    }));
-  }, [areasQuery.data]);
+    if (!areasQuery.data?.data || !companyId) return [];
+    return areasQuery.data.data
+      .filter((area) => area.companyId === Number(companyId))
+      .map((area) => ({
+        value: area.id.toString(),
+        label: area.name,
+      }));
+  }, [areasQuery.data, companyId]);
 
   const positionOptions: SelectOption[] = useMemo(() => {
-    if (!positionsQuery.data?.data) return [];
-    return positionsQuery.data.data.map((position) => ({
-      value: position.id.toString(),
-      label: position.name,
-    }));
-  }, [positionsQuery.data]);
+    if (!positionsQuery.data?.data || !companyId) return [];
+    return positionsQuery.data.data
+      .filter((position) => position.companyId === Number(companyId))
+      .map((position) => ({
+        value: position.id.toString(),
+        label: position.name,
+      }));
+  }, [positionsQuery.data, companyId]);
 
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...trainingRoutesFormConfig };
