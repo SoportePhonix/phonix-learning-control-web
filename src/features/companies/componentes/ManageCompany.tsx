@@ -11,6 +11,7 @@ import { useSelectedCompany } from '@/utils/context/selectedCompanyContext';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { Bolt } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import { ManageCompaniesIcon } from './icons/ManageCompaniesIcon';
 
@@ -33,7 +34,8 @@ export const ManageCompany = ({ companyId, companyName }: ManageCompanyProps) =>
   const handleClick = () => {
     const isAllowed = isSuperAdmin || (isAdministrator && !!session?.user?.instanceId);
     if (!isAllowed) {
-      throw new Error('Empresa no permitida');
+      toast.error('No tienes acceso a este apartado. Este usuario no pertenece a una instancia.');
+      return;
     }
 
     // Guardar la empresa en el contexto antes de navegar
