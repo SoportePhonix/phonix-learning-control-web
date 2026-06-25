@@ -32,7 +32,7 @@ export default function PositionsPage({ baseRoute = '/manage-companies/positions
       <PageHeader
         title={`${t('p.positions')}`}
         buttonLabel={t('a.addPosition')}
-        buttonHref={companyNav.href(`${baseRoute}/add`)}
+        buttonHref={companyId ? `${baseRoute}/add?companyId=${companyId}` : `${baseRoute}/add`}
       />
       <DataTable
         striped

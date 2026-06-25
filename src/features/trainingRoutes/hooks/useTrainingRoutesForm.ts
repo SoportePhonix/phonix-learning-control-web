@@ -64,27 +64,37 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...trainingRoutesFormConfig };
 
-    let fields = config.fields;
-
-    if (mode === 'edit') {
-      fields = fields.filter((field: FieldConfig) => field.name !== 'companyId');
+    if (mode === 'create') {
+      // In create mode, exclude companyId - company comes from URL context
+      config.fields = config.fields
+        .filter((field: FieldConfig) => field.name !== 'companyId')
+        .map((field: FieldConfig) => {
+          if (field.name === 'areaId') {
+            return { ...field, options: areaOptions };
+          }
+          if (field.name === 'positionId') {
+            return { ...field, options: positionOptions };
+          }
+          return field;
+        });
+    } else {
+      // In edit mode, include all fields with options
+      config.fields = config.fields.map((field: FieldConfig) => {
+        if (field.name === 'companyId') {
+          return { ...field, options: companyOptions };
+        }
+        if (field.name === 'areaId') {
+          return { ...field, options: areaOptions };
+        }
+        if (field.name === 'positionId') {
+          return { ...field, options: positionOptions };
+        }
+        return field;
+      });
     }
 
-    config.fields = fields.map((field: FieldConfig) => {
-      if (field.name === 'companyId') {
-        return { ...field, options: companyOptions };
-      }
-      if (field.name === 'areaId') {
-        return { ...field, options: areaOptions };
-      }
-      if (field.name === 'positionId') {
-        return { ...field, options: positionOptions };
-      }
-      return field;
-    });
-
     return config;
-  }, [companyOptions, areaOptions, positionOptions, mode]);
+  }, [mode, companyOptions, areaOptions, positionOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && trainingRouteData) {
@@ -99,6 +109,13 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
       form.reset(formData, { keepDefaultValues: false });
     }
   }, [mode, trainingRouteData, form, id]);
+
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', companyId, { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   return {
     formConfig,

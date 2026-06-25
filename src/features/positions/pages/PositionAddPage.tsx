@@ -9,6 +9,7 @@ import { usePositionForm } from '@/features/positions/hooks/usePositionForm';
 import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface PositionAddPageProps {
@@ -18,10 +19,14 @@ interface PositionAddPageProps {
 export default function PositionAddPage({ baseRoute = '/manage-companies/positions' }: PositionAddPageProps) {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { crumbRoutes, isNavigating } = useBreadcrumbs(
+  const { crumbRoutes } = useBreadcrumbs(
     [{ label: t('p.positions'), path: baseRoute }, { label: t('a.addPosition') }],
     { withLoader: true }
   );
+
+  const searchParams = useSearchParams();
+  const companyIdFromUrl = searchParams.get('companyId');
+  const companyId = companyIdFromUrl ? parseInt(companyIdFromUrl, 10) : null;
 
   const form = useForm<PositionsFormValues>({
     defaultValues: {
@@ -37,6 +42,7 @@ export default function PositionAddPage({ baseRoute = '/manage-companies/positio
   const { formConfig } = usePositionForm({
     mode: 'create',
     form,
+    companyId,
   });
 
   return (

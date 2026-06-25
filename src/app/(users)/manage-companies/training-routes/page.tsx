@@ -16,7 +16,7 @@ import { useSearchParams } from 'next/navigation';
 export default function Page() {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { companyName } = useCompanyContext({ redirectOnMissing: false });
+  const { companyId: contextCompanyId } = useCompanyContext({ redirectOnMissing: false });
   const searchParams = useSearchParams();
   const companyId = searchParams.get('companyId');
   const {
@@ -48,7 +48,11 @@ export default function Page() {
       <PageHeader
         title={`${t('t.trainingRoutes')}`}
         buttonLabel={t('a.addTrainingRoute')}
-        buttonHref={companyNav.href('/manage-companies/training-routes/add')}
+        buttonHref={
+          companyId
+            ? `/manage-companies/training-routes/add?companyId=${companyId}`
+            : '/manage-companies/training-routes/add'
+        }
       />
 
       <DataTable

@@ -13,9 +13,10 @@ type UsePositionFormProps = {
   mode: 'create' | 'edit';
   positionId?: string;
   form: UseFormReturn<PositionsFormValues>;
+  companyId?: number | null;
 };
 
-export function usePositionForm({ mode, positionId, form }: UsePositionFormProps) {
+export function usePositionForm({ mode, positionId, form, companyId }: UsePositionFormProps) {
   const { t } = useTranslation();
 
   const positionById = useGetPositionByIdQuery(
@@ -47,18 +48,31 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...positionsFormConfig };
 
-    config.fields = config.fields.map((field: FieldConfig) => {
-      if (field.name === 'status') {
-        return { ...field, options: statusOptions };
-      }
-      if (field.name === 'companyId') {
-        return { ...field, options: companyOptions };
-      }
-      return field;
-    });
+    if (mode === 'create') {
+      // In create mode, exclude companyId - company comes from URL context
+      config.fields = config.fields
+        .filter((field: FieldConfig) => field.name !== 'companyId')
+        .map((field: FieldConfig) => {
+          if (field.name === 'status') {
+            return { ...field, options: statusOptions };
+          }
+          return field;
+        });
+    } else {
+      // In edit mode, include all fields with options
+      config.fields = config.fields.map((field: FieldConfig) => {
+        if (field.name === 'status') {
+          return { ...field, options: statusOptions };
+        }
+        if (field.name === 'companyId') {
+          return { ...field, options: companyOptions };
+        }
+        return field;
+      });
+    }
 
     return config;
-  }, [statusOptions, companyOptions]);
+  }, [mode, statusOptions, companyOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && positionById.data?.data) {
@@ -74,6 +88,13 @@ export function usePositionForm({ mode, positionId, form }: UsePositionFormProps
       form.reset(formData, { keepDefaultValues: false });
     }
   }, [mode, positionById.data, form, positionId]);
+
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', String(companyId), { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   return {
     formConfig,

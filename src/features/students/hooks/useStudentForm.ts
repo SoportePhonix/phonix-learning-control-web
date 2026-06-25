@@ -119,21 +119,25 @@ export function useStudentForm({ mode, studentId, form, companies, session, comp
 
     if (mode === 'create') {
       config.fields = config.fields.filter((field) => field.name !== 'status');
+      // Hide companyId field - company comes from URL context automatically
+      config.fields = config.fields.filter((field) => field.name !== 'companyId');
     }
 
-    // Always include companyId field with filtered options
-    config.fields = config.fields
-      .map((field) => {
-        if (field.name === 'companyId') {
-          return {
-            ...field,
-            options: companiesOptions,
-          };
-        }
+    // In edit mode, include companyId with filtered options
+    if (mode === 'edit') {
+      config.fields = config.fields
+        .map((field) => {
+          if (field.name === 'companyId') {
+            return {
+              ...field,
+              options: companiesOptions,
+            };
+          }
 
-        return field;
-      })
-      .filter((field): field is NonNullable<typeof field> => Boolean(field));
+          return field;
+        })
+        .filter((field): field is NonNullable<typeof field> => Boolean(field));
+    }
 
     return config;
   }, [mode, typesIdOptions, companiesOptions, statusOptions, areasOptions, positionsOptions, companyId]);

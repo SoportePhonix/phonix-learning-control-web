@@ -14,12 +14,21 @@ type UseCoursesFormProps = {
   mode: 'create' | 'edit';
   courseId?: string;
   form: UseFormReturn<CoursesFormValues>;
-  companies: any[];
+  companies?: any[];
+  companyId?: number | null;
 };
 
-export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFormProps) {
+export function useCoursesForm({ mode, courseId, form, companies, companyId }: UseCoursesFormProps) {
   const { t } = useTranslation();
   const courseById = useGetCourseByIdQuery({ courseId: courseId! }, { skip: mode === 'create' || !courseId });
+
+  const statusOptions: SelectOption[] = useMemo(
+    () => [
+      { value: 'active', label: t('a.active') },
+      { value: 'inactive', label: t('i.inactive') },
+    ],
+    [t]
+  );
 
   const companiesOptions: SelectOption[] = useMemo(
     () =>
@@ -32,35 +41,36 @@ export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFo
     [companies]
   );
 
-  const statusOptions: SelectOption[] = useMemo(
-    () => [
-      { value: 'active', label: t('a.active') },
-      { value: 'inactive', label: t('i.inactive') },
-    ],
-    [t]
-  );
-
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...coursesFormConfig };
 
-    config.fields = config.fields.map((field) => {
-      if (field.name === 'status') {
-        return { ...field, options: statusOptions };
-      }
+    // In create mode, hide companyId - company comes from URL context automatically
+    if (mode === 'create') {
+      config.fields = config.fields.filter((field) => field.name !== 'companyId');
+    }
 
-      if (field.name === 'companyId') {
-        return {
-          ...field,
-          options: companiesOptions,
-          required: true,
-        };
-      }
-
-      return field;
-    });
+    // In edit mode, include companyId field with options
+    if (mode === 'edit') {
+      config.fields = config.fields.map((field) => {
+        if (field.name === 'status') {
+          return { ...field, options: statusOptions };
+        }
+        if (field.name === 'companyId') {
+          return { ...field, options: companiesOptions };
+        }
+        return field;
+      });
+    } else {
+      config.fields = config.fields.map((field) => {
+        if (field.name === 'status') {
+          return { ...field, options: statusOptions };
+        }
+        return field;
+      });
+    }
 
     return config;
-  }, [statusOptions, companiesOptions]);
+  }, [mode, statusOptions, companiesOptions]);
 
   useEffect(() => {
     if (mode !== 'edit' || !courseById.data?.data) return;
@@ -84,6 +94,13 @@ export function useCoursesForm({ mode, courseId, form, companies }: UseCoursesFo
       { keepDefaultValues: false }
     );
   }, [mode, courseById.data, form]);
+
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', String(companyId), { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   return {
     formConfig,

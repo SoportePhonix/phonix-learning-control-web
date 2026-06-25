@@ -32,7 +32,7 @@ export default function CoursesPage({ baseRoute = '/manage-companies/courses' }:
       <PageHeader
         title={`${t('c.courses')}`}
         buttonLabel={t('a.addCourse')}
-        buttonHref={companyNav.href(`${baseRoute}/add`)}
+        buttonHref={companyId ? `${baseRoute}/add?companyId=${companyId}` : `${baseRoute}/add`}
       />
       <DataTable
         striped
