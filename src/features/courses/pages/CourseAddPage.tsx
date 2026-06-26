@@ -9,7 +9,7 @@ import { useCreateCourses } from '@/features/courses/hooks/useCreateCourses';
 import { useBreadcrumbs, useCompanyNavigation } from '@/hooks';
 import { useTranslation } from '@/i18n';
 import { Breadcrumb } from '@/lib/phonix-ui';
-import { useGetCompaniesQuery } from '@/lib/services/api/companiesApi/companiesApi';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface CourseAddPageProps {
@@ -19,11 +19,13 @@ interface CourseAddPageProps {
 export default function CourseAddPage({ baseRoute = '/manage-companies/courses' }: CourseAddPageProps) {
   const { t } = useTranslation();
   const companyNav = useCompanyNavigation();
-  const { crumbRoutes, isNavigating } = useBreadcrumbs(
-    [{ label: t('c.courses'), path: baseRoute }, { label: t('a.addCourse') }],
-    { withLoader: true }
-  );
-  const { data: companiesData } = useGetCompaniesQuery();
+  const { crumbRoutes } = useBreadcrumbs([{ label: t('c.courses'), path: baseRoute }, { label: t('a.addCourse') }], {
+    withLoader: true,
+  });
+
+  const searchParams = useSearchParams();
+  const companyIdFromUrl = searchParams.get('companyId');
+  const companyId = companyIdFromUrl ? parseInt(companyIdFromUrl, 10) : null;
 
   const form = useForm<CoursesFormValues>({
     defaultValues: {
@@ -42,7 +44,7 @@ export default function CourseAddPage({ baseRoute = '/manage-companies/courses' 
   const { formConfig } = useCoursesForm({
     mode: 'create',
     form,
-    companies: companiesData?.data ?? [],
+    companyId,
   });
 
   return (

@@ -6,6 +6,8 @@ import { useGetAreasQuery } from '@/lib/services/api/areasApi/areasApi';
 import { useGetPositionsQuery } from '@/lib/services/api/positionsApi/positionsApi';
 import { useGetStudentByIdQuery } from '@/lib/services/api/studentsApi/studentsApi';
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
+import { useRBAC } from '@/rbac';
+import { Session, useSessionContext } from '@/utils/context/sessionContext';
 import { UseFormReturn } from 'react-hook-form';
 
 import { userFormConfig } from '../config/studentsFormConfig';
@@ -15,10 +17,16 @@ type UseStudentFormProps = {
   studentId?: string;
   form: UseFormReturn<Record<string, any>>;
   companies: any[];
+  session?: Session | null;
+  companyId?: number | null;
 };
 
-export function useStudentForm({ mode, studentId, form, companies }: UseStudentFormProps) {
+export function useStudentForm({ mode, studentId, form, companies, session, companyId }: UseStudentFormProps) {
   const { t } = useTranslation();
+  const { hasRole } = useRBAC();
+  const { session: contextSession } = useSessionContext();
+  const resolvedSession = session ?? contextSession;
+  const isSuperadmin = hasRole('superadmin');
   const { data: typesIdData } = useGetAllTypeOfIdentificationDocumentQuery();
   const { data: areasData } = useGetAreasQuery();
   const { data: positionsData } = useGetPositionsQuery();
@@ -35,15 +43,20 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
     [typesIdData]
   );
 
+  // Filter companies by session scope for non-superadmin users
+  const filteredCompanies = useMemo(() => {
+    const activeCompanies = companies?.filter((c) => c.status === 'active') ?? [];
+    if (isSuperadmin) return activeCompanies;
+    return activeCompanies.filter((c) => resolvedSession?.user?.companies?.some((uc: any) => uc.id === c.id));
+  }, [companies, resolvedSession, isSuperadmin]);
+
   const companiesOptions: SelectOption[] = useMemo(
     () =>
-      companies
-        ?.filter((company) => company.status === 'active')
-        .map((company) => ({
-          value: String(company.id),
-          label: company.name,
-        })) ?? [],
-    [companies]
+      filteredCompanies.map((company) => ({
+        value: String(company.id),
+        label: company.name,
+      })) ?? [],
+    [filteredCompanies]
   );
 
   const statusOptions: SelectOption[] = useMemo(
@@ -104,25 +117,17 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
       return field;
     });
 
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from student data in form.reset, value stays in form
     if (mode === 'create') {
       config.fields = config.fields.filter((field) => field.name !== 'status');
     }
 
-    config.fields = config.fields
-      .map((field) => {
-        if (field.name === 'companyId') {
-          return {
-            ...field,
-            options: companiesOptions,
-          };
-        }
-
-        return field;
-      })
-      .filter((field): field is NonNullable<typeof field> => Boolean(field));
+    config.fields = config.fields.filter((field) => field.name !== 'companyId');
 
     return config;
-  }, [mode, typesIdOptions, companiesOptions, statusOptions, areasOptions, positionsOptions]);
+  }, [mode, typesIdOptions, companiesOptions, statusOptions, areasOptions, positionsOptions, companyId]);
 
   useEffect(() => {
     if (mode === 'create' && selectedCompanyId) {
@@ -131,7 +136,12 @@ export function useStudentForm({ mode, studentId, form, companies }: UseStudentF
     }
   }, [selectedCompanyId, form, mode]);
 
-  useEffect(() => {}, [form]);
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', String(companyId), { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   useEffect(() => {
     if (mode === 'edit' && studentById.data?.data && typesIdOptions.length > 0) {

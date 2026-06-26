@@ -46,45 +46,45 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
   }, [companiesQuery.data]);
 
   const areaOptions: SelectOption[] = useMemo(() => {
-    if (!areasQuery.data?.data) return [];
-    return areasQuery.data.data.map((area) => ({
-      value: area.id.toString(),
-      label: area.name,
-    }));
-  }, [areasQuery.data]);
+    if (!areasQuery.data?.data || !companyId) return [];
+    return areasQuery.data.data
+      .filter((area) => area.companyId === Number(companyId))
+      .map((area) => ({
+        value: area.id.toString(),
+        label: area.name,
+      }));
+  }, [areasQuery.data, companyId]);
 
   const positionOptions: SelectOption[] = useMemo(() => {
-    if (!positionsQuery.data?.data) return [];
-    return positionsQuery.data.data.map((position) => ({
-      value: position.id.toString(),
-      label: position.name,
-    }));
-  }, [positionsQuery.data]);
+    if (!positionsQuery.data?.data || !companyId) return [];
+    return positionsQuery.data.data
+      .filter((position) => position.companyId === Number(companyId))
+      .map((position) => ({
+        value: position.id.toString(),
+        label: position.name,
+      }));
+  }, [positionsQuery.data, companyId]);
 
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...trainingRoutesFormConfig };
 
-    let fields = config.fields;
-
-    if (mode === 'edit') {
-      fields = fields.filter((field: FieldConfig) => field.name !== 'companyId');
-    }
-
-    config.fields = fields.map((field: FieldConfig) => {
-      if (field.name === 'companyId') {
-        return { ...field, options: companyOptions };
-      }
-      if (field.name === 'areaId') {
-        return { ...field, options: areaOptions };
-      }
-      if (field.name === 'positionId') {
-        return { ...field, options: positionOptions };
-      }
-      return field;
-    });
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from training route data in form.reset
+    config.fields = config.fields
+      .filter((field: FieldConfig) => field.name !== 'companyId')
+      .map((field: FieldConfig) => {
+        if (field.name === 'areaId') {
+          return { ...field, options: areaOptions };
+        }
+        if (field.name === 'positionId') {
+          return { ...field, options: positionOptions };
+        }
+        return field;
+      });
 
     return config;
-  }, [companyOptions, areaOptions, positionOptions, mode]);
+  }, [mode, areaOptions, positionOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && trainingRouteData) {
@@ -99,6 +99,13 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
       form.reset(formData, { keepDefaultValues: false });
     }
   }, [mode, trainingRouteData, form, id]);
+
+  // Pre-fill companyId when company context is active (create mode)
+  useEffect(() => {
+    if (mode === 'create' && companyId) {
+      form.setValue('companyId', companyId, { shouldValidate: true });
+    }
+  }, [mode, companyId, form]);
 
   return {
     formConfig,

@@ -27,6 +27,12 @@ export interface User {
     name: string;
   }>;
   status: string;
+  instanceId?: number;
+  instances?: Array<{
+    id: number;
+    nit?: string;
+    name: string;
+  }>;
 }
 
 export interface AddUserRequest {

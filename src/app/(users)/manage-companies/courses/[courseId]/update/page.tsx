@@ -41,7 +41,6 @@ export default function Page({ params }: { params: Promise<{ courseId: string }>
     mode: 'edit',
     courseId,
     form,
-    companies: companiesData?.data ?? [],
   });
 
   const handleSubmit = (values: CoursesFormValues) => {
