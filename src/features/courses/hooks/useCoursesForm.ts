@@ -14,11 +14,10 @@ type UseCoursesFormProps = {
   mode: 'create' | 'edit';
   courseId?: string;
   form: UseFormReturn<CoursesFormValues>;
-  companies?: any[];
   companyId?: number | null;
 };
 
-export function useCoursesForm({ mode, courseId, form, companies, companyId }: UseCoursesFormProps) {
+export function useCoursesForm({ mode, courseId, form, companyId }: UseCoursesFormProps) {
   const { t } = useTranslation();
   const courseById = useGetCourseByIdQuery({ courseId: courseId! }, { skip: mode === 'create' || !courseId });
 
@@ -28,17 +27,6 @@ export function useCoursesForm({ mode, courseId, form, companies, companyId }: U
       { value: 'inactive', label: t('i.inactive') },
     ],
     [t]
-  );
-
-  const companiesOptions: SelectOption[] = useMemo(
-    () =>
-      companies
-        ?.filter((company) => company.status === 'active')
-        .map((company) => ({
-          value: String(company.id),
-          label: company.name,
-        })) ?? [],
-    [companies]
   );
 
   const formConfig: FormConfig = useMemo(() => {
