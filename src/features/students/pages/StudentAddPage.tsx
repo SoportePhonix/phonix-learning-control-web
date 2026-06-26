@@ -63,9 +63,10 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
   });
 
   // Check if user has permission to create students in the selected company
-  const userHasAccessToCompany =
-    isSuperadmin || !companyId || session?.user?.companies?.some((c: any) => c.id === companyId);
-  const showPermissionError = !!companyId && !isSuperadmin && !userHasAccessToCompany;
+  // Superadmin: full access
+  // Non-superadmin: must have companyId from URL context (backend validates)
+  const userHasAccessToCompany = isSuperadmin || !!companyId;
+  const showPermissionError = !isSuperadmin && !companyId;
 
   if (showPermissionError) {
     return (
@@ -74,7 +75,7 @@ export default function StudentAddPage({ baseRoute = '/manage-companies/students
         <PageHeader title={t('a.addStudent')} />
         <FormPageLayout>
           <div className="flex items-center justify-center p-8 text-red-600">
-            <p>No tenés permisos para crear estudiantes en esta empresa</p>
+            <p>No tienes permisos para crear estudiantes en esta empresa</p>
           </div>
         </FormPageLayout>
       </div>
