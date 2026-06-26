@@ -68,25 +68,12 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...trainingRoutesFormConfig };
 
-    if (mode === 'create') {
-      // In create mode, exclude companyId - company comes from URL context
-      config.fields = config.fields
-        .filter((field: FieldConfig) => field.name !== 'companyId')
-        .map((field: FieldConfig) => {
-          if (field.name === 'areaId') {
-            return { ...field, options: areaOptions };
-          }
-          if (field.name === 'positionId') {
-            return { ...field, options: positionOptions };
-          }
-          return field;
-        });
-    } else {
-      // In edit mode, include all fields with options
-      config.fields = config.fields.map((field: FieldConfig) => {
-        if (field.name === 'companyId') {
-          return { ...field, options: companyOptions };
-        }
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from training route data in form.reset
+    config.fields = config.fields
+      .filter((field: FieldConfig) => field.name !== 'companyId')
+      .map((field: FieldConfig) => {
         if (field.name === 'areaId') {
           return { ...field, options: areaOptions };
         }
@@ -95,10 +82,9 @@ export function useTrainingRoutesForm({ mode, id, form, companyId }: UseTraining
         }
         return field;
       });
-    }
 
     return config;
-  }, [mode, companyOptions, areaOptions, positionOptions]);
+  }, [mode, areaOptions, positionOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && trainingRouteData) {

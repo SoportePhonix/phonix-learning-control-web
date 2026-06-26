@@ -67,33 +67,20 @@ export function useAreaForm({ mode, areaId, form, session, companyId }: UseAreaF
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...areasFormConfig };
 
-    // In create mode, hide companyId - company comes from URL context automatically
-    if (mode === 'create') {
-      config.fields = config.fields.filter((field: FieldConfig) => field.name !== 'companyId');
-    }
-
-    // In edit mode, include companyId field with filtered options
-    if (mode === 'edit') {
-      config.fields = config.fields.map((field: FieldConfig) => {
-        if (field.name === 'status') {
-          return { ...field, options: statusOptions };
-        }
-        if (field.name === 'companyId') {
-          return { ...field, options: companyOptions };
-        }
-        return field;
-      });
-    } else {
-      config.fields = config.fields.map((field: FieldConfig) => {
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from area data in form.reset
+    config.fields = config.fields
+      .filter((field: FieldConfig) => field.name !== 'companyId')
+      .map((field: FieldConfig) => {
         if (field.name === 'status') {
           return { ...field, options: statusOptions };
         }
         return field;
       });
-    }
 
     return config;
-  }, [mode, statusOptions, companyOptions]);
+  }, [mode, statusOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && areaById.data?.data) {

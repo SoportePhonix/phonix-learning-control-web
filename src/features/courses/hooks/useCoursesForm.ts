@@ -44,33 +44,21 @@ export function useCoursesForm({ mode, courseId, form, companies, companyId }: U
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...coursesFormConfig };
 
-    // In create mode, hide companyId - company comes from URL context automatically
-    if (mode === 'create') {
-      config.fields = config.fields.filter((field) => field.name !== 'companyId');
-    }
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from course data in form.reset
+    config.fields = config.fields.filter((field) => field.name !== 'companyId');
 
-    // In edit mode, include companyId field with options
-    if (mode === 'edit') {
-      config.fields = config.fields.map((field) => {
-        if (field.name === 'status') {
-          return { ...field, options: statusOptions };
-        }
-        if (field.name === 'companyId') {
-          return { ...field, options: companiesOptions };
-        }
-        return field;
-      });
-    } else {
-      config.fields = config.fields.map((field) => {
-        if (field.name === 'status') {
-          return { ...field, options: statusOptions };
-        }
-        return field;
-      });
-    }
+    // Apply status options to remaining fields
+    config.fields = config.fields.map((field) => {
+      if (field.name === 'status') {
+        return { ...field, options: statusOptions };
+      }
+      return field;
+    });
 
     return config;
-  }, [mode, statusOptions, companiesOptions]);
+  }, [mode, statusOptions]);
 
   useEffect(() => {
     if (mode !== 'edit' || !courseById.data?.data) return;

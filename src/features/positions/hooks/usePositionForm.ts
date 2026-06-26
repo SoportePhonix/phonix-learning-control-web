@@ -48,31 +48,20 @@ export function usePositionForm({ mode, positionId, form, companyId }: UsePositi
   const formConfig: FormConfig = useMemo(() => {
     const config = { ...positionsFormConfig };
 
-    if (mode === 'create') {
-      // In create mode, exclude companyId - company comes from URL context
-      config.fields = config.fields
-        .filter((field: FieldConfig) => field.name !== 'companyId')
-        .map((field: FieldConfig) => {
-          if (field.name === 'status') {
-            return { ...field, options: statusOptions };
-          }
-          return field;
-        });
-    } else {
-      // In edit mode, include all fields with options
-      config.fields = config.fields.map((field: FieldConfig) => {
+    // Hide companyId field in both create and edit modes
+    // Create: company comes from URL context
+    // Edit: company is set from position data in form.reset
+    config.fields = config.fields
+      .filter((field: FieldConfig) => field.name !== 'companyId')
+      .map((field: FieldConfig) => {
         if (field.name === 'status') {
           return { ...field, options: statusOptions };
         }
-        if (field.name === 'companyId') {
-          return { ...field, options: companyOptions };
-        }
         return field;
       });
-    }
 
     return config;
-  }, [mode, statusOptions, companyOptions]);
+  }, [mode, statusOptions]);
 
   useEffect(() => {
     if (mode === 'edit' && positionById.data?.data) {
