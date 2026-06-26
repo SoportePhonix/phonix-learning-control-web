@@ -15,10 +15,7 @@ export const lmsFormConfig: FormConfig = {
       type: 'select',
       placeholder: 'e.enterAValue',
       required: true,
-      options: [
-        { value: 'moodle', label: 'Moodle' },
-        { value: 'canvas', label: 'Canvas' },
-      ],
+      options: [{ value: 'moodle', label: 'Moodle' }],
     },
     {
       name: 'url',
