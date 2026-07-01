@@ -6,9 +6,10 @@ interface Session {
 }
 
 function handleUnauthenticated(req: NextRequest) {
-  // Allow /logout without session (user may already be logged out)
+  // If no session and trying to access /logout, redirect to /login directly
+  // (no session to terminate, avoid showing logout page with loader)
   if (req.nextUrl.pathname === '/logout') {
-    return NextResponse.next();
+    return NextResponse.redirect(new URL('/login', req.nextUrl.origin));
   }
 
   if (req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/') {
