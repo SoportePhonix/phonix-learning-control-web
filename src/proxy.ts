@@ -1,12 +1,16 @@
-import { DateTime } from 'luxon';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface Session {
-  token_expires: string;
+  expiresAt: number;
 }
 
 function handleUnauthenticated(req: NextRequest) {
+  // Allow /logout without session (user may already be logged out)
+  if (req.nextUrl.pathname === '/logout') {
+    return NextResponse.next();
+  }
+
   if (req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/') {
     const requestPage = req.nextUrl.pathname;
     const url = new URL('/login', req.nextUrl.origin);
@@ -15,11 +19,6 @@ function handleUnauthenticated(req: NextRequest) {
   }
 
   return NextResponse.next();
-}
-
-function isSessionExpired(tokenExpires: string) {
-  const currentTime = DateTime.now().setZone('America/Bogota').toFormat('yyyy-MM-dd HH:mm:ss');
-  return currentTime > tokenExpires;
 }
 
 export async function proxy(req: NextRequest) {
@@ -34,7 +33,7 @@ export async function proxy(req: NextRequest) {
     return handleUnauthenticated(req);
   }
 
-  if (typeof session.token_expires === 'string' && isSessionExpired(session.token_expires)) {
+  if (session.expiresAt && Date.now() > session.expiresAt) {
     return NextResponse.redirect(new URL('/logout', req.nextUrl));
   }
 
@@ -47,5 +46,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/users/:path*', '/login'],
+  matcher: ['/', '/users/:path*', '/login', '/logout'],
 };
