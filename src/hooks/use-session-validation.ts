@@ -27,6 +27,11 @@ export function useSessionValidation(checkIntervalMs: number = 10000) {
 
       // Si el token expiró o está por expirar en menos de 5 segundos
       if (timeUntilExpiry <= 5000 && !isRedirecting.current) {
+        // No redirigir si ya estamos en /login o /logout (evita loop infinito)
+        const pathname = window.location.pathname;
+        if (pathname === '/login' || pathname === '/logout') {
+          return;
+        }
         isRedirecting.current = true;
         console.warn('useSessionValidation: Token expirado, redirigiendo...');
         // Hard redirect para forzar re-evaluación de sesión en proxy.ts

@@ -7,54 +7,49 @@ import { useLogoutMutation } from '@/lib/services/api';
 import { invalidateSessionCache } from '@/lib/services/api/api';
 import { useSessionContext } from '@/utils/context/sessionContext';
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 export default function Logout() {
-  const [isLoggingOut, setIsLoggingOut] = useState(true);
-  const [logout, { isLoading, isError }] = useLogoutMutation();
+  const [logoutError, setLogoutError] = useState<string | null>(null);
+  const [logout, { isLoading }] = useLogoutMutation();
   const { session, loading } = useSessionContext();
-  const router = useRouter();
 
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        // Aseguramos que el cache del interceptor API se limpia inmediatamente
         invalidateSessionCache();
 
         if (!session) {
-          console.warn('Session is null or expired. Logging out...');
           await signOut({ redirect: false });
-          router.push('/login');
+          window.location.href = '/login';
           return;
         }
+
         // const logoutRequest = await logout({ studentId: Number(session.user.id) }).unwrap();
         // if (logoutRequest.status === 'success') {
         //   await signOut({ redirect: false });
-        //   router.push('/login');
+        //   window.location.href = '/login';
         // }
         //TODO pendiente implementar logout
 
-        // Usar hard redirect para evitar race conditions con proxy.ts y api.ts
         await signOut({ redirect: false });
         window.location.href = '/login';
       } catch (error) {
         console.error('Error during logout:', error);
-      } finally {
-        setIsLoggingOut(false);
+        setLogoutError('Error al cerrar sesión. Intenta de nuevo.');
       }
     };
 
     logoutUser();
-  }, [logout, session, router]);
+  }, [logout, session]);
 
-  if (isLoggingOut || isLoading || loading) {
+  if (isLoading || loading) {
     return <Loader message="Cerrando sesión..." />;
   }
 
-  if (isError) {
+  if (logoutError) {
     return (
       <div className="flex items-center justify-center fixed inset-0 bg-red-500 bg-opacity-50 z-50">
-        <p className="text-white">Error logging out. Please try again.</p>
+        <p className="text-white">{logoutError}</p>
       </div>
     );
   }

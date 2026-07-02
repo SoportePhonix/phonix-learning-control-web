@@ -1,12 +1,17 @@
-import { DateTime } from 'luxon';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface Session {
-  token_expires: string;
+  expiresAt: number;
 }
 
 function handleUnauthenticated(req: NextRequest) {
+  // If no session and trying to access /logout, redirect to /login directly
+  // (no session to terminate, avoid showing logout page with loader)
+  if (req.nextUrl.pathname === '/logout') {
+    return NextResponse.redirect(new URL('/login', req.nextUrl.origin));
+  }
+
   if (req.nextUrl.pathname !== '/login' && req.nextUrl.pathname !== '/') {
     const requestPage = req.nextUrl.pathname;
     const url = new URL('/login', req.nextUrl.origin);
@@ -15,11 +20,6 @@ function handleUnauthenticated(req: NextRequest) {
   }
 
   return NextResponse.next();
-}
-
-function isSessionExpired(tokenExpires: string) {
-  const currentTime = DateTime.now().setZone('America/Bogota').toFormat('yyyy-MM-dd HH:mm:ss');
-  return currentTime > tokenExpires;
 }
 
 export async function proxy(req: NextRequest) {
@@ -34,8 +34,16 @@ export async function proxy(req: NextRequest) {
     return handleUnauthenticated(req);
   }
 
-  if (typeof session.token_expires === 'string' && isSessionExpired(session.token_expires)) {
-    return NextResponse.redirect(new URL('/logout', req.nextUrl));
+  if (session.expiresAt && Date.now() > session.expiresAt) {
+    // Session expired: clear cookie and redirect to login
+    const url = new URL('/login', req.nextUrl.origin);
+    if (req.nextUrl.pathname !== '/login') {
+      url.search = `p=${req.nextUrl.pathname}`;
+    }
+    const response = NextResponse.redirect(url, 302);
+    response.cookies.delete('next-auth.session-token');
+    response.cookies.delete('__Secure-next-auth.session-token');
+    return response;
   }
 
   if (req.nextUrl.pathname === '/login') {
@@ -47,5 +55,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/users/:path*', '/login'],
+  matcher: ['/', '/users/:path*', '/login', '/logout'],
 };
