@@ -48,7 +48,7 @@ export const userFormConfig: FormConfig = {
         minLength: 8,
         minLengthMessage: 'p.passwordValidationMessage',
         pattern:
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/])[A-Za-z\d~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?/]{8,}$/,
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\`~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?\/])[A-Za-z\d\`~£!@#$%^&*()\-_=+{}\[\]\\|:;"'<>,.?\/]{8,}$/,
         patternMessage: 'p.passwordValidationMessage',
       },
       errorTooltip: true,
