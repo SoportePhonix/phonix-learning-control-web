@@ -35,7 +35,15 @@ export async function proxy(req: NextRequest) {
   }
 
   if (session.expiresAt && Date.now() > session.expiresAt) {
-    return NextResponse.redirect(new URL('/logout', req.nextUrl));
+    // Session expired: clear cookie and redirect to login
+    const url = new URL('/login', req.nextUrl.origin);
+    if (req.nextUrl.pathname !== '/login') {
+      url.search = `p=${req.nextUrl.pathname}`;
+    }
+    const response = NextResponse.redirect(url, 302);
+    response.cookies.delete('next-auth.session-token');
+    response.cookies.delete('__Secure-next-auth.session-token');
+    return response;
   }
 
   if (req.nextUrl.pathname === '/login') {

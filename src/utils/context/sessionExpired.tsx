@@ -32,6 +32,11 @@ export const SessionExpiredProvider = ({ children }: SessionExpiredProviderProps
 
       // Si el token ya expiró o está por expirar en menos de 5 segundos
       if (timeUntilExpiry <= 5000 && !isLoggingOut.current) {
+        // No redirigir si ya estamos en /login o /logout (evita loop infinito)
+        const pathname = window.location.pathname;
+        if (pathname === '/login' || pathname === '/logout') {
+          return false;
+        }
         isLoggingOut.current = true;
         console.warn('Token expirado. Redirigiendo al logout...');
         // Hard redirect para forzar re-evaluación de sesión en proxy.ts
