@@ -81,6 +81,11 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         }
       }
 
+      if (status === 400) {
+        toast.error(errorMessage || t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
+        return;
+      }
+
       if (status === 500) {
         toast.error(t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
         return;
