@@ -48,9 +48,9 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
       toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
 
       // If sync with LMS failed, show additional error notification
-      if (response.syncError || response.syncedWithLms === false) {
+      if (response.data?.syncError || response.data?.syncedWithLms === false) {
         toast.error(
-          response.syncError?.message ||
+          response.data?.syncError?.message ||
             'No fue posible sincronizar el estudiante con el LMS. Por favor, comuníquese con su administrador.'
         );
       }
