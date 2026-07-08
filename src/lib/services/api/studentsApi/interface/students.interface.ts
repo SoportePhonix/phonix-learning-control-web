@@ -66,48 +66,49 @@ export interface AddStudentsRequest {
 }
 
 export interface AddStudentsDataResponse {
-  data: {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  username?: string;
+  documentNumber?: string;
+  description?: string;
+  city?: string;
+  country?: string;
+  institution?: string;
+  department?: string;
+  phone?: string;
+  address?: string;
+  status: string;
+  area?: {
     id: number;
-    firstname: string;
-    lastname: string;
-    email: string;
-    username?: string;
-    documentNumber?: string;
-    description?: string;
-    city?: string;
-    country?: string;
-    institution?: string;
-    department?: string;
-    phone?: string;
-    address?: string;
+    name: string;
+    description: string;
     status: string;
-    area?: {
-      id: number;
-      name: string;
-      description: string;
-      status: string;
-      companyId: number;
-    };
-    position?: {
-      id: number;
-      name: string;
-      description: string;
-      status: string;
-      companyId: number;
-    };
-    company: {
-      id: number;
-      name: string;
-      nit: string;
-      email: string;
-      status: string;
-    };
-    documentType?: {
-      id: string;
-      name: string;
-    };
+    companyId: number;
   };
-  isSuccess: boolean;
+  position?: {
+    id: number;
+    name: string;
+    description: string;
+    status: string;
+    companyId: number;
+  };
+  company: {
+    id: number;
+    name: string;
+    nit: string;
+    email: string;
+    status: string;
+  };
+  documentType?: {
+    id: string;
+    name: string;
+  };
+  isMoodleSynced?: boolean;
+  isMoodleUpdated?: boolean;
+  syncedWithLms?: boolean;
+  syncError?: { message: string; code?: string };
 }
 
 export interface GetStudentsByIdResponse {

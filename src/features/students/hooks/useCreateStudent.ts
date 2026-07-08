@@ -43,9 +43,17 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         ...(values.positionId && { positionId: Number(values.positionId) }),
       };
 
-      await addStudent(payload).unwrap();
+      const response = await addStudent(payload).unwrap();
 
       toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
+
+      // If sync with LMS failed, show additional error notification
+      if (response.syncError || response.syncedWithLms === false) {
+        toast.error(
+          response.syncError?.message ||
+            'No fue posible sincronizar el estudiante con el LMS. Por favor, comuníquese con su administrador.'
+        );
+      }
 
       companyNavigation.push('/manage-companies/students');
     } catch (err: any) {
