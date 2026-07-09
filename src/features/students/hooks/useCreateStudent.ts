@@ -53,46 +53,7 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
 
       // If sync with LMS failed, show additional error notification
       if (studentData?.syncError || studentData?.syncedWithLms === false) {
-        const errorMessage = studentData?.syncError?.message || '';
-
-        // Map technical errors to user-friendly messages
-        let userMessage =
-          'No fue posible sincronizar el estudiante con el LMS. Por favor, comuníquese con su administrador.';
-
-        if (
-          errorMessage.includes('timeout') ||
-          errorMessage.includes('ETIMEDOUT') ||
-          errorMessage.includes('5000ms exceeded')
-        ) {
-          // Timeout usually means the LMS token is invalid or misconfigured
-          userMessage =
-            'No fue posible sincronizar el estudiante con el LMS. El token de acceso no es válido o está vencido. Comuníquese con el administrador.';
-        } else if (errorMessage.includes('ENOTFOUND') || errorMessage.includes('ECONNREFUSED')) {
-          userMessage =
-            'No fue posible sincronizar el estudiante con el LMS. El servicio no está disponible. Verifique la configuración.';
-        } else if (
-          errorMessage.includes('token') ||
-          errorMessage.includes('Token') ||
-          errorMessage.includes('invalid')
-        ) {
-          userMessage =
-            'No fue posible sincronizar el estudiante con el LMS. El token de acceso no es válido. Comuníquese con el administrador.';
-        } else if (
-          errorMessage.includes('Access control exception') ||
-          errorMessage.includes('webservice_access_exception')
-        ) {
-          userMessage =
-            'No fue posible sincronizar el estudiante con el LMS. Error de permisos en Moodle. Comuníquese con el administrador.';
-        } else if (
-          errorMessage.includes('502') ||
-          errorMessage.includes('503') ||
-          errorMessage.includes('Bad Gateway')
-        ) {
-          userMessage =
-            'No fue posible sincronizar el estudiante con el LMS. El servicio de integración no responde. Intente más tarde.';
-        }
-
-        toast.error(userMessage);
+        toast.error('No fue posible sincronizar el estudiante. Comuníquese con el administrador.');
       }
 
       companyNavigation.push('/manage-companies/students');
