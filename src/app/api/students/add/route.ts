@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, { params }: any) {
     const errorResponse = ApiRes.fromExternalResponse(response);
     if (errorResponse) return errorResponse;
 
-    return ApiRes.success(response.data);
+    return ApiRes.success(response);
   } catch (error: unknown) {
     return ApiRes.fromException(error);
   }

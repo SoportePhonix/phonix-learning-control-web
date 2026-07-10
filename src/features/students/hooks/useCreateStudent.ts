@@ -43,9 +43,18 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
         ...(values.positionId && { positionId: Number(values.positionId) }),
       };
 
-      await addStudent(payload).unwrap();
+      const response = await addStudent(payload).unwrap();
+
+      // The response has double nesting: ApiRes.success wraps response.data
+      // So: response.data.data contains the actual presenter fields
+      const studentData = response.data?.data;
 
       toast.success(`${values.firstname} ${values.lastname} ${t('a.addedSuccessfully')}`);
+
+      // If sync with LMS failed, show additional error notification
+      if (studentData?.syncError || studentData?.syncedWithLms === false) {
+        toast.error('No fue posible sincronizar el estudiante. Comuníquese con el administrador.');
+      }
 
       companyNavigation.push('/manage-companies/students');
     } catch (err: any) {
@@ -79,6 +88,11 @@ export function useCreateStudent(form: UseFormReturn<Record<string, any>>) {
           });
           return;
         }
+      }
+
+      if (status === 400) {
+        toast.error(errorMessage || t('u.unexpectedErrorIfTheErrorPersistsContactTheAdministrator'));
+        return;
       }
 
       if (status === 500) {

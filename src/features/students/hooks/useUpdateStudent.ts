@@ -68,6 +68,12 @@ export function useUpdateStudent(userId: string) {
         }
       }
 
+      if (status === 400) {
+        const errorMessage = (err?.data?.message || '').toString();
+        toast.error(errorMessage || t('e.errorUpdatingStudent'));
+        return;
+      }
+
       toast.error(t('e.errorUpdatingStudent'));
     }
   };

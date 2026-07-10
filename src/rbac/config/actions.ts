@@ -62,6 +62,7 @@ export const ROLE_CAPABILITIES: Record<RoleName, RoleCapability> = {
       'users',
       'trainingPathways',
       'config', // Por si se añade un módulo general de configuraciones
+      'lms', // El manager no ve el apartado de LMS
     ]),
     include: [
       'manageCompanies.view', // 🔥 ESTA LÍNEA ES LA CLAVE (Llave de la puerta)

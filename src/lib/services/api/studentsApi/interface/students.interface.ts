@@ -66,48 +66,58 @@ export interface AddStudentsRequest {
 }
 
 export interface AddStudentsDataResponse {
+  success: boolean;
   data: {
-    id: number;
-    firstname: string;
-    lastname: string;
-    email: string;
-    username?: string;
-    documentNumber?: string;
-    description?: string;
-    city?: string;
-    country?: string;
-    institution?: string;
-    department?: string;
-    phone?: string;
-    address?: string;
-    status: string;
-    area?: {
+    data: {
       id: number;
-      name: string;
-      description: string;
-      status: string;
-      companyId: number;
-    };
-    position?: {
-      id: number;
-      name: string;
-      description: string;
-      status: string;
-      companyId: number;
-    };
-    company: {
-      id: number;
-      name: string;
-      nit: string;
+      firstname: string;
+      lastname: string;
       email: string;
+      username?: string;
+      documentNumber?: string;
+      description?: string;
+      city?: string;
+      country?: string;
+      institution?: string;
+      department?: string;
+      phone?: string;
+      address?: string;
       status: string;
+      area?: {
+        id: number;
+        name: string;
+        description: string;
+        status: string;
+        companyId: number;
+      };
+      position?: {
+        id: number;
+        name: string;
+        description: string;
+        status: string;
+        companyId: number;
+      };
+      company: {
+        id: number;
+        name: string;
+        nit: string;
+        email: string;
+        status: string;
+      };
+      documentType?: {
+        id: string;
+        name: string;
+      };
+      isMoodleSynced?: boolean;
+      isMoodleUpdated?: boolean;
+      syncedWithLms?: boolean;
+      syncError?: { message: string; code?: string };
     };
-    documentType?: {
-      id: string;
-      name: string;
-    };
+    isArray: boolean;
+    path: string;
+    duration: string;
+    method: string;
   };
-  isSuccess: boolean;
 }
 
 export interface GetStudentsByIdResponse {

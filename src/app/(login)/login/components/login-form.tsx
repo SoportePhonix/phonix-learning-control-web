@@ -53,7 +53,7 @@ export function LoginForm() {
       const role = roleName ? normalizeRoleName(roleName) : undefined;
 
       if (role === 'manager') {
-        router.push('/lms');
+        router.push('/manage-companies/students');
       } else {
         router.push('/users');
       }
