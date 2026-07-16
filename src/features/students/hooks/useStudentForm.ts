@@ -8,7 +8,6 @@ import { useGetStudentByIdQuery } from '@/lib/services/api/studentsApi/studentsA
 import { useGetAllTypeOfIdentificationDocumentQuery } from '@/lib/services/api/typeOfIdentificationDocumentApi/typeOfIdentificationDocumentApi';
 import { useRBAC } from '@/rbac';
 import { Session, useSessionContext } from '@/utils/context/sessionContext';
-import { translateDocumentType } from '@/utils/textFormatters';
 import { UseFormReturn } from 'react-hook-form';
 
 import { userFormConfig } from '../config/studentsFormConfig';
@@ -39,7 +38,7 @@ export function useStudentForm({ mode, studentId, form, companies, session, comp
     () =>
       typesIdData?.data?.map((type: any) => ({
         value: String(type.id),
-        label: translateDocumentType(type.name),
+        label: type.name,
       })) ?? [],
     [typesIdData]
   );
